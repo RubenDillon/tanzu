@@ -1,2 +1,2 @@
-prometheus.pvc.storageClassName : custom-storageclass
-alertmanager.pvc.storageClassName : custom-storageclass
+prometheus.pvc.storageClassName: custom-storageclass
+alertmanager.pvc.storageClassName: custom-storageclass
