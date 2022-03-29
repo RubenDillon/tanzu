@@ -1,4 +1,4 @@
-service.type: LoadBalancer
+
 harborAdminPassword: 52P22idiEXo1JJz6
 hostname: harbor.mydominio.com
 secretKey: B9rZnPipjpCWjzqt
