@@ -38,9 +38,15 @@ persistence:
       storageClass: custom-storageclass
       accessMode: ReadWriteOnce
       size: 5Gi
+    chartmuseum:
+      storageClass: custom-storageclass
+      accessModes: ReadWriteOnce
+      size: 5Gi
   imageChartStorage:
     type: filesystem
     filesystem:
       rootdirectory: /storage
 metrics:
+  enabled: true
+chartmuseum:
   enabled: true
