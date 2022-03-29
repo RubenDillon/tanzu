@@ -37,10 +37,6 @@ persistence:
     trivy:
       storageClass: custom-storageclass
       accessMode: ReadWriteOnce
-      size: 5Gi
-    chartmuseum:
-      storageClass: custom-storageclass
-      accessModes: ReadWriteOnce
-      size: 5Gi     
+      size: 5Gi   
 metrics:
   enabled: true
