@@ -1,6 +1,7 @@
 prometheus:
   pvc:
     storageClassName: custom-storageclass
+    size: 1Gi
 alertmanager:
   pvc:
     storageClassName: custom-storageclass
