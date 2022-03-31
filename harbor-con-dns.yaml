@@ -1,0 +1,42 @@
+
+harborAdminPassword: 52P22idiEXo1JJz6
+hostname: harbor.tanzulatam.com
+secretKey: B9rZnPipjpCWjzqt
+database:
+  password: uqomLIrIXgKQswsH
+core:
+  secret: oAbrEcKlzmSrHThn
+  xsrfKey: lfwNzvacA7vKEUUsutnjVKHXmYUHDKC4  
+jobservice:
+  secret: KqUbdyE7TQGTM0o8
+registry:
+  secret: PEIpfl0EaOjFGWZT
+notary:
+  enabled: true
+trivy:
+  enabled: true
+  gitHubToken: ""
+persistence:
+  persistentVolumeClaim:
+    registry:
+      storageClass: custom-storageclass
+      accessMode: ReadWriteOnce
+      size: 10Gi
+    jobservice:
+      storageClass: custom-storageclass
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    database:
+      storageClass: custom-storageclass
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    redis:
+      storageClass: custom-storageclass
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    trivy:
+      storageClass: custom-storageclass
+      accessMode: ReadWriteOnce
+      size: 5Gi   
+metrics:
+  enabled: true
