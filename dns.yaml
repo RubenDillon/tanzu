@@ -1,0 +1,27 @@
+---
+
+# Namespace in which to deploy ExternalDNS.
+namespace: tanzu-system-service-discovery
+
+# Deployment-related configuration.
+deployment:
+ args:
+   - --source=service
+   - --source=ingress
+   - --source=contour-httpproxy # Provide this to enable Contour HTTPProxy support. Must have Contour installed or ExternalDNS will fail.
+   - --domain-filter=tanzulatam.com # For example, k8s.example.org. Makes ExternalDNS see only the hosted zones matching provided domain, omit to process all available hosted zones.
+   - --policy=upsert-only # Prevents ExternalDNS from deleting any records, omit to enable full synchronization.
+   - --registry=txt
+   - --txt-prefix=externaldns- # Disambiguates TXT records from CNAME records.
+   - --provider=azure
+   - --azure-resource-group=shared-services # Azure resource group.
+ env: []
+ securityContext: {}
+ volumeMounts:
+   - name: azure-config-file
+     mountPath: /etc/kubernetes
+     readOnly: true
+ volumes:
+   - name: azure-config-file
+     secret:
+       secretName: azure-config-file
