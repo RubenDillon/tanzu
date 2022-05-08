@@ -1,0 +1,16 @@
+# Source: minio/templates/minio_svc.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: minio-lb
+  namespace: minio
+  labels:
+    app: minio
+spec:
+  type: LoadBalancer
+  selector:
+    app: minio
+  ports:
+    - port: 9000
+      targetPort: 9000
+      protocol: TCP
