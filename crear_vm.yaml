@@ -10,7 +10,7 @@ spec:
   storageClass: vc01c101-t0compute
   networkInterfaces:
   - networkName: primary
-    networkType: vsphere-distributed
+    networkType: nsx-t
   vmMetadata:
       configMapName: vmsvc-centos-nginx-cm
       transport: OvfEnv
