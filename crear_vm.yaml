@@ -7,19 +7,6 @@ spec:
   imageName: centos-stream-8-vmservice-v1alpha1
   className: custom
   powerState: poweredOn
-  storageClass: vc01c101-t0compute
+  storageClass: vc01cl01-t0compute
   networkInterfaces:
-  - networkName: primary
-    networkType: nsx-t
-  vmMetadata:
-      configMapName: vmsvc-centos-nginx-cm
-      transport: OvfEnv
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: vmsvc-centos-nginx-cm
-    namespace: intranet
-data:
-  user-data: >-
-    I2Nsb3VkLWNvbmZpZwoKcGFzc3dvcmQ6IFZNV0FSRQpzc2hfcHdhdXRoOiB0cnVlCgp1c2VyczoKICAtIG5hbWU6IHZtd2FyZQogICAgc3VkbzogQUxMPShBTEwpIE5PUEFTU1dEOkFMTAogICAgbG9ja19wYXNzd2Q6IGZhbHNlCiAgICAjIFBhc3N3b3JkIHNldCB0byBBZG1pbiEyMwogICAgcGFzc3dkOiAnJDEkc2FsdCRTT0MzM2ZWYkEvWnhlSXdENXl3MXUxJwogICAgc2hlbGw6IC9iaW4vYmFzaAoKd3JpdGVfZmlsZXM6CiAgLSBjb250ZW50OiB8CiAgICAgIFZNU1ZDIFNheXMgSGVsbG8gV29ybGQKICAgIHBhdGg6IC9oZWxsb3dvcmxkCg==
+  - networkType: nsx-t
