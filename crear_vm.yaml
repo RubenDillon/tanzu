@@ -4,8 +4,8 @@ metadata:
   name: vmsvc-centos-vm
   namespace: intranet
 spec:
-  imageName: centos-stream-8-vmservice-v1alpha1
-  className: custom
+  imageName: centos-stream-8-vmservice-v1alpha1-1638306496810
+  className: best-effort-small
   powerState: poweredOn
   storageClass: vc01cl01-t0compute
   networkInterfaces:
