@@ -1,0 +1,25 @@
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  name: vmsvc-centos-vm2
+  namespace: desarrollo
+spec:
+  imageName: centos-stream-8-vmservice-v1alpha1-1638306496810
+  className: best-effort-small
+  powerState: poweredOn
+  storageClass: vc01cl01-t0compute
+  networkInterfaces:
+  - networkName: user-workload
+    networkType: vsphere-distributed
+  vmMetadata:
+      configMapName: vmsvc-centos-nginx-cm
+      transport: OvfEnv
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: vmsvc-centos-nginx-cm
+    namespace: desarrollo
+data:
+  user-data: I2Nsb3VkLWNvbmZpZwpwYXNzd29yZDogVk1XQVJFCnNzaF9wd2F1dGg6IHRydWUKdXNlcnM6CiAgLSBuYW1lOiB2bXdhcmUKICAgIHN1ZG86IEFMTD0oQUxMKSBOT1BBU1NXRDpBTEwKICAgIGxvY2tfcGFzc3dkOiBmYWxzZQogICAgcGFzc3dkOiAnJDEkc2FsdCRTT0MzM2ZWYkEvWnhlSXdENXl3MXUxJwogICAgc2hlbGw6IC9iaW4vYmFzaAp3cml0ZV9maWxlczoKICAtIGNvbnRlbnQ6IHwKICAgICAgVk1TVkMgU2F5cyBIZWxsbyBXb3JsZAogICAgcGF0aDogL2hlbGxvd29ybGQK
+  hostname: vmsvc-centos-vm2
