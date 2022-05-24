@@ -1,0 +1,13 @@
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  name: vmsvc-centos-vm
+  namespace: desarrollo
+spec:
+  imageName: centos-stream-8-vmservice-v1alpha1-1638306496810
+  className: best-effort-small
+  powerState: poweredOn
+  storageClass: vc01cl01-t0compute
+  networkInterfaces:
+  - networkName: user-workload
+    networkType: vsphere-distributed
