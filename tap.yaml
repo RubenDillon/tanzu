@@ -1,0 +1,53 @@
+profile: full
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+ceip_policy_disclosed: true # Installation fails if this is not set to true. Not a string.
+buildservice:
+  kp_default_repository: "10.220.2.136/tap/build-service"
+  kp_default_repository_username: "administrator@vsphere.local"
+  kp_default_repository_password: "zXVjXj=QA78alYt7uLp"
+  tanzunet_username: "rdillon@vmware.com"
+  tanzunet_password: "xxxxxxxxx"
+  descriptor_name: "full"
+supply_chain: basic
+
+cnrs:
+  domain_name: INGRESS-DOMAIN
+
+ootb_supply_chain_basic:
+  registry:
+    server: "10.220.2.136"
+    repository: "supply-chain"
+  gitops:
+    ssh_secret: ""
+
+learningcenter:
+  ingressDomain: "DOMAIN-NAME"
+
+tap_gui:
+  service_type: ClusterIP
+  ingressEnabled: "true"
+  ingressDomain: "INGRESS-DOMAIN"
+  app_config:
+    app:
+      baseUrl: http://tap-gui.INGRESS-DOMAIN
+    catalog:
+      locations:
+        - type: url
+          target: https://GIT-CATALOG-URL/catalog-info.yaml
+    backend:
+      baseUrl: http://tap-gui.INGRESS-DOMAIN
+      cors:
+        origin: http://tap-gui.INGRESS-DOMAIN
+
+metadata_store:
+  app_service_type: LoadBalancer # (optional) Defaults to LoadBalancer. Change to NodePort for distributions that don't support LoadBalancer
+
+grype:
+  namespace: "default" # (optional) Defaults to default namespace.
+  targetImagePullSecret: "registry-credentials"
+  namespace: default
