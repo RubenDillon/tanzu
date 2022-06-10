@@ -50,4 +50,8 @@ metadata_store:
 grype:
   namespace: "default" # (optional) Defaults to default namespace.
   targetImagePullSecret: "registry-credentials"
-  namespace: default
+  
+excluded_packages:
+  - contour.tanzu.vmware.com
+  - cert-manager.tanzu.vmware.com
+
