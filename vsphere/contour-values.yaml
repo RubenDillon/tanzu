@@ -26,4 +26,4 @@ envoy:
  pspNames: null
 certificates:
  duration: 8760h
- renewBefore: 360h
+ renewBefore: 360h 
