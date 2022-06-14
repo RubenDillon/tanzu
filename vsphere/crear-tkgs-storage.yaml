@@ -1,0 +1,33 @@
+apiVersion: run.tanzu.vmware.com/v1alpha1
+kind: TanzuKubernetesCluster
+metadata:
+  name: tkg-devsecops-01 #name of cluster
+  namespace: intranet #name of namespace
+spec:
+  topology:
+    controlPlane:
+      count: 1
+      class: best-effort-large #vmclass to be used for master(s)
+      storageClass: vc01cl01-t0compute
+    workers:
+      count: 1
+      class: best-effort-large #vmclass to be used for workers(s)
+      storageClass: vc01cl01-t0compute
+      volumes:
+        - name: tbs
+          mountPath: /var/lib
+          capacity:
+            storage: 60Gi
+  distribution:
+    version: v1.19.7
+  settings:
+    storage:
+      classes: [vc01cl01-t0compute]
+      defaultClass: vc01cl01-t0compute
+    network:
+      cni:
+        name: calico
+      services:
+        cidrBlocks: ["198.51.100.0/12"]
+      pods:
+        cidrBlocks: ["192.0.2.0/16"]
