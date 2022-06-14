@@ -21,7 +21,7 @@ cnrs:
 ootb_supply_chain_basic:
   registry:
     server: "harbor.10.220.18.167.nip.io"
-    repository: "supply-chain"
+    repository: "tap/supply-chain"
   gitops:
     ssh_secret: ""
 
