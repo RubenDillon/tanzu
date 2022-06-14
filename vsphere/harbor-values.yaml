@@ -38,6 +38,7 @@ persistence:
       subPath: ""
       accessMode: ReadWriteOnce
       size: 10Gi
+# increase size if you want to deploy TAP
     jobservice:
       existingClaim: ""
       storageClass: "vc01cl01-t0compute"
