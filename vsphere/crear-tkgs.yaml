@@ -5,7 +5,9 @@ metadata:
   namespace: intranet 
 spec: 
   distribution: 
-    fullVersion: v1.17.8+vmware.1-tkg.1.5417466 
+    fullVersion: ob-19344082-tkgs-ova-ubuntu-2004-v1.21.6---vmware.1-tkg.1
+    #v1.17.8+vmware.1-tkg.1.5417466 
+    
   topology: 
     controlPlane: 
       count: 1 
