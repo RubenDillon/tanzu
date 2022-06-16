@@ -58,7 +58,7 @@ tap_gui:
     catalog:
       locations:
         - type: url
-          target: https://GIT-CATALOG-URL/catalog-info.yaml
+          target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
     backend:
       baseUrl: http://tap-gui.10.220.18.167.nip.io
       cors:
