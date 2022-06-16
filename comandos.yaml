@@ -6,5 +6,22 @@ Para conectarme a una contexto (namespace, cluster TKGs)
 
     kubectl config use-context shared
 
+Si hay un cluster administrado por TMC
 
+    tmc login
+    
+    completar por ejemplo, las siguientes credenciales
+    
+? API Token ****************************************************************
+? Login context name rad-tap
+? Select default log level info
+? Management Cluster Name ruben-vsphere
+? Provisioner Name intranet
 
+        
+            El token sale del usuario de TMC
+            El Management cluster es el nombre del management cluster en TMC
+            El provisionador... es el namespace
+            
+            
+  
