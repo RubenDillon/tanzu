@@ -37,26 +37,26 @@ persistence:
       storageClass: "vc01cl01-t0compute"
       subPath: ""
       accessMode: ReadWriteOnce
-      size: 10Gi
+      size: 50Gi
 # increase size if you want to deploy TAP
     jobservice:
       existingClaim: ""
       storageClass: "vc01cl01-t0compute"
       subPath: ""
       accessMode: ReadWriteOnce
-      size: 1Gi
+      size: 5Gi
     database:
       existingClaim: ""
       storageClass: "vc01cl01-t0compute"
       subPath: ""
       accessMode: ReadWriteOnce
-      size: 1Gi
+      size: 5Gi
     redis:
       existingClaim: ""
       storageClass: "vc01cl01-t0compute"
       subPath: ""
       accessMode: ReadWriteOnce
-      size: 1Gi
+      size: 5Gi
     trivy:
       existingClaim: ""
       storageClass: "vc01cl01-t0compute"
