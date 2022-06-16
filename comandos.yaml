@@ -1,0 +1,10 @@
+Para conectarse a un cluster vSphere
+
+    ./kubectl-vsphere login --vsphere-username administrator@vsphere.local --server=https://10.220.2.130 --insecure-skip-tls-verify
+
+Para conectarme a una contexto (namespace, cluster TKGs)
+
+    kubectl config use-context shared
+
+
+
