@@ -1,6 +1,6 @@
 
 harborAdminPassword: 52P22idiEXo1JJz6
-hostname: harbor.mydominio.com
+hostname: harbor.20.253.171.68.nip.io
 secretKey: B9rZnPipjpCWjzqt
 database:
   password: uqomLIrIXgKQswsH
@@ -21,22 +21,22 @@ persistence:
     registry:
       storageClass: custom-storageclass
       accessMode: ReadWriteOnce
-      size: 10Gi
+      size: 100Gi
     jobservice:
       storageClass: custom-storageclass
       accessMode: ReadWriteOnce
-      size: 1Gi
+      size: 10Gi
     database:
       storageClass: custom-storageclass
       accessMode: ReadWriteOnce
-      size: 1Gi
+      size: 10Gi
     redis:
       storageClass: custom-storageclass
       accessMode: ReadWriteOnce
-      size: 1Gi
+      size: 10Gi
     trivy:
       storageClass: custom-storageclass
       accessMode: ReadWriteOnce
-      size: 5Gi   
+      size: 50Gi   
 metrics:
   enabled: true
