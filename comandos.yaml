@@ -1,12 +1,33 @@
 Para conectarse a un cluster vSphere
 
     ./kubectl-vsphere login --vsphere-username administrator@vsphere.local --server=10.220.2.130 --insecure-skip-tls-verify
+    
+    o kubectl vsphere login
 
 Para conectarme a una contexto (namespace, cluster TKGs)
 
     kubectl config use-context shared
 
-Si hay un cluster administrado por TMC
+Si deseo ver los contextos
+
+    kubectl config get-contexts
+    
+Si deseo ver que maquinas estan asociadas
+
+    kubectl get virtualmachineclassbindings
+    
+Si deseo ver los clusters TKGs creados
+
+    kubectl get tanzukubernetesclusters
+
+Si se desea administrar un TKGs 
+
+    ./kubectl-vsphere --server=x.y.z.w --vsphere-username user@vsphere.local --tanzu-kubernetes-cluster-name tkgs-cluster-1 --tanzu-kubernetes-cluster-namespace tkgs-ns --insecure-skip-tls-verify
+
+/root/bin/kubectl-vsphere login --vsphere-username administrator@vsphere.local --server=10.220.2.130 --insecure-skip-tls-verify --tanzu-kubernetes-cluster-name prueba --tanzu-kubernetes-cluster-namespace intranet
+...........................
+
+Si quiero acceder un cluster que es administrado por TMC y no tengo acceso a vCenter
 
     tmc login
     
@@ -15,8 +36,8 @@ Si hay un cluster administrado por TMC
 ? API Token ****************************************************************
 ? Login context name rad-tap
 ? Select default log level info
-? Management Cluster Name ruben-vsphere
-? Provisioner Name intranet
+? Management Cluster Name ruben-vsphere (nombre del cluster supervisor)
+? Provisioner Name intranet (provisionador del cluster supervisor)
 
         
             El token sale del usuario de TMC
@@ -24,4 +45,8 @@ Si hay un cluster administrado por TMC
             El provisionador... es el namespace
             
             
+Usar el kubeconfig que se descarga del cluster que se desea administrar y copiarlo como /root/.kube/config
+
+
+...........................
   
