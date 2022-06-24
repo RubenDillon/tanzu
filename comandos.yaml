@@ -24,7 +24,13 @@ Si se desea administrar un TKGs
 
     ./kubectl-vsphere --server=x.y.z.w --vsphere-username user@vsphere.local --tanzu-kubernetes-cluster-name tkgs-cluster-1 --tanzu-kubernetes-cluster-namespace tkgs-ns --insecure-skip-tls-verify
 
-/root/bin/kubectl-vsphere login --vsphere-username administrator@vsphere.local --server=10.220.2.130 --insecure-skip-tls-verify --tanzu-kubernetes-cluster-name prueba --tanzu-kubernetes-cluster-namespace intranet
+    /root/bin/kubectl-vsphere login --vsphere-username administrator@vsphere.local --server=10.220.2.130 --insecure-skip-tls-verify --tanzu-kubernetes-cluster-name prueba --tanzu-kubernetes-cluster-namespace intranet
+
+Si deseo ver como evoluciona el despliegue de un TKGs
+
+    kubectl get tanzukubernetescluster,virtualmachinesetresourcepolicy,virtualmachineservice,virtualmachine
+
+
 ...........................
 
 Si quiero acceder un cluster que es administrado por TMC y no tengo acceso a vCenter
