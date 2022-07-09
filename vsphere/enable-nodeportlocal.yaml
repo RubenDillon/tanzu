@@ -1,0 +1,14 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: antrea-config-dcfb6k2hkm
+  namespace: kube-system
+data:
+  antrea-agent.conf: |
+    featureGates:
+      # True by default starting with Antrea v1.4
+      # NodePortLocal: true
+    nodePortLocal:
+      enable: true
+      # Uncomment if you need to change the port range.
+      # portRange: 61000-62000
