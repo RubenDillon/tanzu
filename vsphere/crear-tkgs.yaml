@@ -6,7 +6,11 @@ metadata:
 spec: 
   distribution: 
     fullVersion: ob-19344082-tkgs-ova-ubuntu-2004-v1.21.6---vmware.1-tkg.1
-    #v1.17.8+vmware.1-tkg.1.5417466 
+    # v1.17.8+vmware.1-tkg.1.5417466 
+    # v1.20.2---vmware.1-tkg.1.1d4f79a
+    # v1.21.2---vmware.1-tkg.1.ee25d55
+    # https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-B2807BCD-0CE1-4C3A-9C0E-2B78F5DA0E90.html
+    # https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-4E68C7F2-C948-489A-A909-C7A1F3DC545F.html
     
   topology: 
     controlPlane: 
