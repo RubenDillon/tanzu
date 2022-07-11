@@ -1,0 +1,58 @@
+apiVersion: run.tanzu.vmware.com/v1alpha2
+kind: TanzuKubernetesCluster
+metadata:
+  name: tkg-prueba #name of cluster
+  namespace: ruben #name of namespace
+spec:
+  topology:
+    controlPlane:
+      replicas: 3
+      vmClass: best-effort-small #vmclass to be used for master(s)
+      storageClass: vc01cl01-t0compute
+      volumes:
+        - name: etcd
+          mountPath: /var/lib/etcd
+          capacity:
+            storage: 4Gi      
+      tkr:                                       
+        reference:
+          name: v1.21.2---vmware.1-tkg.1.ee25d55
+    nodePools:
+    - name: worker-nodepool-a1  
+      replicas: 1
+      vmClass: best-effort-small #vmclass to be used for workers(s)
+      storageClass: vc01cl01-t0compute
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 16Gi
+      tkr:  
+        reference:
+          name: v1.21.2---vmware.1-tkg.1.ee25d55 
+    - name: worker-nodepool-a2
+      replicas: 1
+      vmClass: best-effort-small #vmclass to be used for workers(s)
+      storageClass: vc01cl01-t0compute
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 16Gi
+      tkr:
+        reference:
+          name: v1.21.2---vmware.1-tkg.1.ee25d55     
+  settings:
+    storage:
+      defaultClass: vc01cl01-t0compute
+    network:
+      cni:
+        name: antrea      
+      services:
+        cidrBlocks: ["152.162.100.0/24"]
+      pods:
+        cidrBlocks: ["152.162.200.0/24"]
+#   trust:
+#     additionalTrustedCAs:
+#       - name: harbor
+#         data: LS0tLS1C...LS0tCg==  
