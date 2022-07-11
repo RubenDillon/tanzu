@@ -56,3 +56,5 @@ spec:
 #     additionalTrustedCAs:
 #       - name: harbor
 #         data: LS0tLS1C...LS0tCg==  
+
+# https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-31BF8166-5FC8-4D43-933D-5797F3BE4A36.html
