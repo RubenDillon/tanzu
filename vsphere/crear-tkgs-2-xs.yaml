@@ -1,0 +1,25 @@
+apiVersion: run.tanzu.vmware.com/v1alpha2
+kind: TanzuKubernetesCluster
+metadata:
+  name: tkg-mini #name of cluster
+  namespace: desarrollo #name of namespace
+spec:
+  topology:
+    controlPlane:
+      replicas: 1
+      vmClass: best-effort-small #vmclass to be used for master(s)
+      storageClass: vc01cl01-t0compute      
+      tkr:                                       
+        reference:
+          name: v1.21.2---vmware.1-tkg.1.ee25d55
+    nodePools:
+    - name: worker-nodepool-a1  
+      replicas: 1
+      vmClass: best-effort-small #vmclass to be used for workers(s)
+      storageClass: vc01cl01-t0compute
+      tkr:  
+        reference:
+          name: v1.21.2---vmware.1-tkg.1.ee25d55
+          
+          
+# solo se necesita definir Servicios y POD si deseamos personalizar esos rangos de direcciones
