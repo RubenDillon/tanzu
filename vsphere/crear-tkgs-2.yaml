@@ -47,7 +47,7 @@ spec:
       defaultClass: vc01cl01-t0compute
     network:
       cni:
-        name: antrea      
+        name: calico # antrea / antrea-nsx-routed      
       services:
         cidrBlocks: ["152.162.100.0/24"]
       pods:
