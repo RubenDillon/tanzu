@@ -49,9 +49,9 @@ spec:
       cni:
         name: calico # antrea / antrea-nsx-routed      
       services:
-        cidrBlocks: ["152.162.100.0/24"]
+        cidrBlocks: ["198.51.100.0/12"]
       pods:
-        cidrBlocks: ["152.162.200.0/24"]
+        cidrBlocks: ["192.0.2.0/16"]
 #   trust:
 #     additionalTrustedCAs:
 #       - name: harbor
