@@ -1,6 +1,6 @@
 
 harborAdminPassword: 52P22idiEXo1JJz6
-hostname: harbor.20.253.171.68.nip.io
+hostname: harbor.20.85.169.168.nip.io
 secretKey: B9rZnPipjpCWjzqt
 database:
   password: uqomLIrIXgKQswsH
