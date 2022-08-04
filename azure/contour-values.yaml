@@ -5,7 +5,7 @@ contour:
  configFileContents: {}
  useProxyProtocol: false
  replicas: 2
- pspNames: "vmware-system-restricted"
+ pspNames: "vmware-system-restricted" 
  logLevel: info
 envoy:
  service:
