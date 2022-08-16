@@ -1,0 +1,10 @@
+Usar HElm para desplegar aplicaciones es sumamente util
+
+Pero... si queremos modificar lo que se esta instalando?
+
+helm template my-tom bitnami/tomcat > tomcat-helm.yaml
+
+nos genera un archivo del deployment, con todos sus componentes... secret, volumes, etc..etc..etc...
+
+
+................
