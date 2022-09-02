@@ -13,7 +13,7 @@ Next step is to SSH to the IP address with the human-unreadable password.
 After that point, you can easily demonstrate that you have cluster-admin privileges and list/modify system level resources as well 
 as all the custom resources that comes with Tanzu.
 
-<img width="1468" alt="image" src="https://user-images.githubusercontent.com/26331064/188156001-4fe5358d-0655-45d8-838d-fd69492ee874.png">
+<img width="1668" alt="image" src="https://user-images.githubusercontent.com/26331064/188156001-4fe5358d-0655-45d8-838d-fd69492ee874.png">
 
 
 https://orcunuso.wordpress.com/2021/03/30/tanzu-supervisor-cluster-with-cluster-admin-privileges/
