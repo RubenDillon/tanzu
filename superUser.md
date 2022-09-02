@@ -6,7 +6,7 @@ It connects to the PSQL, queries the database and provides you the root password
 
 /usr/lib/vmware-wcp/decryptK8Pwd.py
 
-<img width="1422" alt="image" src="https://user-images.githubusercontent.com/26331064/188155966-6b21dc8d-b97d-4952-a391-f069023cd1da.png">
+<img width="1468" alt="image" src="https://user-images.githubusercontent.com/26331064/188157291-5f43b4f3-86a3-486b-9943-9c025f29aa6b.png">
 
 
 Next step is to SSH to the IP address with the human-unreadable password. 
