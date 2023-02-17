@@ -1,0 +1,76 @@
+profile: full
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+ceip_policy_disclosed: true # Installation fails if this is not set to true. Not a string.
+buildservice:
+  ca_cert_data: |-
+    -----BEGIN CERTIFICATE-----
+    MIIDKDCCAhCgAwIBAgIQE9Kn3xFEfszPk67BmnenXTANBgkqhkiG9w0BAQsFADAU
+    MRIwEAYDVQQDEwlIYXJib3IgQ0EwHhcNMjIwNjE2MjIxNDM0WhcNMzIwNjEzMjIx
+    NDM0WjAUMRIwEAYDVQQDEwlIYXJib3IgQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IB
+    DwAwggEKAoIBAQDfmxCGldkNmBUxxVTRkwJOBUJ9vT4ZeC63fDvi/tvx1P5NX7e0
+    Fcp+m6KZElGJPVm1K7skhzI2xFUH7GXoKlWxoDfD9Zq/tT2Z7tuqBsgCbeVvmSev
+    1QQ4tGAMmLars6A7H7d/YuNfqEkmbrXu7lyy74mqMPav2Nw8R6y6a1y99RNb3XCQ
+    RfMEN3UXJo8VepYnEHSfhUhXMiMBiVP+MbbZLUjC5LWHNgRHXkkK6iaCO57quhJv
+    OS9McSG9m74u53Q0y7RKlBrrlAlGW/OhH4JFdQSgLAPSrYKUvXDqZ1aVHu8hUkmk
+    FX1IYALANrg/wXX0cNyl8sOsnCsI4aoXttg7AgMBAAGjdjB0MA4GA1UdDwEB/wQE
+    AwICBDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDwYDVR0TAQH/BAUw
+    AwEB/zAdBgNVHQ4EFgQUO7hcapGSRCal6yRqtiEvQ3GzPmwwEwYDVR0RBAwwCoII
+    aGFyYm9yY2EwDQYJKoZIhvcNAQELBQADggEBAFSvG4zmIAl3lblo/DGfmz5GymsF
+    aFI5yLSkQRXhvJdXZR0wVl3kb2srP85I84xXZPlQ9F6yn9HrccrTEKcEb51ijCFL
+    rOeK/rm6v1dh0yoJYK2KoDgCDa9NYjgCv7bd3nBfrdILS+s4YkjyLLqNh2GBKZ2o
+    QNb964lki1rfkTC3YHPqN0COy8jVqQUEX/p//1q4FTwq0MElUWk/Jf8in5t1YGY3
+    Hstm67IATKLAyIHQ9qfENrM2+qEmKi3dCl5s+aqoSvKXs0Xmq6McW6NeNDMzVnc/
+    K6t4fY405oils83c/XlJ828ZX8WAL5RAxjtlesmZ5QkwgpdkIw1sYgBVsAU=
+    -----END CERTIFICATE-----    
+  kp_default_repository: "harbor.10.220.18.167.nip.io/tap/build-service"
+  kp_default_repository_username: "admin"
+  kp_default_repository_password: "PASSw0rd2019202020212022"
+  tanzunet_username: "rdillon@vmware.com"
+  tanzunet_password: "xxxxxxxxx"
+  descriptor_name: "full"
+supply_chain: basic
+
+cnrs:
+  domain_name: 10.220.18.167.nip.io
+
+ootb_supply_chain_basic:
+  registry:
+    server: "harbor.10.220.18.167.nip.io"
+    repository: "tap/supply-chain"
+  gitops:
+    ssh_secret: ""
+
+learningcenter:
+  ingressDomain: "10.220.18.167.nip.io"
+
+tap_gui:
+  service_type: ClusterIP
+  ingressEnabled: "true"
+  ingressDomain: "10.220.18.167.nip.io"
+  app_config:
+    app:
+      baseUrl: http://tap-gui.10.220.18.167.nip.io
+    catalog:
+      locations:
+        - type: url
+          target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+    backend:
+      baseUrl: http://tap-gui.10.220.18.167.nip.io
+      cors:
+        origin: http://tap-gui.10.220.18.167.nip.io
+
+metadata_store:
+  app_service_type: LoadBalancer # (optional) Defaults to LoadBalancer. Change to NodePort for distributions that don't support LoadBalancer
+
+grype:
+  namespace: "default" # (optional) Defaults to default namespace.
+  targetImagePullSecret: "registry-credentials"
+  
+excluded_packages:
+  - contour.tanzu.vmware.com
+  - cert-manager.tanzu.vmware.com
