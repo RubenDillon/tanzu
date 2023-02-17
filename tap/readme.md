@@ -9,6 +9,9 @@ Enable Continuous Delivery and deploy Cert Manager and Contour
 
 Obtain where is running ENVOY
       in our example we assume that is running on the following IP Address: 10.220.8.22
+      
+Deploy Harbor using the values that are in this git
+    Create the project tap on Harbor
 
 Create a namespace called tap-install
 
