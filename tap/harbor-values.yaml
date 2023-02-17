@@ -1,6 +1,6 @@
 namespace: harbor
 # hostname: harbor.192.168.112.3.nip.io
-hostname: harbor.10.220.14.87.nip.io
+hostname: harbor.10.220.8.22.nip.io
 port:
   https: 443
 logLevel: info
