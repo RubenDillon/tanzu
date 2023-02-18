@@ -1,12 +1,12 @@
-GIT para poder desplegar TAP usando TMC 
+# GIT para poder desplegar TAP usando TMC 
 
-Create a TKGs cluster using TMC
+## Create a TKGs cluster using TMC
     modify the default configuration allowing more space on the storage nodes
-          Control Plane add space for etcd nodes.... mount the volume at /var/lib/etcd
+    Control Plane add space for etcd nodes.... mount the volume at /var/lib/etcd
           Workers add space for containerd ......... mount the volume at /var/lib/containerd
     I create a 3 control plane and 5 workers cluster with enought cpu and memory (8vCPU/64GB and 32vCPU/132GB)
 
-Enable Continuous Delivery and deploy Cert Manager and Contour 
+## Enable Continuous Delivery and deploy Cert Manager and Contour 
 
 Obtain where is running ENVOY
       in our example we assume that is running on the following IP Address: 10.220.8.22
