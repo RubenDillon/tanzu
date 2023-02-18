@@ -32,25 +32,25 @@
 
 ## Verify secret is reconciled and is exported
 
-Add Tanzu Application Platform package repository to the cluster
+## Add Tanzu Application Platform package repository to the cluster
     Name: tanzu-tap-repository
     Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.4.1
 
-Verify tanzu-tap-repository package repository is successfully added
+## Verify tanzu-tap-repository package repository is successfully added
 
-Install Tanzu Application Platform package
+## Install Tanzu Application Platform package
     The Tanzu Application Platform package is at bottom of list
 
-Select version from drop-down eg 1.4.1 and then click "Install Package"
+## Select version from drop-down eg 1.4.1 and then click "Install Package"
 
-Name package and confirm version
+## Name package and confirm version
     Installed package name: tap
     Package version: 1.0.1
 
-Package install resources
+## Package install resources
     Leave defaults
 
-Configure values
+## Configure values
     Copy the light or full profile from TAP docs and configure the parameters as guided in that doc
 
 Monitor the install
