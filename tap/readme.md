@@ -1,35 +1,36 @@
 # GIT para poder desplegar TAP usando TMC 
 
 ## Create a TKGs cluster using TMC
-    modify the default configuration allowing more space on the storage nodes
-    Control Plane add space for etcd nodes.... mount the volume at /var/lib/etcd
+    1. modify the default configuration allowing more space on the storage nodes
+    2. Control Plane add space for etcd nodes.... mount the volume at /var/lib/etcd
           Workers add space for containerd ......... mount the volume at /var/lib/containerd
-    I create a 3 control plane and 5 workers cluster with enought cpu and memory (8vCPU/64GB and 32vCPU/132GB)
+    3. I create a 3 control plane and 5 workers cluster with enought cpu and memory (8vCPU/64GB and 32vCPU/132GB)
 
 ## Enable Continuous Delivery and deploy Cert Manager and Contour 
 
-Obtain where is running ENVOY
-      in our example we assume that is running on the following IP Address: 10.220.8.22
+## Obtain where is running ENVOY
+      1. in our example we assume that is running on the following IP Address: 10.220.8.22
       
-Deploy Harbor using the values that are harbor-values.yaml
-    Create the project tap on Harbor
-    Desplegar el certificado de Harbor
+## Deploy Harbor using the values that are harbor-values.yaml
+    1. Create the project tap on Harbor
+    2. Desplegar el certificado de Harbor
             kubectl -n harbor get secret harbor-tls -o=jsonpath="{.data.ca\.crt}" 
-    Editar y copiar el certificado
+    3. Editar y copiar el certificado
             editar harbor-tkgs.yaml con el certificado base64 obtenido
             loguerse en el supervisor
             kubectl apply -f harbor-tkgs.yaml
-    Esperar que se generen los cambios en los nodos (se crean automaticamente un nuevo set de nodos control plane y workers)
+    4. Esperar que se generen los cambios en los nodos (se crean automaticamente un nuevo set de nodos control plane y workers)
+    5. Este proceso en un entorno H20 tardo aproximadamente 80 minutos
 
-Create a namespace called tap-install
+## Create a namespace called tap-install
 
-Create a secret for Tanzu Net and export it to all namespaces
+## Create a secret for Tanzu Net and export it to all namespaces
     Secret name: tap-registry
     Image registry URL: registry.tanzu.vmware.com
     Username: <tanzu-net-username>
     Password: <tanzu-net-password>
 
-Verify secret is reconciled and is exported
+## Verify secret is reconciled and is exported
 
 Add Tanzu Application Platform package repository to the cluster
     Name: tanzu-tap-repository
