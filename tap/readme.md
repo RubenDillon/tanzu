@@ -1,21 +1,25 @@
 GIT para poder desplegar TAP usando TMC 
 
-Create cluster using TMC
+Create a TKGs cluster using TMC
     modify the default configuration allowing more space on the storage nodes
           Control Plane add space for etcd nodes.... mount the volume at /var/lib/etcd
           Workers add space for containerd ......... mount the volume at /var/lib/containerd
+    I create a 3 control plane and 5 workers cluster with enought cpu and memory (8vCPU/64GB and 32vCPU/132GB)
 
 Enable Continuous Delivery and deploy Cert Manager and Contour 
 
 Obtain where is running ENVOY
       in our example we assume that is running on the following IP Address: 10.220.8.22
       
-Deploy Harbor using the values that are in this git
+Deploy Harbor using the values that are harbor-values.yaml
     Create the project tap on Harbor
     Desplegar el certificado de Harbor
-            kubectl -n harbor get secret harbor-tls -o=jsonpath="{.data.ca\.crt}" | base64 -d
+            kubectl -n harbor get secret harbor-tls -o=jsonpath="{.data.ca\.crt}" 
     Editar y copiar el certificado
-            kubectl edit kubeadmconfigtemplate tap-vsphere7
+            editar harbor-tkgs.yaml con el certificado base64 obtenido
+            loguerse en el supervisor
+            kubectl apply -f harbor-tkgs.yaml
+    Esperar que se generen los cambios en los workers (se crean automaticamente un nuevo set de nodos)
 
 Create a namespace called tap-install
 
