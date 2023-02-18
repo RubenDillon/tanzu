@@ -12,6 +12,10 @@ Obtain where is running ENVOY
       
 Deploy Harbor using the values that are in this git
     Create the project tap on Harbor
+    Desplegar el certificado de Harbor
+            kubectl -n harbor get secret harbor-tls -o=jsonpath="{.data.ca\.crt}" | base64 -d
+    Editar y copiar el certificado
+            kubectl edit kubeadmconfigtemplate tap-vsphere7
 
 Create a namespace called tap-install
 
