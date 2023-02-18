@@ -19,7 +19,7 @@ Deploy Harbor using the values that are harbor-values.yaml
             editar harbor-tkgs.yaml con el certificado base64 obtenido
             loguerse en el supervisor
             kubectl apply -f harbor-tkgs.yaml
-    Esperar que se generen los cambios en los workers (se crean automaticamente un nuevo set de nodos)
+    Esperar que se generen los cambios en los nodos (se crean automaticamente un nuevo set de nodos control plane y workers)
 
 Create a namespace called tap-install
 
