@@ -1,4 +1,4 @@
-# GIT para poder desplegar TAP usando TMC 
+# Desplegando Tanzu Application Platform usando TMC 
 
 ## Requirements
     1. A vSphere cluster with vCenter based in 7.0 U3 release (Im using H20 internal environment)
@@ -9,15 +9,15 @@
 ## Create the environment
     1. Join the Supervisor Cluster to TMC
     2. Create the Harbor registry using the embbeded version (deploy using the vCenter UI)
-    3. Create a vSphere namespace where TAP will reside
+    3. Create a Cluster Group (I create ruben-group cluster group)
+    4. At the Cluster Group I activate the Continuous Delivery and deploy Cert Manager and Contour using the tmc_flux git
+    5. Create a vSphere namespace where TAP will reside
 
 ## Create a TKGs cluster using TMC
     1. modify the default configuration allowing more space on the storage nodes
     2. Control Plane add space for etcd nodes.... mount the volume at /var/lib/etcd
           Workers add space for containerd ......... mount the volume at /var/lib/containerd
     3. I create a 3 control plane and 5 workers cluster with enought cpu and memory (8vCPU/64GB and 32vCPU/132GB)
-
-## Enable Continuous Delivery and deploy Cert Manager and Contour 
 
 ## Obtain where is running ENVOY
       1. in our example we assume that is running on the following IP Address: 10.220.8.22
