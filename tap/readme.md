@@ -1,5 +1,16 @@
 # GIT para poder desplegar TAP usando TMC 
 
+## Requirements
+    1. A vSphere cluster with vCenter based in 7.0 U3 release (Im using H20 internal environment)
+    2. NSX-T at the networking infrastructure
+    3. vSphere with Tanzu already deployed
+    4. Integration with Tanzu Mission Control
+
+## Create the environment
+    1. Join the Supervisor Cluster to TMC
+    2. Create the Harbor registry using the embbeded version (deploy using the vCenter UI)
+    3. Create a vSphere namespace where TAP will reside
+
 ## Create a TKGs cluster using TMC
     1. modify the default configuration allowing more space on the storage nodes
     2. Control Plane add space for etcd nodes.... mount the volume at /var/lib/etcd
