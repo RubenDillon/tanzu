@@ -1,0 +1,73 @@
+buildservice:
+  ca_cert_data: |-
+    ------BEGIN CERTIFICATE-----
+    MIIENTCCAx2gAwIBAgIJAPn3SQqcqz+lMA0GCSqGSIb3DQEBCwUAMIGlMQswCQYD
+    VQQDDAJDQTEXMBUGCgmSJomT8ixkARkWB3ZzcGhlcmUxFTATBgoJkiaJk/IsZAEZ
+    FgVsb2NhbDELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExJzAlBgNV
+    BAoMHnZjMDEuaDJvLTQtNzMwOC5oMm8udm13YXJlLmNvbTEbMBkGA1UECwwSVk13
+    YXJlIEVuZ2luZWVyaW5nMB4XDTIzMDIyMTE3MzUwOFoXDTMzMDIxODE3MzUwOFow
+    gaUxCzAJBgNVBAMMAkNBMRcwFQYKCZImiZPyLGQBGRYHdnNwaGVyZTEVMBMGCgmS
+    JomT8ixkARkWBWxvY2FsMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5p
+    YTEnMCUGA1UECgwedmMwMS5oMm8tNC03MzA4Lmgyby52bXdhcmUuY29tMRswGQYD
+    VQQLDBJWTXdhcmUgRW5naW5lZXJpbmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+    ggEKAoIBAQDhJe0F7ePWv3FSMHm4Ox75aoaBSOqkER50wl5QDTyCQB/9SHzgpxCT
+    zapbR11l0owZKpaIgZVycQE3iU/4hQsS9e5HRzY3/wWASexr8/5Favj5bu6gHsdH
+    JtKcBGu9PSh8/nrmhLqoWFcj73zjIeTxtcwqhVnkG9/9hr9omIRzaXBaHIW6nWvt
+    9i/PuRu3Lt/wliVx52ZsFUs/u4EVJZIfGI9X/nRixuGU6W3q+07gk2LGTXkw+zzt
+    6076rb3DDUe7/zzMy9iuMviziCOxBHUThE2meiQ3fxb/O4heu5yIvqYUrtAcgmCf
+    Z7Y5IofsyPktzsv6yunEejEdKgXTcBDXAgMBAAGjZjBkMB0GA1UdDgQWBBRStLkW
+    G3cKPLCfpxO7AwUKlb0DJzAfBgNVHREEGDAWgQ5lbWFpbEBhY21lLmNvbYcEfwAA
+    ATAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB/wIBADANBgkqhkiG9w0B
+    AQsFAAOCAQEAUpV3gT9T6AIqpDCfCYTsz2o30jrWLD++OaHOwyyQOQWqJeU9yB1K
+    pYMYYlm7xfmsquYMIZ+P9TzFCoV5faAAKdGbXNenScXbt6mlsZNv32IMoju0Yovm
+    Y/J9VkleHMSVIj89iHakE5rU7Rqg239ALQ1OiYRnsoFJEjhyR1ZkJYCGHZTLiBh1
+    XLXtQr8Yt8y+UAWrt3hxZsshlzlsNl3ToXM6fMYBNP0AHWcX3ZY2Xxzl7i6UQ6DF
+    lTRNRIIqAtpo6Tze75aJv9Z3EXPdZbzuYTawWt+4GY3ocPn7c1S7a8GqDq/JpNOD
+    jOurUxK6e/n7fIatLQH2CQic4RRQ+MVRFg==
+    -----END CERTIFICATE-----
+  descriptor_name: full
+  kp_default_repository: 10.220.49.131/tap/build-service
+  kp_default_repository_password: "!BlNCj7RDQ19OqMugej"
+  kp_default_repository_username: administrator@vsphere.local
+  tanzunet_password: $PASSw0rd2022
+  tanzunet_username: rdillon@vmware.com
+ceip_policy_disclosed: true
+cnrs:
+  domain_name: 10.220.49.133.nip.io
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+excluded_packages:
+  - contour.tanzu.vmware.com
+  - cert-manager.tanzu.vmware.com
+grype:
+  namespace: default
+  targetImagePullSecret: registry-credentials
+learningcenter:
+  ingressDomain: 10.220.49.133.nip.io
+metadata_store:
+  app_service_type: LoadBalancer
+ootb_supply_chain_basic:
+  gitops:
+    ssh_secret: ""
+  registry:
+    repository: tap/supply-chain
+    server: 10.220.49.131
+profile: full
+supply_chain: basic
+tap_gui:
+  app_config:
+    app:
+      baseUrl: http://tap-gui.10.220.49.133.nip.io
+    backend:
+      baseUrl: http://tap-gui.10.220.49.133.nip.io
+      cors:
+        origin: http://tap-gui.10.220.49.133.nip.io
+    catalog:
+      locations:
+        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+          type: url
+  ingressDomain: 10.220.49.133.nip.io
+  ingressEnabled: "true"
+  service_type: ClusterIP
