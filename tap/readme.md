@@ -4,7 +4,7 @@
 ```
     1. A vSphere cluster with vCenter based in 7.0 U3 release (Im using H20 internal environment)
     2. NSX-T at the networking infrastructure
-    3. vSphere with Tanzu already deployed
+    3. vSphere with Tanzu already deployed (10.220.49.130 is the Supervisor address)
     4. Integration with Tanzu Mission Control
 ```
 
@@ -14,31 +14,40 @@
     2. Create the Harbor registry using the embbeded version (deploy using the vCenter UI)
     3. Create a Cluster Group (I create ruben-group cluster group)
     4. At the Cluster Group I activate the Continuous Delivery and deploy Cert Manager and Contour using the tmc_flux git
-    5. Create a vSphere namespace where TAP will reside
+    5. Create a vSphere namespace where TAP will reside (I create a tap vsphere namespace)
 ```
 ## Create a TKGs cluster using TMC
 ```
     1. modify the default configuration allowing more space on the storage nodes
-    2. Control Plane add space for etcd nodes.... mount the volume at /var/lib/etcd
-          Workers add space for containerd ......... mount the volume at /var/lib/containerd
-    3. I create a 3 control plane and 5 workers cluster with enought cpu and memory (8vCPU/64GB and 32vCPU/132GB)
+            Control Plane a 100GB volume for etcd nodes........ mount the volume at /var/lib/etcd
+            Workers add a 200GB volume for containerd ......... mount the volume at /var/lib/containerd
+    2. I create a 3 nodes control plane and 5 nodes workers cluster with enought cpu and memory (8vCPU/64GB and 32vCPU/132GB)
 ```
+## Configure TKGs to accept Harbor certificate
+```
+    1. Conectarse al Supervisor Cluster y luego al vsphere namespace donde el cluster se aloja
+            kubectl vsphere login --vsphere-username administrator@vsphere.local --server=https://10.220.49.130  --insecure-skip-tls-verify
+            kubectl config use-context tap
+            kubectl get secret -n grupo1 grupo1-default-image-pull-secret -o yaml > image-pull-secret.yaml
+    2. Editar image-pull-secret.yaml para definir como namespace a tap-install
+    3. Crear el kubeconfig
+            kubectl get secret -n grupo1 tkg-cluster-01-kubeconfig -o jsonpath='{.data.value}' | base64 -d > cluster-kubeconfig
+    4. Crear el secreto en el cluster
+            kubectl --kubeconfig=cluster-kubeconfig apply -f image-pull-secret.yaml
+
+kubectl --kubeconfig=cluster-kubeconfig apply -f image-pull-secret.yaml
+![image](https://user-images.githubusercontent.com/26331064/221298887-9162928b-0bd4-44b3-be9a-c68b4bb5e5b9.png)
+
+
+
+
+```
+
 ## Obtain where is running ENVOY
 ```
-      In our example we assume that is running on the following IP Address: 10.220.8.22
+      In our example we assume that is running on the following IP Address: 10.220.
 ```      
-## Deploy Harbor using the values that are harbor-values.yaml
-```
-    1. Create the project tap on Harbor
-    2. Desplegar el certificado de Harbor
-            kubectl -n harbor get secret harbor-tls -o=jsonpath="{.data.ca\.crt}" 
-    3. Editar y copiar el certificado
-            editar harbor-tkgs.yaml con el certificado base64 obtenido
-            loguerse en el supervisor
-            kubectl apply -f harbor-tkgs.yaml
-    4. Esperar que se generen los cambios en los nodos (se crean automaticamente un nuevo set de nodos control plane y workers)
-    5. Este proceso en un entorno H20 tardo aproximadamente 80 minutos
-```
+
 ## Create a namespace called tap-install
 
 ## Create a secret for Tanzu Net and export it to all namespaces
