@@ -28,7 +28,7 @@ buildservice:
     K6t4fY405oils83c/XlJ828ZX8WAL5RAxjtlesmZ5QkwgpdkIw1sYgBVsAU=
     -----END CERTIFICATE-----    
   kp_default_repository: "10.220.49.131/tap/build-service"
-  kp_default_repository_username: "administrator@vmware.local"
+  kp_default_repository_username: "administrator@vsphere.local"
   kp_default_repository_password: "!BlNCj7RDQ19OqMugej"
   tanzunet_username: "rdillon@vmware.com"
   tanzunet_password: "$PASSw0rd2022"
