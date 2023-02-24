@@ -31,7 +31,7 @@ buildservice:
   kp_default_repository_username: "administrator@vsphere.local"
   kp_default_repository_password: "!BlNCj7RDQ19OqMugej"
   tanzunet_username: "rdillon@vmware.com"
-  tanzunet_password: "$PASSw0rd2022"
+  tanzunet_password: "xxy"
   descriptor_name: "full"
 supply_chain: basic
 
