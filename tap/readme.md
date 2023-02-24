@@ -25,11 +25,12 @@
 ```
 ## Configure TKGs to accept Harbor certificate
 ```
-    1. Conectarse al Supervisor Cluster y luego al vsphere namespace donde el cluster se aloja
+    1. Nos conectamos al cluster y corremos allow-run-as.yaml
+    2. Conectarse al Supervisor Cluster y luego al vsphere namespace donde el cluster se aloja
             kubectl vsphere login --vsphere-username administrator@vsphere.local --server=https://10.220.49.130  --insecure-skip-tls-verify
             kubectl config use-context tap
             kubectl get secret -n tap tap-default-image-pull-secret -o yaml > image-pull-secret.yaml
-    2. Editar image-pull-secret.yaml para definir como namespace a tap-install
+    2. Editar image-pull-secret.yaml para definir como namespace a default
     3. Crear el kubeconfig
             kubectl get secret -n tap tap-cluster-kubeconfig -o jsonpath='{.data.value}' | base64 -d > cluster-kubeconfig
     4. Crear el secreto en el cluster
@@ -39,15 +40,16 @@
 
 ## Obtain where is running ENVOY
 ```
-      In our example we assume that is running on the following IP Address: 10.220.
+      In our example we assume that is running on the following IP Address: 10.220.49.133
 ```      
 
 ## Create a namespace called tap-install
 
-## Create a secret for Tanzu Net and export it to all namespaces
+## Using TMC create a secret for Tanzu Net and export it to all namespaces
 ```
     Secret name: tap-registry
     Image registry URL: registry.tanzu.vmware.com
+    Namespace: tap-install
     Username: <tanzu-net-username>
     Password: <tanzu-net-password>
 ```
@@ -56,15 +58,14 @@
 ## Add Tanzu Application Platform package repository to the cluster
 ```
     Name: tanzu-tap-repository
-    Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.4.1
+    Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.0.1 (1.4.1 is the last one)
 ```
-## Verify tanzu-tap-repository package repository is successfully added
 
 ## Install Tanzu Application Platform package
 ```
     The Tanzu Application Platform package is at bottom of list
 ```
-## Select version from drop-down eg 1.4.1 and then click "Install Package"
+## Select version from drop-down eg 1.0.1 and then click "Install Package"
 
 ## Name package and confirm version
 ```
