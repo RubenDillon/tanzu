@@ -1,10 +1,12 @@
 # Desplegando Tanzu Application Platform usando TMC 
 
 ## Requirements
+```
     1. A vSphere cluster with vCenter based in 7.0 U3 release (Im using H20 internal environment)
     2. NSX-T at the networking infrastructure
     3. vSphere with Tanzu already deployed
     4. Integration with Tanzu Mission Control
+```
 
 ## Create the environment
     1. Join the Supervisor Cluster to TMC
