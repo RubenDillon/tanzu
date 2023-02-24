@@ -72,18 +72,14 @@
     Installed package name: tap
     Package version: 1.0.1
 ```
-## Package install resources
-    Leave defaults
 
 ## Configure values
-    Copy the light or full profile from TAP docs and configure the parameters as guided in that doc
+    Copy the tap-values.yaml from this git
+    Monitor the install
+    Verify all packages are successfully reconciled
 
-Monitor the install
-
-Verify all packages are successfully reconciled
-
-Ta-da... cluster created and TAP installed all from TMC
+    Ta-da... cluster created and TAP installed all from TMC
   
-.......................
+## .......................
 
   Basado en https://confluence.eng.vmware.com/display/CNA/TAP+-+How+to+install+TAP+using+TMC
