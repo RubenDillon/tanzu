@@ -1,4 +1,4 @@
-# Desplegando Tanzu Application Platform usando TMC 
+# Desplegando Tanzu Application Platform usando TMC Catalog
 
 ## Requirements
 ```
@@ -74,12 +74,13 @@
 ```
 
 ## Configure values
+```
     Copy the tap-values.yaml from this git
     Monitor the install
     Verify all packages are successfully reconciled
 
-    Ta-da... cluster created and TAP installed all from TMC
-  
+    YES!!!! ... TAP deployed using TMC Catalog
+```  
 ## .......................
 
   Basado en https://confluence.eng.vmware.com/display/CNA/TAP+-+How+to+install+TAP+using+TMC
