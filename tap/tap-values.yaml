@@ -27,42 +27,42 @@ buildservice:
     Hstm67IATKLAyIHQ9qfENrM2+qEmKi3dCl5s+aqoSvKXs0Xmq6McW6NeNDMzVnc/
     K6t4fY405oils83c/XlJ828ZX8WAL5RAxjtlesmZ5QkwgpdkIw1sYgBVsAU=
     -----END CERTIFICATE-----    
-  kp_default_repository: "harbor.10.220.8.22.nip.io/tap/build-service"
-  kp_default_repository_username: "admin"
-  kp_default_repository_password: "PASSw0rd2019202020212022"
+  kp_default_repository: "10.220.49.131/tap/build-service"
+  kp_default_repository_username: "administrator@vmware.local"
+  kp_default_repository_password: "!BlNCj7RDQ19OqMugej"
   tanzunet_username: "rdillon@vmware.com"
-  tanzunet_password: "xxxxxxxxx"
+  tanzunet_password: "$PASSw0rd2022"
   descriptor_name: "full"
 supply_chain: basic
 
 cnrs:
-  domain_name: 10.220.8.22.nip.io
+  domain_name: 10.220.49.133.nip.io
 
 ootb_supply_chain_basic:
   registry:
-    server: "harbor.10.220.8.22.nip.io"
+    server: "10.220.49.131"
     repository: "tap/supply-chain"
   gitops:
     ssh_secret: ""
 
 learningcenter:
-  ingressDomain: "10.220.8.22.nip.io"
+  ingressDomain: "10.220.49.133.nip.io"
 
 tap_gui:
   service_type: ClusterIP
   ingressEnabled: "true"
-  ingressDomain: "10.220.8.22.nip.io"
+  ingressDomain: "10.220.49.133.nip.io"
   app_config:
     app:
-      baseUrl: http://tap-gui.10.220.8.22.nip.io
+      baseUrl: http://tap-gui.10.220.49.133.nip.io
     catalog:
       locations:
         - type: url
           target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
     backend:
-      baseUrl: http://tap-gui.10.220.8.22.nip.io
+      baseUrl: http://tap-gui.10.220.49.133.nip.io
       cors:
-        origin: http://tap-gui.10.220.8.22.nip.io
+        origin: http://tap-gui.10.220.49.133.nip.io
 
 metadata_store:
   app_service_type: LoadBalancer # (optional) Defaults to LoadBalancer. Change to NodePort for distributions that don't support LoadBalancer
