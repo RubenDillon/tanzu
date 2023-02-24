@@ -28,18 +28,12 @@
     1. Conectarse al Supervisor Cluster y luego al vsphere namespace donde el cluster se aloja
             kubectl vsphere login --vsphere-username administrator@vsphere.local --server=https://10.220.49.130  --insecure-skip-tls-verify
             kubectl config use-context tap
-            kubectl get secret -n grupo1 grupo1-default-image-pull-secret -o yaml > image-pull-secret.yaml
+            kubectl get secret -n tap tap-default-image-pull-secret -o yaml > image-pull-secret.yaml
     2. Editar image-pull-secret.yaml para definir como namespace a tap-install
     3. Crear el kubeconfig
-            kubectl get secret -n grupo1 tkg-cluster-01-kubeconfig -o jsonpath='{.data.value}' | base64 -d > cluster-kubeconfig
+            kubectl get secret -n tap tap-cluster-kubeconfig -o jsonpath='{.data.value}' | base64 -d > cluster-kubeconfig
     4. Crear el secreto en el cluster
             kubectl --kubeconfig=cluster-kubeconfig apply -f image-pull-secret.yaml
-
-kubectl --kubeconfig=cluster-kubeconfig apply -f image-pull-secret.yaml
-![image](https://user-images.githubusercontent.com/26331064/221298887-9162928b-0bd4-44b3-be9a-c68b4bb5e5b9.png)
-
-
-
 
 ```
 
