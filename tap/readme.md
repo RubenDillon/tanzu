@@ -75,7 +75,7 @@
 
 ## Configure values
 ```
-    Copy the tap-values.yaml from this git
+    Copy the tap-values.yaml from this git. Modificar el certificado, usando el del repositorio TAP de Harbor
     Monitor the install
     Verify all packages are successfully reconciled
 
