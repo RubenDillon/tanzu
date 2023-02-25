@@ -29,7 +29,7 @@ buildservice:
   kp_default_repository: 10.220.49.131/tap/build-service
   kp_default_repository_password: "!BlNCj7RDQ19OqMugej"
   kp_default_repository_username: administrator@vsphere.local
-  tanzunet_password: $PASSw0rd2022
+  tanzunet_password: "xxxy"
   tanzunet_username: rdillon@vmware.com
 ceip_policy_disclosed: true
 cnrs:
