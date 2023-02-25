@@ -6,6 +6,9 @@
     2. NSX-T at the networking infrastructure
     3. vSphere with Tanzu already deployed (10.220.49.130 is the Supervisor address)
     4. Integration with Tanzu Mission Control
+    5. To deploy 
+        - TAP 1.0.x we need Kubernetes v1.20, v1.21 or v1.22. 
+        - TAP 1.4.x we need Kubernetes v1.23, v1.24 or v1.25.
 ```
 
 ## Create the environment
