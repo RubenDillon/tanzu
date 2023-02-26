@@ -17,20 +17,21 @@
     2. Create the Harbor registry using the embbeded version (deploy using the vCenter UI)
     3. Create a Cluster Group (I create ruben-group cluster group)
     4. At the Cluster Group I activate the Continuous Delivery and deploy Cert Manager and Contour using the tmc_flux git
-    5. Create a vSphere namespace where TAP will reside (I create a tap vsphere namespace)
+    5. Create a vSphere namespace where TAP will reside (I create a "tap" vsphere namespace)
 ```
 ## Create a TKGs cluster using TMC
 ```
-    1. modify the default configuration allowing more space on the storage nodes
+    1. Create the cluster where TAP will reside (I create tap-01 cluster)
+    2. Modify the default configuration allowing more space on the storage nodes
             Control Plane a 100GB volume for etcd nodes........ mount the volume at /var/lib/etcd
             Workers add a 200GB volume for containerd ......... mount the volume at /var/lib/containerd
     2. I create a 3 nodes control plane and 5 nodes workers cluster with enought cpu and memory (8vCPU/64GB and 32vCPU/132GB)
 ```
 ## Configure TKGs to accept Harbor certificate
 ```
-    1. Nos conectamos al cluster y corremos allow-run-as.yaml
+    1. Nos conectamos al cluster, corremos allow-run-as.yaml and then run the following
             kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
-    2. Descargar el certificado de harbor y desplegarlo en el equipo desde donde vamos a instalar TAP. Loguearse a harbor
+    2. Descargar el certificado de harbor y desplegarlo en el equipo desde donde vamos a instalar TAP. Loguearse a harbor 
 ```
 ## Relocate container images to local registry
 ```
