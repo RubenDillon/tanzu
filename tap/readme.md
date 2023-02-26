@@ -94,7 +94,7 @@
     
     
 ```  
-## .......................
+
 
   Basado en 
   - https://confluence.eng.vmware.com/display/CNA/TAP+-+How+to+install+TAP+using+TMC
