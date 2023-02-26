@@ -63,6 +63,8 @@
             --server ${INSTALL_REGISTRY_HOSTNAME} \
             --export-to-all-namespaces --yes --namespace tap-install
         
+    ---- agregue la parte del certificado de harbor en el tKGs y lo apunte a tap-install -------    
+        
     2. Run the following to add the repository
             tanzu package repository add tanzu-tap-repository \
             --url ${INSTALL_REGISTRY_HOSTNAME}/tap/tap-packages:$TAP_VERSION \
