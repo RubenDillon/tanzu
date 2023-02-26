@@ -50,7 +50,7 @@
 
 ## Obtain where is running ENVOY
 ```
-      In our example we assume that is running on the following IP Address: 10.220.49.133
+      In our example we assume that is running on the following IP Address: 10.220.49.132
 ```      
 
 ## Create a namespace called tap-install
