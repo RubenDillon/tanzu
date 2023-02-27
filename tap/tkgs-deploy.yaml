@@ -22,7 +22,7 @@ spec:
     nodePools:
     - name: worker-nodepool-a1  
       replicas: 5
-      vmClass: best-effort-xlarge #vmclass to be used for workers(s)
+      vmClass: best-effort-4xlarge #vmclass to be used for workers(s)
       storageClass: vc01cl01-t0compute
       volumes:
         - name: containerd
