@@ -18,7 +18,15 @@
     3. Create a Cluster Group (I create ruben-group cluster group)
     4. At the Cluster Group I activate the Continuous Delivery and deploy Cert Manager and Contour using the tmc_flux git
     5. Create a vSphere namespace where TAP will reside (I create a "tap" vsphere namespace)
-```
+    6. Usamos update-registry.yaml para agregar el certificado tap-registry al Supervisor 
+    
+    (quizas agregarlo antes de crear el cluster...)
+    
+            conectarse al supervisor
+            
+            ejecutar kubectl apply -f update.yaml
+```       
+      
 ## Create a TKGs cluster using TMC
 ```
     1. Create the cluster where TAP will reside. For that, use the tkgs-deployment.yaml from this git. 
