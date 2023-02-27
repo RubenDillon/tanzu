@@ -16,7 +16,7 @@ spec:
             storage: 100Gi      
       tkr:                                       
         reference:
-          name: 1.21.6+vmware.1-tkg.1
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
           # name: v1.21.2---vmware.1-tkg.1.ee25d55
           # name: v1.23.8---vmware.3-tkg.1
     nodePools:
@@ -32,7 +32,7 @@ spec:
       tkr:  
         reference:
           # name: v1.23.8---vmware.3-tkg.1
-          name: 1.21.6+vmware.1-tkg.1
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
   settings:
     storage:
       defaultClass: vc01cl01-t0compute
