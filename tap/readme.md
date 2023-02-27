@@ -7,7 +7,7 @@
     3. vSphere with Tanzu already deployed (10.220.49.130 is the Supervisor address)
     4. Integration with Tanzu Mission Control
     5. To deploy 
-        - TAP 1.0.x we need Kubernetes v1.20, v1.21 or v1.22. We are using 1.21.6
+        - TAP 1.0.2 we need Kubernetes v1.20, v1.21 or v1.22. We are using 1.21.6
         - TAP 1.4.x we need Kubernetes v1.23, v1.24 or v1.25.
 ```
 
@@ -21,13 +21,16 @@
 ```
 ## Create a TKGs cluster using TMC
 ```
-    1. Create the cluster where TAP will reside (I create tap-01 cluster)
-    2. Modify the default configuration allowing more space on the storage nodes
-            Control Plane a 100GB volume for etcd nodes........ mount the volume at /var/lib/etcd
-            Workers add a 200GB volume for containerd ......... mount the volume at /var/lib/containerd
-    2. I create a 3 nodes control plane and 5 nodes workers cluster with enought cpu and memory (8vCPU/64GB and 32vCPU/132GB)
+    1. Create the cluster where TAP will reside. For that, use the tkgs-deployment.yaml from this git. 
+    2. Modify the Trusts part of the file. You need to convert the Harbor certificate to base64 enconde.
+            Obtain the certificate from the Harbor UI (go to tap project, reporsitories and then download Registry Certificate)
+            To convert the certificate to base64 encode use for example https://www.online-toolz.com/tools/base64-decode-encode-online.php    
+    2. TKGs-deployment.yaml creates a cluster with more space on the storage nodes than the default
+            Control Plane a 100GB volume for etcd nodes........ mounting the volume at /var/lib/etcd
+            Workers add a 200GB volume for containerd ......... mounting the volume at /var/lib/containerd
+    2. That files creates a 3 nodes control plane and 5 workers nodes cluster
 ```
-## Configure TKGs to accept Harbor certificate
+## Configure our docker machine to accept Harbor certificate
 ```
     1. Nos conectamos al cluster, corremos allow-run-as.yaml and then run the following
             kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
