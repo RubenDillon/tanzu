@@ -109,6 +109,14 @@
     
 ```  
 
+## Review the Self-Guided Workshop
+```
+    1. run the following command to review the activated portals
+            kubectl get trainingportals
+    2. then connect to the defined URL
+```
+    
+
 
   Basado en 
   - https://confluence.eng.vmware.com/display/CNA/TAP+-+How+to+install+TAP+using+TMC
