@@ -7,7 +7,7 @@
     3. vSphere with Tanzu already deployed (10.220.49.130 is the Supervisor address)
     4. Integration with Tanzu Mission Control
     5. To deploy 
-        - TAP 1.0.2 we need Kubernetes v1.20, v1.21 or v1.22. We are using 1.21.6
+        - TAP 1.1.0 we need Kubernetes v1.20, v1.21 or v1.22. We are using 1.21.6
         - TAP 1.4.x we need Kubernetes v1.23, v1.24 or v1.25.
 ```
 
@@ -52,7 +52,7 @@
             export INSTALL_REGISTRY_USERNAME=administrator@vsphere.local
             export INSTALL_REGISTRY_PASSWORD='xxxxx'
             export INSTALL_REGISTRY_HOSTNAME=10.220.49.131
-            export TAP_VERSION=1.0.2
+            export TAP_VERSION=1.1.0
     3. Relocate images using carvel
             imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/tap/tap-packages
     4. This process will take more or less 2 hours
@@ -61,7 +61,7 @@
 
 ## Obtain where is running ENVOY
 ```
-      In our example we assume that is running on the following IP Address: 10.220.49.133
+      In our example we assume that is running on the following IP Address: 10.220.49.132
 ```      
 
 ## Create a namespace called tap-install
