@@ -44,19 +44,19 @@
             kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
     2. Descargar el certificado de harbor y desplegarlo en el equipo desde donde vamos a instalar TAP. Loguearse a harbor 
 ```
-## Relocate container images to local registry
+## create the secret using TMC
 ```
-    1. Loguearse a la registry de VMware 
-            docker login registry.tanzu.vmware.com
-    2. Create the variables
-            export INSTALL_REGISTRY_USERNAME=administrator@vsphere.local
-            export INSTALL_REGISTRY_PASSWORD='xxxxx'
-            export INSTALL_REGISTRY_HOSTNAME=10.220.49.131
-            export TAP_VERSION=1.1.0
-    3. Relocate images using carvel
-            imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/tap/tap-packages
-    4. This process will take more or less 2 hours
+        Secret name: tap-registry
+        Image registry URL: registry.tanzu.vmware.com
+        Username: <tanzu-net-username>
+        Password: <tanzu-net-password>
 
+```
+
+## Create the repository
+```
+        Name: tanzu-tap-repository
+        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.1.0
 ```
 
 ## Obtain where is running ENVOY
@@ -66,45 +66,18 @@
 
 ## Create a namespace called tap-install
 
-## Create a registry secret and add the Tanzu Application Platform repository 
+## Install Tanzu Application Platform package from TMC Catalog
 ```
-    1. Run the following to create the registry secret
-            tanzu secret registry add tap-registry \
-            --username ${INSTALL_REGISTRY_USERNAME} --password ${INSTALL_REGISTRY_PASSWORD} \
-            --server ${INSTALL_REGISTRY_HOSTNAME} \
-            --export-to-all-namespaces --yes --namespace tap-install
-        
-    ---- agregue la parte del certificado de harbor en el tKGs y lo apunte a tap-install -------    
-        
-    2. Run the following to add the repository
-            tanzu package repository add tanzu-tap-repository \
-            --url ${INSTALL_REGISTRY_HOSTNAME}/tap/tap-packages:$TAP_VERSION \
-            --namespace tap-install
-    
-```
-
-## Install Tanzu Application Platform package
-```
-    1. Get the status of the repository and ensure the status updates to Reconcile succeeded by running
-            tanzu package repository get tanzu-tap-repository --namespace tap-install
-    2. List the available packages 
-            tanzu package available list --namespace tap-install
-```
-
-## Configure values and deploy TAP
-```
-    1. Copy the tap-values.yaml from this git. Modificar el certificado, usando el del repositorio TAP de Harbor
-    2. Deploy TAP using the following 
-            tanzu package install tap -p tap.tanzu.vmware.com -v $TAP_VERSION --values-file tap-values.yml -n tap-install
-    3. Monitor the install by running
+    1. Select the Tanzu Application Platform
+    2. Select tap as name and 1.1.0 for the version
+    3. Copy the tap-values.yaml from this git. Modificar el certificado, usando el del repositorio TAP de Harbor
+    4. Monitor the install by running
             tanzu package installed get tap -n tap-install
-    4. Verify all packages are successfully reconciled
+    5. Verify all packages are successfully reconciled
             tanzu package installed list -A
             
             
-
     YES!!!! ... TAP deployed 
-    
     
     
 ```  
