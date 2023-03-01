@@ -14,12 +14,9 @@
 ```
     1. Join the Supervisor Cluster to TMC
     2. Create the Harbor registry using the embbeded version (deploy using the vCenter UI)
-    3. Create a Cluster Group (I create ruben-group cluster group)
-    4. At the Cluster Group I activate the Continuous Delivery and deploy Cert Manager and Contour using the tmc_flux git
-    5. Create a vSphere namespace where TAP will reside (I create a "tap" vsphere namespace)
-    6. Usamos update-registry.yaml para agregar el certificado tap-registry al Supervisor 
-    
-    (quizas agregarlo antes de crear el cluster...)
+    3. Create a Cluster Group (I create tap-group cluster group)
+    4. Create a vSphere namespace where TAP will reside (I create a "tap" vsphere namespace)
+    5. Usamos update-registry.yaml para agregar el certificado tap-registry al Supervisor 
     
             conectarse al supervisor
             
@@ -55,7 +52,7 @@
 ## Create the repository
 ```
         Name: tanzu-tap-repository
-        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.1.0
+        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.4.0
 ```
 
 ## Obtain where is running ENVOY
