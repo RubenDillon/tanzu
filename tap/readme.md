@@ -34,12 +34,12 @@
             Workers add a 200GB volume for containerd ......... mounting the volume at /var/lib/containerd
     2. That files creates a 3 nodes control plane and 5 workers nodes cluster
 ```
-## Configure the TAP cluster
+## Configure TAP-01 cluster
 ```
     1. Nos conectamos al cluster, corremos allow-run-as.yaml and then run the following
             kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
-    2. Deploy Cert-Manager from the TMC Catalog using the defaults
-    3. Deploy Contour from the TMC Catalog using the contour-values.yaml from this git
+    2. Deploy Cert-Manager from the TMC Catalog using the defaults. The current version is 1.7.2
+    3. Deploy Contour from the TMC Catalog using the contour-values.yaml from this git. The current version is 1.20.2
 ```
 ## create the secret using TMC
 ```
