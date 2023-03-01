@@ -1,4 +1,4 @@
-# Desplegando Tanzu Application Platform 
+# Desplegando Tanzu Application Platform v1.4.0
 
 ## Requirements
 ```
@@ -7,8 +7,7 @@
     3. vSphere with Tanzu already deployed (10.220.49.130 is the Supervisor address)
     4. Integration with Tanzu Mission Control
     5. To deploy 
-        - TAP 1.1.0 we need Kubernetes v1.20, v1.21 or v1.22. We are using 1.21.6
-        - TAP 1.4.x we need Kubernetes v1.23, v1.24 or v1.25.
+        - TAP 1.4.x we need Kubernetes v1.23, v1.24 or v1.25. We will be using 1.25
 ```
 
 ## Create the environment
