@@ -34,11 +34,12 @@
             Workers add a 200GB volume for containerd ......... mounting the volume at /var/lib/containerd
     2. That files creates a 3 nodes control plane and 5 workers nodes cluster
 ```
-## Configure our docker machine to accept Harbor certificate
+## Configure the TAP cluster
 ```
     1. Nos conectamos al cluster, corremos allow-run-as.yaml and then run the following
             kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
-    2. Descargar el certificado de harbor y desplegarlo en el equipo desde donde vamos a instalar TAP. Loguearse a harbor 
+    2. Deploy Cert-Manager from the TMC Catalog using the defaults
+    3. Deploy Contour from the TMC Catalog using the contour-values.yaml from this git
 ```
 ## create the secret using TMC
 ```
