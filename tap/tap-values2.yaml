@@ -33,7 +33,7 @@ buildservice:
   tanzunet_username: "rdillon@vmware.com "
 ceip_policy_disclosed: true
 cnrs:
-  domain_name: 10.220.49.132.nip.io
+  domain_name: 10.220.49.133.nip.io
 contour:
   envoy:
     service:
@@ -45,7 +45,7 @@ grype:
   namespace: default
   targetImagePullSecret: registry-credentials
 learningcenter:
-  ingressDomain: 10.220.49.132.nip.io
+  ingressDomain: 10.220.49.133.nip.io
 metadata_store:
   app_service_type: LoadBalancer
 ootb_supply_chain_basic:
@@ -59,15 +59,15 @@ supply_chain: basic
 tap_gui:
   app_config:
     app:
-      baseUrl: http://tap-gui.10.220.49.132.nip.io
+      baseUrl: http://tap-gui.10.220.49.133.nip.io
     backend:
-      baseUrl: http://tap-gui.10.220.49.132.nip.io
+      baseUrl: http://tap-gui.10.220.49.133.nip.io
       cors:
-        origin: http://tap-gui.10.220.49.132.nip.io
+        origin: http://tap-gui.10.220.49.133.nip.io
     catalog:
       locations:
         - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
           type: url
-  ingressDomain: 10.220.49.132.nip.io
+  ingressDomain: 10.220.49.133.nip.io
   ingressEnabled: "true"
   service_type: ClusterIP
