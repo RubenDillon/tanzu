@@ -7,7 +7,7 @@ spec:
   topology:
     controlPlane:
       replicas: 3
-      vmClass: best-effort-xlarge #vmclass to be used for master(s)
+      vmClass: guaranteed-xlarge #vmclass to be used for master(s)
       storageClass: vc01cl01-t0compute
       volumes:
         - name: etcd
@@ -22,7 +22,7 @@ spec:
     nodePools:
     - name: worker-nodepool-a1  
       replicas: 5
-      vmClass: best-effort-xlarge #vmclass to be used for workers(s)
+      vmClass: guaranteed-8xlarge #vmclass to be used for workers(s)
       storageClass: vc01cl01-t0compute
       volumes:
         - name: containerd
