@@ -66,7 +66,7 @@
 ## Install Tanzu Application Platform package from TMC Catalog
 ```
     1. Select the Tanzu Application Platform
-    2. Select tap as name and 1.1.0 for the version
+    2. Select tap as name and 1.4.0 for the version
     3. Copy the tap-values.yaml from this git. Modificar el certificado, usando el del repositorio TAP de Harbor
     4. Monitor the install by running
             tanzu package installed get tap -n tap-install
