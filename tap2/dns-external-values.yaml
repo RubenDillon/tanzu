@@ -22,6 +22,9 @@ deployment:
         secretKeyRef:
           key: aws_secret_access_key
           name: route53-credentials
-securityContext: {}
-volumeMounts: []
-volumes: []
+  securityContext: ""
+  volumeMounts: ""
+  volumes: ""
+namespace: tanzu-system-service-discovery
+serviceaccount:
+  annotations: ""
