@@ -18,8 +18,12 @@
     4. Deploy a TKGs cluster using the file tkgs-shared.yaml provided on this git
     3. Deploy Cert-Manager using the defaults
     4. Deploy Contour using the contour-values.yaml from this git
+    5. crear namespace tanzu-system-service-discovery 
+            kubectl create ns tanzu-system-service-discovery
     
-    4. 
+    4. Crear un secreto con las credenciales de AWS
+            kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=<AWS_ACCESS_KEY_ID> --from-literal=aws_secret_access_key=<AWS_SECRET_ACCESS_KEY> -n tanzu-system-service-discovery
+    
     5. We will add the certificate to the supervisor using the update-registry.yaml from this git. 
     6. You could define a serie of environment variables to easily connect to the supervisor, for example the following
             export KUBECTL_VSPHERE_PASSWORD='!BlNCj7RDQ19OqMugej' where 'xxx' is the vSphere password 
