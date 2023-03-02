@@ -91,6 +91,8 @@ EOF
         
         
     13. Deploy Harbor from the TMC Catalog using harbor-values.yaml from this git. Modify the fields whith yours certificate.
+    
+    14. Connect to harbor and create "tap" project as public.
             
 ```       
       
