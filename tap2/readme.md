@@ -152,4 +152,5 @@ EOF
   Basado en 
   - https://confluence.eng.vmware.com/display/CNA/TAP+-+How+to+install+TAP+using+TMC
   - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.0/tap/GUID-install.html
+  - https://confluence.eng.vmware.com/pages/viewpage.action?spaceKey=CNA&title=Installing+Harbor+with+LE+certs+via+TMC
 
