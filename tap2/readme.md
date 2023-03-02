@@ -94,18 +94,11 @@ EOF
             
 ```       
       
-## Create a TKGs cluster using TMC
-```
-    1. Create a cluster using TMC. (I create prod-east-01)
-    2. 
-    
-```
-## Configure TAP-01 cluster
+## Configure the cluster
 ```
     1. Nos conectamos al cluster, corremos allow-run-as.yaml and then run the following
             kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
-    2. Deploy Cert-Manager from the TMC Catalog using the defaults. The current version is 1.7.2
-    3. Deploy Contour from the TMC Catalog using the contour-values.yaml from this git. The current version is 1.20.2
+
 ```
 ## create the secret using TMC
 ```
@@ -124,7 +117,7 @@ EOF
 
 ## Obtain where is running ENVOY
 ```
-      In our example we assume that is running on the following IP Address: 10.220.49.133
+      In our example we assume that is running on the following IP Address: 20.246.129.194
 ```      
 
 ## Create a namespace called tap-install
