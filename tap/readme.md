@@ -12,15 +12,14 @@
 
 ## Create the environment
 ```
-    1. Join the Supervisor Cluster to TMC
+    1. Join the Supervisor Cluster to TMC. 
     2. Create the Harbor registry using the embbeded version (deploy using the vCenter UI)
     3. Create a Cluster Group (I create tap-group cluster group)
     4. Create a vSphere namespace where TAP will reside (I create a "tap" vsphere namespace)
-    5. Usamos update-registry.yaml para agregar el certificado tap-registry al Supervisor 
-    
-            conectarse al supervisor
+    5. We will add the certificate to the supervisor using the update-registry.yaml from this git. You could define a serie of environment variables to easily connect to the supervisor, for example the following
+            export KUBECTL_VSPHERE_PASSWORD='!BlNCj7RDQ19OqMugej' where 'xxx' is the vSphere password 
             
-            ejecutar kubectl apply -f update.yaml
+            kubectl apply -f update-certificate.yaml
 ```       
       
 ## Create a TKGs cluster using TMC
