@@ -23,6 +23,8 @@
     4. Crear un secreto con las credenciales de AWS
             kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=<AWS_ACCESS_KEY_ID> --from-literal=aws_secret_access_key=<AWS_SECRET_ACCESS_KEY> -n tanzu-system-service-discovery
             
+            kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=ASIA33SE4POIFC74GSDM --from-literal=aws_secret_access_key=VmM0EpFiTZM8RiNEWmsPVGzgO9AkD617Uy/u8OJo -n tanzu-system-service-discovery
+            
     7. Deploy DNS-external from TMC Catalog using the DNS-external-values.yaml from this git
     8. Create the namespace tanzu-system-registry
             kubectl create ns tanzu-system-registry
@@ -79,13 +81,16 @@ EOF
     
             kubectl get certificates -n tanzu-system-registry harbor-cert
     
-    12. 
-    
-    
-    
-    
-    
+    12. When you have TRUE in ready column, you will continue to the next step that is obtain the certificates
+        
+            kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.crt"} | base64 --decode > tls-crt.txt
             
+            kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.key"} | base64 --decode > tls-key.txt
+      
+        Save both results
+        
+        
+    13. Deploy Harbor from the TMC Catalog using harbor-values.yaml from this git. Modify the fields whith yours certificate.
             
 ```       
       
