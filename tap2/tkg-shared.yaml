@@ -1,0 +1,47 @@
+apiVersion: run.tanzu.vmware.com/v1alpha2
+kind: TanzuKubernetesCluster
+metadata:
+  name: tap-shared #name of cluster
+  namespace: tap #name of namespace
+spec:
+  topology:
+    controlPlane:
+      replicas: 3
+      vmClass: best-effort-large #vmclass to be used for master(s)
+      storageClass: vc01cl01-t0compute
+      volumes:
+        - name: etcd
+          mountPath: /var/lib/etcd
+          capacity:
+            storage: 100Gi      
+      tkr:                                       
+        reference:
+          #name: v1.21.6---vmware.1-tkg.1.b3d708a
+          # name: v1.21.2---vmware.1-tkg.1.ee25d55
+          name: v1.23.8---vmware.3-tkg.1
+    nodePools:
+    - name: worker-nodepool-a1  
+      replicas: 4
+      vmClass: best-effort-xlarge #vmclass to be used for workers(s)
+      storageClass: vc01cl01-t0compute
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 200Gi
+      tkr:  
+        reference:
+          name: v1.23.8---vmware.3-tkg.1
+          # name: v1.21.6---vmware.1-tkg.1.b3d708a
+  settings:
+    storage:
+      defaultClass: vc01cl01-t0compute
+    network:
+      cni:
+        name: antrea       
+      services:
+        cidrBlocks: ["192.50.100.0/12"]
+      pods:
+        cidrBlocks: ["192.40.2.0/16"]
+      
+# https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-31BF8166-5FC8-4D43-933D-5797F3BE4A36.html
