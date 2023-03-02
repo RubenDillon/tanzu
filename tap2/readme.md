@@ -4,7 +4,7 @@
 ```
     1. A vSphere cluster with vCenter based in 7.0 U3 release (Im using H20 internal environment)
     2. NSX-T at the networking infrastructure
-    3. vSphere with Tanzu already deployed (10.220.49.130 is the Supervisor address)
+    3. vSphere with Tanzu already deployed (10.220.22.146 is the Supervisor address)
     4. Integration with Tanzu Mission Control
     5. To deploy 
         - TAP 1.4.x we need Kubernetes v1.23, v1.24 or v1.25. We will be using 1.25
