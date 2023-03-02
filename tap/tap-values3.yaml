@@ -108,9 +108,12 @@ shared:
     jOurUxK6e/n7fIatLQH2CQic4RRQ+MVRFg==
     -----END CERTIFICATE-----
   image_registry:
+    password: "!BlNCj7RDQ19OqMugej"
+    project_path: 10.220.49.131/tap/build-service
     secret:
-      name: tap-default-image-pull-secret
-      namespace: default
+      name: ""
+      namespace: ""
+    username: administrator@vsphere.local
 supply_chain: basic
 tap_gui:
   app_config:
