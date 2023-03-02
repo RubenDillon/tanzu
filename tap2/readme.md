@@ -16,7 +16,8 @@
     2. Create a Cluster Group (I create tap cluster group)
     3. Create a vSphere namespace where TAP and Harbor clusters will reside (I create a "tap" vsphere namespace)
     4. Deploy a TKGs cluster using the file tkgs-shared.yaml provided on this git
-    3. Convert it on a Shared Services cluster
+    3. Deploy Cert-Manager using the defaults
+    4. Deploy Contour using the contour-values.yaml from this git
     
     4. 
     5. We will add the certificate to the supervisor using the update-registry.yaml from this git. 
