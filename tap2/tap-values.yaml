@@ -1,33 +1,4 @@
 buildservice:
-  ca_cert_data: |-
-    -----BEGIN RSA PRIVATE KEY-----
-    MIIEpAIBAAKCAQEA15qD/6YgdzNV1a4j1nz0x+VPscq+ZGGZZYqPLudICMTc2Bwh
-    kY852egkS7BzEEQ7NsWMgzoTbuyEWJgilUGK/8FqqAOc9kayOe0UZXRsynQYHtkE
-    TjHrhrA0xWByvI1+t76NAJQGSkaFbiLTzEVRhG8bAcYjM2ImdiCQ9waQOQwcClSK
-    7Fh/z5ECmuKRg+Gd+vvQx4vLMB1UAr0kfT4Tz2h2iljjJEAlCJIlaPiMkHIbtIye
-    VKzfTaPtFtpbGLm/inmnMpPzhSOfk5a0kOSqY5PlTp9G10N8jyv/zZuuCw5qZlyK
-    qAx8qEHjyrt92Y40MvreHv6cDmp+qMreMaubFwIDAQABAoIBAQDTZ+IIWde5qe9/
-    P2pKlWnbW+FB/v+jJAQqiauOHSAH4Sh/C05rENpz7WkxgknA6HZ7ZUc7IUYO3QGE
-    cWBvo73su7WeGzTcU0PNAseeF4PZG+7OyJKtLcu43KxR4RmAAun+t2xA5eQpDm8l
-    KCcvQ8UDq4H6wlKfvpzh9VrPrXLbS1QU64rxyITnuWLSUsMwWWaEDwGdPoicOsjR
-    atA5eLmssMuiSzYbEnJ6A2S3yYAdP81bz/EEjQKtl7ZsD91Y3890vP5zFHXW14zk
-    jPYBupfoGs79lKlukW60/gLD3jxfRjTRVANm35ZI5XZSGiPipnrK0b3AAq/aXEeB
-    0t1sMbpRAoGBAPd81/wzXD/Q6bruCfiK9cYioXmux+5viY9mWoQVwUWPHbDd4CJ8
-    4ypUp7hzBGQaTqjB0I1P5UzsSQPQEzdl6/qqv9jgMh4zKVs0AsCrS6xWjI4xmF7y
-    IKT65/N7c9ubpNqelkIas39y6VSXORyS10DkllEHBnVvX5sKQBxfTC+5AoGBAN8E
-    7c/rXrnC3TW5vTokg1ydJO5sMDN5vI2xrANCjOQ4SnPBZBhe88k+HuF7GQ9ZUPwh
-    WfB4LUavwwXI/V5gTr3jYpS2Yv4tKH/l8EcpnCAEgCa2lQe6c2Jxcu0Jd82JgfMn
-    KYcbAYZwVZpCAyag1GaKAe1UhUmvomROXAnlRmlPAoGAAP5AQ6PVH/Bvr69a3ON5
-    3wSujzVzWfKao7eub09DCktrvBT33EuSAc57KdNUVi6A2E6GzrpeWjOsi1ZfbV58
-    VvIueOlVaiecZ+BKjolhcVybjcqHKQJhvSfAnIqHSX9TZwkx4ywGQmGsrAk7UnEI
-    ahtAuyyDCx+aS5376eE8BgkCgYEA0lDnpCinUC+ARWZAGVDNwM1BQscsPZ8UPdvM
-    B9b+30pmi/tY1dLVvHak0Kcx3tOwF9Wr56atq/ecxxvgNNxF5bVGBlBp0qHri5Hg
-    onuPDHKyF9AfgwZGQhQS+Y7wOBjxP8ky1IKXUZ0mXS7bodYR+BE1+Aa5G+BSGJ39
-    Fift2ukCgYBevCdEtR4Tf2AYUiy6zrNQ1S7M+XD9ax0n6CWR3Whr5fx3jcSlsqc9
-    ZdbwC/PkMXVhzFgLuLmAVpM9ajeLojloK2EFzapaS7yOGVU5w35sukRpOqytFRz7
-    nwb79BLoUs4csYHqb++CXA7ppptXxjBrt4omB/D64UvKWD12fGgosQ==
-    -----END RSA PRIVATE KEY-----
-buildservice:
   descriptor_name: full
   kp_default_repository: harbor.solateam.be/tap/build-service
   kp_default_repository_password: PASSw0rd2019202020212022
