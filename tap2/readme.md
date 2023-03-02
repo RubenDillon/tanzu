@@ -6,7 +6,7 @@
     2. A management cluster deployed
     4. Integration with Tanzu Mission Control
     5. To deploy 
-        - TAP 1.3.5 we need Kubernetes v1.22, v1.23 or v1.24. We will be using 1.22.5
+        - TAP 1.4.0 we need Kubernetes v1.22, v1.23 or v1.24. We will be using 1.22.5
 ```
 
 ## Create the environment
@@ -121,16 +121,6 @@ EOF
 ```      
 
 ## Create a namespace called tap-install
-
-## Create the harbor secret
-```
-        kubectl get secret -n tap tap-default-image-pull-secret -o yaml > image-pull-secret.yaml
-            editar image-pull-secret.yaml y modificar namespace a tap-install
-        kubectl get secret -n tap tap-01-kubeconfig -o jsonpath='{.data.value}' | base64 -d > cluster-kubeconfig
-        kubectl --kubeconfig=cluster-kubeconfig apply -f image-pull-secret.yaml
-            luego agregue namespace default y build-service (una vez desplegado TAP)
-
-```
 
 ## Install Tanzu Application Platform package from TMC Catalog
 ```
