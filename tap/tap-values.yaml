@@ -1,0 +1,46 @@
+buildservice:
+  kp_default_repository: 10.220.49.131/tap/build-service
+  kp_default_repository_password: "!BlNCj7RDQ19OqMugej"
+  kp_default_repository_username: administrator@vsphere.local
+  tanzunet_password: $PASSw0rd2022
+  tanzunet_username: "rdillon@vmware.com "
+ceip_policy_disclosed: true
+cnrs:
+  domain_name: 10.220.49.133.nip.io
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+excluded_packages:
+  - contour.tanzu.vmware.com
+  - cert-manager.tanzu.vmware.com
+grype:
+  namespace: default
+  targetImagePullSecret: registry-credentials
+learningcenter:
+  ingressDomain: 10.220.49.133.nip.io
+metadata_store:
+  app_service_type: LoadBalancer
+ootb_supply_chain_basic:
+  gitops:
+    ssh_secret: ""
+  registry:
+    repository: tap/supply-chain
+    server: 10.220.49.131
+profile: full
+supply_chain: basic
+tap_gui:
+  app_config:
+    app:
+      baseUrl: http://tap-gui.10.220.49.133.nip.io
+    backend:
+      baseUrl: http://tap-gui.10.220.49.133.nip.io
+      cors:
+        origin: http://tap-gui.10.220.49.133.nip.io
+    catalog:
+      locations:
+        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+          type: url
+  ingressDomain: 10.220.49.133.nip.io
+  ingressEnabled: "true"
+  service_type: ClusterIP
