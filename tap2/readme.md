@@ -1,13 +1,12 @@
-# Deploy Tanzu Application Platform v1.4.0 using Shared Services cluster for Harbor
+# Deploy Tanzu Application Platform v1.4.0 using Azure
 
 ## Requirements
 ```
-    1. A vSphere cluster with vCenter based in 7.0 U3 release (Im using H20 internal environment)
-    2. NSX-T at the networking infrastructure
-    3. vSphere with Tanzu already deployed (10.220.22.146 is the Supervisor address)
+    1. An Azure subscription
+    2. A management cluster deployed
     4. Integration with Tanzu Mission Control
     5. To deploy 
-        - TAP 1.4.x we need Kubernetes v1.23, v1.24 or v1.25. We will be using 1.25
+        - TAP 1.3.5 we need Kubernetes v1.22, v1.23 or v1.24. We will be using 1.22.5
 ```
 
 ## Create the environment
@@ -23,24 +22,78 @@
     
     4. Crear un secreto con las credenciales de AWS
             kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=<AWS_ACCESS_KEY_ID> --from-literal=aws_secret_access_key=<AWS_SECRET_ACCESS_KEY> -n tanzu-system-service-discovery
+            
+    7. Deploy DNS-external from TMC Catalog using the DNS-external-values.yaml from this git
+    8. Create the namespace tanzu-system-registry
+            kubectl create ns tanzu-system-registry
+    9. Create a Cluster issuer using the following command
+
+kubectl apply -f - <<'EOF'
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-contour-cluster-issuer
+  namespace: tanzu-system-ingress
+spec:
+  acme:
+    email: "rdillon@vmware.com"
+    privateKeySecretRef:
+      name: acme-account-key
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - http01:
+        ingress:
+          class: contour
+EOF
     
-    5. We will add the certificate to the supervisor using the update-registry.yaml from this git. 
-    6. You could define a serie of environment variables to easily connect to the supervisor, for example the following
-            export KUBECTL_VSPHERE_PASSWORD='!BlNCj7RDQ19OqMugej' where 'xxx' is the vSphere password 
-    7. Run the following        
-            kubectl apply -f update-certificate.yaml
+    10. Request the certificate as follow
+    
+kubectl apply -f - <<'EOF'
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: harbor-cert
+  namespace: tanzu-system-registry
+spec:
+  secretName: harbor-cert-tls
+  duration: 2160h
+  renewBefore: 360h
+  subject:
+    organizations:
+    - vmware
+  commonName: harbor.solateam.be
+  isCA: false
+  privateKey:
+    size: 2048
+    algorithm: RSA
+    encoding: PKCS1
+  dnsNames:
+  - harbor.solateam.be
+  - notary.harbor.solateam.be
+  issuerRef:
+    name: letsencrypt-contour-cluster-issuer
+    kind: ClusterIssuer
+EOF
+    
+    11. Now we will expect to wait more or less 10 minutes until we could have the certificate. To verify it use the following command
+    
+            kubectl get certificates -n tanzu-system-registry harbor-cert
+    
+    12. 
+    
+    
+    
+    
+    
+            
+            
 ```       
       
 ## Create a TKGs cluster using TMC
 ```
-    1. Create the cluster where TAP will reside. For that, use the tkgs-deployment.yaml from this git. 
-    2. Modify the Trusts part of the file. You need to convert the Harbor certificate to base64 enconde.
-            Obtain the certificate from the Harbor UI (go to tap project, reporsitories and then download Registry Certificate)
-            To convert the certificate to base64 encode use for example https://www.online-toolz.com/tools/base64-decode-encode-online.php    
-    2. TKGs-deployment.yaml creates a cluster with more space on the storage nodes than the default
-            Control Plane a 100GB volume for etcd nodes........ mounting the volume at /var/lib/etcd
-            Workers add a 200GB volume for containerd ......... mounting the volume at /var/lib/containerd
-    2. That files creates a 3 nodes control plane and 5 workers nodes cluster
+    1. Create a cluster using TMC. (I create prod-east-01)
+    2. 
+    
 ```
 ## Configure TAP-01 cluster
 ```
