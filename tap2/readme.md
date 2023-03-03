@@ -60,7 +60,7 @@
     
     10. Request the certificate as follow
     
-    ![Request a certificate to lets encrypt public site] (https://github.com/RubenDillon/tanzu/blob/main/tap2/assets/secreto.png)
+    ![Request a certificate to lets encrypt public site](https://github.com/RubenDillon/tanzu/blob/main/tap2/assets/secreto.png)
     
     
 kubectl apply -f - <<'EOF'
