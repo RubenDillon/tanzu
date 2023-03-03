@@ -1,0 +1,52 @@
+buildservice:
+  descriptor_name: full
+  enable_automatic_dependency_updates: true
+  enable_synced_secrets: false
+  kp_default_repository: harbor.solateam.be/tap/build-service
+  kp_default_repository_password: PASSw0rd2019202020212022
+  kp_default_repository_username: admin
+  tanzunet_password: PA$$w0rd2023
+  tanzunet_username: ruben_dillon@hotmail.com
+ceip_policy_disclosed: true
+cnrs:
+  domain_name: solateam.be
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+excluded_packages:
+  - contour.tanzu.vmware.com
+  - cert-manager.tanzu.vmware.com
+grype:
+  namespace: default
+  targetImagePullSecret: harbor-cert
+learningcenter:
+  ingressDomain: solateam.be
+metadata_store:
+  app_service_type: LoadBalancer
+ootb_supply_chain_basic:
+  gitops:
+    ssh_secret: ""
+  registry:
+    repository: tap/supply-chain
+    server: harbor.solateam.be
+profile: full
+supply_chain: basic
+tap_gui:
+  app_config:
+    app:
+      baseUrl: http://tap-gui.solateam.be
+    backend:
+      baseUrl: http://tap-gui.solateam.be
+      cors:
+        origin: http://tap-gui.solateam.be
+    catalog:
+      locations:
+        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+          type: url
+  ingressDomain: solateam.be
+  ingressEnabled: "true"
+  scanning:
+    metadataStore:
+      url: ""
+  service_type: ClusterIP
