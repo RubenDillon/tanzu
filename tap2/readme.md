@@ -1,54 +1,66 @@
-# Deploy Tanzu Application Platform v1.3.5 using Azure
+# Deploy Tanzu Application Platform v1.3.5 using Azure with Harbor (using FREE public certificates)
 
 ## Requirements
 ```
-    1. An Azure subscription
-    2. A management cluster deployed
-    4. Integration with Tanzu Mission Control
+    1. An Azure subscription to deploy TKG
+    2. A management cluster deployed on Azure
+    3. An AWS subscription for route53 DNS service (we create solateam.be domain)
+    4. Tanzu Mission Control
     5. To deploy 
-        - TAP 1.3.5 we need Kubernetes v1.22, v1.23 or v1.24. We will be using 1.22.5
+        - TAP 1.3.5 we need Kubernetes v1.22, v1.23 or v1.24. We will be using 1.22.5 on a TKG deployed on Azure
 ```
 
 ## Create the environment
 ```
-    1. Join the Supervisor Cluster to TMC. 
-    2. Create a Cluster Group (I create tap cluster group)
-    3. Create a vSphere namespace where TAP and Harbor clusters will reside (I create a "tap" vsphere namespace)
-    4. Deploy a TKGs cluster using the file tkgs-shared.yaml provided on this git
+    1. Join the Management Cluster to TMC. 
+    2. Create a Cluster Group (I create "TAP" cluster group)
+    4. Deploy a TKG cluster 
+    
+            1 node control plane (Standard_F8s_v2)
+            4 node workers nodes (Standard_F8s_v2)
+    
     3. Deploy Cert-Manager using the defaults
     4. Deploy Contour using the contour-values.yaml from this git
-    5. crear namespace tanzu-system-service-discovery 
+    5. Create the namespace tanzu-system-service-discovery 
+    
             kubectl create ns tanzu-system-service-discovery
     
-    4. Crear un secreto con las credenciales de AWS
+    4. Create un secreto con las credenciales de AWS
+            
             kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=<AWS_ACCESS_KEY_ID> --from-literal=aws_secret_access_key=<AWS_SECRET_ACCESS_KEY> -n tanzu-system-service-discovery
             
-            kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=ASIA33SE4POIFC74GSDM --from-literal=aws_secret_access_key=VmM0EpFiTZM8RiNEWmsPVGzgO9AkD617Uy/u8OJo -n tanzu-system-service-discovery
+            for example
             
-    7. Deploy DNS-external from TMC Catalog using the DNS-external-values.yaml from this git
+            kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=ASIA3... --from-literal=aws_secret_access_key=VmM0EpFiTZM8RiNEWm.... -n tanzu-system-service-discovery
+            
+    7. Deploy DNS-external from TMC Catalog using the DNS-external-values.yaml from this git. Modify the file as needed.
     8. Create the namespace tanzu-system-registry
-            kubectl create ns tanzu-system-registry
+       
+        kubectl create ns tanzu-system-registry
+        
     9. Create a Cluster issuer using the following command
 
-kubectl apply -f - <<'EOF'
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt-contour-cluster-issuer
-  namespace: tanzu-system-ingress
-spec:
-  acme:
-    email: "rdillon@vmware.com"
-    privateKeySecretRef:
-      name: acme-account-key
-    server: https://acme-v02.api.letsencrypt.org/directory
-    solvers:
-    - http01:
-        ingress:
-          class: contour
-EOF
+        kubectl apply -f - <<'EOF'
+        apiVersion: cert-manager.io/v1
+        kind: ClusterIssuer
+        metadata:
+          name: letsencrypt-contour-cluster-issuer
+          namespace: tanzu-system-ingress
+        spec:
+          acme:
+            email: "rdillon@vmware.com"
+            privateKeySecretRef:
+              name: acme-account-key
+              server: https://acme-v02.api.letsencrypt.org/directory
+            solvers:
+                - http01:
+                ingress:
+                class: contour
+        EOF
     
     10. Request the certificate as follow
+    
+    
     
 kubectl apply -f - <<'EOF'
 apiVersion: cert-manager.io/v1
