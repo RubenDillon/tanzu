@@ -16,8 +16,8 @@
     2. Create a Cluster Group (I create "TAP" cluster group)
     3. Deploy a TKG cluster 
     
-            1 node control plane (Standard_F8s_v2)
-            4 node workers nodes (Standard_F8s_v2)
+            1 instance for Control plane (Standard_F8s_v2 = 4 vCPU and 16 GB RAM each)
+            5 instances for Workers nodes (Standard_F8s_v2 = 4 vCPU and 16 GB RAM each)
     
     4. Deploy Cert-Manager using the defaults
     5. Deploy Contour using the contour-values.yaml from this git
@@ -150,8 +150,6 @@
             tanzu package installed list -A
           
 ```  
-
-**** YES !!!!! Tanzu Application Platform is deployed using Azure, TMC and public certificates for Harbor****
 
 ## Review the Self-Guided Workshop
 ```
