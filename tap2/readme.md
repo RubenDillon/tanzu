@@ -150,7 +150,7 @@
             tanzu package installed list -A
             
             
-   **YES!!!!** ... TAP is deployed using TMC, Harbor and FREE public certificates 
+   ****YES!!!!****** ... TAP is deployed using TMC, Harbor and FREE public certificates 
     
     
 ```  
