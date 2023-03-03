@@ -1,4 +1,4 @@
-# Deploy Tanzu Application Platform v1.4.0 using Azure
+# Deploy Tanzu Application Platform v1.3.5 using Azure
 
 ## Requirements
 ```
@@ -6,7 +6,7 @@
     2. A management cluster deployed
     4. Integration with Tanzu Mission Control
     5. To deploy 
-        - TAP 1.4.0 we need Kubernetes v1.22, v1.23 or v1.24. We will be using 1.22.5
+        - TAP 1.3.5 we need Kubernetes v1.22, v1.23 or v1.24. We will be using 1.22.5
 ```
 
 ## Create the environment
@@ -114,7 +114,7 @@ EOF
 ## Create the repository
 ```
         Name: tanzu-tap-repository
-        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.4.0
+        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.3.5
 ```
 
 ## Obtain where is running ENVOY
