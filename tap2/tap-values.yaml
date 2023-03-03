@@ -17,7 +17,7 @@ excluded_packages:
   - cert-manager.tanzu.vmware.com
 grype:
   namespace: default
-  targetImagePullSecret: registry-credentials
+  targetImagePullSecret: harbor-cert
 learningcenter:
   ingressDomain: solateam.be
 metadata_store:
@@ -45,3 +45,6 @@ tap_gui:
   ingressDomain: solateam.be
   ingressEnabled: "true"
   service_type: ClusterIP
+  scanning:
+    metadataStore:
+      url: ""
