@@ -7,9 +7,13 @@ En este repositorio vamos a poder encontrar como desplegar TANZU KUBERNETES GRID
 como tambien el apartado para desplegar TANZU APPLICATION PLATFORM.
 
 ## AZURE
-
+En este apartado encontraran todos los scripts y valores por defecto para poder desplegar los componentes de TANZU Kubernetes Grid 
+sobre una plataforma de nube publica de Microsoft.
 
 ## vSphere
-
+En este apartado encontraran todos los scripts y valores por defecto para poder desplegar los componentes de TANZU Kubernetes Grid 
+sobre una plataforma vSphere.
 
 ## TAP
+En este apartado encontraran todos los scripts y valores por defecto para poder desplegar los componentes de TANZU APPLICATION PLATFORM 
+sobre una plataforma vSphere (TAP) y de nube publica de Microsoft (TAP2).
