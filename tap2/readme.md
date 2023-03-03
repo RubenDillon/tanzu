@@ -108,7 +108,8 @@ EOF
     14. Connect to harbor and create "tap" project as public.
             
 ```       
-      
+[Request a certificate to lets encrypt public site] (https://github.com/RubenDillon/tanzu/blob/main/tap2/assets/secreto.png)
+
 ## Configure the cluster
 ```
     1. Nos conectamos al cluster, corremos allow-run-as.yaml and then run the following
