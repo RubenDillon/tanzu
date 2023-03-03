@@ -108,7 +108,7 @@ EOF
     14. Connect to harbor and create "tap" project as public.
             
 ```       
-[Request a certificate to lets encrypt public site] (https://github.com/RubenDillon/tanzu/blob/main/tap2/assets/secreto.png)
+![Request a certificate to lets encrypt public site](https://github.com/RubenDillon/tanzu/blob/main/tap2/assets/secreto.png)
 
 ## Configure the cluster
 ```
