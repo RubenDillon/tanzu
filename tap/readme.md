@@ -1,4 +1,4 @@
-# Desplegando Tanzu Application Platform v1.4.0
+# Desplegando Tanzu Application Platform v1.4.0 en vSphere con Harbor (certificados self-signed)
 
 ## Requirements
 ```
