@@ -148,12 +148,10 @@
     5. Verify all packages are successfully reconciled
             
             tanzu package installed list -A
-            
-            
-   ****YES!!!!****** ... TAP is deployed using TMC, Harbor and FREE public certificates 
-    
-    
+          
 ```  
+
+**** YES !!!!! Tanzu Application Platform is deployed using Azure, TMC and public certificates for Harbor****
 
 ## Review the Self-Guided Workshop
 ```
