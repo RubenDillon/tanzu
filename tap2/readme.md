@@ -213,7 +213,38 @@ subjects:
 EOF
 
 ```
+# Deploy an example
+
+```
+
+    1. Deploy the application using an example from github
     
+            tanzu apps workload create tanzu-java-web-app \
+            --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
+            --sub-path tanzu-java-web-app \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=tanzu-java-web-app \
+            --yes \
+            --namespace default
+            
+            
+    2. View the build and runtime logs 
+    
+            tanzu apps workload tail tanzu-java-web-app --since 10m --timestamp --namespace default
+    
+    3. After ends you could access the TAP GUI to see the process and using the following command
+    
+            tanzu apps workload get tanzu-java-web-app --namespace default
+            
+    4. To register the application, go to the tap-gui.solateam.be and click "Register Entity"
+    
+            input: https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
+    
+    
+    5. Iterate with the application (To be defined...)
+    
+```
 
 
   Basado en 
