@@ -158,6 +158,62 @@
     2. then connect to the defined URL
 ```
     
+## Create developer namespace (single user access)
+```
+    1. Run the following command to Create the secret
+    
+            tanzu secret registry add registry-credentials --server harbor.solateam.be --username admin --password 'PASSw0rd2019202020212022' --namespace default
+    
+    2. To add secrets, a service account to execute the supply chain, and RBAC rules to authorize the service account to the developer namespace, run
+    
+cat <<EOF | kubectl -n default apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tap-registry
+  annotations:
+    secretgen.carvel.dev/image-pull-secret: ""
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: e30K
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+secrets:
+  - name: registry-credentials
+imagePullSecrets:
+  - name: registry-credentials
+  - name: tap-registry
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: default-permit-deliverable
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: deliverable
+subjects:
+  - kind: ServiceAccount
+    name: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: default-permit-workload
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: workload
+subjects:
+  - kind: ServiceAccount
+    name: default
+EOF
+
+```
+    
 
 
   Basado en 
