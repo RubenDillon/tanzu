@@ -240,6 +240,34 @@ EOF
     4. To register the application, go to the tap-gui.solateam.be and click "Register Entity"
     
             input: https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
+```
+
+# Deploy a more complex application
+
+```
+
+    1. Use the Application accelerator and select the "Where-to-Eat" application
+    
+    2. Use the defaults and download the zip file
+    
+    3. Upload to your github. In my case I upload into https://github.com/RubenDillon/where-to-eat
+    
+    4. Create the application into TAP
+    
+tanzu apps workload create where-to-eat \
+--git-repo https://github.com/RubenDillon/where-to-eat \
+--git-branch main \
+--type web \
+--label app.kubernetes.io/part-of=tanzu-where-to-eat \
+--yes \
+--namespace default
+
+    5. View the build and runtime logs 
+    
+            tanzu apps workload tail where-to-eat --since 10m --timestamp --namespace default
+    
+    
+    
     
     
     5. Iterate with the application (To be defined...)
