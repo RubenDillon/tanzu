@@ -14,18 +14,18 @@
 ```
     1. Join the Management Cluster to TMC. 
     2. Create a Cluster Group (I create "TAP" cluster group)
-    4. Deploy a TKG cluster 
+    3. Deploy a TKG cluster 
     
             1 node control plane (Standard_F8s_v2)
             4 node workers nodes (Standard_F8s_v2)
     
-    3. Deploy Cert-Manager using the defaults
-    4. Deploy Contour using the contour-values.yaml from this git
-    5. Create the namespace tanzu-system-service-discovery 
+    4. Deploy Cert-Manager using the defaults
+    5. Deploy Contour using the contour-values.yaml from this git
+    6. Create the namespace tanzu-system-service-discovery 
     
             kubectl create ns tanzu-system-service-discovery
     
-    4. Create un secreto con las credenciales de AWS
+    7. Create un secreto con las credenciales de AWS
             
             kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=<AWS_ACCESS_KEY_ID> --from-literal=aws_secret_access_key=<AWS_SECRET_ACCESS_KEY> -n tanzu-system-service-discovery
             
@@ -33,12 +33,12 @@
             
             kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=ASIA3... --from-literal=aws_secret_access_key=VmM0EpFiTZM8RiNEWm.... -n tanzu-system-service-discovery
             
-    7. Deploy DNS-external from TMC Catalog using the DNS-external-values.yaml from this git. Modify the file as needed.
-    8. Create the namespace tanzu-system-registry
+    8. Deploy DNS-external from TMC Catalog using the DNS-external-values.yaml from this git. Modify the file as needed.
+    9. Create the namespace tanzu-system-registry
        
-        kubectl create ns tanzu-system-registry
+            kubectl create ns tanzu-system-registry
         
-    9. Create a Cluster issuer using the following command
+    10. Create a Cluster issuer using the following command
 
         kubectl apply -f - <<'EOF'
         apiVersion: cert-manager.io/v1
@@ -51,69 +51,67 @@
             email: "rdillon@vmware.com"
             privateKeySecretRef:
               name: acme-account-key
-              server: https://acme-v02.api.letsencrypt.org/directory
+            server: https://acme-v02.api.letsencrypt.org/directory
             solvers:
-                - http01:
+            - http01:
                 ingress:
-                class: contour
+                  class: contour
         EOF
     
-    10. Request the certificate as follow
+    11. Request the certificate as follow
     
-    ![Request a certificate to lets encrypt public site](https://github.com/RubenDillon/tanzu/blob/main/tap2/assets/secreto.png)
+        kubectl apply -f - <<'EOF'
+        apiVersion: cert-manager.io/v1
+        kind: Certificate
+        metadata:
+          name: harbor-cert
+          namespace: tanzu-system-registry
+        spec:
+          secretName: harbor-cert-tls
+          duration: 2160h
+          renewBefore: 360h
+          subject:
+            organizations:
+            - vmware
+          commonName: harbor.solateam.be
+          isCA: false
+          privateKey:
+            size: 2048
+            algorithm: RSA
+            encoding: PKCS1
+          dnsNames:
+          - harbor.solateam.be
+          - notary.harbor.solateam.be
+          issuerRef:
+            name: letsencrypt-contour-cluster-issuer
+            kind: ClusterIssuer
+        EOF
     
-    
-kubectl apply -f - <<'EOF'
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: harbor-cert
-  namespace: tanzu-system-registry
-spec:
-  secretName: harbor-cert-tls
-  duration: 2160h
-  renewBefore: 360h
-  subject:
-    organizations:
-    - vmware
-  commonName: harbor.solateam.be
-  isCA: false
-  privateKey:
-    size: 2048
-    algorithm: RSA
-    encoding: PKCS1
-  dnsNames:
-  - harbor.solateam.be
-  - notary.harbor.solateam.be
-  issuerRef:
-    name: letsencrypt-contour-cluster-issuer
-    kind: ClusterIssuer
-EOF
-    
-    11. Now we will expect to wait more or less 10 minutes until we could have the certificate. To verify it use the following command
+    12. Now we will expect to wait more or less 10 minutes until we could have the certificate. To verify it use the following command
     
             kubectl get certificates -n tanzu-system-registry harbor-cert
     
-    12. When you have TRUE in ready column, you will continue to the next step that is obtain the certificates
+    13. When you have TRUE in ready column, you will continue to the next step that is obtain the certificates
         
             kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.crt"} | base64 --decode > tls-crt.txt
             
             kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.key"} | base64 --decode > tls-key.txt
-      
-        Save both results
         
-        
-    13. Deploy Harbor from the TMC Catalog using harbor-values.yaml from this git. Modify the fields whith yours certificate.
+    14. Deploy Harbor from the TMC Catalog using harbor-values.yaml from this git. Modify the fields whith yours certificate.
     
-    14. Connect to harbor and create "tap" project as public.
+    15. Connect to harbor and create "tap" project as public.
             
-```       
-![Request a certificate to lets encrypt public site](https://github.com/RubenDillon/tanzu/blob/main/tap2/assets/secreto.png)
+```      
 
 ## Configure the cluster
 ```
-    1. Nos conectamos al cluster, corremos allow-run-as.yaml and then run the following
-            kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
+    1. We connect to the cluster and run allow-run-as.yaml from the kubernetes/TKGs git 
+    
+    2. Then run the following
+    
+        kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
+            
+    3. Create the namespace "tap-install"
 
 ```
 ## create the secret using TMC
@@ -122,6 +120,8 @@ EOF
         Image registry URL: registry.tanzu.vmware.com
         Username: <tanzu-net-username>
         Password: <tanzu-net-password>
+        namespace: tap-install
+        export to all namespaces
 
 ```
 
@@ -136,20 +136,21 @@ EOF
       In our example we assume that is running on the following IP Address: 20.246.129.194
 ```      
 
-## Create a namespace called tap-install
-
 ## Install Tanzu Application Platform package from TMC Catalog
 ```
     1. Select the Tanzu Application Platform
     2. Select tap as name and 1.3.5 for the version
-    3. Copy the tap-values.yaml from this git. Modificar el certificado, usando el del repositorio TAP de Harbor
+    3. Copy the tap-values.yaml from this git. Modify the file as needed.
     4. Monitor the install by running
+            
             tanzu package installed get tap -n tap-install
+            
     5. Verify all packages are successfully reconciled
+            
             tanzu package installed list -A
             
             
-    YES!!!! ... TAP deployed 
+   ** YES!!!! ** ... TAP is deployed using TMC, Harbor and FREE public certificates 
     
     
 ```  
