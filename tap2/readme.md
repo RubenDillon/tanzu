@@ -276,12 +276,63 @@ tanzu apps workload create where-to-eat \
 
 
 
-##APPENDIX
+# APPENDIX
 
 ## Using Harbor as local registry to deploy TAP
 
 ```
+        1. Connect to Harbor and to Tanzu Network
+                docker login harbor.solateam.be
+                docker login registry.tanzu.vmware.com
+        
+        2. Create the variables to run the commands
+         
+            export INSTALL_REGISTRY_USERNAME=admin
+            export INSTALL_REGISTRY_PASSWORD=PASSw0rd2019202020212022
+            export INSTALL_REGISTRY_HOSTNAME=harbor.solateam.be
+            export TAP_VERSION=1.3.5
+            export INSTALL_REPO=export INSTALL_REPO=tap
+         
+        3. To review which versions of TAP are available run the following
+       
+            imgpkg tag list -i registry.tanzu.vmware.com/tanzu-application-platform/tap-packages | grep -v sha | sort -V
 
+        4. Move the images to your local registry using the following
+        
+            imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
+            
+            This will take almost 1h 20minutes
+            
+         5. Create the tap-install namespace
+         
+            kubectl create ns tap-install
+            
+         6. Create a registry secret with the following command
+         
+                tanzu secret registry add tap-registry \
+                --username ${INSTALL_REGISTRY_USERNAME} --password ${INSTALL_REGISTRY_PASSWORD} \
+                --server ${INSTALL_REGISTRY_HOSTNAME} \
+                --export-to-all-namespaces --yes --namespace tap-install
+         
+         7. Create the TAP repository
+                
+                tanzu package repository add tanzu-tap-repository \
+                --url ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages:$TAP_VERSION \
+                --namespace tap-install
+         
+         8. Use the following command to review the status of the repository
+         
+                tanzu package repository get tanzu-tap-repository --namespace tap-install
+         
+         9. Deploy using the TMC Catalog (as described in this readme) of using the following command (first you need download tap-values.yaml)
+         
+                tanzu package install tap -p tap.tanzu.vmware.com -v $TAP_VERSION --values-file tap-values.yaml -n tap-install
+                
+         10. To review the process 
+         
+                tanzu package installed get tap -n tap-install
+         
+         
 
 ```
 
