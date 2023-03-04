@@ -7,6 +7,7 @@ buildservice:
   kp_default_repository_username: admin
   tanzunet_password: PA$$w0rd2023
   tanzunet_username: ruben_dillon@hotmail.com
+  exclude_dependencies: true
 ceip_policy_disclosed: true
 cnrs:
   domain_name: solateam.be
