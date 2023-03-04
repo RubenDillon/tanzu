@@ -1,7 +1,4 @@
 buildservice:
-  descriptor_name: full
-  enable_automatic_dependency_updates: true
-  enable_synced_secrets: false
   kp_default_repository: harbor.solateam.be/tap/build-service
   kp_default_repository_password: PASSw0rd2019202020212022
   kp_default_repository_username: admin
