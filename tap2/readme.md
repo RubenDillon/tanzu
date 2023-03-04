@@ -180,11 +180,16 @@
             
             Where VERSION is the version of the buildservice package you retrieved earlier.
 
-    4. Install the full dependencies package by running:
+    4. Install the full dependencies package by running or update the current TAP deployment 
 
             tanzu package install full-tbs-deps -p full-tbs-deps.tanzu.vmware.com -v VERSION -n tap-install
             
             Where VERSION is the version of the buildservice package you retrieved earlier.
+            
+            or update
+            
+            tanzu package installed update tap -p tap.tanzu.vmware.com -v $TAP_VERSION  --values-file tap-values.yaml -n tap-install
+            
 
 ```
 
