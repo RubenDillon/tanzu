@@ -296,13 +296,40 @@ tanzu apps workload create where-to-eat \
         3. To review which versions of TAP are available run the following
        
             imgpkg tag list -i registry.tanzu.vmware.com/tanzu-application-platform/tap-packages | grep -v sha | sort -V
+                        
 
         4. Move the images to your local registry using the following
         
             imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages
             
             This will take almost 1h 20minutes
+
+
+        5.  Get the latest version of the buildservice package by running:
             
+                    tanzu package available list buildservice.tanzu.vmware.com --namespace tap-install
+            
+         6. Relocate the Tanzu Build Service full dependencies
+         
+                    imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/full-tbs-deps-package-repo:VERSION \
+  --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tbs-full-deps
+  
+                where VERSION is the number that we review in the last command. This process takes another 1h 30 minutes
+         
+         
+         7.  Add the Tanzu Build Service full dependencies package repository 
+            
+                    tanzu package repository add tbs-full-deps-repository \
+                    --url ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tbs-full-deps:VERSION \
+                    --namespace tap-install
+            
+            where VERSION is the number that we review in the last command. 
+            
+        7.  Install full dependencies package by running:
+        
+                    tanzu package install full-tbs-deps -p full-tbs-deps.tanzu.vmware.com -v VERSION -n tap-install
+
+
          5. Create the tap-install namespace
          
             kubectl create ns tap-install
