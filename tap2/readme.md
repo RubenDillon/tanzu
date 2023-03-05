@@ -255,6 +255,30 @@ subjects:
 EOF
 
 ```
+
+# Configure VS Code
+```
+
+        1. Deploy VS Code on your machine
+        2. Connect to Tanzu Network and download TANZU Developers Tools for Visual Studio Code
+        3. Open VS Code.
+        4. Press cmd+shift+P to open the Command Palette and run Extensions: Install from VSIX....
+        5. Select the extension file tanzu-vscode-extension.vsix.
+        6. If you do not have the following extensions, and they do not automatically install, install them from VS Code Marketplace:
+                - Debugger for Java
+                - Language Support for Java(™) by Red Hat
+                - YAML
+        7. Ensure Language Support for Java is running in Standard Mode. You can configure it in the Settings menu by going to Code > Preferences >      Settings under Java > Server: Launch Mode.
+        8. When the JDK and Language Support for Java are configured correctly, you see that the integrated development environment creates a directory target where the code is compiled.
+        9. Configure VMware Tanzu Developer Tools for VS Code
+                - Confirm Delete: This controls whether the extension asks for confirmation when deleting a workload.
+                - Enable Live Hover:  Reload VS Code for this change to take effect.
+                - Source Image: solateam.be/tap
+                - Namespace: default.   
+        
+```
+
+
 # Deploy an example
 
 ```
@@ -351,7 +375,7 @@ tanzu apps workload create where-to-eat \
             
                     tanzu package available list buildservice.tanzu.vmware.com --namespace tap-install
             
-         6. Relocate the Tanzu Build Service full dependencies
+        6. Relocate the Tanzu Build Service full dependencies
          
                     imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/full-tbs-deps-package-repo:VERSION \
   --to-repo ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tbs-full-deps
@@ -359,7 +383,7 @@ tanzu apps workload create where-to-eat \
                 where VERSION is the number that we review in the last command. This process takes another 1h 30 minutes
          
          
-         7.  Add the Tanzu Build Service full dependencies package repository 
+        7.  Add the Tanzu Build Service full dependencies package repository 
             
                     tanzu package repository add tbs-full-deps-repository \
                     --url ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tbs-full-deps:VERSION \
@@ -367,43 +391,43 @@ tanzu apps workload create where-to-eat \
             
             where VERSION is the number that we review in the last command. 
             
-        7.  Install full dependencies package by running:
+        8.  Install full dependencies package by running:
         
                     tanzu package install full-tbs-deps -p full-tbs-deps.tanzu.vmware.com -v VERSION -n tap-install
 
 
-         5. Create the tap-install namespace
+        9. Create the tap-install namespace
          
             kubectl create ns tap-install
             
-         6. Create a registry secret with the following command
+        10. Create a registry secret with the following command
          
                 tanzu secret registry add tap-registry \
                 --username ${INSTALL_REGISTRY_USERNAME} --password ${INSTALL_REGISTRY_PASSWORD} \
                 --server ${INSTALL_REGISTRY_HOSTNAME} \
                 --export-to-all-namespaces --yes --namespace tap-install
          
-         7. Create the TAP repository
+        11. Create the TAP repository
                 
                 tanzu package repository add tanzu-tap-repository \
                 --url ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tap-packages:$TAP_VERSION \
                 --namespace tap-install
          
-         8. Use the following command to review the status of the repository
+        12. Use the following command to review the status of the repository
          
                 tanzu package repository get tanzu-tap-repository --namespace tap-install
          
-         9. Deploy using the TMC Catalog (as described in this readme) of using the following command (first you need download tap-values.yaml)
+        13. Deploy using the TMC Catalog (as described in this readme) of using the following command (first you need download tap-values.yaml)
          
                 tanzu package install tap -p tap.tanzu.vmware.com -v $TAP_VERSION --values-file tap-values.yaml -n tap-install
                 
-         10. To review the process 
+        14. To review the process 
          
                 tanzu package installed get tap -n tap-install
-         
-         
+                  
 
 ```
+
 
   Basado en 
   - https://confluence.eng.vmware.com/display/CNA/TAP+-+How+to+install+TAP+using+TMC
