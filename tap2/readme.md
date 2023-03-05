@@ -428,6 +428,19 @@ tanzu apps workload create where-to-eat \
 
 ```
 
+### Troubleshooting “Builder default is not ready” message
+
+```
+        1. Restart kpack by deleting the kpack-controller and kpack-webhook pods in the kpack namespace. Deleting these resources triggers their recreation:
+                kubectl delete pods --all --namespace kpack
+
+        2. Verify status of the replacement pods:
+                kubectl get pods --namespace kpack
+
+        3. Verify the workload status after the new kpack pods STATUS are Running:
+                tanzu apps workload get YOUR-WORKLOAD-NAME
+
+```
 
   Basado en 
   - https://confluence.eng.vmware.com/display/CNA/TAP+-+How+to+install+TAP+using+TMC
