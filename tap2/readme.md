@@ -286,7 +286,7 @@ EOF
     1. Deploy the application using an example from github
     
             tanzu apps workload create tanzu-java-web-app \
-            --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
+            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
             --sub-path tanzu-java-web-app \
             --git-branch main \
             --type web \
