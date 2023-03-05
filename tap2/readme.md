@@ -391,11 +391,6 @@ tanzu apps workload create where-to-eat \
             
             where VERSION is the number that we review in the last command. 
             
-        8.  Install full dependencies package by running:
-        
-                    tanzu package install full-tbs-deps -p full-tbs-deps.tanzu.vmware.com -v VERSION -n tap-install
-
-
         9. Create the tap-install namespace
          
             kubectl create ns tap-install
@@ -417,9 +412,13 @@ tanzu apps workload create where-to-eat \
          
                 tanzu package repository get tanzu-tap-repository --namespace tap-install
          
-        13. Deploy using the TMC Catalog (as described in this readme) of using the following command (first you need download tap-values.yaml)
+        13. Deploy using the following command (first you need download tap-values.yaml)
          
                 tanzu package install tap -p tap.tanzu.vmware.com -v $TAP_VERSION --values-file tap-values.yaml -n tap-install
+                
+         14.  Install full dependencies package by running:
+        
+                tanzu package install full-tbs-deps -p full-tbs-deps.tanzu.vmware.com -v VERSION -n tap-install
                 
         14. To review the process 
          
