@@ -305,7 +305,7 @@ EOF
             
     4. To register the application, go to the tap-gui.solateam.be and click "Register Entity"
     
-            input: https://github.com/vmware-tanzu/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
+            input: https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
 ```
 
 # Deploy a more complex application
