@@ -332,14 +332,38 @@ tanzu apps workload create where-to-eat \
     
             tanzu apps workload tail where-to-eat --since 10m --timestamp --namespace default
     
-    
-    
-    
-    
     5. Iterate with the application (To be defined...)
     
 ```
 
+### Another
+```
+
+        Where to Dinner application
+        
+            tanzu apps workload create where-to-dinner \
+            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
+            --sub-path where-to-dinner \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=tanzu-java-web-app \
+            --yes \
+            --namespace default
+
+
+        Weather application using Steeltoe
+        
+            tanzu apps workload create weather \
+            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
+            --sub-path weatherforecast-steeltoe \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=tanzu-java-web-app \
+            --yes \
+            --namespace default
+
+
+```
 
 
 # APPENDIX
