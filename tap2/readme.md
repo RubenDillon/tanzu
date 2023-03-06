@@ -342,12 +342,12 @@ tanzu apps workload create where-to-eat \
 
         Weather application using Steeltoe
         
-            tanzu apps workload create weather \
+            tanzu apps workload create weatherforecast-steeltoe \
             --git-repo https://github.com/RubenDillon/application-accelerator-samples \
             --sub-path weatherforecast-steeltoe \
             --git-branch main \
             --type web \
-            --label app.kubernetes.io/part-of=tanzu-steeltoe-weather \
+            --label app.kubernetes.io/part-of=weatherforecast-steeltoe \
             --yes \
             --namespace default
             
