@@ -339,17 +339,6 @@ tanzu apps workload create where-to-eat \
 ### Another
 ```
 
-        Where to Dinner application
-        
-            tanzu apps workload create where-to-dinner \
-            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
-            --sub-path where-to-dinner \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=tanzu-java-web-app \
-            --yes \
-            --namespace default
-
 
         Weather application using Steeltoe
         
@@ -358,9 +347,13 @@ tanzu apps workload create where-to-eat \
             --sub-path weatherforecast-steeltoe \
             --git-branch main \
             --type web \
-            --label app.kubernetes.io/part-of=tanzu-java-web-app \
+            --label app.kubernetes.io/part-of=tanzu-steeltoe-weather \
             --yes \
             --namespace default
+            
+            
+            To import use
+            https://github.com/RubenDillon/application-accelerator-samples/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
 
 
 ```
