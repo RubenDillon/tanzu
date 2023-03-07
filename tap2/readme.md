@@ -33,7 +33,20 @@
             
             kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=ASIA3... --from-literal=aws_secret_access_key=VmM0EpFiTZM8RiNEWm.... -n tanzu-system-service-discovery
             
-    8. Deploy DNS-external from TMC Catalog using the DNS-external-values.yaml from this git. Modify the file as needed.
+    8. Deploy DNS-external from TMC Catalog or with the CLI using the DNS-external-values.yaml from this git. Modify the file as needed.
+            
+            tanzu package available list external-dns.tanzu.vmware.com -A
+            
+                to know the available packages and to select the newest, for example the following version 0.10.0+vmware.1-tkg.1
+                
+            tanzu package install external-dns \
+            --package-name external-dns.tanzu.vmware.com \
+            --version 0.10.0+vmware.1-tkg.1 \
+            --values-file external-dns.yaml \
+            --namespace tanzu-system-service-discovery \
+            --create-namespace
+    
+    
     9. Create the namespace tanzu-system-registry
        
             kubectl create ns tanzu-system-registry
