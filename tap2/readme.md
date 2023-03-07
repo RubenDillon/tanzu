@@ -471,6 +471,19 @@ tanzu apps workload create where-to-eat \
 
 ```
 
+### Troubleshoot namespace Terminating
+```
+
+    For example the ns tanzu-system-service-discovery is in Terminating status...
+    
+    kubectl get namespace tanzu-system-service-discovery -o json \
+  | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
+  | kubectl replace --raw /api/v1/namespaces/tanzu-system-service-discovery/finalize -f -
+    
+    
+```
+
+
   Basado en 
   - https://confluence.eng.vmware.com/display/CNA/TAP+-+How+to+install+TAP+using+TMC
   - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.0/tap/GUID-install.html
