@@ -14,7 +14,7 @@ envoy:
    nodePorts:
      http: ""
      https: ""
-   externalTrafficPolicy: Cluster
+   externalTrafficPolicy: Local
    disableWait: false
  hostPorts:
    enable: true
