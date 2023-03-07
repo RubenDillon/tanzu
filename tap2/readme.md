@@ -43,9 +43,7 @@
             --package-name external-dns.tanzu.vmware.com \
             --version 0.10.0+vmware.1-tkg.1 \
             --values-file external-dns.yaml \
-            --namespace tanzu-system-service-discovery \
-            --create-namespace
-    
+            --namespace tanzu-system-service-discovery
     
     9. Create the namespace tanzu-system-registry
        
