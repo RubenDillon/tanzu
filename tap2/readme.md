@@ -236,7 +236,7 @@ EOF
 
 ```
 
-## Deploy the Tanzu Build Services full Depedencies (OPTIONAL: depending on the tap-values.yaml configuration of builservice)
+## OPRTIONAL: Deploy the Tanzu Build Services full Depedencies (depending on the tap-values.yaml configuration of builservice)
 
 ```
     1. Setup environment variables
@@ -286,11 +286,8 @@ EOF
     2. then connect to the defined URL
 ```
     
-
-
 # Configure VS Code
 ```
-
         1. Deploy VS Code on your machine
         2. Connect to Tanzu Network and download TANZU Developers Tools for Visual Studio Code
         3. Open VS Code.
@@ -309,7 +306,6 @@ EOF
                 - Namespace: default.   
         
 ```
-
 
 # Deploy an example
 
