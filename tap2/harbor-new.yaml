@@ -133,7 +133,6 @@ enableContourHttpProxy: true
 contourHttpProxy:
   timeout: 0s
   idleTimeout: 5m
-harborAdminPassword:
 secretKey: B9rZnPipjpCWjzqt
 database:
   password: uqomLIrIXgKQswsH
@@ -288,7 +287,6 @@ network:
 trace:
   enabled: false
   provider: jaeger
-  sample_rate: 1
   namespace:
   attributes:
     application: harbor
