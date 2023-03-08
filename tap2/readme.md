@@ -384,6 +384,19 @@ tanzu apps workload create where-to-eat \
             https://github.com/RubenDillon/application-accelerator-samples/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
 
 
+        Hello World 
+        
+            tanzu apps workload create hello-world \
+            --git-repo https://github.com/RubenDillon/Kubernetes \
+            --sub-path dotnet-core-hello-world \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=hello-world \
+            --yes \
+            --namespace default
+
+
+
 ```
 
 
