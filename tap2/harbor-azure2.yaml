@@ -1,4 +1,5 @@
 hostname: harbor.solateam.be
+namespace: tanzu-system-registry
 secretKey: B9rZnPipjpCWjzqt
 database:
   password: uqomLIrIXgKQswsH
