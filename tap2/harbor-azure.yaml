@@ -90,31 +90,31 @@ persistence:
       accessMode: ReadWriteOnce
       existingClaim: ""
       size: 5Gi
-      storageClass: default
+      storageClass: custom-storageclass
       subPath: ""
     jobservice:
       accessMode: ReadWriteOnce
       existingClaim: ""
       size: 5Gi
-      storageClass: default
+      storageClass: custom-storageclass
       subPath: ""
     redis:
       accessMode: ReadWriteOnce
       existingClaim: ""
       size: 5Gi
-      storageClass: default
+      storageClass: custom-storageclass
       subPath: ""
     registry:
       accessMode: ReadWriteOnce
       existingClaim: ""
       size: 50Gi
-      storageClass: default
+      storageClass: custom-storageclass
       subPath: ""
     trivy:
       accessMode: ReadWriteOnce
       existingClaim: ""
       size: 5Gi
-      storageClass: default
+      storageClass: custom-storageclass
       subPath: ""
 port:
   https: 443
