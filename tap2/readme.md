@@ -108,7 +108,7 @@
             
             kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.key"} | base64 --decode > tls-key.txt
         
-    14. Deploy Harbor from the TMC Catalog using harbor-values.yaml from this git. Modify the fields whith yours certificate.
+    14. Deploy Harbor from the TMC Catalog using harbor-values.yaml from this git. Modify the fields whith yours certificate and the name of your default storage class.
     
     15. Connect to harbor and create "tap" project as public.
             
