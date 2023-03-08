@@ -1,4 +1,5 @@
 namespace: tanzu-system-registry
+harborAdminPassword: PASSw0rd2019202020212022
 hostname: harbor.solateam.be
 port:
   https: 443
