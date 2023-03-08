@@ -1,5 +1,3 @@
-
-harborAdminPassword: PASSw0rd20192020202120222023
 hostname: harbor.solateam.be
 secretKey: B9rZnPipjpCWjzqt
 database:
@@ -19,23 +17,28 @@ trivy:
 persistence:
   persistentVolumeClaim:
     registry:
-      storageClass: custom-storageclass
       accessMode: ReadWriteOnce
-      size: 50Gi
+      size: 30Gi
     jobservice:
-      storageClass: custom-storageclass
+      jobLog:
+        existingClaim: ""
+        storageClass: ""
+        subPath: ""
+        accessMode: ReadWriteOnce
+        size: 1Gi
+      scanDataExports:
+        existingClaim: ""
+        storageClass: ""
+        subPath: ""
+        accessMode: ReadWriteOnce
+        size: 1Gi
+    database:
       accessMode: ReadWriteOnce
       size: 5Gi
-    database:
-      storageClass: custom-storageclass
-      accessMode: ReadWriteOnce
-      size: 10Gi
     redis:
-      storageClass: custom-storageclass
       accessMode: ReadWriteOnce
-      size: 10Gi
+      size: 5Gi
     trivy:
-      storageClass: custom-storageclass
       accessMode: ReadWriteOnce
       size: 5Gi   
 metrics:
