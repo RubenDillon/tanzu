@@ -112,7 +112,21 @@
     
             kubectl patch storageclass custom-storageclass -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
     
-    14. Deploy Harbor from the TMC Catalog using harbor-values.yaml from this git. Modify the fields whith yours certificate and the name of your default storage class.
+    14. Deploy Harbor from the TMC Catalog or using the CLI. Use the harbor-values.yaml from this git. Modify the fields whith yours certificate and the name of your default storage class.
+    
+                kubectl create ns harbor
+                
+                tanzu package available list harbor.tanzu.vmware.com -A
+                
+                        Review the last version available. In my case 2.6.1+vmware.1-tkg.1
+                        
+                tanzu package install harbor \
+                --package-name harbor.tanzu.vmware.com \
+                --version 2.6.1+vmware.1-tkg.1 \
+                --values-file harbor-values.yaml \
+                --namespace harbor
+                
+                
     
     15. Connect to harbor and create "tap" project as public.
             
