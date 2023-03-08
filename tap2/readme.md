@@ -179,56 +179,7 @@
             tanzu package installed list -A
           
 ```  
-## Deploy the Tanzu Build Services full Depedencies
 
-```
-    1. Setup environment variables
-    
-            export INSTALL_REGISTRY_USERNAME=MY-REGISTRY-USER
-            export INSTALL_REGISTRY_PASSWORD=MY-REGISTRY-PASSWORD
-            export INSTALL_REGISTRY_HOSTNAME=MY-REGISTRY
-            export TAP_VERSION=VERSION-NUMBER
-            export INSTALL_REPO=TARGET-REPOSITORY
-            
-            where
-
-            INSTALL_REGISTRY_HOSTNAME is registry.tanzu.vmware.com
-            INSTALL_REPO is tanzu-application-platform
-            INSTALL_REGISTRY_USERNAME and INSTALL_REGISTRY_PASSSWORD are the credentials to run docker login registry.tanzu.vmware.com
-            TAP_VERSION is your Tanzu Application Platform version. For example, 1.3.5
-            
-    2. Get the latest version of the buildservice package by running:
-
-            tanzu package available list buildservice.tanzu.vmware.com --namespace tap-install
-
-    3. Add the Tanzu Build Service full dependencies package repository by running:
-
-            tanzu package repository add tbs-full-deps-repository \
-            --url ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tbs-full-deps:VERSION \
-            --namespace tap-install
-            
-            Where VERSION is the version of the buildservice package you retrieved earlier.
-
-    4. Install the full dependencies package by running or update the current TAP deployment 
-
-            tanzu package install full-tbs-deps -p full-tbs-deps.tanzu.vmware.com -v VERSION -n tap-install
-            
-            Where VERSION is the version of the buildservice package you retrieved earlier.
-            
-            or update
-            
-            tanzu package installed update tap -p tap.tanzu.vmware.com -v $TAP_VERSION  --values-file tap-values.yaml -n tap-install
-            
-
-```
-
-## Review the Self-Guided Workshop
-```
-    1. run the following command to review the activated portals
-            kubectl get trainingportals
-    2. then connect to the defined URL
-```
-    
 ## Create developer namespace (single user access)
 ```
     1. Run the following command to Create the secret
@@ -284,6 +235,58 @@ subjects:
 EOF
 
 ```
+
+## Deploy the Tanzu Build Services full Depedencies (OPTIONAL: depending on the tap-values.yaml configuration of builservice)
+
+```
+    1. Setup environment variables
+    
+            export INSTALL_REGISTRY_USERNAME=MY-REGISTRY-USER
+            export INSTALL_REGISTRY_PASSWORD=MY-REGISTRY-PASSWORD
+            export INSTALL_REGISTRY_HOSTNAME=MY-REGISTRY
+            export TAP_VERSION=VERSION-NUMBER
+            export INSTALL_REPO=TARGET-REPOSITORY
+            
+            where
+
+            INSTALL_REGISTRY_HOSTNAME is registry.tanzu.vmware.com
+            INSTALL_REPO is tanzu-application-platform
+            INSTALL_REGISTRY_USERNAME and INSTALL_REGISTRY_PASSSWORD are the credentials to run docker login registry.tanzu.vmware.com
+            TAP_VERSION is your Tanzu Application Platform version. For example, 1.3.5
+            
+    2. Get the latest version of the buildservice package by running:
+
+            tanzu package available list buildservice.tanzu.vmware.com --namespace tap-install
+
+    3. Add the Tanzu Build Service full dependencies package repository by running:
+
+            tanzu package repository add tbs-full-deps-repository \
+            --url ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tbs-full-deps:VERSION \
+            --namespace tap-install
+            
+            Where VERSION is the version of the buildservice package you retrieved earlier.
+
+    4. Install the full dependencies package by running or update the current TAP deployment 
+
+            tanzu package install full-tbs-deps -p full-tbs-deps.tanzu.vmware.com -v VERSION -n tap-install
+            
+            Where VERSION is the version of the buildservice package you retrieved earlier.
+            
+            or update
+            
+            tanzu package installed update tap -p tap.tanzu.vmware.com -v $TAP_VERSION  --values-file tap-values.yaml -n tap-install
+            
+
+```
+
+## Review the Self-Guided Workshop
+```
+    1. run the following command to review the activated portals
+            kubectl get trainingportals
+    2. then connect to the defined URL
+```
+    
+
 
 # Configure VS Code
 ```
