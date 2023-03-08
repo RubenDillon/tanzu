@@ -172,7 +172,7 @@
     3. Copy the tap-values.yaml from this git. Modify the file as needed.
     4. Monitor the install by running
             
-            tanzu package installed get tap -n tap-install
+            tanzu package installed get tap -n tap-88xxx
             
     5. Verify all packages are successfully reconciled
             
