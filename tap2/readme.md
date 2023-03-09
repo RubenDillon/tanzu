@@ -366,8 +366,6 @@ tanzu apps workload create where-to-eat \
 
 ### Another
 ```
-
-
         Weather application using Steeltoe
         
             tanzu apps workload create weatherforecast-steeltoe \
@@ -383,8 +381,16 @@ tanzu apps workload create where-to-eat \
             To import use
             https://github.com/RubenDillon/application-accelerator-samples/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
 
+```
 
-        Hello World 
+### Steps to create a TAP workload from an existing application 
+
+        Using a typical Hello World application based on .NET that I upload to my github
+        
+        1. Create the worload.yaml using the following command
+        
+                tanzu apps workload create my-workload --git-repo https://github.com/RubenDillon/Kubernetes/dotnet-core-hello-world.git --git-branch master > workload.yaml
+        
         
             tanzu apps workload create hello-world \
             --git-repo https://github.com/RubenDillon/Kubernetes \
