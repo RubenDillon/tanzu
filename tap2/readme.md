@@ -334,7 +334,37 @@ EOF
     4. To register the application, go to the tap-gui.solateam.be and click "Register Entity"
     
             input: https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
+            
+     5. Delete the workload
+     
+            tanzu apps workload delete tanzu-java-web-app
+            
 ```
+
+# Create the example
+
+```
+        1. Go to the Application Accelerator and select Tanzu Java Web App. Put harbor.solateam.be/tap/supply-chain in the prefix for container image registry text box. Continues and download the zip file.
+        
+        2. Uncompress the file and upload to git
+                
+                
+                
+                
+            tanzu apps workload create tanzu-java-web-app \
+            --git-repo https://github.com/RubenDillon/Kubernetes \
+            --sub-path tanzu-java-web-app \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=tanzu-java-web-app \
+            --yes \
+            --namespace default
+        
+
+```
+
+
+
 
 # Deploy a more complex application
 
