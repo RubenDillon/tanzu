@@ -285,7 +285,43 @@ EOF
             kubectl get trainingportals
     2. then connect to the defined URL
 ```
+
+## Deploy the Training Portal
+```
+    1. Run the following command
+
+            kubectl apply -f training-portal.yaml
     
+    2. Review the deployment
+    
+            kubectl get workshops
+    
+    3. Verify the deployment and where the Training Portal is available
+    
+    
+    4. Create the trainning portal
+    
+            kubectl apply -f portal.yaml
+            
+     5. To see what we have created
+     
+            kubectl get learningcenter-training -o name
+     
+     6. To see the sessions created
+     
+            kubectl get workshopsessions
+            
+     7. To found the portals information and admin users use the following
+     
+            kubectl get trainingportals
+            
+     
+     
+    
+
+```
+
+
 # Configure VS Code
 ```
         1. Deploy VS Code on your machine
