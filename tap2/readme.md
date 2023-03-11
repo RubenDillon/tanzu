@@ -16,8 +16,8 @@
     2. Create a Cluster Group (I create "TAP" cluster group)
     3. Deploy a TKG cluster 
     
-            1 instance for Control plane (Standard_F8s_v2 = 8 vCPU and 16 GB RAM each)
-            5 instances for Workers nodes (Standard_F8s_v2 = 8 vCPU and 16 GB RAM each)
+            3 instance for Control plane (Standard_F8s_v2 = 8 vCPU and 16 GB RAM each in 3 availability zones)
+            6 instances for Workers nodes (Standard_F8s_v2 = 8 vCPU and 16 GB RAM each) Two nodes by each availability zone
     
     4. Deploy Cert-Manager using the defaults
     5. Deploy Contour using the contour-values.yaml from this git
