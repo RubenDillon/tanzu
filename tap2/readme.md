@@ -118,11 +118,11 @@
                 
                 tanzu package available list harbor.tanzu.vmware.com -A
                 
-                        Review the last version available. In my case 2.6.1+vmware.1-tkg.1
+                        Review the last version available. In my case 2.6.3+vmware.1-tkg.1
                         
                 tanzu package install harbor \
                 --package-name harbor.tanzu.vmware.com \
-                --version 2.6.1+vmware.1-tkg.1 \
+                --version 2.6.3+vmware.1-tkg.1 \
                 --values-file harbor-values.yaml \
                 --namespace harbor
                 
