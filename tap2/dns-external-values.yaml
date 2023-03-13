@@ -26,5 +26,3 @@ deployment:
   volumeMounts: ""
   volumes: ""
 namespace: tanzu-system-service-discovery
-serviceaccount:
-  annotations: ""
