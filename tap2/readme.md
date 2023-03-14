@@ -134,7 +134,7 @@
 
 ## Configure the cluster
 ```
-    1. We connect to the cluster and run allow-run-as.yaml from the kubernetes/TKGs git 
+    1. We connect to the cluster
     
     2. Then run the following
     
@@ -169,7 +169,7 @@
 ```
     1. Select the Tanzu Application Platform
     2. Select tap as name and 1.3.5 for the version
-    3. Copy the tap-values.yaml from this git. Modify the file as needed.
+    3. Copy the tap-values.yaml from this git. 
     4. Monitor the install by running
             
             tanzu package installed get tap -n tap-88xxx
