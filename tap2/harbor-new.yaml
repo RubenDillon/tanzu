@@ -1,9 +1,146 @@
-namespace: tanzu-system-registry
+core:
+  replicas: 1
+  secret: oAbrEcKlzmSrHThn
+  xsrfKey: lfwNzvacA7vKEUUsutnjVKHXmYUHDKC4
+database:
+  maxIdleConns: null
+  maxOpenConns: null
+  password: uqomLIrIXgKQswsH
+  shmSizeLimit: null
+enableContourHttpProxy: true
+exporter:
+  ? cacheDuration
 harborAdminPassword: PASSw0rd2019202020212022
 hostname: harbor.solateam.be
+jobservice:
+  replicas: 1
+  secret: KqUbdyE7TQGTM0o8
+logLevel: info
+metrics:
+  core:
+    path: /metrics
+    port: 8001
+  enabled: false
+  exporter:
+    path: /metrics
+    port: 8001
+  jobservice:
+    path: /metrics
+    port: 8001
+  registry:
+    path: /metrics
+    port: 8001
+namespace: tanzu-system-registry
+network:
+  ipFamilies: []
+notary:
+  enabled: true
+persistence:
+  imageChartStorage:
+    azure:
+      accountkey: base64encodedaccountkey
+      accountname: accountname
+      container: containername
+      realm: core.windows.net
+    disableredirect: false
+    filesystem:
+      rootdirectory: /storage
+    gcs:
+      bucket: bucketname
+      chunksize: 5242880
+      encodedkey: base64-encoded-json-key-file
+      rootdirectory: null
+    oss:
+      accesskeyid: accesskeyid
+      accesskeysecret: accesskeysecret
+      bucket: bucketname
+      chunksize: null
+      encrypt: null
+      endpoint: null
+      internal: null
+      region: regionname
+      rootdirectory: null
+      secure: null
+    s3:
+      accesskey: null
+      bucket: bucketname
+      chunksize: null
+      encrypt: false
+      keyid: null
+      multipartcopychunksize: null
+      multipartcopymaxconcurrency: null
+      multipartcopythresholdsize: null
+      region: us-west-1
+      regionendpoint: null
+      rootdirectory: null
+      secretkey: null
+      secure: true
+      skipverify: false
+      storageclass: STANDARD
+      v4auth: true
+    swift:
+      accesskey: null
+      authurl: https://storage.myprovider.com/v3/auth
+      authversion: null
+      chunksize: null
+      container: containername
+      domain: null
+      domainid: null
+      endpointtype: null
+      insecureskipverify: null
+      password: password
+      prefix: null
+      region: null
+      secretkey: null
+      tempurlcontainerkey: null
+      tempurlmethods: null
+      tenant: null
+      tenantid: null
+      trustid: null
+      username: username
+    type: filesystem
+  persistentVolumeClaim:
+    database:
+      accessMode: ReadWriteOnce
+      existingClaim: ""
+      size: 50Gi
+      storageClass: ""
+      subPath: ""
+    jobservice:
+      accessMode: ReadWriteOnce
+      existingClaim: ""
+      size: 1Gi
+      storageClass: ""
+      subPath: ""
+    redis:
+      accessMode: ReadWriteOnce
+      existingClaim: ""
+      size: 1Gi
+      storageClass: ""
+      subPath: ""
+    registry:
+      accessMode: ReadWriteOnce
+      existingClaim: ""
+      size: 10Gi
+      storageClass: ""
+      subPath: ""
+    trivy:
+      accessMode: ReadWriteOnce
+      existingClaim: ""
+      size: 5Gi
+      storageClass: ""
+      subPath: ""
 port:
   https: 443
-logLevel: info
+proxy:
+  httpProxy: null
+  httpsProxy: null
+  noProxy: 127.0.0.1,localhost,.local,.internal
+pspNames: null
+registry:
+  replicas: 1
+  secret: PEIpfl0EaOjFGWZT
+secretKey: B9rZnPipjpCWjzqt
 tlsCertificate:
   tls.crt: |-
     -----BEGIN CERTIFICATE-----
@@ -126,174 +263,5 @@ tlsCertificate:
     C8dsSIJspluw3Xe2fqTpM+xQ1c5CAvNdc971Yz862L+VZRLdftCcbDEEmHgiCg4v
     WzKMfSg6tllfrdiXwavF3cr+q/jx1mTXAW7rIN4bD3Kp5bqhtkJN
     -----END RSA PRIVATE KEY-----
-enableContourHttpProxy: true
-contourHttpProxy:
-  timeout: 0s
-  idleTimeout: 5m
-secretKey: B9rZnPipjpCWjzqt
-database:
-  password: uqomLIrIXgKQswsH
-  shmSizeLimit:
-  maxIdleConns:
-  maxOpenConns:
-exporter:
-  cacheDuration:
-core:
-  replicas: 1
-  secret: oAbrEcKlzmSrHThn
-  xsrfKey: lfwNzvacA7vKEUUsutnjVKHXmYUHDKC4
-jobservice:
-  replicas: 1
-  secret: KqUbdyE7TQGTM0o8
-registry:
-  replicas: 1
-  secret: PEIpfl0EaOjFGWZT
-notary:
-  enabled: true
 trivy:
-  enabled: false
-persistence:
-  persistentVolumeClaim:
-    registry:
-      existingClaim: ""
-      storageClass: ""
-      subPath: ""
-      accessMode: ReadWriteOnce
-      size: 10Gi
-    jobservice:
-      jobLog:
-        existingClaim: ""
-        storageClass: ""
-        subPath: ""
-        accessMode: ReadWriteOnce
-        size: 1Gi
-      scanDataExports:
-        existingClaim: ""
-        storageClass: ""
-        subPath: ""
-        accessMode: ReadWriteOnce
-        size: 1Gi
-    database:
-      existingClaim: ""
-      storageClass: ""
-      subPath: ""
-      accessMode: ReadWriteOnce
-      size: 50Gi
-    redis:
-      existingClaim: ""
-      storageClass: ""
-      subPath: ""
-      accessMode: ReadWriteOnce
-      size: 1Gi
-    trivy:
-      existingClaim: ""
-      storageClass: ""
-      subPath: ""
-      accessMode: ReadWriteOnce
-      size: 5Gi
-  imageChartStorage:
-    disableredirect: false
-    type: filesystem
-    filesystem:
-      rootdirectory: /storage
-    azure:
-      accountname: accountname
-      accountkey: base64encodedaccountkey
-      container: containername
-      realm: core.windows.net
-    gcs:
-      bucket: bucketname
-      encodedkey: base64-encoded-json-key-file
-      rootdirectory: null
-      chunksize: 5242880
-    s3:
-      region: us-west-1
-      bucket: bucketname
-      accesskey: null
-      secretkey: null
-      regionendpoint: null
-      encrypt: false
-      keyid: null
-      secure: true
-      skipverify: false
-      v4auth: true
-      chunksize: null
-      rootdirectory: null
-      storageclass: STANDARD
-      multipartcopychunksize: null
-      multipartcopymaxconcurrency: null
-      multipartcopythresholdsize: null
-    swift:
-      authurl: https://storage.myprovider.com/v3/auth
-      username: username
-      password: password
-      container: containername
-      region: null
-      tenant: null
-      tenantid: null
-      domain: null
-      domainid: null
-      trustid: null
-      insecureskipverify: null
-      chunksize: null
-      prefix: null
-      secretkey: null
-      accesskey: null
-      authversion: null
-      endpointtype: null
-      tempurlcontainerkey: null
-      tempurlmethods: null
-    oss:
-      accesskeyid: accesskeyid
-      accesskeysecret: accesskeysecret
-      region: regionname
-      bucket: bucketname
-      endpoint: null
-      internal: null
-      encrypt: null
-      secure: null
-      chunksize: null
-      rootdirectory: null
-proxy:
-  httpProxy:
-  httpsProxy:
-  noProxy: 127.0.0.1,localhost,.local,.internal
-pspNames: null
-caBundleSecretName:
-metrics:
-  enabled: false
-  core:
-    path: /metrics
-    port: 8001
-  registry:
-    path: /metrics
-    port: 8001
-  jobservice:
-    path: /metrics
-    port: 8001
-  exporter:
-    path: /metrics
-    port: 8001
-network:
-  ipFamilies: []
-trace:
-  enabled: false
-  provider: jaeger
-  namespace:
-  attributes:
-    application: harbor
-  jaeger:
-    endpoint: http://hostname:14268/api/traces
-    username:
-    password:
-    agent_host:
-    agent_port:
-  otel:
-    endpoint: hostname:4318
-    url_path: /v1/traces
-    compression: false
-    insecure: true
-    timeout: 10
-cache:
-  enabled: false
-  expireHours: 24
+  enabled: true
