@@ -284,6 +284,7 @@ EOF
     1. run the following command to review the activated portals
             kubectl get trainingportals
     2. then connect to the defined URL
+            http://learning-center-guided.solateam.be
 ```
 
 ## Deploy the Training Portal
