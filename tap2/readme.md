@@ -316,6 +316,23 @@ EOF
      
             kubectl get trainingportals
             
+            
+      8. To deploy a Spring Boot workshop, go to /learning on this git      
+            
+            kubectl apply -f spring-workshop.yaml
+            
+            kubectl apply -f spring-portal
+            
+            kubectl get trainingportals
+            
+            
+     8. Use another example... learning-center-workshop-samples/lab-markdown-sample
+     
+            kubectl apply -f resources/workshop.yaml
+            
+            kubectl apply -f resources/portal.yaml
+            
+            kubectl get trainingportals
      
      
     
