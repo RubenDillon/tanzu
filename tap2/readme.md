@@ -383,18 +383,25 @@ EOF
 # Iterate the example
 
 ```
-        1. clone the repository
+        1. Clone the repository
             
             git clone https://github.com/RubenDillon/application-accelerator-samples.git
             
-         2.    
-        
-        
-        
-
+         2. Open VS Code and open the TANZU-JAVA-WEB-APP folder from the cloned github source
+         
+         3. Review the following files
+         
+                config/workload.yaml
+                catalog/catalog-info.yaml
+                tiltfile
+       
+         4. Use the TANZU:Live Update Start and review the terminal to see the process to attach the application to the platform
+         
+         5. Modify /src/main/java/com/example/springboot/HelloController.java 
+         
+                return "Greetings from Spring Boot + Tanzu!"; (change it to something and see the change in the application already deployed)    
+   
 ```
-
-
 
 
 # Deploy a more complex application
