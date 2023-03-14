@@ -287,37 +287,32 @@ EOF
             http://learning-center-guided.solateam.be
 ```
 
-## Deploy the Training Portal
+## Deploy the different Learning Portals
 ```
     1. Run the following command
 
-            kubectl apply -f training-portal.yaml
+            kubectl apply -f learning/training-portal.yaml
+            
+            kubectl apply -f learning/portal.yaml
     
     2. Review the deployment
     
             kubectl get workshops
-    
-    3. Verify the deployment and where the Training Portal is available
-    
-    
-    4. Create the trainning portal
-    
-            kubectl apply -f portal.yaml
             
-     5. To see what we have created
+    3. To see what we have created
      
             kubectl get learningcenter-training -o name
      
-     6. To see the sessions created
+    4. To see the sessions created
      
             kubectl get workshopsessions
             
-     7. To found the portals information and admin users use the following
+    5. To found the portals information and admin users use the following
      
             kubectl get trainingportals
             
             
-      8. To deploy a Spring Boot workshop, go to /learning on this git      
+    6. To deploy a Spring Boot workshop, go to /learning on this git      
             
             kubectl apply -f spring-workshop.yaml
             
@@ -326,7 +321,7 @@ EOF
             kubectl get trainingportals
             
             
-     8. Use another example... learning-center-workshop-samples/lab-markdown-sample
+    7. Use another example... learning-center-workshop-samples/lab-markdown-sample
      
             kubectl apply -f resources/workshop.yaml
             
@@ -334,7 +329,12 @@ EOF
             
             kubectl get trainingportals
      
-     
+    With this we will have four Learning portals
+    
+            lab-k8s-fundamentals     http://lab-k8s-fundamentals-ui.solateam.be 
+            lab-markdown-sample      http://lab-markdown-sample-ui.solateam.be
+            lab-spring-boot-k8s-gs   http://lab-spring-boot-k8s-gs-ui.solateam.be
+            learning-center-guided   http://learning-center-guided.solateam.be
     
 
 ```
