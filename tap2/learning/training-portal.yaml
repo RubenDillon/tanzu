@@ -14,7 +14,7 @@ spec:
   tags:
   - kubernetes
   content:
-    image: projects.registry.vmware.com/learningcenter/lab-k8s-fundamentals:latest
+    image: quay.io/eduk8s-labs/lab-k8s-fundamentals:master
   session:
     namespaces:
       budget: medium
