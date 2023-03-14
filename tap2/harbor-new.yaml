@@ -5,7 +5,7 @@ port:
   https: 443
 logLevel: info
 tlsCertificate:
-    tls.crt: |-
+  tls.crt: |-
     -----BEGIN CERTIFICATE-----
     MIIFRjCCBC6gAwIBAgISA4grQXuHVh8/XuRWh/aF6j4bMA0GCSqGSIb3DQEBCwUA
     MDIxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQD
