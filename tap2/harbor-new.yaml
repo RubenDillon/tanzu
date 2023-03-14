@@ -151,12 +151,7 @@ registry:
 notary:
   enabled: true
 trivy:
-  enabled: true
-  replicas: 1
-  gitHubToken: ""
-  skipUpdate: false
-  offlineScan: false
-  timeout:
+  enabled: false
 persistence:
   persistentVolumeClaim:
     registry:
