@@ -495,11 +495,11 @@ tanzu apps workload create where-to-eat \
 
 ```
 
-### Defining the scan policy
+## Defining the scan policy
 ```
         1. Create the Scan policy applying the scan-policy.yaml
         
-        2. 
+                kubectl apply -f scan-policy.yaml
 
 
 ```
