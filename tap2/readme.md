@@ -169,7 +169,7 @@
 ```
     1. Select the Tanzu Application Platform
     2. Select tap as name and 1.3.5 for the version
-    3. Copy the tap-values.yaml from this git. 
+    3. Copy the tap-values.yaml from this git. If you want to use Testing you will use the tap-values-w.testing.yaml or use tap-values-w.test-scan.yaml to use the environment with Testing and Scanning
     4. Monitor the install by running
             
             tanzu package installed get tap -n tap-88xxx
@@ -178,6 +178,9 @@
             
             tanzu package installed list -A
           
+     6. If you use the testing version of the supply chain we need to create a Tekton pipeline for the testing
+     
+            kubectl apply -f pipeline.yaml
 ```  
 
 ## Create developer namespace (single user access)
@@ -236,7 +239,7 @@ EOF
 
 ```
 
-## OPRTIONAL: Deploy the Tanzu Build Services full Depedencies (depending on the tap-values.yaml configuration of builservice)
+## OPTIONAL: Deploy the Tanzu Build Services full Depedencies (depending on the tap-values.yaml configuration of builservice)
 
 ```
     1. Setup environment variables
@@ -488,6 +491,15 @@ tanzu apps workload create where-to-eat \
             --yes \
             --namespace default
 
+
+
+```
+
+### Defining the scan policy
+```
+        1. Create the Scan policy applying the scan-policy.yaml
+        
+        2. 
 
 
 ```
