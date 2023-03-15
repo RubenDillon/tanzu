@@ -512,6 +512,18 @@ tanzu apps workload create where-to-eat \
                 
         3. Use the following configuration for TAP ( tap-values-w.test-scan.yaml to use the environment with Testing and Scanning) and change the BEARER in tap-gui for the data obtained in point 1
         
+        4. Update the application deployment
+        
+        
+tanzu apps workload create tanzu-java-web-app \
+  --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
+  --sub-path tanzu-java-web-app \
+  --git-branch main \
+  --type web \
+  --label apps.tanzu.vmware.com/has-tests=true \
+  --label app.kubernetes.io/part-of=tanzu-java-web-app \
+  --yes
+        
 
 ```
 
