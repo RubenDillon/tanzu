@@ -385,6 +385,8 @@ EOF
     2. View the build and runtime logs 
     
             tanzu apps workload tail tanzu-java-web-app --since 10m --timestamp --namespace default
+            
+            kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
     
     3. After ends you could access the TAP GUI to see the process and using the following command
     
