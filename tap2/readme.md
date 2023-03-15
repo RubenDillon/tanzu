@@ -168,8 +168,11 @@
 ## Install Tanzu Application Platform package from TMC Catalog
 ```
     1. Select the Tanzu Application Platform
+    
     2. Select tap as name and 1.3.5 for the version
-    3. Copy the tap-values.yaml from this git. If you want to use Testing you will use the tap-values-w.testing.yaml or use tap-values-w.test-scan.yaml to use the environment with Testing and Scanning
+    
+    3. Copy the tap-values.yaml from this git. If you want to use Testing you will use the tap-values-w.testing.yaml
+    
     4. Monitor the install by running
             
             tanzu package installed get tap -n tap-88xxx
@@ -495,14 +498,25 @@ tanzu apps workload create where-to-eat \
 
 ```
 
-## Defining the scan policy
+### Defining the scan policy
 ```
         1. Create the Scan policy applying the scan-policy.yaml
         
                 kubectl apply -f scan-policy.yaml
+                
+        2. Create a service account with read-write permission in the meta data store  
+        
+                kubectl apply -f create-svc-scan.yaml
 
+        2. Retrieve the read-write secret from meta data store
+        
+                kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d
+                
+        3. Use the following configuration for TAP ( tap-values-w.test-scan.yaml to use the environment with Testing and Scanning) and change the BEARER in tap-gui for the data obtained in point 1
+        
 
 ```
+
 
 
 # APPENDIX
@@ -621,4 +635,6 @@ tanzu apps workload create where-to-eat \
   - https://confluence.eng.vmware.com/display/CNA/TAP+-+How+to+install+TAP+using+TMC
   - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.0/tap/GUID-install.html
   - https://confluence.eng.vmware.com/pages/viewpage.action?spaceKey=CNA&title=Installing+Harbor+with+LE+certs+via+TMC
+  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-scst-store-retrieve-access-tokens.html
+  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-tap-gui-plugins-scc-tap-gui.html#scan
 
