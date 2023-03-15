@@ -346,7 +346,7 @@ EOF
 ```
 
 
-# Configure VS Code
+## Configure VS Code
 ```
         1. Deploy VS Code on your machine
         2. Connect to Tanzu Network and download TANZU Developers Tools for Visual Studio Code
@@ -367,7 +367,7 @@ EOF
         
 ```
 
-# Deploy an example
+## Deploy an example
 
 ```
 
@@ -405,7 +405,7 @@ EOF
             
 ```
 
-# Iterate the example
+## Iterate the example
 
 ```
         1. Clone the repository
@@ -429,7 +429,7 @@ EOF
 ```
 
 
-# Deploy a more complex application
+## Deploy a more complex application
 
 ```
 
@@ -457,7 +457,7 @@ tanzu apps workload create where-to-eat \
     
 ```
 
-### Another
+## Another
 ```
         Weather application using Steeltoe
         
@@ -476,8 +476,8 @@ tanzu apps workload create where-to-eat \
 
 ```
 
-### Steps to create a TAP workload from an existing application 
-
+## Steps to create a TAP workload from an existing application 
+```
         Using a typical Hello World application based on .NET that I upload to my github
         
         1. Create the worload.yaml using the following command
@@ -494,11 +494,9 @@ tanzu apps workload create where-to-eat \
             --yes \
             --namespace default
 
-
-
 ```
 
-### Defining the scan policy
+## Defining Scan policy and TAP-GUI access to scan
 ```
         1. Create the Scan policy applying the scan-policy.yaml
         
