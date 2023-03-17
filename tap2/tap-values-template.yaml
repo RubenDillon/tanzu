@@ -1,0 +1,120 @@
+shared:
+  ingress_domain: run-XX.slot-YY.tanzu-gss-labs.vmware.com
+  #ingress_issuer: # Optional, can denote a cert-manager.io/v1/ClusterIssuer of your choice. Defaults to "tap-ingress-selfsigned".
+ 
+  image_registry:
+    project_path: harbor.pks-XX.slot-YY.tanzu-gss-labs.vmware.com/tap
+    username: admin
+    password: <REGISTRY-PASSWORD>
+ 
+  #kubernetes_distribution: "openshift" # To be passed only for OpenShift. Defaults to "".
+  #kubernetes_version: "K8S-VERSION"
+ 
+  ca_cert_data: | # To be passed if using custom certificates.
+    -----BEGIN CERTIFICATE-----
+    KuGdgbz0H18b4xUwvh85wUzJp0a+6SIG90
+    .....
+    J3S9Zf4F50HbrhncESiTXyXW
+    -----END CERTIFICATE-----
+ 
+ 
+ceip_policy_disclosed: true # Installation fails if this is not set to true. Not a string.
+ 
+#The above keys are minimum numbers of entries needed in tap-values.yaml to get a functioning TAP Full profile installation.
+ 
+#Below are the keys which may have default values set, but can be overridden.
+ 
+profile: full # Can take iterate, build, run, view.
+ 
+supply_chain: basic # Can take testing, testing_scanning.
+ 
+ootb_supply_chain_basic: # Based on supply_chain set above, can be changed to ootb_supply_chain_testing, ootb_supply_chain_testing_scanning.
+  registry:
+    server: "harbor.pks-XX.slot-YY.tanzu-gss-labs.vmware.com" # Takes the value from shared section above by default, but can be overridden by setting a different value.
+    repository: "tap/apps" # Takes the value from shared section above by default, but can be overridden by setting a different value.
+  gitops:
+    ssh_secret: "" # Takes "" as value by default; but can be overridden by setting a different value.
+ 
+contour:
+  envoy:
+    service:
+      type: NodePort # This is set by default, but can be overridden by setting a different value.
+ 
+ 
+buildservice:
+  kp_default_repository: harbor.pks-XX.slot-YY.tanzu-gss-labs.vmware.com/tap/build-service
+  ## Takes the value from the shared section above by default, can be overridden
+  # kp_default_repository_username: "REGISTRY-USERNAME"
+  # kp_default_repository_password: "REGISTRY-PASSWORD"
+  # ca_cert_data: |
+  #   -----BEGIN CERTIFICATE-----
+  #   ...
+  #   -----END CERTIFICATE-----
+  ## TBS is bootstrapped with the lite set of dependencies.
+  ## To configure full dependencies, add exclude_dependencies: true, then install full dependencies separetely
+  ## https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-tanzu-build-service-install-tbs.html
+  # exclude_dependencies: true
+ 
+ 
+tap_gui:
+  service_type: NodePort # If the shared.ingress_domain is set as above, this must be set to ClusterIP.
+  ## https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-tap-gui-tls-enable-tls-existing-cert.html
+  # tls:
+  #   namespace: tap-gui
+  #   secretName: tap-gui-cert
+  app_config:
+    app:
+      baseUrl: https://tap-gui.run-XX.slot-YY.tanzu-gss-labs.vmware.com
+    backend:
+      baseUrl: https://tap-gui.run-XX.slot-YY.tanzu-gss-labs.vmware.com
+      cors:
+        origin: https://tap-gui.run-XX.slot-YY.tanzu-gss-labs.vmware.com
+    # proxy:
+    #   /metadata-store:
+    #     target: https://metadata-store-app.metadata-store:8443/api/v1
+    #     changeOrigin: true
+    #     secure: false
+    #     headers:
+    #       Authorization: "Bearer <kubectl get secrets metadata-store-read-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d>"
+    #       X-Custom-Source: project-star
+    # catalog:
+    #   locations:
+    #     - type: url
+    #       target: https://GIT-CATALOG-URL/catalog-info.yaml
+ 
+metadata_store:
+  ns_for_export_app_cert: "*"
+  app_service_type: NodePort # Defaults to LoadBalancer. If shared.ingress_domain is set earlier, this must be set to ClusterIP.
+ 
+scanning:
+  metadataStore:
+    url: "" # Configuration is moved, so set this string to empty.
+ 
+grype:
+  namespace: myapps
+  targetImagePullSecret: registry-credentials
+ 
+ 
+learningcenter:
+  ingressClass: nginx
+  # same as default at shared section
+  ingressDomain: run-XX.slot-YY.tanzu-gss-labs.vmware.com
+ 
+#policy:
+#  tuf_enabled: false # By default, TUF initialization and keyless verification are deactivated.
+#tap_telemetry:
+#  customer_entitlement_account_number: "CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER" # (Optional) Identify data for creating Tanzu Application Platform usage reports.
+ 
+ 
+package_overlays:
+- name: contour   #workaround for contour compatibility issue, override contoure start command with secret contour-stats-health-overlay
+  secrets:
+  - name: contour-stats-health-overlay
+ 
+ 
+## exclude policy package because of a known issue being discussed at
+## https://vmware.slack.com/archives/C02D60T1ZDJ/p1666840808988699
+excluded_packages:
+- policy.apps.tanzu.vmware.com
+- tap-telemetry.tanzu.vmware.com
+ 
