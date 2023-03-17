@@ -8,6 +8,10 @@
     4. Tanzu Mission Control
     5. To deploy 
         - TAP 1.3.5 we need Kubernetes v1.22, v1.23 or v1.24. We will be using 1.22.5 on a TKG deployed on Azure
+    6. Sign in to VMware Tanzu Network and accept or confirm that you have accepted the EULAs for each of the following:
+        - https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/#/releases/1238179 (Cluster Essentials for Tanzu)
+        - https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1260040 (Tanzu App Platform)
+    
 ```
 
 ## Create the environment
