@@ -514,6 +514,13 @@ tanzu apps workload create where-to-eat \
         
                 kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d
                 
+                
+                
+                ///// usar el DE SOLO LECTURA /////
+                
+                
+                ///// Poner como se agregar el BEARER en tap-gui.... y que no se pone el ultimo caracter "%" ////////
+                
         3. Use the following configuration for TAP ( tap-values-w.test-scan.yaml to use the environment with Testing and Scanning) and change the BEARER in tap-gui for the data obtained in point 1
         
         4. Update the application deployment
@@ -527,6 +534,20 @@ tanzu apps workload create tanzu-java-web-app \
   --label apps.tanzu.vmware.com/has-tests=true \
   --label app.kubernetes.io/part-of=tanzu-java-web-app \
   --yes
+        
+        
+   tanzu apps workload create hello-world \
+            --git-repo https://github.com/RubenDillon/Kubernetes \
+            --sub-path dotnet-core-hello-world \
+            --git-branch main \
+            --type web \
+            --label apps.tanzu.vmware.com/has-tests=true \
+            --label app.kubernetes.io/part-of=hello-world \
+            --yes \
+            --namespace default
+   
+   
+        
         
 
 ```
