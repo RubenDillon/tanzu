@@ -324,9 +324,9 @@ EOF
             
     6. To deploy a Spring Boot workshop, go to /learning on this git      
             
-            kubectl apply -f spring-workshop.yaml
+            kubectl apply -f resources/spring-workshop.yaml
             
-            kubectl apply -f spring-portal
+            kubectl apply -f resources/spring-portal
             
             kubectl get trainingportals
             
