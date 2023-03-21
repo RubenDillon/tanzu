@@ -333,9 +333,9 @@ EOF
             
     7. Use another example... learning-center-workshop-samples/lab-markdown-sample
      
-            kubectl apply -f resources/workshop.yaml
+            kubectl apply -f earning-center-workshop-samples/lab-markdown-sample/resources/workshop.yaml
             
-            kubectl apply -f resources/portal.yaml
+            kubectl apply -f learning-center-workshop-samples/lab-markdown-sample/resources/training-portal.yaml
             
             kubectl get trainingportals
      
