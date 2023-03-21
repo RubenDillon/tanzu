@@ -371,16 +371,11 @@ EOF
         
 ```
 
-## Deploy an example
+## Using code to deploy an example
 
 ```
-
-    1. clone the repository
             
-            git clone https://github.com/RubenDillon/application-accelerator-samples.git
-            
-
-    2. Deploy the application using an example from github
+    1. Deploy the application using an example from github
     
             tanzu apps workload create tanzu-java-web-app \
             --git-repo https://github.com/RubenDillon/application-accelerator-samples \
@@ -391,6 +386,9 @@ EOF
             --yes \
             --namespace default
             
+       If you deploy the Supply Chain with Test... we need to add the following to the deployment
+       
+             --label apps.tanzu.vmware.com/has-tests=true \
             
     2. View the build and runtime logs 
     
@@ -402,21 +400,21 @@ EOF
     
             tanzu apps workload get tanzu-java-web-app --namespace default
             
-    4. To register the application, go to the tap-gui.solateam.be and click "Register Entity"
+    4. To register the application, go to the tap-gui.solateam.be and click "Register Entity" and use the following as input
     
-            input: https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
+            https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
             
             
 ```
 
-## Iterate the example
+## Using VS Code to deploy and iterate the example
 
 ```
         1. Clone the repository
             
             git clone https://github.com/RubenDillon/application-accelerator-samples.git
             
-         2. Open VS Code and open the TANZU-JAVA-WEB-APP folder from the cloned github source
+         2. Open VS Code and open the TANZU-JAVA-WEB-APP folder from the cloned github resource
          
          3. Review the following files
          
@@ -513,8 +511,6 @@ tanzu apps workload create where-to-eat \
         2. Retrieve the read-write secret from meta data store
         
                 kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d
-                
-                ///// Poner como se agregar el BEARER en tap-gui.... y que no se pone el ultimo caracter "%" ////////
                 
         3. Use the following configuration for TAP ( tap-values-w.test-scan.yaml to use the environment with Testing and Scanning) and change the BEARER in tap-gui for the data obtained in last point (no include the last sign "%")
         
