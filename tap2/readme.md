@@ -457,6 +457,9 @@ tanzu apps workload create where-to-eat \
     
     5. Iterate with the application (To be defined...)
     
+                https://github.com/RubenDillon/application-accelerator-samples/blob/main/where-for-dinner/catalog/catalog-info.yaml
+    
+    
 ```
 
 ## Another
