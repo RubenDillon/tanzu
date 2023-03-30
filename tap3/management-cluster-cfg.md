@@ -20,5 +20,5 @@ The output should contain "accepted": true
 https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.5/vmware-tanzu-kubernetes-grid-15/GUID-mgmt-clusters-deploy-ui.html 
 
         ssh -L 127.0.0.1:8080:127.0.0.1:8080 ruben@x.y.z.w
-        sudo tanzu management-cluster create - -ui – -browser none
+        sudo tanzu management-cluster create --ui –-browser none
 
