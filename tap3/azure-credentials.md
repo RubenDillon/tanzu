@@ -44,10 +44,12 @@ https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.5/vmware-tanzu-kuberne
 
     Where AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, and AZURE_TENANT_ID are your tce app’s client ID and secret and your tenant ID, 
 
-    2.	Run the az vm image terms accept command, specifying the --plan and your Subscription ID.
-In Tanzu Kubernetes Grid v.1.5.1, the default cluster image --plan value is k8s-1dot22dot5-ubuntu-2004, based on Kubernetes version 1.22.5 and the machine OS, Ubuntu 20.04. 
+2.	Run the az vm image terms accept command, specifying the --plan and your Subscription ID.
+    
+In Tanzu Kubernetes Grid v2.1.1, the default cluster image --plan value is k8s-1dot24dot10-ubuntu-2004, based on Kubernetes version 1.24.10 and the machine OS, Ubuntu 20.04. Run the following command:
 
-az vm image terms accept --publisher vmware-inc --offer tkg-capi --plan k8s-1dot22dot5-ubuntu-2004 --subscription AZURE_SUBSCRIPTION_ID
+az vm image terms accept --publisher vmware-inc --offer tkg-capi-2022-06-24 --plan k8s-1dot24dot10-ubuntu-2004 --subscription AZURE_SUBSCRIPTION_ID
 
 Where AZURE_SUBSCRIPTION_ID is your Azure subscription ID.
+    
 You must repeat this to accept the base image license for every version of Kubernetes or OS that you want to use when you deploy clusters, and every time that you upgrade to a new version of Tanzu.
