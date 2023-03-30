@@ -6,11 +6,11 @@ sudo curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 ### Crear la aplicación TKG en Azure 
 https://tanzucommunityedition.io/docs/v0.11/azure-mgmt/ 
 
-tenant ID:  xxxx
-Suscription ID: yyyy
-App (client) ID:  zzzz
-Secret: (value) : yyyy
-(secret ID) : xxxx
+- tenant ID:  xxxx
+- Suscription ID: yyyy
+- App (client) ID:  zzzz
+- Secret: (value) : yyyy
+- (secret ID) : xxxx
 
 SSH Key:
 ssh-rsa AAAAB3NzaC1yc2EAAAA.......30jezCw== “rdillon@vmware.com”
