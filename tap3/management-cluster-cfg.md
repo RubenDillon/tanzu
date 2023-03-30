@@ -22,3 +22,9 @@ https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.5/vmware-tanzu-kuberne
         ssh -L 127.0.0.1:8080:127.0.0.1:8080 ruben@x.y.z.w
         sudo tanzu management-cluster create --ui –-browser none
 
+
+### Conectarse al management cluster
+
+Utilizar el comando context de kubectl, por ejemplo
+        
+        kubectl config use-context tkg-mgmt-west-admin@tkg-mgmt-west
