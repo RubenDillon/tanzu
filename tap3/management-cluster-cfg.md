@@ -2,10 +2,10 @@
 
 https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.5/vmware-tanzu-kubernetes-grid-15/GUID-mgmt-clusters-azure.html 
 
-sudo ssh-keygen -t rsa -b 4096 -C “rdillon@vmware.com” 
-sudo eval $(ssh-agent)
-sudo ssh-add ~/.ssh/id_rsa
-sudo cat ~/.ssh/id_rsa.pub
+    sudo ssh-keygen -t rsa -b 4096 -C “rdillon@vmware.com” 
+    sudo eval $(ssh-agent)
+    sudo ssh-add ~/.ssh/id_rsa
+    sudo cat ~/.ssh/id_rsa.pub
 
 copy key txt (all) 
 
