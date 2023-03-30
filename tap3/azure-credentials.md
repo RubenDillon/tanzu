@@ -39,9 +39,12 @@ ssh-rsa AAAAB3NzaC1yc2EAAAA.......30jezCw== “rdillon@vmware.com”
 https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.5/vmware-tanzu-kubernetes-grid-15/GUID-mgmt-clusters-azure.html#tkg-app 
 
 1.	Sign in to the Azure CLI as your tce client application.
-az login --service-principal --username AZURE_CLIENT_ID --password AZURE_CLIENT_SECRET --tenant AZURE_TENANT_ID
-Where AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, and AZURE_TENANT_ID are your tce app’s client ID and secret and your tenant ID, 
-2.	Run the az vm image terms accept command, specifying the --plan and your Subscription ID.
+
+    az login --service-principal --username AZURE_CLIENT_ID --password AZURE_CLIENT_SECRET --tenant AZURE_TENANT_ID
+
+    Where AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, and AZURE_TENANT_ID are your tce app’s client ID and secret and your tenant ID, 
+
+    2.	Run the az vm image terms accept command, specifying the --plan and your Subscription ID.
 In Tanzu Kubernetes Grid v.1.5.1, the default cluster image --plan value is k8s-1dot22dot5-ubuntu-2004, based on Kubernetes version 1.22.5 and the machine OS, Ubuntu 20.04. 
 
 az vm image terms accept --publisher vmware-inc --offer tkg-capi --plan k8s-1dot22dot5-ubuntu-2004 --subscription AZURE_SUBSCRIPTION_ID
