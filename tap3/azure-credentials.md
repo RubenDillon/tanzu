@@ -4,7 +4,7 @@ https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
 sudo curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 ### Crear la aplicación TKG en Azure 
-https://tanzucommunityedition.io/docs/v0.11/azure-mgmt/ 
+https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/2.1/tkg-deploy-mc-21/mgmt-reqs-prep-azure.html#license
 
 - tenant ID:  xxxx
 - Suscription ID: yyyy
@@ -15,7 +15,7 @@ https://tanzucommunityedition.io/docs/v0.11/azure-mgmt/
 SSH Key:
 ssh-rsa AAAAB3NzaC1yc2EAAAA.......30jezCw== “rdillon@vmware.com”
 
-### steps
+### Steps
 1.	Log in to the Azure Portal.
 2.	Record your Tenant ID by hovering over your account name at upper-right, or else browse to Azure Active Directory > <Your Azure Org> > Properties > Tenant ID. The value is a GUID, for example b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0.
 3.	Browse to Active Directory > App registrations and click + New registration.
