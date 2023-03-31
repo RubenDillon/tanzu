@@ -7,7 +7,7 @@
     3. An AWS subscription for route53 DNS service (we create solateam.be domain)
     4. Tanzu Mission Control
     5. To deploy 
-        - TAP 1.4.1 we need Kubernetes v1.24, 1.25 and 1.26. We will be using 1.25 on a TKG deployed on Azure
+        - TAP 1.4.1 we need Kubernetes v1.23, 1.24 and 1.25. We will be using 1.24.10 on a TKG deployed on Azure
     6. Sign in to VMware Tanzu Network and accept or confirm that you have accepted the EULAs for each of the following:
         - https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/#/releases/1238179 (Cluster Essentials for Tanzu)
         - https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1260040 (Tanzu App Platform)
@@ -20,8 +20,8 @@
     2. Create a Cluster Group (I create "TAP" cluster group)
     3. Deploy a TKG cluster 
     
-            3 instance for Control plane (Standard_F8s_v2 = 8 vCPU and 16 GB RAM each in 3 availability zones)
-            6 instances for Workers nodes (Standard_F8s_v2 = 8 vCPU and 16 GB RAM each) Two nodes by each availability zone
+            3 instance for Control plane (Standard_D4s_v3 = 8 vCPU and 16 GB RAM each in 3 availability zones)
+            6 instances for Workers nodes (Standard_D8s_v3 = 8 vCPU and 16 GB RAM each) Two nodes by each availability zone
     
     4. Deploy Cert-Manager using the defaults
     5. Deploy Contour using the contour-values.yaml from this git
