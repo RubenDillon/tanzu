@@ -44,7 +44,7 @@
                 to know the available packages and to select the newest, for example the following version 0.12.2+vmware.4-tkg.2
                 
             tanzu package install external-dns \
-            --package-name external-dns.tanzu.vmware.com \
+            --package external-dns.tanzu.vmware.com \
             --version 0.12.2+vmware.4-tkg.2 \
             --values-file external-dns.yaml \
             --namespace tanzu-system-service-discovery
