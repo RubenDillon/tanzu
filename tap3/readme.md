@@ -1,4 +1,4 @@
-# Deploy Tanzu Application Platform v1.4.1 using Azure with Harbor (using FREE public certificates)
+# Deploy Tanzu Application Platform v1.4.2 using Azure with Harbor (using FREE public certificates)
 
 ## Requirements
 ```
