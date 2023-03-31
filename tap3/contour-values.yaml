@@ -2,7 +2,6 @@
 infrastructure_provider: azure
 namespace: tanzu-system-ingress
 contour:
- configFileContents: {}
  useProxyProtocol: false
  replicas: 2
  pspNames: "vmware-system-restricted"
@@ -10,7 +9,6 @@ contour:
 envoy:
  service:
    type: LoadBalancer
-   annotations: {}
    nodePorts:
      http: null
      https: null
