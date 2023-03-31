@@ -1,0 +1,28 @@
+deployment:
+  args:
+    - --source=service
+    - --source=ingress
+    - --source=contour-httpproxy
+    - --domain-filter=external-dns-test.solateam.be
+    - --policy=upsert-only
+    - --registry=txt
+    - --txt-owner-id=Z045012432XEVAJNILAPW
+    - --txt-prefix=txt
+    - --provider=aws
+    - --aws-zone-type=public
+    - --aws-prefer-cname
+  env:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          key: aws_access_key_id
+          name: route53-credentials
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          key: aws_secret_access_key
+          name: route53-credentials
+  securityContext: {}
+  volumeMounts: []
+  volumes: []
+namespace: tanzu-system-service-discovery
