@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+spec:
+  acme:
+    email: certificate-notices@my-company.com
+    privateKeySecretRef:
+      name: letsencrypt-production
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+      - http01:
+          ingress:
+            class: contour
