@@ -161,7 +161,7 @@
 ## Create the repository
 ```
         Name: tanzu-tap-repository
-        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.3.5
+        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.4.2
 ```
 
 ## Obtain where is running ENVOY
@@ -173,7 +173,7 @@
 ```
     1. Select the Tanzu Application Platform
     
-    2. Select tap as name and 1.3.5 for the version
+    2. Select tap as name and 1.4.2 for the version
     
     3. Copy the tap-values.yaml from this git. If you want to use Testing you will use the tap-values-w.testing.yaml
     
