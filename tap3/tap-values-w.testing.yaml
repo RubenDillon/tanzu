@@ -3,7 +3,7 @@ buildservice:
   kp_default_repository: harbor.solateam.be/tap/build-service
   kp_default_repository_password: PASSw0rd2019202020212022
   kp_default_repository_username: admin
-  tanzunet_password: PA$$w0rd2023
+  tanzunet_password: PA$$w0rd2022
   tanzunet_username: ruben_dillon@hotmail.com
 ceip_policy_disclosed: true
 cnrs:
@@ -33,6 +33,8 @@ ootb_supply_chain_testing:
     repository: tap/supply-chain
     server: harbor.solateam.be
 profile: full
+shared:
+  ingress_issuer: letsencrypt-production
 supply_chain: testing
 tap_gui:
   app_config:
