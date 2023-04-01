@@ -167,7 +167,15 @@
 ## Obtain where is running ENVOY
 ```
       In our example we assume that is running on the following IP Address: 20.246.129.194
-```      
+     
+```  
+
+## Configure Lets Encryt for the internal communications
+
+```
+    Run the cluster-issuer.yaml file
+    
+```
 
 ## Install Tanzu Application Platform package from TMC Catalog
 ```
