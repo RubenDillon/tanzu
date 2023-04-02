@@ -550,7 +550,18 @@ tanzu apps workload create tanzu-java-web-app \
    
    
         
-        
+
+```
+
+## Commands to use with Tanzu Application Platform
+```
+
+    kubectl get ScanPolicy
+    
+    kubectl get PipeLine
+    
+    tanzu apps cluster-supply-chain list
+    
 
 ```
 
