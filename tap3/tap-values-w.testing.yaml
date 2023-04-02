@@ -38,6 +38,12 @@ shared:
 supply_chain: testing
 tap_gui:
   app_config:
+    app:
+      baseUrl: https://tap-gui.solateam.be/
+    backend:
+      baseUrl: https://tap-gui..solateam.be/
+      cors:
+        origin: https://tap-gui..solateam.be/
     catalog:
       locations:
         - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
