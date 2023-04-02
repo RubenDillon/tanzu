@@ -562,6 +562,15 @@ tanzu apps workload create tanzu-java-web-app \
     
     tanzu apps cluster-supply-chain list
     
+    tanzu accelerator list
+    
+    tanzu accelerator create...
+    
+    kubectl get ImageScan
+    
+    kubectl get SourceScan
+    
+    
 
 ```
 
