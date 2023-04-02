@@ -570,8 +570,6 @@ tanzu apps workload create tanzu-java-web-app \
     
     kubectl get SourceScan
     
-    
-
 ```
 
 
@@ -590,7 +588,7 @@ tanzu apps workload create tanzu-java-web-app \
             export INSTALL_REGISTRY_USERNAME=admin
             export INSTALL_REGISTRY_PASSWORD=PASSw0rd2019202020212022
             export INSTALL_REGISTRY_HOSTNAME=harbor.solateam.be
-            export TAP_VERSION=1.3.5
+            export TAP_VERSION=1.4.2
             export INSTALL_REPO=export INSTALL_REPO=tap
          
         3. To review which versions of TAP are available run the following
@@ -696,5 +694,6 @@ tanzu apps workload create tanzu-java-web-app \
   - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-tap-gui-plugins-scc-tap-gui.html#scan
   - https://confluence.eng.vmware.com/display/MAPBUSUP/TAP+Support+Workshop+-+Day+1
   - https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/2.1/tkg-deploy-mc-21/mgmt-reqs-prep-azure.html#tkg-app
-  https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/tap-gui-troubleshooting.html
+  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/tap-gui-troubleshooting.html
+  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/troubleshooting-tap-troubleshoot-using-tap.html
 
