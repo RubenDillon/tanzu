@@ -61,7 +61,7 @@ tap_gui:
     integrations:
       github:
         - host: github.com
-        - token: "tap-auth-tap1.4.2"
+        - token: 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
     proxy:
       /metadata-store:
         changeOrigin: true
