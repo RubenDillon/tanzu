@@ -61,7 +61,8 @@ tap_gui:
     integrations:
       github:
         - host: github.com
-        - token: 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
+          token: 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
+#          token: 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
     proxy:
       /metadata-store:
         changeOrigin: true
