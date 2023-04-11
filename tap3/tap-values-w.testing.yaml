@@ -1,3 +1,11 @@
+# --------------------------------------------------------------------------------- #
+#
+#                         TAP values to deploy Testing
+#
+#                              valid for TAP 1.4.2
+#
+# --------------------------------------------------------------------------------- #
+
 buildservice:
   descriptor_name: ""
   kp_default_repository: harbor.solateam.be/tap/build-service
