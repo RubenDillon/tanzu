@@ -1,3 +1,12 @@
+# --------------------------------------------------------------------------------- #
+#
+#    TAP values to deploy Test, GIT as Authentication and GIT for App Accelerator
+#
+#                              valid for TAP 1.4.2
+#
+# --------------------------------------------------------------------------------- #
+
+
 buildservice:
   descriptor_name: ""
   kp_default_repository: harbor.solateam.be/tap/build-service
