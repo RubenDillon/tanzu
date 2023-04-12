@@ -1,4 +1,4 @@
-# Deploy Tanzu Application Platform v1.4.2 using Azure with Harbor (using FREE public certificates)
+# Deploy Tanzu Application Platform v1.5 using Azure with Harbor (using FREE public certificates)
 
 ## Requirements
 ```
@@ -7,7 +7,7 @@
     3. An AWS subscription for route53 DNS service (we create solateam.be domain)
     4. Tanzu Mission Control
     5. To deploy 
-        - TAP 1.4.1 we need Kubernetes v1.23, 1.24 and 1.25. We will be using 1.24.10 on a TKG deployed on Azure
+        - TAP 1.4.1 we need Kubernetes v1.24, 1.25 and 1.26. We will be using 1.24.10 on a TKG deployed on Azure
     6. Sign in to VMware Tanzu Network and accept or confirm that you have accepted the EULAs for each of the following:
         - https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/#/releases/1238179 (Cluster Essentials for Tanzu)
         - https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1260040 (Tanzu App Platform)
@@ -161,7 +161,7 @@
 ## Create the repository
 ```
         Name: tanzu-tap-repository
-        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.4.2
+        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.5
 ```
 
 ## Obtain where is running ENVOY
@@ -181,7 +181,7 @@
 ```
     1. Select the Tanzu Application Platform
     
-    2. Select tap as name and 1.4.2 for the version
+    2. Select tap as name and 1.5 for the version
     
     3. Copy the tap-values.yaml from this git. If you want to use Testing you will use the tap-values-w.testing.yaml
     
