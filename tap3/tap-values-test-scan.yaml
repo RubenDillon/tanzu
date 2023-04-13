@@ -41,9 +41,13 @@ ootb_supply_chain_testing:
     repository: tap/supply-chain
     server: harbor.solateam.be
 ootb_supply_chain_testing_scanning:
-  registry:
-    repository: tap/supply-chain
-    server: harbor.solateam.be
+  scanning:
+    source:
+      policy: scan-policy
+      template: scan-template
+    image:
+      policy: scan-policy
+      template: scan-template 
 profile: full
 supply_chain: testing_scanning
 tap_gui:
