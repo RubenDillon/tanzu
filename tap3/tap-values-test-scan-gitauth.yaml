@@ -1,8 +1,8 @@
 # --------------------------------------------------------------------------------- #
 #
-#             TAP values to deploy Test, Scan and GIT as Authentication
+#             TAP values to deploy Test, Scan and GIT authentication
 #
-#                              valid for TAP 1.4.2
+#                              valid for TAP 1.5
 #
 # --------------------------------------------------------------------------------- #
 
@@ -11,8 +11,6 @@ buildservice:
   kp_default_repository: harbor.solateam.be/tap/build-service
   kp_default_repository_password: PASSw0rd2019202020212022
   kp_default_repository_username: admin
-  tanzunet_password: PA$$w0rd2023
-  tanzunet_username: ruben_dillon@hotmail.com
 ceip_policy_disclosed: true
 cnrs:
   domain_name: solateam.be
@@ -30,7 +28,6 @@ learningcenter:
   ingressDomain: solateam.be
 metadata_store:
   app_service_type: LoadBalancer
-  ns_for_export_app_cert: "*"
 ootb_supply_chain_basic:
   gitops:
     ssh_secret: ""
@@ -45,6 +42,9 @@ ootb_supply_chain_testing_scanning:
   registry:
     repository: tap/supply-chain
     server: harbor.solateam.be
+  cluster_builder: default
+  service_account: default
+  
 profile: full
 supply_chain: testing_scanning
 tap_gui:
