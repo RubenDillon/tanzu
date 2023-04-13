@@ -45,16 +45,6 @@ ootb_supply_chain_testing_scanning:
     server: harbor.solateam.be
     repository: tap/supply-chain
 
-  gitops: 
-    server_address: https://github.com/
-    repository_owner: vmware-tanzu  
-    branch: main
-    username: supplychain
-    email: supplychain
-    commit_message: supplychain@cluster.local
-    ssh_secret: git-ssh
-    commit_strategy: direct
-
   cluster_builder: default
   service_account: default
 profile: full
