@@ -240,7 +240,7 @@ subjects:
     name: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: RoleBinding 
 metadata:
   name: default-permit-workload
 roleRef:
