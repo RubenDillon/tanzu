@@ -511,15 +511,17 @@ tanzu apps workload create where-to-eat \
 
 ## Defining Scan policy and TAP-GUI access to scan
 ```
-        1. Create the Scan policy applying the scan-policy.yaml
+        1. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
         
                 kubectl apply -f scan-policy.yaml
                 
-        2. Create a service account with read-write permission in the meta data store  
+                kubectl apply -f scan-template.yaml
+                
+       ?? 2. Create a service account with read-write permission in the meta data store  
         
                 kubectl apply -f create-svc-scan.yaml
 
-        2. Retrieve the read-write secret from meta data store
+       ?? 2. Retrieve the read-write secret from meta data store
         
                 kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d
                 
