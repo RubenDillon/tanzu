@@ -523,7 +523,9 @@ tanzu apps workload create where-to-eat \
 
 ## Defining Scan policy and TAP-GUI access to scan
 ```
-        1. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
+       - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
+       
+       1. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
         
                 kubectl apply -f scan-policy.yaml
                 
@@ -542,29 +544,26 @@ tanzu apps workload create where-to-eat \
         4. Update the application deployment setting the label has-tests to true
         
         
-tanzu apps workload create tanzu-java-web-app \
-  --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
-  --sub-path tanzu-java-web-app \
-  --git-branch main \
-  --type web \
-  --label apps.tanzu.vmware.com/has-tests=true \
-  --label app.kubernetes.io/part-of=tanzu-java-web-app \
-  --yes
+        tanzu apps workload create tanzu-java-web-app \
+        --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
+        --sub-path tanzu-java-web-app \
+        --git-branch main \
+        --type web \
+        --label apps.tanzu.vmware.com/has-tests=true \
+        --label app.kubernetes.io/part-of=tanzu-java-web-app \
+        --yes
         
         
-   tanzu apps workload create hello-world \
-            --git-repo https://github.com/RubenDillon/Kubernetes \
-            --sub-path dotnet-core-hello-world \
-            --git-branch main \
-            --type web \
-            --label apps.tanzu.vmware.com/has-tests=true \
-            --label app.kubernetes.io/part-of=hello-world \
-            --yes \
-            --namespace default
+        tanzu apps workload create hello-world \
+        --git-repo https://github.com/RubenDillon/Kubernetes \
+        --sub-path dotnet-core-hello-world \
+        --git-branch main \
+        --type web \
+        --label apps.tanzu.vmware.com/has-tests=true \
+        --label app.kubernetes.io/part-of=hello-world \
+        --yes \
+        --namespace default
    
-   
-        
-
 ```
 
 ## Commands to use with Tanzu Application Platform
