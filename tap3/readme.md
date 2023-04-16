@@ -523,7 +523,8 @@ tanzu apps workload create where-to-eat \
 
 ## Defining Scan policy and TAP-GUI access to scan
 ```
-       - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
+ - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
+       
        
        1. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
         
@@ -709,4 +710,5 @@ tanzu apps workload create where-to-eat \
   - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/tap-gui-plugins-scc-tap-gui.html#scan
   - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/tap-gui-troubleshooting.html
   - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/troubleshooting-tap-troubleshoot-using-tap.html
+  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
 
