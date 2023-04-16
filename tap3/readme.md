@@ -177,6 +177,18 @@
     
 ```
 
+## Create a GIT repository (for future use)
+```
+
+    mkdir -p $HOME/tap-gitops
+    cd $HOME/tap-gitops
+
+    git init
+    git remote add origin git@github.com:my-organization/tap-gitops.git
+
+
+```
+
 ## Install Tanzu Application Platform package from TMC Catalog
 ```
     1. Select the Tanzu Application Platform
