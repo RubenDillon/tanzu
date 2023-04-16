@@ -540,6 +540,13 @@ tanzu apps workload create where-to-eat \
         
                 kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d
                 
+                
+                export ACCESS_TOKEN=$(kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d)
+
+                echo $ACCESS_TOKEN
+                
+                
+                
         3. Use the following configuration for TAP ( tap-values-w.test-scan.yaml to use the environment with Testing and Scanning) and change the BEARER in tap-gui for the data obtained in last point (no include the last sign "%")
         
         4. Update the application deployment setting the label has-tests to true
