@@ -492,7 +492,7 @@ tanzu apps workload create where-to-eat \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=weatherforecast-steeltoe \
-		    --label apps.tanzu.vmware.com/has-tests=true \
+		    --label apps.tanzu.vmware.com/has-tests=true \ 
             --yes \
             --namespace default
             
