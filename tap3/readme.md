@@ -484,7 +484,7 @@ tanzu apps workload create where-to-eat \
 
 ## Another
 ```
-        Weather application using Steeltoe
+            A Weather application using Steeltoe framework (.NET core)
         
             tanzu apps workload create weatherforecast-steeltoe \
             --git-repo https://github.com/RubenDillon/application-accelerator-samples \
@@ -496,11 +496,73 @@ tanzu apps workload create where-to-eat \
             --yes \
             --namespace default
             
-            NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
+            	NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
             
             To import use
             https://github.com/RubenDillon/application-accelerator-samples/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
 
+
+ 	    Another Java application 
+
+	    tanzu apps workload create java-server-side-ui \
+            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
+            --sub-path java-server-side-ui \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=java-server-side-ui \
+		    --label apps.tanzu.vmware.com/has-tests=true \
+            --yes \
+            --namespace default
+	    
+
+		NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
+	    
+
+            To import use
+	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/java-server-side-ui/catalog/catalog-info.yaml
+
+
+	    
+	    An Angular front end application
+	    
+	    tanzu apps workload create angular-frontend \
+            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
+            --sub-path angular-frontend \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=angular-frontend \
+		    --label apps.tanzu.vmware.com/has-tests=true \
+            --yes \
+            --namespace default
+
+		NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
+	    
+	    To import use
+	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/angular-frontend/catalog/catalog-info.yaml
+	    
+	    
+	    
+	    A Node.js (using express.js) example
+	    
+	    tanzu apps workload create node-express \
+            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
+            --sub-path node-express \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=node-express \
+		    --label apps.tanzu.vmware.com/has-tests=true \
+            --yes \
+            --namespace default
+
+
+
+		NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
+	    
+	    
+	    To import use
+	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/node-express/catalog/catalog-info.yaml
+	    
+	    
 ```
 
 ## Steps to create a TAP workload from an existing application 
