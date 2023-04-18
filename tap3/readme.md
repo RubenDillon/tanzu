@@ -492,9 +492,11 @@ tanzu apps workload create where-to-eat \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=weatherforecast-steeltoe \
+		    --label apps.tanzu.vmware.com/has-tests=true \
             --yes \
             --namespace default
             
+            NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
             
             To import use
             https://github.com/RubenDillon/application-accelerator-samples/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
