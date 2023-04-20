@@ -1,17 +1,18 @@
 
+Este proyecto consta de 2 componentes, 
+- el script loop.sh
+- la ejecucion de chrome desde abrir.sh
 
-    Este proyecto consta de 2 componentes, un loop y la ejecucion de chrome
-
-    loop.sh
+loop.sh
 ```
 #!/bin/bash
 
 while true; do
   # Ejecutar el batch aquí
-  ./abrir2.sh
+  ./abrir.sh
   
   # Esperar 20 minutos
-  sleep 20
+  sleep 1200
 done
 ```
 
