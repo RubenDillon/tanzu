@@ -30,5 +30,10 @@ google-chrome-stable https://www.youtube.com/watch?v=z4CPeE2B4NE&list=PLBrdJqPHE
 
 Para poner en hora la VM
 ```
-    sudo timedatectl set-timezone America/Argentina/Buenos_Aires
+sudo timedatectl set-timezone America/Argentina/Buenos_Aires
+
 ```
+
+Pasos a realizar
+- Abrir chrome
+- abrir un terminal y ejecutar ./loop.sh
