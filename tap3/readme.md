@@ -486,13 +486,13 @@ tanzu apps workload create where-to-eat \
 ```
             A Weather application using Steeltoe framework (.NET core)
         
-            tanzu apps workload create weatherforecast-steeltoe \
+tanzu apps workload create weatherforecast-steeltoe \
             --git-repo https://github.com/RubenDillon/application-accelerator-samples \
             --sub-path weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=weatherforecast-steeltoe \
-		    --label apps.tanzu.vmware.com/has-tests=true \ 
+		    --label apps.tanzu.vmware.com/has-tests=true \
             --yes \
             --namespace default
             
