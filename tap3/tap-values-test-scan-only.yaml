@@ -42,10 +42,10 @@ ootb_supply_chain_testing_scanning:
 profile: full
 shared:
   ingress_issuer: letsencrypt-production
+  ingress_domain: "solateam.be"
 supply_chain: testing_scanning
 tap_gui:
   app_config:
-    metadataStoreAutoconfiguration: true
     app:
       baseUrl: https://tap-gui.solateam.be/
     backend:
@@ -62,3 +62,4 @@ tap_gui:
     metadataStore:
       url: ""
   service_type: ClusterIP
+  metadataStoreAutoconfiguration: true
