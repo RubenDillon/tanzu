@@ -27,18 +27,10 @@ learningcenter:
   ingressDomain: solateam.be
 metadata_store:
   app_service_type: LoadBalancer
-ootb_supply_chain_basic:
-  gitops:
-    ssh_secret: ""
-  registry:
-    repository: tap/supply-chain
-    server: harbor.solateam.be
 ootb_supply_chain_testing_scanning:
   registry:
     server: harbor.solateam.be
     repository: tap/supply-chain
-  cluster_builder: default
-  service_account: default
 profile: full
 shared:
   ingress_issuer: letsencrypt-production
