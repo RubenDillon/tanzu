@@ -10,34 +10,69 @@ buildservice:
   kp_default_repository: harbor.solateam.be/tap/build-service
   kp_default_repository_password: PASSw0rd2019202020212022
   kp_default_repository_username: admin
+
 ceip_policy_disclosed: true
+
 cnrs:
   domain_name: solateam.be
+
 contour:
   envoy:
     service:
       type: LoadBalancer
+
 excluded_packages:
   - contour.tanzu.vmware.com
   - cert-manager.tanzu.vmware.com
+
 grype:
   namespace: default
   targetImagePullSecret: harbor-cert
+
 learningcenter:
   ingressDomain: solateam.be
+
+scanning:
+  metadataStore:
+    url: ""
+
 metadata_store:
   app_service_type: LoadBalancer
+  ingressEnabled: true
+  ingressDomain: solateam.be
+
+ootb_supply_chain_testing:
+  registry:
+    server: harbor.solateam.be
+    repository: tap/supply-chain
+  gitops:
+    ssh_secret: ""
+
+
 ootb_supply_chain_testing_scanning:
   registry:
     server: harbor.solateam.be
     repository: tap/supply-chain
+  gitops:
+    ssh_secret: ""
+
+ootb_delivery_basic:
+  service_account: default
+
 profile: full
+
 shared:
   ingress_issuer: letsencrypt-production
   ingress_domain: "solateam.be"
+
 supply_chain: testing_scanning
+
 tap_gui:
   app_config:
+    supplyChain:
+      enablePlugin: true
+    auth:
+      allowGuestAccess: true
     app:
       baseUrl: https://tap-gui.solateam.be/
     backend:
