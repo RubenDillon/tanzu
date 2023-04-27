@@ -6,6 +6,9 @@
 #
 # --------------------------------------------------------------------------------- #
 
+namespace_provisioner:
+  controller: true
+
 buildservice:
   kp_default_repository: harbor.solateam.be/tap/build-service
   kp_default_repository_password: PASSw0rd2019202020212022
@@ -27,16 +30,25 @@ learningcenter:
   ingressDomain: solateam.be
 metadata_store:
   app_service_type: LoadBalancer
+  ingressEnabled: true
+  ingressDomain: solateam.be  
 ootb_supply_chain_testing:
   registry:
     repository: tap/supply-chain
     server: harbor.solateam.be
+  gitops:
+    ssh_secret: ""
+ootb_delivery_basic:
+  service_account: default    
 profile: full
 shared:
   ingress_issuer: letsencrypt-production
+  ingress_domain: "solateam.be"  
 supply_chain: testing
 tap_gui:
   app_config:
+    supplyChain:
+      enablePlugin: true  
     app:
       baseUrl: https://tap-gui.solateam.be/
     backend:
