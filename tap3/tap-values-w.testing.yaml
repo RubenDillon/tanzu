@@ -80,7 +80,6 @@ tap_gui:
   scanning:
     metadataStore:
       url: ""
-  service_type: ClusterIP
 
 policy:
   tuf_enabled: false
