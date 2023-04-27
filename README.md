@@ -16,4 +16,4 @@ sobre una plataforma vSphere.
 
 ## TAP
 En este apartado encontraran todos los scripts y valores por defecto para poder desplegar los componentes de TANZU APPLICATION PLATFORM 
-sobre una plataforma vSphere (TAP) y de nube publica de Microsoft (TAP2).
+sobre TKG (TAP2 y TAP3).
