@@ -58,6 +58,11 @@ profile: full
 shared:
   ingress_domain: solateam.be
   ingress_issuer: letsencrypt-production
+  image_registry:
+    project_path: "harbor.solateam.be/tap"
+    secret:
+      name: "registry-credentials"
+      namespace: "default"
 
 supply_chain: testing_scanning
 
