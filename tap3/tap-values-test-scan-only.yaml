@@ -6,14 +6,12 @@
 #
 # --------------------------------------------------------------------------------- #
 
-namespace_provisioner:
-  controller: true
-
 buildservice:
   kp_default_repository: harbor.solateam.be/tap/build-service
-  kp_default_repository_password: PASSw0rd2019202020212022
-  kp_default_repository_username: admin
-
+  kp_default_repository_secret:
+    name: registry-credentials
+    namespace: default
+    
 ceip_policy_disclosed: true
 
 cnrs:
@@ -30,52 +28,41 @@ excluded_packages:
 
 grype:
   namespace: default
-  targetImagePullSecret: harbor-cert
+  targetImagePullSecret: registry-credentials
 
 learningcenter:
   ingressDomain: solateam.be
 
-scanning:
-  metadataStore:
-    url: ""
-
 metadata_store:
-  app_service_type: LoadBalancer
-  ingressEnabled: true
-  ingressDomain: solateam.be
+  app_service_type: ClusterIP
+  ns_for_export_app_cert: "*"
 
-ootb_supply_chain_testing:
-  registry:
-    server: harbor.solateam.be
-    repository: tap/supply-chain
-  gitops:
-    ssh_secret: ""
-
-
-ootb_supply_chain_testing_scanning:
-  registry:
-    server: harbor.solateam.be
-    repository: tap/supply-chain
-  gitops:
-    ssh_secret: ""
+namespace_provisioner:
+  controller: true
 
 ootb_delivery_basic:
   service_account: default
 
+ootb_supply_chain_testing_scanning:
+  gitops:
+    ssh_secret: ""
+  registry:
+    repository: tap/tap-app
+    server: harbor.solateam.be
+
+policy:
+  tuf_enabled: false
+
 profile: full
 
 shared:
+  ingress_domain: solateam.be
   ingress_issuer: letsencrypt-production
-  ingress_domain: "solateam.be"
 
 supply_chain: testing_scanning
 
 tap_gui:
   app_config:
-    supplyChain:
-      enablePlugin: true
-    auth:
-      allowGuestAccess: true
     app:
       baseUrl: https://tap-gui.solateam.be/
     backend:
@@ -86,10 +73,14 @@ tap_gui:
       locations:
         - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
           type: url
+    supplyChain:
+      enablePlugin: true
+  auth:
+    allowGuestAccess: true
   ingressDomain: solateam.be
   ingressEnabled: "true"
+  metadataStoreAutoconfiguration: true
   scanning:
     metadataStore:
       url: ""
   service_type: ClusterIP
-  metadataStoreAutoconfiguration: true
