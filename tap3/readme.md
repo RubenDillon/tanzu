@@ -210,103 +210,17 @@
             kubectl apply -f pipeline.yaml
 ```  
 
-## Create developer namespace (single user access)
-```
-    1. Run the following command to Create the secret
-    
-            tanzu secret registry add registry-credentials --server harbor.solateam.be --username admin --password 'PASSw0rd2019202020212022' --namespace default
-    
-    2. To add secrets, a service account to execute the supply chain, and RBAC rules to authorize the service account to the developer namespace, run
-    
-cat <<EOF | kubectl -n default apply -f -
-apiVersion: v1
-kind: Secret
-metadata:
-  name: tap-registry
-  annotations:
-    secretgen.carvel.dev/image-pull-secret: ""
-type: kubernetes.io/dockerconfigjson
-data:
-  .dockerconfigjson: e30K
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: default
-secrets:
-  - name: registry-credentials
-imagePullSecrets:
-  - name: registry-credentials
-  - name: tap-registry
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: default-permit-deliverable
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: deliverable
-subjects:
-  - kind: ServiceAccount
-    name: default
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding 
-metadata:
-  name: default-permit-workload
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: workload
-subjects:
-  - kind: ServiceAccount
-    name: default
-EOF
-
+## Prepare the developer namespace
 ```
 
-## OPTIONAL: Deploy the Tanzu Build Services full Depedencies (depending on the tap-values.yaml configuration of builservice)
+ 	1. Create a namespace using kubectl
+		kubectl create namespace xxxy (we are using default namespace.. for that we dont need to create it)
 
-```
-    1. Setup environment variables
-    
-            export INSTALL_REGISTRY_USERNAME=MY-REGISTRY-USER
-            export INSTALL_REGISTRY_PASSWORD=MY-REGISTRY-PASSWORD
-            export INSTALL_REGISTRY_HOSTNAME=MY-REGISTRY
-            export TAP_VERSION=VERSION-NUMBER
-            export INSTALL_REPO=TARGET-REPOSITORY
-            
-            where
-
-            INSTALL_REGISTRY_HOSTNAME is registry.tanzu.vmware.com
-            INSTALL_REPO is tanzu-application-platform
-            INSTALL_REGISTRY_USERNAME and INSTALL_REGISTRY_PASSSWORD are the credentials to run docker login registry.tanzu.vmware.com
-            TAP_VERSION is your Tanzu Application Platform version. For example, 1.3.5
-            
-    2. Get the latest version of the buildservice package by running:
-
-            tanzu package available list buildservice.tanzu.vmware.com --namespace tap-install
-
-    3. Add the Tanzu Build Service full dependencies package repository by running:
-
-            tanzu package repository add tbs-full-deps-repository \
-            --url ${INSTALL_REGISTRY_HOSTNAME}/${INSTALL_REPO}/tbs-full-deps:VERSION \
-            --namespace tap-install
-            
-            Where VERSION is the version of the buildservice package you retrieved earlier.
-
-    4. Install the full dependencies package by running or update the current TAP deployment 
-
-            tanzu package install full-tbs-deps -p full-tbs-deps.tanzu.vmware.com -v VERSION -n tap-install
-            
-            Where VERSION is the version of the buildservice package you retrieved earlier.
-            
-            or update
-            
-            tanzu package installed update tap -p tap.tanzu.vmware.com -v $TAP_VERSION  --values-file tap-values.yaml -n tap-install
-            
-
+	2. Label the namespace
+		kubectl label namespaces default apps.tanzu.vmware.com/tap-ns=""
+	
+	3. Review the configuration 
+		kubectl get secrets,serviceaccount,rolebinding,pods,workload,configmap,limitrange -n default
 ```
 
 ## Review the Self-Guided Workshop
@@ -585,9 +499,10 @@ tanzu apps workload create weatherforecast-steeltoe \
 
 ```
 
-## Defining Scan policy and TAP-GUI access to scan
+## Defining Test and Scanning OOTB supply chain and TAP-GUI access to scan
 ```
  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
+ - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/namespace-provisioner-ootb-supply-chain.html#testing--scanning-supply-chain-3
        
        
        1. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
@@ -600,7 +515,14 @@ tanzu apps workload create weatherforecast-steeltoe \
         
                 kubectl apply -f create-svc-scan.yaml
 
-       ?? 2. Retrieve the read-write secret from meta data store
+	 2. Review pipeline and scan policies are created
+	 
+	 	kubectl get pipeline.tekton.dev,scanpolicies
+
+
+
+
+?? 2. Retrieve the read-write secret from meta data store
         
                 kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d
                 
@@ -616,14 +538,15 @@ tanzu apps workload create weatherforecast-steeltoe \
         4. Update the application deployment setting the label has-tests to true
         
         
-        tanzu apps workload create tanzu-java-web-app \
-        --git-repo https://github.com/vmware-tanzu/application-accelerator-samples \
-        --sub-path tanzu-java-web-app \
-        --git-branch main \
-        --type web \
-        --label apps.tanzu.vmware.com/has-tests=true \
-        --label app.kubernetes.io/part-of=tanzu-java-web-app \
-        --yes
+tanzu apps workload apply tanzu-java-web-app \
+--git-repo https://github.com/sample-accelerators/tanzu-java-web-app \
+--git-branch main \
+--type web \
+--app tanzu-java-web-app \
+--label apps.tanzu.vmware.com/has-tests="true" \
+--namespace YOUR-NEW-DEVELOPER-NAMESPACE \
+--tail \
+--yes
         
         
         tanzu apps workload create hello-world \
