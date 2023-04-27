@@ -130,9 +130,19 @@
                 --values-file harbor-values.yaml \
                 --namespace harbor
                 
-                
-    
+                 
     15. Connect to harbor and create "tap" project as public.
+    
+    16. Create a secret for the registry
+    
+    tanzu secret registry add registry-credentials \
+    --server   harbor.solateam.be \
+    --username admin \
+    --password "PASSw0rd2019202020212022" \
+    --namespace tap-install \
+    --export-to-all-namespaces \
+    --yes
+    
             
 ```      
 
@@ -179,13 +189,22 @@
 
 ## Create a GIT repository (for future use)
 ```
+	Create an Organization on Github. In my case, I use ruben-latam
 
-    mkdir -p $HOME/tap-gitops
-    cd $HOME/tap-gitops
+	Then create a Git repository
+	
+    		mkdir -p $HOME/tap-gitops
+    		cd $HOME/tap-gitops
 
-    git init
-    git remote add origin git@github.com:my-organization/tap-gitops.git
+    		git init
+    		git remote add origin git@github.com:ruben-latam/tap-gitops.git
 
+		create a file on the directory then summit to the github
+		
+		git init -b main
+		git init && git symbolic-ref HEAD refs/heads/main
+		git add .
+		git commit -m "First commit"
 
 ```
 
@@ -195,7 +214,7 @@
     
     2. Select tap as name and 1.5 for the version
     
-    3. Copy the tap-values.yaml from this git. If you want to use Testing you will use the tap-values-w.testing.yaml
+    3. Copy the tap-values-OOTB-basic.yaml
     
     4. Monitor the install by running
             
@@ -205,9 +224,6 @@
             
             tanzu package installed list -A
           
-     6. If you use the testing version of the supply chain we need to create a Tekton pipeline for the testing
-     
-            kubectl apply -f pipeline.yaml
 ```  
 
 ## Prepare the developer namespace
@@ -317,16 +333,12 @@
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=tanzu-java-web-app \
+	    --tail \
             --yes \
             --namespace default
             
-       If you deploy the Supply Chain with Test... we need to add the following to the deployment
-       
-             --label apps.tanzu.vmware.com/has-tests=true \
             
-    2. View the build and runtime logs 
-    
-            tanzu apps workload tail tanzu-java-web-app --since 10m --timestamp --namespace default
+    2. View the build 
             
             kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
     
@@ -365,37 +377,6 @@
 ```
 
 
-## Deploy a more complex application
-
-```
-
-    1. Use the Application accelerator and select the "Where-to-Eat" application
-    
-    2. Use the defaults and download the zip file
-    
-    3. Upload to your github. In my case I upload into https://github.com/RubenDillon/where-to-eat
-    
-    4. Create the application into TAP
-    
-tanzu apps workload create where-to-eat \
---git-repo https://github.com/RubenDillon/where-to-eat \
---git-branch main \
---type web \
---label app.kubernetes.io/part-of=tanzu-where-to-eat \
---yes \
---namespace default
-
-    5. View the build and runtime logs 
-    
-            tanzu apps workload tail where-to-eat --since 10m --timestamp --namespace default
-    
-    5. Iterate with the application (To be defined...)
-    
-                https://github.com/RubenDillon/application-accelerator-samples/blob/main/where-for-dinner/catalog/catalog-info.yaml
-    
-    
-```
-
 ## Another
 ```
             A Weather application using Steeltoe framework (.NET core)
@@ -406,11 +387,9 @@ tanzu apps workload create weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=weatherforecast-steeltoe \
-		    --label apps.tanzu.vmware.com/has-tests=true \
-            --yes \
+            --label apps.tanzu.vmware.com/has-tests=true \
+            --yes -- tail\
             --namespace default
-            
-            	NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
             
             To import use
             https://github.com/RubenDillon/application-accelerator-samples/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
@@ -424,12 +403,8 @@ tanzu apps workload create weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=java-server-side-ui \
-		    --label apps.tanzu.vmware.com/has-tests=true \
-            --yes \
+            --yes --tail \
             --namespace default
-	    
-
-		NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
 	    
 
             To import use
@@ -445,11 +420,8 @@ tanzu apps workload create weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=angular-frontend \
-		    --label apps.tanzu.vmware.com/has-tests=true \
-            --yes \
+            --yes --tail \
             --namespace default
-
-		NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
 	    
 	    To import use
 	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/angular-frontend/catalog/catalog-info.yaml
@@ -464,11 +436,8 @@ tanzu apps workload create weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=node-express \
-		    --label apps.tanzu.vmware.com/has-tests=true \
-            --yes \
+            --yes --tail \
             --namespace default
-
-
 
 		NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
 	    
@@ -502,8 +471,29 @@ tanzu apps workload create weatherforecast-steeltoe \
 ## Defining Test and Scanning OOTB supply chain and TAP-GUI access to scan
 ```
  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
- - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/namespace-provisioner-ootb-supply-chain.html#testing--scanning-supply-chain-3
+ - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/namespace-provisioner-ootb-supply-chain.html#testing--scanning-supply-chain-3       
        
+       Not (X). Generate a personal access token (PAT) in GitHub that has the appropriate permissions for the actions you want to perform. You can do this by going to your GitHub settings, clicking on "Developer settings", and then selecting "Personal access tokens".
+
+	X Open your terminal or command prompt and use the following command to create a Kubernetes secret for your PAT:
+	
+		kubectl create secret generic github-token --from-literal=access_token=<your-PAT>
+
+		kubectl get secret github-token
+       
+       
+       X List available packages
+       
+       		tanzu package available list ootb-supply-chain-testing-scanning.tanzu.vmware.com -n tap-install 
+		
+		in my case is the 0.12.5 version
+       
+       X Review and modify the file ootb-test-scan.yaml
+       
+       
+       X. create the Test and Scanning OOTB
+       
+     tanzu package install ootb-supply-chain-testing-scanning -p ootb-supply-chain-testing-scanning.tanzu.vmware.com -v 0.12.5 -f ootb-test-scan.yaml -n tap-install
        
        1. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
         
@@ -511,40 +501,29 @@ tanzu apps workload create weatherforecast-steeltoe \
                 
                 kubectl apply -f scan-template.yaml
                 
-       ?? 2. Create a service account with read-write permission in the meta data store  
-        
-                kubectl apply -f create-svc-scan.yaml
-
-	 2. Review pipeline and scan policies are created
+	2. Create a Tekton pipeline and scan policies 
+     
+            	kubectl apply -f pipeline.yaml      
 	 
 	 	kubectl get pipeline.tekton.dev,scanpolicies
-
-
-
-
-?? 2. Retrieve the read-write secret from meta data store
+	
+	3. Create a read-only service account using create-svc-scan.yaml file and obtain the BEARER token
+	
+		kubectl get secrets metadata-store-read-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d
+	
+	4. Modify the tap values using tap-values-test-scan-only.yaml modifyng the BEARER token.
+	
         
-                kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d
-                
-                
-                export ACCESS_TOKEN=$(kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d)
-
-                echo $ACCESS_TOKEN
-                
-                
-                
-        3. Use the following configuration for TAP ( tap-values-w.test-scan.yaml to use the environment with Testing and Scanning) and change the BEARER in tap-gui for the data obtained in last point (no include the last sign "%")
-        
-        4. Update the application deployment setting the label has-tests to true
+        5. Update the application deployment setting the label has-tests to true
         
         
 tanzu apps workload apply tanzu-java-web-app \
---git-repo https://github.com/sample-accelerators/tanzu-java-web-app \
+--git-repo https://github.com/RubenDillon/application-accelerator-samples \
+--sub-path tanzu-java-web-app \
 --git-branch main \
 --type web \
 --app tanzu-java-web-app \
 --label apps.tanzu.vmware.com/has-tests="true" \
---namespace YOUR-NEW-DEVELOPER-NAMESPACE \
 --tail \
 --yes
         
