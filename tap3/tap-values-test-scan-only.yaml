@@ -44,6 +44,8 @@ ootb_delivery_basic:
   service_account: default
 
 ootb_supply_chain_testing_scanning:
+  cluster_builder: default
+  service_account: default
   gitops:
     ssh_secret: ""
   registry:
