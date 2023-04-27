@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------------------- #
 #
-#                         TAP values to deploy Testing
+#                         TAP values to deploy Basic Supply Chain
 #
 #                              valid for TAP 1.5
 #
@@ -13,39 +13,55 @@ buildservice:
   kp_default_repository: harbor.solateam.be/tap/build-service
   kp_default_repository_password: PASSw0rd2019202020212022
   kp_default_repository_username: admin
+  
 ceip_policy_disclosed: true
+
 cnrs:
   domain_name: solateam.be
+
 contour:
   envoy:
     service:
       type: LoadBalancer
+
 excluded_packages:
   - contour.tanzu.vmware.com
   - cert-manager.tanzu.vmware.com
+
 grype:
   namespace: default
   targetImagePullSecret: harbor-cert
+
 learningcenter:
   ingressDomain: solateam.be
+
 metadata_store:
-  app_service_type: LoadBalancer
-  ingressEnabled: true
-  ingressDomain: solateam.be  
-ootb_supply_chain_testing:
+  app_service_type: ClusterIP
+  ns_for_export_app_cert: "*"
+
+ootb_supply_chain_basic:
   registry:
     repository: tap/supply-chain
     server: harbor.solateam.be
   gitops:
     ssh_secret: ""
+
 ootb_delivery_basic:
   service_account: default    
+
 profile: full
+
 shared:
   ingress_issuer: letsencrypt-production
   ingress_domain: "solateam.be"  
-supply_chain: testing
+
+supply_chain: basic
+
 tap_gui:
+  service_type: ClusterIP
+  metadataStoreAutoconfiguration: true
+  auth:
+    allowGuestAccess: true
   app_config:
     supplyChain:
       enablePlugin: true  
@@ -65,3 +81,6 @@ tap_gui:
     metadataStore:
       url: ""
   service_type: ClusterIP
+
+policy:
+  tuf_enabled: false
