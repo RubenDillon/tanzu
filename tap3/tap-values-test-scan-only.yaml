@@ -87,7 +87,8 @@ tap_gui:
   ingressDomain: solateam.be
   ingressEnabled: "true"
   metadataStoreAutoconfiguration: true
-  scanning:
-    metadataStore:
-      url: ""
   service_type: ClusterIP
+  
+scanning:
+  metadataStore:
+    url: ""
