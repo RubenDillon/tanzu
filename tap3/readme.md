@@ -653,7 +653,7 @@ tanzu apps workload apply tanzu-java-web-app \
                 kubectl delete pods --all --namespace kpack
 
         2. Verify status of the replacement pods:
-                kubectl get pods --namespace kpack
+                kubectl get pods --namespace kpack 
 
         3. Verify the workload status after the new kpack pods STATUS are Running:
                 tanzu apps workload get YOUR-WORKLOAD-NAME
