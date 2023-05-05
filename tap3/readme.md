@@ -651,6 +651,8 @@ tanzu apps workload apply tanzu-java-web-app \
 ```
         1. Restart kpack by deleting the kpack-controller and kpack-webhook pods in the kpack namespace. Deleting these resources triggers their recreation:
                 kubectl delete pods --all --namespace kpack
+	    or
+	    	kubectl rollout restart deployment/kpack-controller -n kpack
 
         2. Verify status of the replacement pods:
                 kubectl get pods --namespace kpack 
