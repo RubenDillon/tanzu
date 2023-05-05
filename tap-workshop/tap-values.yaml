@@ -1,0 +1,29 @@
+profile: full
+
+shared:
+  ca_cert_data: "-----BEGIN CERTIFICATE-----\n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\nAS4MOm5wAqcj\n-----END CERTIFICATE-----\n"
+  ingress_domain: "master.tap.lab"
+  image_registry:
+    project_path: "harbor.tap.lab/library"
+    username: "admin"
+    password: "S4f3H4rb0r"
+  
+ceip_policy_disclosed: true
+
+# The lab environment does not have a load balancer capability
+# so you must configure Contour to use a NodePort
+contour:
+  envoy:
+    service:
+      type: NodePort
+      nodePorts:
+        http: 31080
+        https: 31443
+
+# The following packages will not be installed in the lab
+# * image-policy-webhook is deprecated
+# * learningcenter is not needed and is resource heavy
+excluded_packages:
+  - image-policy-webhook.signing.apps.tanzu.vmware.com
+  - learningcenter.tanzu.vmware.com
+  - workshops.learningcenter.tanzu.vmware.com
