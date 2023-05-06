@@ -57,9 +57,9 @@ policy:
   tuf_enabled: false
 
 
-#excluded_packages:
-#  - contour.tanzu.vmware.com
-#  - cert-manager.tanzu.vmware.com
+excluded_packages:
+  - contour.tanzu.vmware.com
+  - cert-manager.tanzu.vmware.com
 
 learningcenter:
   ingressDomain: solateam.be
