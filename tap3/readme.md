@@ -539,7 +539,7 @@ tanzu apps workload apply tanzu-java-web-app \
 ## Github authentication
 ```
 
-	1. Modify the tap-gui part of the deployment to looks like the following
+	1. Modify the tap-gui part of the deployment to looks like the following (or review tap-values-OOTB-test-scan-auth.yaml)
 	
 tap_gui:
   app_config:
