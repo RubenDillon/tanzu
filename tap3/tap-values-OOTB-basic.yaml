@@ -1,3 +1,11 @@
+# --------------------------------------------------------------------------------- #
+#
+#                    TAP values to deploy OOTB basic values
+#
+#                              valid for TAP 1.5
+#
+# --------------------------------------------------------------------------------- #
+
 shared:
   ingress_domain: solateam.be
   ingress_issuer: letsencrypt-production
