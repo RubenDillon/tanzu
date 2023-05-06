@@ -1,39 +1,18 @@
-buildservice:
-  kp_default_repository: harbor.solateam.be/tap/build-service
-  kp_default_repository_secret:
-    name: registry-credentials
-    namespace: default
-    
-ceip_policy_disclosed: true
+shared:
+  ingress_domain: solateam.be
+  ingress_issuer: letsencrypt-production
+  
+  image_registry:
+    project_path: "harbor.solateam.be/tap"
+    secret:
+      name: registry-credentials
+      namespace: default
 
-cnrs:
-  domain_name: solateam.be
+ceip_policy_disclosed: true     
 
-contour:
-  envoy:
-    service:
-      type: LoadBalancer
+profile: full
 
-excluded_packages:
-  - contour.tanzu.vmware.com
-  - cert-manager.tanzu.vmware.com
-
-grype:
-  namespace: default
-  targetImagePullSecret: registry-credentials
-
-learningcenter:
-  ingressDomain: solateam.be
-
-metadata_store:
-  app_service_type: ClusterIP
-  ns_for_export_app_cert: "*"
-
-namespace_provisioner:
-  controller: true
-
-ootb_delivery_basic:
-  service_account: default
+supply_chain: basic
 
 ootb_supply_chain_basic:
   gitops:
@@ -41,39 +20,53 @@ ootb_supply_chain_basic:
   registry:
     repository: tap/tap-app
     server: harbor.solateam.be
+        
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+buildservice:
+  kp_default_repository: harbor.solateam.be/tap/build-service
+  kp_default_repository_secret:
+    name: registry-credentials
+    namespace: default
+    
+tap_gui:
+  metadataStoreAutoconfiguration: true
+  service_type: ClusterIP
+  app_config:
+    catalog:
+      locations:
+        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+          type: url    
+    
+metadata_store:
+  app_service_type: ClusterIP
+  ns_for_export_app_cert: default
+
+scanning:
+  metadataStore:
+    url: ""
+
+grype:
+  namespace: default
+  targetImagePullSecret: registry-credentials
 
 policy:
   tuf_enabled: false
 
-profile: full
 
-shared:
-  ingress_domain: solateam.be
-  ingress_issuer: letsencrypt-production
+#excluded_packages:
+#  - contour.tanzu.vmware.com
+#  - cert-manager.tanzu.vmware.com
 
-supply_chain: basic
-
-tap_gui:
-  app_config:
-    app:
-      baseUrl: https://tap-gui.solateam.be/
-    backend:
-      baseUrl: https://tap-gui.solateam.be/
-      cors:
-        origin: https://tap-gui.solateam.be/
-    catalog:
-      locations:
-        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
-          type: url
-    supplyChain:
-      enablePlugin: true
-  auth:
-    allowGuestAccess: true
+learningcenter:
   ingressDomain: solateam.be
-  ingressEnabled: "true"
-  metadataStoreAutoconfiguration: true
-  service_type: ClusterIP
-  
-scanning:
-  metadataStore:
-    url: ""
+
+
+#namespace_provisioner:
+#  controller: true
+
+#ootb_delivery_basic:
+#  service_account: default
