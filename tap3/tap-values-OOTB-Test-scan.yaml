@@ -1,3 +1,10 @@
+# --------------------------------------------------------------------------------- #
+#
+#                    TAP values to deploy Testing and Scanning (initial configuration)
+#
+#                              valid for TAP 1.5
+#
+# --------------------------------------------------------------------------------- #
 shared:
   ingress_domain: solateam.be
   ingress_issuer: letsencrypt-production
