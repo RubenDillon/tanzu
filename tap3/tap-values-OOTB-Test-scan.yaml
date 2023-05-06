@@ -66,10 +66,6 @@ learningcenter:
 
 namespace_provisioner:
  controller: true
- import_data_values_secrets:
- - name: user-defined-secrets
-   namespace: tap-install
-   create_export: true
  additional_sources:
  - git:
      ref: origin/main
