@@ -536,6 +536,33 @@ tanzu apps workload apply tanzu-java-web-app \
    
 ```
 
+## Github authentication
+```
+
+	1. Modify the tap-gui part of the deployment to looks like the following
+	
+tap_gui:
+  app_config:
+    auth:
+      environment: development
+      providers:
+        github:
+          development:
+            clientId: Iv1.61f0b55ce5c4a0c0
+            clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3
+    catalog:
+      locations:
+        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+          type: url
+  metadataStoreAutoconfiguration: true
+  service_type: ClusterIP
+	
+where ClientID is obtained from Github Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in Github		
+
+- https://github.com/settings/apps
+
+```
+
 ## Commands to use with Tanzu Application Platform
 ```
 
