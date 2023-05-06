@@ -133,16 +133,6 @@
                  
     15. Connect to harbor and create "tap" project as public.
     
-    16. Create a secret for the registry
-    
-    tanzu secret registry add registry-credentials \
-    --server   harbor.solateam.be \
-    --username admin \
-    --password "PASSw0rd2019202020212022" \
-    --namespace tap-install \
-    --export-to-all-namespaces \
-    --yes
-    
             
 ```      
 
@@ -155,14 +145,24 @@
         kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
             
     3. Create the namespace "tap-install"
+    
+    4. Create a internal registry secret
+    
+    tanzu secret registry add registry-credentials \
+    --server   harbor.solateam.be \
+    --username admin \
+    --password "PASSw0rd2019202020212022" \
+    --namespace tap-install \
+    --export-to-all-namespaces \
+    --yes
 
 ```
 ## create the secret using TMC
 ```
         Secret name: tap-registry
         Image registry URL: registry.tanzu.vmware.com
-        Username: <tanzu-net-username>
-        Password: <tanzu-net-password>
+        Username: <your-tanzu-net-username>
+        Password: <your-tanzu-net-password>
         namespace: tap-install
         export to all namespaces
 
@@ -171,7 +171,18 @@
 ## Create the repository
 ```
         Name: tanzu-tap-repository
-        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.5
+        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.5.0
+
+```
+
+## Review the status of the repository
+```
+Run the following command
+	
+	tanzu package repository list -A
+	
+	tanzu package repository get tanzu-tap-repository -n tkg-system
+
 ```
 
 ## Obtain where is running ENVOY
@@ -342,7 +353,7 @@
             
             kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
     
-    3. After ends you could access the TAP GUI to see the process and using the following command
+    3. After ends you could access the TAP GUI to see the process and review the app using the following command
     
             tanzu apps workload get tanzu-java-web-app --namespace default
             
@@ -473,48 +484,33 @@ tanzu apps workload create weatherforecast-steeltoe \
  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/namespace-provisioner-ootb-supply-chain.html#testing--scanning-supply-chain-3       
        
-       Not (X). Generate a personal access token (PAT) in GitHub that has the appropriate permissions for the actions you want to perform. You can do this by going to your GitHub settings, clicking on "Developer settings", and then selecting "Personal access tokens".
-
-	X Open your terminal or command prompt and use the following command to create a Kubernetes secret for your PAT:
-	
-		kubectl create secret generic github-token --from-literal=access_token=<your-PAT>
-
-		kubectl get secret github-token
        
        
-       X List available packages
+       1. Create a new public project in Harbor and call it "tap-apps"
        
-       		tanzu package available list ootb-supply-chain-testing-scanning.tanzu.vmware.com -n tap-install 
+       2. create the Test and Scanning OOTB using ootb-test-scan.yaml from this git
 		
-		in my case is the 0.12.5 version
+       3. review the current version of the package
+		
+		tanzu package available list -n tap-install | grep testing-scanning
        
-       X Review and modify the file ootb-test-scan.yaml
-       
-       
-       X. create the Test and Scanning OOTB
-       
+       4. Run the deployment 
+	
      tanzu package install ootb-supply-chain-testing-scanning -p ootb-supply-chain-testing-scanning.tanzu.vmware.com -v 0.12.5 -f ootb-test-scan.yaml -n tap-install
        
-       1. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
+       5. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
         
                 kubectl apply -f scan-policy.yaml
                 
                 kubectl apply -f scan-template.yaml
                 
-	2. Create a Tekton pipeline and scan policies 
+	6. Create a Tekton pipeline and scan policies 
      
             	kubectl apply -f pipeline.yaml      
 	 
 	 	kubectl get pipeline.tekton.dev,scanpolicies
-	
-	3. Create a read-only service account using create-svc-scan.yaml file and obtain the BEARER token
-	
-		kubectl get secrets metadata-store-read-client -n metadata-store -o jsonpath="{.data.token}" | base64 -d
-	
-	4. Modify the tap values using tap-values-test-scan-only.yaml modifyng the BEARER token.
-	
-        
-        5. Update the application deployment setting the label has-tests to true
+	        
+        7. Delete and re-create the application deployment setting the label has-tests to true
         
         
 tanzu apps workload apply tanzu-java-web-app \
