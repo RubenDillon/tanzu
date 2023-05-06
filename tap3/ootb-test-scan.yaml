@@ -1,6 +1,5 @@
-# This version uses SSH auth for gitops
-# Install values file for otb-supply-chain-testing-scanning.tanzu.vmware.com v0.10.2
-# tanzu package install ootb-supply-chain-testing-scanning -p ootb-supply-chain-testing-scanning.tanzu.vmware.com -v 0.11.0 -f ootb-test-scanning-supply-chain-values.yaml -n tap-install 
+
+# Install values file for otb-supply-chain-testing-scanning.tanzu.vmware.com v0.12.5 
 registry:
   server: "harbor.solateam.be"
   repository: "tap-apps"
