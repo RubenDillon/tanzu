@@ -1,0 +1,82 @@
+shared:
+  ingress_domain: solateam.be
+  ingress_issuer: letsencrypt-production
+  
+  image_registry:
+    project_path: "harbor.solateam.be/tap"
+    secret:
+      name: registry-credentials
+      namespace: default
+
+ceip_policy_disclosed: true     
+
+profile: full
+
+supply_chain: basic
+
+ootb_supply_chain_basic:
+  gitops:
+    ssh_secret: ""
+  registry:
+    repository: tap/tap-app
+    server: harbor.solateam.be
+        
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+buildservice:
+  kp_default_repository: harbor.solateam.be/tap/build-service
+  kp_default_repository_secret:
+    name: registry-credentials
+    namespace: default
+    
+tap_gui:
+  metadataStoreAutoconfiguration: true
+  service_type: ClusterIP
+  app_config:
+    catalog:
+      locations:
+        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+          type: url    
+    
+metadata_store:
+  app_service_type: ClusterIP
+  ns_for_export_app_cert: default
+
+scanning:
+  metadataStore:
+    url: ""
+
+grype:
+  namespace: default
+  targetImagePullSecret: registry-credentials
+
+policy:
+  tuf_enabled: false
+
+
+excluded_packages:
+  - contour.tanzu.vmware.com
+  - cert-manager.tanzu.vmware.com
+
+learningcenter:
+  ingressDomain: solateam.be
+
+namespace_provisioner:
+ controller: true
+ import_data_values_secrets:
+ - name: user-defined-secrets
+   namespace: tap-install
+   create_export: true
+ additional_sources:
+ - git:
+     ref: origin/main
+     subPath: ns-provisioner-samples/testing-scanning-supplychain
+     url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+   path: _ytt_lib/testing-scanning-supplychain-setup
+
+
+#ootb_delivery_basic:
+#  service_account: default
