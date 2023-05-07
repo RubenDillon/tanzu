@@ -26,7 +26,7 @@ ootb_supply_chain_basic:
   gitops:
     ssh_secret: ""
   registry:
-    repository: tap/tap-app
+    repository: tap-apps
     server: harbor.solateam.be
         
 contour:
