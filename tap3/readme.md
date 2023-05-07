@@ -200,22 +200,24 @@ Run the following command
 
 ## Create a GIT repository (for future use)
 ```
-	Create an Organization on Github. In my case, I use ruben-latam
+	Using your Github account create a New Repository, as public and name it "tap-gitops"
+	
+	Using your machine select where you want to clone this repository
+	
+		git clone https://github.com/RubenDillon/tap-gitops.git (for example using my account)
 
 	Then create a Git repository
-	
-    		mkdir -p $HOME/tap-gitops
-    		cd $HOME/tap-gitops
 
     		git init
-    		git remote add origin git@github.com:ruben-latam/tap-gitops.git
+    		XX git remote add origin git@github.com:ruben-latam/tap-gitops.git
 
-		create a file on the directory then summit to the github
+		create a file ("prueba.txt") on the directory then summit to the github
 		
-		git init -b main
-		git init && git symbolic-ref HEAD refs/heads/main
-		git add .
-		git commit -m "First commit"
+		git add prueba.txt
+		git commit -m "Mensaje de confirmación"
+		git push
+
+	Review that the file were uploaded to tap-gitops
 
 ```
 
