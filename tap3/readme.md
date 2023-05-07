@@ -237,6 +237,10 @@ Run the following command
             
             tanzu package installed list -A
           
+    6. The UI (tap-gui) receive a public certificate from lets encrypt. If you want to review it 
+    
+    	    kubectl get secret -n tap-gui tap-gui-cert -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -text
+	    
 ```  
 
 ## Prepare the developer namespace
