@@ -579,6 +579,44 @@ where ClientID is obtained from Github Apps (Developer settings) and ClientSecre
 
 ```
 
+
+### GitOps integration
+```
+
+	1. Create a new personal Token on Github
+	
+	2. Create a Secret on the default namespace as git-secret.yaml (from this github)
+	
+	3. Apply the secret
+	
+	4. Update (patch) the default service account with the new secret
+	
+		kubectl patch serviceaccount default --patch '{"secrets": [{"name": "github-http-secret"}]}'
+		
+	5. Review the default service account
+	
+		kubectl describe serviceaccount default
+		
+	6. Add the secret to the OOTB-test-scan chain using the ootb-test-scan-git.yaml (as example from this git)
+	
+	7. Modify the ootb-supply-chain-basic to looks like the following
+	
+	ootb_supply_chain_basic:
+  	  gitops:
+            ssh_secret: github-http-secret
+          registry:
+            repository: tap/tap-app
+            server: harbor.solateam.be
+	
+	8. Run the update to the OOTB already deployed
+	
+		tanzu package update ootb-supply-chain-testing-scanning -p ootb-supply-chain-testing-scanning.tanzu.vmware.com -v 0.12.5 -f ootb-test-scan-git.yaml -n tap-install
+		
+
+```
+
+
+
 ## Commands to use with Tanzu Application Platform
 ```
 
