@@ -1,4 +1,5 @@
 # Deploy Tanzu Application Platform v1.5 using Azure with Harbor (using FREE public certificates)
+# Deploy Test, Scan and Github authentication and GITOps directly
 
 ## Requirements
 ```
@@ -223,13 +224,79 @@ Run the following command
 
 ```
 
+## Github authentication
+```
+
+- https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/7-authentication/
+
+        1. Create a new public project in Harbor and call it "tap-apps"
+
+	2. Go to https://github.com/settings/applications/new to create your OAuth App.
+
+		Homepage URL should be https://github.com/login/oauth/authorize
+		Authorization callback URL should point to the auth backend, https://tap-gui.solateam.be/api/auth/github
+		
+	3. Generate a new Client Secret and take a note of the Client ID and the Client Secret
+	
+	4. Modify the tap-gui part of the tap-values-OOTB-test-scan-auth.yaml file to looks like the following with your values
+	
+tap_gui:
+  app_config:
+    auth:
+      environment: development
+      providers:
+        github:
+          development:
+            clientId: Iv1.61f0b55ce5c4a0c0
+            clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3
+    catalog:
+      locations:
+        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+          type: url
+  metadataStoreAutoconfiguration: true
+  service_type: ClusterIP
+	
+where ClientID is obtained from Github Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in Github		
+
+- https://github.com/settings/apps
+
+	5. Create a new personal Token on Github
+	
+	6. Create a Secret on the default namespace as git-secret.yaml (from this github)
+	
+	7. Apply the secret
+	
+	8. Modify the ootb_Supply_chain_test_scan part of the tap-values-OOTB-test-scan-auth.yaml file to looks like the following with your values
+
+ootb_supply_chain_test_scan:
+  registry:
+    server: "harbor.solateam.be"
+    repository: "tap-apps"
+
+  gitops:
+    server_address: https://github.com/
+    repository_owner: RubenDillon
+    branch: main
+    username: rubendillon
+    email: ruben_dillon@hotmail.com
+    commit_message: supplychain@cluster.local
+    ssh_secret: github-http-secret                 # secret created on the default namespace
+    commit_strategy: direct
+
+  cluster_builder: default
+  service_account: default
+
+
+```
+
+
 ## Install Tanzu Application Platform package from TMC Catalog
 ```
     1. Select the Tanzu Application Platform
     
     2. Select tap as name and 1.5 for the version
     
-    3. Copy the tap-values-OOTB-basic.yaml
+    3. Copy the tap-values-OOTB-test-scan-auth.yaml
     
     4. Monitor the install by running
             
@@ -257,6 +324,74 @@ Run the following command
 	3. Review the configuration 
 		kubectl get secrets,serviceaccount,rolebinding,pods,workload,configmap,limitrange -n default
 ```
+
+## Configure the Test and Scanning components
+```
+
+ - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
+ - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/namespace-provisioner-ootb-supply-chain.html#testing--scanning-supply-chain-3  
+
+       2. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
+        
+                kubectl apply -f scan-policy.yaml.  (kubectl create --save-config -f scan-policy.yaml)
+                
+                kubectl apply -f scan-template.yaml
+                
+	6. Create a Tekton pipeline and scan policies 
+     
+            	kubectl apply -f pipeline.yaml   (no... ahora ya viene un pipeline por defecto.. revisar con el proximo comando)    
+	 
+	 	kubectl get pipeline.tekton.dev,scanpolicies
+```
+
+### GitOps integration
+```
+
+
+	1. Update (patch) the default service account with the new secret
+	
+		kubectl patch serviceaccount default --patch '{"secrets": [{"name": "github-http-secret"}]}'
+		
+	2. Review the default service account
+	
+		kubectl describe serviceaccount default
+
+	3. Review if only one pipeline is available
+	
+		kubectl get pipeline
+		
+ 	4. We could use more than one pipeline, but for this lab we will be using only one 
+
+		kubectl delete pipeline xxxy (any new created)
+		
+```
+        
+### Test an Example
+```
+tanzu apps workload apply tanzu-java-web-app \
+--git-repo https://github.com/RubenDillon/application-accelerator-samples \
+--sub-path tanzu-java-web-app \
+--git-branch main \
+--type web \
+--app tanzu-java-web-app \
+--label apps.tanzu.vmware.com/has-tests="true" \
+--tail \
+--yes
+        
+        
+        tanzu apps workload create hello-world \
+        --git-repo https://github.com/RubenDillon/Kubernetes \
+        --sub-path dotnet-core-hello-world \
+        --git-branch main \
+        --type web \
+        --label apps.tanzu.vmware.com/has-tests=true \
+        --label app.kubernetes.io/part-of=hello-world \
+        --yes \
+        --namespace default
+
+```
+
+
 
 ## Review the Self-Guided Workshop
 ```
