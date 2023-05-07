@@ -59,6 +59,8 @@ shared:
 supply_chain: basic
 tap_gui:
   app_config:
+    app:
+      baseUrl: https://tap-gui.solateam.be
     auth:
       environment: development
       providers:
@@ -70,5 +72,9 @@ tap_gui:
       locations:
         - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
           type: url
+    integrations:
+      github:
+        - host: github.com
+          token: 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
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
