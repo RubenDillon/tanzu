@@ -11,6 +11,8 @@
     6. Sign in to VMware Tanzu Network and accept or confirm that you have accepted the EULAs for each of the following:
         - https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/#/releases/1238179 (Cluster Essentials for Tanzu)
         - https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1260040 (Tanzu App Platform)
+    7. Follow the instructions to deploy the Management cluster on Azure (management-cluster-cfg.md, Azure-credentials.md)
+    8. Review my Youtube channel where I deploy TAP on Azure (https://www.youtube.com/watch?v=hlf6Ton5MMA) 
     
 ```
 
@@ -18,7 +20,7 @@
 ```
     1. Join the Management Cluster to TMC. 
     2. Create a Cluster Group (I create "TAP" cluster group)
-    3. Deploy a TKG cluster 
+    3. Deploy a TKG cluster (I use the tanzu cli on the video that I upload to Youtube) 
     
             3 instance for Control plane (Standard_D4s_v3 = 8 vCPU and 16 GB RAM each in 3 availability zones)
             6 instances for Workers nodes (Standard_D8s_v3 = 8 vCPU and 16 GB RAM each) Two nodes by each availability zone
