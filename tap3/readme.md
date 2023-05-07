@@ -541,7 +541,17 @@ tanzu apps workload apply tanzu-java-web-app \
 ## Github authentication
 ```
 
-	1. Modify the tap-gui part of the deployment to looks like the following (or review tap-values-OOTB-test-scan-auth.yaml)
+- https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/7-authentication/
+
+
+	1. Go to https://github.com/settings/applications/new to create your OAuth App.
+
+		Homepage URL should be https://github.com/login/oauth/authorize
+		Authorization callback URL should point to the auth backend, https://tap-gui.solateam.be/api/auth/github
+		
+	2. Generate a new Client Secret and take a note of the Client ID and the Client Secret
+	
+	3. Modify the tap-gui part of the deployment to looks like the following (or review tap-values-OOTB-test-scan-auth.yaml)
 	
 tap_gui:
   app_config:
