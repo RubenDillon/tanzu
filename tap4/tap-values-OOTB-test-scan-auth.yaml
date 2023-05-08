@@ -57,6 +57,14 @@ ootb_supply_chain_testing_scanning:
     commit_message: supplychain@cluster.local
     ssh_secret: github-http-secret    # un token creado en el namespace
     commit_strategy: direct
+    
+  scanning:
+    source:
+      policy: scan-policy-free
+      template: scan-template
+    image:
+      policy: scan-policy-free
+      template: scan-template
 
   cluster_builder: default
   service_account: default
