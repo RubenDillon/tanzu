@@ -61,10 +61,8 @@ ootb_supply_chain_testing_scanning:
   scanning:
     source:
       policy: scan-policy-free
-      template: scan-template
     image:
       policy: scan-policy-free
-      template: scan-template
 
   cluster_builder: default
   service_account: default
@@ -110,3 +108,9 @@ tap_gui:
           token: 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
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
+  
+ootb_delivery_basic:
+  service_account: default
+
+ootb_supply_chain_basic:
+  service_account: default
