@@ -40,10 +40,6 @@ namespace_provisioner:
         ref: origin/main
         subPath: ns-provisioner-samples/testing-scanning-supplychain
         url: https://github.com/vmware-tanzu/application-accelerator-samples.git
-        secretRef:
-          name: github-http-secret
-          namespace: tap-gitops
-          create_export: true
       path: _ytt_lib/testing-scanning-supplychain-setup
 
   controller: true
