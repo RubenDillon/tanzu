@@ -368,16 +368,57 @@ ootb_supply_chain_test_scan:
         
 ### Test an Example
 ```
-tanzu apps workload apply tanzu-java-web-app \
---git-repo https://github.com/RubenDillon/application-accelerator-samples \
---sub-path tanzu-java-web-app \
---git-branch main \
---type web \
---app tanzu-java-web-app \
---label apps.tanzu.vmware.com/has-tests="true" \
---tail \
---yes
+	
+	1. Deploy the following example
+	
+		tanzu apps workload apply tanzu-java-web-app \
+		--git-repo https://github.com/RubenDillon/application-accelerator-samples \
+		--sub-path tanzu-java-web-app \
+		--git-branch main \
+		--type web \
+		--app tanzu-java-web-app \
+		--label apps.tanzu.vmware.com/has-tests="true" \
+		--tail \
+		--yes
         
+	2. Probably when we try to run this example, we will have trouble with pipeline and then with the vulnerabilities. To resolver that, we need to define which pipeline we want to run and which
+	scan policy to apply.
+	
+	
+		tanzu apps workload apply tanzu-java-web-app \
+		--git-repo https://github.com/RubenDillon/application-accelerator-samples \
+		--sub-path tanzu-java-web-app \
+		--git-branch main \
+		--type web \
+		--app tanzu-java-web-app \
+		--label apps.tanzu.vmware.com/has-tests="true" \
+		--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+		--tail \
+		--yes
+	
+	
+	  3. For scan policy, we already define a default in our configuration (tap-values...yaml), but if we dont do that.. the default policy (scan-policy) is very restrictive and 
+	  	we need to define which one.. we want to use..
+	
+		--param scanning_source_policy="lax-scan-policy" \
+		--param scanning_image_policy="lax-scan-policy" \
+	
+	
+	   4. View the build 
+            
+           	 kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
+    
+   	   5. After ends you could access the TAP GUI to see the process and review the app using the following command
+    
+            	tanzu apps workload get tanzu-java-web-app --namespace default
+            
+           6. To register the application, go to the tap-gui.solateam.be and click "Register Entity" and use the following as input
+    
+            	https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
+	
+	
+
+	This is another example
         
         tanzu apps workload create hello-world \
         --git-repo https://github.com/RubenDillon/Kubernetes \
@@ -470,41 +511,9 @@ tanzu apps workload apply tanzu-java-web-app \
         9. Configure VMware Tanzu Developer Tools for VS Code
                 - Confirm Delete: This controls whether the extension asks for confirmation when deleting a workload.
                 - Enable Live Hover:  Reload VS Code for this change to take effect.
-                - Source Image: solateam.be/tap
+                - Source Image: harbor.solateam.be/tap-apps/tanzu-java-web-app
                 - Namespace: default.   
         
-```
-
-## Using code to deploy an example
-
-```
-            
-    1. Deploy the application using an example from github
-    
-            tanzu apps workload create tanzu-java-web-app \
-            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
-            --sub-path tanzu-java-web-app \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=tanzu-java-web-app \
-	    --tail \
-            --yes \
-            --namespace default
-            
-            
-    2. View the build 
-            
-            kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
-    
-    3. After ends you could access the TAP GUI to see the process and review the app using the following command
-    
-            tanzu apps workload get tanzu-java-web-app --namespace default
-            
-    4. To register the application, go to the tap-gui.solateam.be and click "Register Entity" and use the following as input
-    
-            https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
-            
-            
 ```
 
 ## Using VS Code to deploy and iterate the example
@@ -521,10 +530,19 @@ tanzu apps workload apply tanzu-java-web-app \
                 config/workload.yaml
                 catalog/catalog-info.yaml
                 tiltfile
+		
+	 4. Probably (if you use another name to your cluster) you will need to add a first line providing the name of the cluster
+	 
+	 	allow_k8s_contexts('<name of your cluster>')
+	 
+	 5. Remember that you probably need to add the label for pipeline (needs to looks like the following)
+	 
+	 	" --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " +
+	 
        
-         4. Use the TANZU:Live Update Start and review the terminal to see the process to attach the application to the platform
+         6. Use the TANZU:Live Update Start and review the terminal to see the process to attach the application to the platform
          
-         5. Modify /src/main/java/com/example/springboot/HelloController.java 
+         7. Modify /src/main/java/com/example/springboot/HelloController.java 
          
                 return "Greetings from Spring Boot + Tanzu!"; (change it to something and see the change in the application already deployed)    
    
@@ -619,136 +637,6 @@ tanzu apps workload create weatherforecast-steeltoe \
             --label app.kubernetes.io/part-of=hello-world \
             --yes \
             --namespace default
-
-```
-
-## Defining Test and Scanning OOTB supply chain and TAP-GUI access to scan
-```
- - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
- - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/namespace-provisioner-ootb-supply-chain.html#testing--scanning-supply-chain-3       
-       
-       
-       
-       1. Create a new public project in Harbor and call it "tap-apps"
-       
-       2. create the Test and Scanning OOTB using ootb-test-scan.yaml from this git
-		
-       3. review the current version of the package
-		
-		tanzu package available list -n tap-install | grep testing-scanning
-       
-       4. Run the deployment 
-	
-     tanzu package install ootb-supply-chain-testing-scanning -p ootb-supply-chain-testing-scanning.tanzu.vmware.com -v 0.12.5 -f ootb-test-scan.yaml -n tap-install
-       
-       5. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
-        
-                kubectl apply -f scan-policy.yaml
-                
-                kubectl apply -f scan-template.yaml
-                
-	6. Create a Tekton pipeline and scan policies 
-     
-            	kubectl apply -f pipeline.yaml      
-	 
-	 	kubectl get pipeline.tekton.dev,scanpolicies
-	        
-        7. Delete and re-create the application deployment setting the label has-tests to true
-        
-        
-tanzu apps workload apply tanzu-java-web-app \
---git-repo https://github.com/RubenDillon/application-accelerator-samples \
---sub-path tanzu-java-web-app \
---git-branch main \
---type web \
---app tanzu-java-web-app \
---label apps.tanzu.vmware.com/has-tests="true" \
---tail \
---yes
-        
-        
-        tanzu apps workload create hello-world \
-        --git-repo https://github.com/RubenDillon/Kubernetes \
-        --sub-path dotnet-core-hello-world \
-        --git-branch main \
-        --type web \
-        --label apps.tanzu.vmware.com/has-tests=true \
-        --label app.kubernetes.io/part-of=hello-world \
-        --yes \
-        --namespace default
-   
-```
-
-## Github authentication
-```
-
-- https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/7-authentication/
-
-
-	1. Go to https://github.com/settings/applications/new to create your OAuth App.
-
-		Homepage URL should be https://github.com/login/oauth/authorize
-		Authorization callback URL should point to the auth backend, https://tap-gui.solateam.be/api/auth/github
-		
-	2. Generate a new Client Secret and take a note of the Client ID and the Client Secret
-	
-	3. Modify the tap-gui part of the deployment to looks like the following (or review tap-values-OOTB-test-scan-auth.yaml)
-	
-tap_gui:
-  app_config:
-    auth:
-      environment: development
-      providers:
-        github:
-          development:
-            clientId: Iv1.61f0b55ce5c4a0c0
-            clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3
-    catalog:
-      locations:
-        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
-          type: url
-  metadataStoreAutoconfiguration: true
-  service_type: ClusterIP
-	
-where ClientID is obtained from Github Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in Github		
-
-- https://github.com/settings/apps
-
-```
-
-
-### GitOps integration
-```
-
-	1. Create a new personal Token on Github
-	
-	2. Create a Secret on the default namespace as git-secret.yaml (from this github)
-	
-	3. Apply the secret
-	
-	4. Update (patch) the default service account with the new secret
-	
-		kubectl patch serviceaccount default --patch '{"secrets": [{"name": "github-http-secret"}]}'
-		
-	5. Review the default service account
-	
-		kubectl describe serviceaccount default
-		
-	6. Add the secret to the OOTB-test-scan chain using the ootb-test-scan-git.yaml (as example from this git)
-	
-	7. Modify the ootb-supply-chain-basic to looks like the following
-	
-	ootb_supply_chain_basic:
-  	  gitops:
-            ssh_secret: github-http-secret
-          registry:
-            repository: tap/tap-app
-            server: harbor.solateam.be
-	
-	8. Run the update to the OOTB already deployed
-	
-		tanzu package update ootb-supply-chain-testing-scanning -p ootb-supply-chain-testing-scanning.tanzu.vmware.com -v 0.12.5 -f ootb-test-scan-git.yaml -n tap-install
-		
 
 ```
 
