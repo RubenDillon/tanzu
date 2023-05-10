@@ -415,20 +415,8 @@ ootb_supply_chain_test_scan:
            6. To register the application, go to the tap-gui.solateam.be and click "Register Entity" and use the following as input
     
             	https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
-	
-	
 
-	This is another example
-        
-        tanzu apps workload create hello-world \
-        --git-repo https://github.com/RubenDillon/Kubernetes \
-        --sub-path dotnet-core-hello-world \
-        --git-branch main \
-        --type web \
-        --label apps.tanzu.vmware.com/has-tests=true \
-        --label app.kubernetes.io/part-of=hello-world \
-        --yes \
-        --namespace default
+
 
 ```
 
@@ -549,7 +537,7 @@ ootb_supply_chain_test_scan:
 ```
 
 
-## Another
+## Try another applications as example
 ```
             A Weather application using Steeltoe framework (.NET core)
         
@@ -559,10 +547,11 @@ tanzu apps workload create weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=weatherforecast-steeltoe \
+	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
             --label apps.tanzu.vmware.com/has-tests=true \
-            --yes -- tail\
+            --yes --tail\
             --namespace default
-            
+	    
             To import use
             https://github.com/RubenDillon/application-accelerator-samples/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
 
@@ -575,6 +564,8 @@ tanzu apps workload create weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=java-server-side-ui \
+	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+	    --label apps.tanzu.vmware.com/has-tests=true \
             --yes --tail \
             --namespace default
 	    
@@ -592,6 +583,8 @@ tanzu apps workload create weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=angular-frontend \
+	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+	    --label apps.tanzu.vmware.com/has-tests=true \
             --yes --tail \
             --namespace default
 	    
@@ -608,6 +601,8 @@ tanzu apps workload create weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=node-express \
+	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+	    --label apps.tanzu.vmware.com/has-tests=true \
             --yes --tail \
             --namespace default
 
