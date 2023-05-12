@@ -262,32 +262,6 @@ tap_gui:
 	
 where ClientID is obtained from Github Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in Github		
 
-	5. Create a new personal Token on Github (your user, settings, developer)
-	
-	6. Create a Secret on the default namespace as git-secret.yaml (from this github)
-	
-	7. Apply the secret
-	
-	8. Modify the ootb_Supply_chain_test_scan part of the tap-values-OOTB-test-scan-auth.yaml file to looks like the following with your values
-
-ootb_supply_chain_test_scan:
-  registry:
-    server: "harbor.solateam.be"
-    repository: "tap-apps"
-
-  gitops:
-    server_address: https://github.com/
-    repository_owner: RubenDillon
-    branch: main
-    username: rubendillon
-    email: ruben_dillon@hotmail.com
-    commit_message: supplychain@cluster.local
-    ssh_secret: github-http-secret                 # secret created on the default namespace
-    commit_strategy: direct
-
-  cluster_builder: default
-  service_account: default
-
 
 ```
 
@@ -594,26 +568,6 @@ tanzu apps workload create weatherforecast-steeltoe \
 	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/node-express/catalog/catalog-info.yaml
 	    
 	    
-```
-
-## Steps to create a TAP workload from an existing application 
-```
-        Using a typical Hello World application based on .NET that I upload to my github
-        
-        1. Create the worload.yaml using the following command
-        
-                tanzu apps workload create my-workload --git-repo https://github.com/RubenDillon/Kubernetes/dotnet-core-hello-world.git --git-branch master > workload.yaml
-        
-        
-            tanzu apps workload create hello-world \
-            --git-repo https://github.com/RubenDillon/Kubernetes \
-            --sub-path dotnet-core-hello-world \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=hello-world \
-            --yes \
-            --namespace default
-
 ```
 
 
