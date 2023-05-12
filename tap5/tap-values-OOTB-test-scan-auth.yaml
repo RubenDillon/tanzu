@@ -52,6 +52,7 @@ ootb_supply_chain_testing_scanning:
 
   gitops:
     ssh_secret: github-http-secret    # un token creado en el namespace
+    repository_name: tap-gitops
     
   scanning:
     source:
