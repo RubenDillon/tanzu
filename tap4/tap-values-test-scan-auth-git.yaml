@@ -51,15 +51,8 @@ ootb_supply_chain_testing_scanning:
     repository: "tap-apps"
 
   gitops:
-    server_address: https://github.com/
-    repository_owner: RubenDillon
-    repository_name: tap-gitops
-    branch: main
-    username: rubendillon
-    email: ruben_dillon@hotmail.com
-    commit_message: supplychain@cluster.local
-    ssh_secret: github-http-secret    # un token creado en el namespace
-    commit_strategy: direct
+    ssh_secret: ""    # un token creado en el namespace
+
     
   scanning:
     source:
