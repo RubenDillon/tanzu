@@ -1,0 +1,111 @@
+# --------------------------------------------------------------------------------- #
+#
+#                    TAP values to deploy Testing and Scanning with Github auth
+#
+#
+#                              valid for TAP 1.5
+# --------------------------------------------------------------------------------- #
+
+buildservice:
+  kp_default_repository: harbor.solateam.be/tap/build-service
+  kp_default_repository_secret:
+    name: registry-credentials
+    namespace: default
+
+ceip_policy_disclosed: true
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+excluded_packages:
+  - contour.tanzu.vmware.com
+  - cert-manager.tanzu.vmware.com
+
+grype:
+  namespace: default
+  targetImagePullSecret: registry-credentials
+
+learningcenter:
+  ingressDomain: solateam.be
+
+metadata_store:
+  app_service_type: ClusterIP
+  ns_for_export_app_cert: default
+
+namespace_provisioner:
+  controller: true
+  additional_sources:
+    - git:
+        ref: origin/main
+        subPath: ns-provisioner-samples/testing-scanning-supplychain-polyglot
+        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+      path: _ytt_lib/testing-scanning-supplychain-polyglot-setup
+
+
+
+ootb_supply_chain_testing_scanning:
+  registry:
+    server: "harbor.solateam.be"
+    repository: "tap-apps"
+
+  gitops:
+    ssh_secret: github-http-secret    # un token creado en el namespace
+    
+  scanning:
+    source:
+      policy: scan-policy-free
+    image:
+      policy: scan-policy-free
+
+  cluster_builder: default
+  service_account: default
+
+policy:
+  tuf_enabled: false
+
+profile: full
+
+scanning:
+  metadataStore:
+    url: ""
+
+shared:
+  image_registry:
+    project_path: harbor.solateam.be/tap
+    secret:
+      name: registry-credentials
+      namespace: default
+  ingress_domain: solateam.be
+  ingress_issuer: letsencrypt-production
+
+supply_chain: testing_scanning
+
+tap_gui:
+  app_config:
+    app:
+      baseUrl: https://tap-gui.solateam.be
+    auth:
+      environment: development
+      providers:
+        github:
+          development:
+            clientId: Iv1.61f0b55ce5c4a0c0
+            clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3
+    catalog:
+      locations:
+        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+          type: url
+    integrations:
+      github:
+        - host: github.com
+          token: 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
+  metadataStoreAutoconfiguration: true
+  service_type: ClusterIP
+  
+ootb_delivery_basic:
+  service_account: default
+
+ootb_supply_chain_basic:
+  service_account: default
