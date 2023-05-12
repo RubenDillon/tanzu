@@ -1,0 +1,25 @@
+apiVersion: training.eduk8s.io/v1alpha2
+kind: Workshop
+metadata:
+  name: lab-asciidoc-sample
+spec:
+  title: AsciiDoc Sample
+  description: A sample workshop using AsciiDoc
+  vendor: eduk8s.io
+  difficulty: beginner
+  duration: 15m
+  url: https://github.com/eduk8s/lab-asciidoc-sample
+  content:
+    #image: quay.io/eduk8s/lab-asciidoc-sample:master
+    files: github.com/eduk8s/lab-asciidoc-sample
+  session:
+    namespaces:
+      budget: small
+    applications:
+      terminal:
+        enabled: true
+        layout: split
+      console:
+        enabled: true
+      editor:
+        enabled: true

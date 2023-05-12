@@ -1,0 +1,13 @@
+apiVersion: learningcenter.tanzu.vmware.com/v1beta1
+kind: TrainingPortal
+metadata:
+  name: lab-markdown-sample
+spec:
+  portal:
+    registration:
+      type: anonymous
+  workshops:
+  - name: lab-markdown-sample
+    capacity: 5
+    expires: 60m
+    orphaned: 5m
