@@ -160,7 +160,7 @@
     --yes
 
 ```
-## create the secret using TMC
+## create the Tanzu Net secret using TMC
 ```
         Secret name: tap-registry
         Image registry URL: registry.tanzu.vmware.com
@@ -190,14 +190,18 @@ Run the following command
 
 ## Obtain where is running ENVOY
 ```
-      In our example we assume that is running on the following IP Address: 20.246.129.194
+This is needed to register this address in the DNS namespaces (harbor.solateam.be, tap-gui.solateam.be....)
+      
+      	kubectl get svc -A | grep envoy
      
 ```  
 
 ## Configure Lets Encryt for the internal communications
 
 ```
-    Run the cluster-issuer.yaml file
+Run the cluster-issuer.yaml file
+
+	kubectl apply -f cluster-issuer.yaml
     
 ```
 
@@ -258,9 +262,7 @@ tap_gui:
 	
 where ClientID is obtained from Github Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in Github		
 
-- https://github.com/settings/apps
-
-	5. Create a new personal Token on Github
+	5. Create a new personal Token on Github (your user, settings, developer)
 	
 	6. Create a Secret on the default namespace as git-secret.yaml (from this github)
 	
