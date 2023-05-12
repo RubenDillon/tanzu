@@ -1,5 +1,5 @@
 # Deploy Tanzu Application Platform v1.5 using Azure with Harbor (using FREE public certificates)
-## Deploy Test, Scan and Github authentication and GITOps directly
+## Deploy Test, Scan and Github authentication 
 
 ## Requirements
 ```
@@ -296,7 +296,7 @@ ootb_supply_chain_test_scan:
     
     2. Select tap as name and 1.5 for the version
     
-    3. Copy the tap-values-OOTB-test-scan-auth.yaml
+    3. Copy the tap-values-OOTB-test-scan-auth.yaml on the TMC UI
     
     4. Monitor the install by running
             
@@ -315,8 +315,8 @@ ootb_supply_chain_test_scan:
 ## Prepare the developer namespace
 ```
 
- 	1. Create a namespace using kubectl
-		kubectl create namespace xxxy (we are using default namespace.. for that we dont need to create it)
+ 	1. Create a namespace using kubectl (if you change the namespace will be used for developers)
+		kubectl create namespace xxxy (we are using default namespace.. for that we don't need to create it)
 
 	2. Label the namespace
 		kubectl label namespaces default apps.tanzu.vmware.com/tap-ns=""
@@ -331,16 +331,17 @@ ootb_supply_chain_test_scan:
  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/namespace-provisioner-ootb-supply-chain.html#testing--scanning-supply-chain-3  
 
-       2. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
+       1. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
         
-                kubectl apply -f scan-policy.yaml.  (kubectl create --save-config -f scan-policy.yaml)
+                kubectl apply -f scan-policy.yaml.  
+		
+		Because we are not using the default scan-policy we apply this one that creates scan-policy-free policy, 
+		and we define their use in tap-values
                 
-                kubectl apply -f scan-template.yaml
+               revisar si no se tiene que usar ----> kubectl apply -f scan-template.yaml
                 
-	6. Create a Tekton pipeline and scan policies 
+	2. Review Tekton pipeline and scan policies 
      
-            	kubectl apply -f pipeline.yaml   (no... ahora ya viene un pipeline por defecto.. revisar con el proximo comando)    
-	 
 	 	kubectl get pipeline.tekton.dev,scanpolicies
 ```
 
@@ -355,14 +356,6 @@ ootb_supply_chain_test_scan:
 	2. Review the default service account
 	
 		kubectl describe serviceaccount default
-
-	3. Review if only one pipeline is available
-	
-		kubectl get pipeline
-		
- 	4. We could use more than one pipeline, but for this lab we will be using only one 
-
-		kubectl delete pipeline xxxy (any new created)
 		
 ```
         
@@ -370,19 +363,6 @@ ootb_supply_chain_test_scan:
 ```
 	
 	1. Deploy the following example
-	
-		tanzu apps workload apply tanzu-java-web-app \
-		--git-repo https://github.com/RubenDillon/application-accelerator-samples \
-		--sub-path tanzu-java-web-app \
-		--git-branch main \
-		--type web \
-		--app tanzu-java-web-app \
-		--label apps.tanzu.vmware.com/has-tests="true" \
-		--tail \
-		--yes
-        
-	2. Probably when we try to run this example, we will have trouble with pipeline and then with the vulnerabilities. To resolver that, we need to define which pipeline we want to run and which
-	scan policy to apply.
 	
 	
 		tanzu apps workload apply tanzu-java-web-app \
@@ -397,22 +377,21 @@ ootb_supply_chain_test_scan:
 		--yes
 	
 	
-	  3. For scan policy, we already define a default in our configuration (tap-values...yaml), but if we dont do that.. the default policy (scan-policy) is very restrictive and 
-	  	we need to define which one.. we want to use..
+	  2. For scan policy, we already define a default in our configuration (tap-values...yaml), but if we dont do that.. 
+	  the default policy (scan-policy) is very restrictive and we need to define which one.. we want to use..
 	
 		--param scanning_source_policy="lax-scan-policy" \
 		--param scanning_image_policy="lax-scan-policy" \
 	
-	
-	   4. View the build 
+	  3. View the build 
             
            	 kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
     
-   	   5. After ends you could access the TAP GUI to see the process and review the app using the following command
+   	  4. After ends you could access the TAP GUI to see the process and review the app using the following command
     
             	tanzu apps workload get tanzu-java-web-app --namespace default
             
-           6. To register the application, go to the tap-gui.solateam.be and click "Register Entity" and use the following as input
+          5. To register the application, go to the tap-gui.solateam.be and click "Register Entity" and use the following as input
     
             	https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
 
