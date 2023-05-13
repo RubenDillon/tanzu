@@ -594,6 +594,17 @@ tanzu apps workload create weatherforecast-steeltoe \
 	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/node-express/catalog/catalog-info.yaml
 	    
 	    
+	    
+	    Another (but.. this is from an image)
+	    
+	    tanzu apps workload create simple-web-app \
+            --image ghcr.io/vmware-tanzu-learning/simple-web-app:v1.1.0 \
+	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+	    --label apps.tanzu.vmware.com/has-tests=true \
+            --type web \
+            --yes
+	    
+	    
 ```
 
 ## Steps to create a TAP workload from an existing application 
