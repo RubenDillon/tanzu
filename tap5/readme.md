@@ -604,6 +604,8 @@ tanzu apps workload create weatherforecast-steeltoe \
             --type web \
             --yes
 	    
+	    curl -k https://simple-web-app.default.solateam.be/hello
+	    
 	    
 ```
 
