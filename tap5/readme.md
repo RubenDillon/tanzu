@@ -205,7 +205,7 @@ Run the cluster-issuer.yaml file
     
 ```
 
-## Create a GIT repository (for future use)
+## Create a GIT repository 
 ```
 	Using your Github account create a New Repository, as public and name it "tap-gitops"
 	
@@ -216,7 +216,7 @@ Run the cluster-issuer.yaml file
 	Then create a Git repository
 
     		git init
-    		XX git remote add origin git@github.com:ruben-latam/tap-gitops.git
+    		XX git remote add origin git@github.com:RubenDillon/tap-gitops.git
 
 		create a file ("prueba.txt") on the directory then summit to the github
 		
@@ -225,6 +225,23 @@ Run the cluster-issuer.yaml file
 		git push
 
 	Review that the file were uploaded to tap-gitops
+	
+	Connect to Tanzu Networks and go to Tanzu Application Platform. Select tap-gui-catalogs-latest and then the catalog with yelb application
+	(Tanzu Application Platform GUI Yelb Catalog)
+	
+	Download and copy at tap-gitops, then restore the file 
+	
+		tar -xvf tap-gui-yelb-catalog.tgz
+		
+	Upload the catalog
+	
+		git add .
+		git commit -m "adding catalog"
+		git branch -M main
+		git push -u origin main
+		
+	Review that the file were uploaded to tap-gitops	
+
 
 ```
 
@@ -233,12 +250,17 @@ Run the cluster-issuer.yaml file
 
 - https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/7-authentication/
 
-        1. Create a new public project in Harbor and call it "tap-apps"
+        1. Create a new public project in Harbor and call it "tap-apps" and "tap-gitops"
 
 	2. Go to https://github.com/settings/applications/new to create your OAuth App.
 
 		Homepage URL should be https://github.com/login/oauth/authorize
 		Authorization callback URL should point to the auth backend, https://tap-gui.solateam.be/api/auth/github
+		
+		Uncheck the Expire user authorization tokens under Callback URL 
+		Uncheck the Active box under Webhook 
+		
+	   The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
 		
 	3. Generate a new Client Secret and take a note of the Client ID and the Client Secret
 	
@@ -251,8 +273,8 @@ tap_gui:
       providers:
         github:
           development:
-            clientId: Iv1.61f0b55ce5c4a0c0
-            clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3
+            clientId: Iv1.61f0bxxxxx
+            clientSecret: b9f8a2db250dcdfab8xxxxxx
     catalog:
       locations:
         - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
@@ -264,11 +286,15 @@ where ClientID is obtained from Github Apps (Developer settings) and ClientSecre
 
 	5. Create a new personal Token on Github (your user, settings, developer)
 	
-	6. Create a Secret on the default namespace as git-secret.yaml (from this github)
+	6. Create a Secret on the default namespace as git-secret.yaml (from this github). Use the token as password and modify the user name.
 	
 	7. Apply the secret
 	
 	8. Modify the ootb_Supply_chain_test_scan part of the tap-values-OOTB-test-scan-auth.yaml file to looks like the following with your values
+
+
+#------------------REVISAR--------------
+
 
 ootb_supply_chain_test_scan:
   registry:
@@ -279,7 +305,7 @@ ootb_supply_chain_test_scan:
     server_address: https://github.com/
     repository_owner: RubenDillon
     branch: main
-    username: rubendillon
+    username: RubenDillon
     email: ruben_dillon@hotmail.com
     commit_message: supplychain@cluster.local
     ssh_secret: github-http-secret                 # secret created on the default namespace
@@ -363,10 +389,27 @@ ootb_supply_chain_test_scan:
         
 ### Test an Example
 ```
+
+	1. Connect to your github environment and create a new repository
 	
-	1. Deploy the following example
+	2. Select to "import" and then copy the following link "https://github.com/vmware-tanzu-learning/tanzu-java-web-app"
 	
+	3. Now we have created a repository with the address like https://github.com/<your user>/tanzu-java-web-app. In my case 
 	
+		https://github.com/RubenDillontanzu-java-web-app
+	
+	4. Now we will be deploying the example using that repository
+	
+		tanzu apps workload apply tanzu-java-web-app \
+		--git-repo https://github.com/RubenDillon/tanzu-java-web-app \
+		--git-branch main \
+		--type web \
+		--app tanzu-java-web-app \
+		--label apps.tanzu.vmware.com/has-tests="true" \
+		--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+		--tail \
+		--yes
+
 		tanzu apps workload apply tanzu-java-web-app \
 		--git-repo https://github.com/RubenDillon/application-accelerator-samples \
 		--sub-path tanzu-java-web-app \
@@ -377,7 +420,7 @@ ootb_supply_chain_test_scan:
 		--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
 		--tail \
 		--yes
-	
+
 	
 	  2. For scan policy, we already define a default in our configuration (tap-values...yaml), but if we dont do that.. 
 	  the default policy (scan-policy) is very restrictive and we need to define which one.. we want to use..
