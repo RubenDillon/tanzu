@@ -672,13 +672,24 @@ tanzu apps workload create weatherforecast-steeltoe \
 	    
 	    tanzu apps workload create simple-web-app \
             --image ghcr.io/vmware-tanzu-learning/simple-web-app:v1.1.0 \
-	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-	    --label apps.tanzu.vmware.com/has-tests=true \
+	    --label apps.tanzu.vmware.com/has-tests=false \
             --type web \
             --yes
 	    
 	    curl -k https://simple-web-app.default.solateam.be/hello
+	 
+	
 	    
+	   Pendiente ------------------- ver como agregar una imagen comun ---------------------------    
+	   ------------------------------------ no levanta el POD ya que no sabe que esta ------------
+	   ----------------------------- en el puerto 8080 -------------------------------------------
+	    
+	    
+	    tanzu apps workload create smario-web-app \
+            --image bharathshetty4/supermario:latest \
+	    --label apps.tanzu.vmware.com/has-tests=false \
+            --type web \
+            --yes
 	    
 ```
 
