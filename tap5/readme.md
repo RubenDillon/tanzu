@@ -732,6 +732,7 @@ tanzu apps workload create weatherforecast-steeltoe \
 	
 	tanzu apps workload apply tanzu-java-web-app \
 		--git-repo https://github.com/RubenDillon/tap-gitops \
+		--sub-path tanzu-java-web-app \
 		--git-branch main \
 		--type web \
 		--app tanzu-java-web-app \
