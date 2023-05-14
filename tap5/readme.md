@@ -408,16 +408,21 @@ ootb_supply_chain_test_scan:
 		--tail \
 		--yes
 
-		tanzu apps workload apply tanzu-java-web-app \
-		--git-repo https://github.com/RubenDillon/application-accelerator-samples \
-		--sub-path tanzu-java-web-app \
-		--git-branch main \
-		--type web \
-		--app tanzu-java-web-app \
-		--label apps.tanzu.vmware.com/has-tests="true" \
-		--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-		--tail \
-		--yes
+
+                tanzu apps workload apply tanzu-java-web-app \
+                --git-repo https://github.com/RubenDillon/application-accelerator-samples \
+                --sub-path tanzu-java-web-app \
+                --git-branch main \
+                --type web \
+                --app tanzu-java-web-app \
+                --label apps.tanzu.vmware.com/has-tests="true" \
+                --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+                --tail --param gitops_server_address="https://RubenDillon:ghp_mI0rZMsEVAxxxx@github.com" \
+		--param Username=RubenDillon --param gitops_repository_owner=RubenDillon \
+		--param ssh_secret=github-http-secret \
+                --yes
+
+
 
 	
 	  2. For scan policy, we already define a default in our configuration (tap-values...yaml), but if we dont do that.. 
