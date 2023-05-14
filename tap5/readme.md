@@ -592,6 +592,9 @@ tanzu apps workload create weatherforecast-steeltoe \
             To import use
             https://github.com/RubenDillon/application-accelerator-samples/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
 	    
+	    
+	    or using our new Repository... tap-gitops
+	    
 	    tanzu apps workload create weatherforecast-steeltoe \
             --git-repo https://github.com/RubenDillon/tap-gitops \
             --sub-path weatherforecast-steeltoe \
@@ -602,10 +605,7 @@ tanzu apps workload create weatherforecast-steeltoe \
             --label apps.tanzu.vmware.com/has-tests=true \
             --yes --tail\
             --namespace default
-	    
-	    
-	    
-
+	  
 
  	    Another Java application 
 
@@ -624,6 +624,21 @@ tanzu apps workload create weatherforecast-steeltoe \
             To import use
 	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/java-server-side-ui/catalog/catalog-info.yaml
 
+		
+	  or
+	  
+	    tanzu apps workload create java-server-side-ui \
+            --git-repo https://github.com/RubenDillon/tap-gitops \
+            --sub-path java-server-side-ui \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=java-server-side-ui \
+	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+	    --label apps.tanzu.vmware.com/has-tests=true \
+            --yes --tail \
+            --namespace default
+
+
 
 	    
 	    An Angular front end application
@@ -641,6 +656,19 @@ tanzu apps workload create weatherforecast-steeltoe \
 	    
 	    To import use
 	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/angular-frontend/catalog/catalog-info.yaml
+	    
+	    or
+	    
+	     tanzu apps workload create angular-frontend \
+            --git-repo https://github.com/RubenDillon/tap-gitops \
+            --sub-path angular-frontend \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=angular-frontend \
+	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+	    --label apps.tanzu.vmware.com/has-tests=true \
+            --yes --tail \
+            --namespace default
 	    
 	    
 	    
@@ -663,6 +691,18 @@ tanzu apps workload create weatherforecast-steeltoe \
 	    To import use
 	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/node-express/catalog/catalog-info.yaml
 	    
+	    or use
+	    
+	    tanzu apps workload create node-express \
+            --git-repo https://github.com/RubenDillon/tap-gitops \
+            --sub-path node-express \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=node-express \
+	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+	    --label apps.tanzu.vmware.com/has-tests=true \
+            --yes --tail \
+            --namespace default
 	    
 	    
 	    Another (but.. this is from an image)
@@ -687,8 +727,19 @@ tanzu apps workload create weatherforecast-steeltoe \
 	    --label apps.tanzu.vmware.com/has-tests=false \
             --type web \
             --yes
-	    
+	
+	
 ```
+
+## Automate the reading of Catalogs
+```
+	Modify the TAP installation adding the following to tap-gui
+	
+	- type: github-discovery
+          target: https://github.com/RubenDillon/tap-gitops/blob/main/*/catalog/catalog-info.yaml
+
+```
+
 
 ## Steps to create a TAP workload from an existing application 
 ```
