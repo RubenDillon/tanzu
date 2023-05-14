@@ -51,7 +51,7 @@ ootb_supply_chain_testing_scanning:
     repository: "tap-apps"
 
   gitops:
-    ssh_secret: github-http-secret    # un token creado en el namespace
+    ssh_secret: github-http-secret                                 # ------------------ secreto creado en el namespace default
     repository_name: tap-gitops
     
   scanning:
@@ -92,8 +92,8 @@ tap_gui:
       providers:
         github:
           development:
-            clientId: Iv1.61f0b55ce5c4a0c0
-            clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3
+            clientId: Iv1.61f0b55ce5c4a0c0                                  # --------------------- MODIFICAR
+            clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3          # --------------------- MODIFICAR
     catalog:
       locations:
         - target: https://github.com/RubenDillon/tap-gitops/yelb-catalog/catalog-info.yaml
@@ -101,7 +101,7 @@ tap_gui:
     integrations:
       github:
         - host: github.com
-          token: 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
+          token: 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                     # ------------------- MODIFICAR
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
   
