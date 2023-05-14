@@ -729,6 +729,19 @@ tanzu apps workload create weatherforecast-steeltoe \
             --yes
 	
 	
+	
+	tanzu apps workload apply tanzu-java-web-app \
+		--git-repo https://github.com/RubenDillon/tap-gitops \
+		--git-branch main \
+		--type web \
+		--app tanzu-java-web-app \
+		--label apps.tanzu.vmware.com/has-tests="true" \
+		--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+		--tail \
+		--yes
+	
+	
+	
 ```
 
 ## Automate the reading of Catalogs
