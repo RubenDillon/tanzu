@@ -42,15 +42,15 @@ ootb_supply_chain_basic:
 ootb_supply_chain_testing_scanning:
   cluster_builder: default
   gitops:
-    Username: RubenDillon #--------------------------------------------------------------------  cambiar
+    Username: RubenDillon
     branch: main
     commit_message: supplychain@cluster.local
     repository_name: tap-gitops
-    repository_owner: RubenDillon #------------------------------------------------------------  cambiar
-    server_address: https://github.com
+    repository_owner: RubenDillon
+    server_address: https://RubenDillon:raddar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@github.com
     ssh_secret: github-http-secret
-    user_email: ruben_dillon@hotmail.com #-----------------------------------------------------  cambiar
-    user_name: RubenDillon #-------------------------------------------------------------------  cambiar
+    user_email: ruben_dillon@hotmail.com
+    user_name: RubenDillon
   registry:
     repository: tap-apps
     server: harbor.solateam.be
@@ -84,8 +84,8 @@ tap_gui:
       providers:
         github:
           development:
-            clientId: radIv1.17314f7b8ab6bc25. #--------------------------------------------------------  cambiar
-            clientSecret: rad377fe5a56f7e1d4c29622ca551104c7fb01c0c8c #---------------------------------  cambiar
+            clientId: darradIv1.17314f7b8ab6bc25
+            clientSecret: radrad377fe5a56f7e1d4c29622ca551104c7fb01c0c8c
     catalog:
       locations:
         - target: https://github.com/RubenDillon/tap-gitops/blob/main/yelb-catalog/catalog-info.yaml
@@ -93,7 +93,8 @@ tap_gui:
     integrations:
       github:
         - host: github.com
-          token: rad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 #------------------------------------------- cambiar
+          token: radrad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
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
+
 
