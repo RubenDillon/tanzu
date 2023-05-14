@@ -96,7 +96,9 @@ tap_gui:
             clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3          # --------------------- MODIFICAR
     catalog:
       locations:
-        - target: https://github.com/RubenDillon/tap-gitops/yelb-catalog/catalog-info.yaml
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/yelb-catalog/catalog-info.yaml
+          type: url
+        - target: https://github.com/RubenDillon/tanzu-java-web-app/blob/main/catalog/catalog-info.yaml
           type: url
     integrations:
       github:
