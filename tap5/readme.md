@@ -314,7 +314,19 @@ ootb_supply_chain_test_scan:
   cluster_builder: default
   service_account: default
 
+```
 
+### GitOps integration
+```
+
+	1. Update (patch) the default service account with the new secret
+	
+		kubectl patch serviceaccount default --patch '{"secrets": [{"name": "github-http-secret"}]}'
+		
+	2. Review the default service account
+	
+		kubectl describe serviceaccount default
+		
 ```
 
 
@@ -371,20 +383,6 @@ ootb_supply_chain_test_scan:
 	2. Review Tekton pipeline and scan policies 
      
 	 	kubectl get pipeline.tekton.dev,scanpolicies
-```
-
-### GitOps integration
-```
-
-
-	1. Update (patch) the default service account with the new secret
-	
-		kubectl patch serviceaccount default --patch '{"secrets": [{"name": "github-http-secret"}]}'
-		
-	2. Review the default service account
-	
-		kubectl describe serviceaccount default
-		
 ```
         
 ### Test an Example
