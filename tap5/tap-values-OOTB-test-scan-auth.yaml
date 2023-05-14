@@ -11,29 +11,22 @@ buildservice:
   kp_default_repository_secret:
     name: registry-credentials
     namespace: default
-    
 ceip_policy_disclosed: true
-
 contour:
   envoy:
     service:
       type: LoadBalancer
-
 excluded_packages:
   - contour.tanzu.vmware.com
   - cert-manager.tanzu.vmware.com
-
 grype:
   namespace: default
   targetImagePullSecret: registry-credentials
-
 learningcenter:
   ingressDomain: solateam.be
-
 metadata_store:
   app_service_type: ClusterIP
   ns_for_export_app_cert: default
-
 namespace_provisioner:
   additional_sources:
     - git:
@@ -42,18 +35,22 @@ namespace_provisioner:
         url: https://github.com/vmware-tanzu/application-accelerator-samples.git
       path: _ytt_lib/testing-scanning-supplychain-polyglot-setup
   controller: true
-
 ootb_delivery_basic:
   service_account: default
-
 ootb_supply_chain_basic:
   service_account: default
-
 ootb_supply_chain_testing_scanning:
   cluster_builder: default
   gitops:
+    Username: RubenDillon #--------------------------------------------------------------------  cambiar
+    branch: main
+    commit_message: supplychain@cluster.local
     repository_name: tap-gitops
-    ssh_secret: ""
+    repository_owner: RubenDillon #------------------------------------------------------------  cambiar
+    server_address: https://github.com
+    ssh_secret: github-http-secret
+    user_email: ruben_dillon@hotmail.com #-----------------------------------------------------  cambiar
+    user_name: RubenDillon #-------------------------------------------------------------------  cambiar
   registry:
     repository: tap-apps
     server: harbor.solateam.be
@@ -63,16 +60,12 @@ ootb_supply_chain_testing_scanning:
     source:
       policy: scan-policy-free
   service_account: default
-
 policy:
   tuf_enabled: false
-
 profile: full
-
 scanning:
   metadataStore:
     url: ""
-
 shared:
   image_registry:
     project_path: harbor.solateam.be/tap
@@ -81,9 +74,7 @@ shared:
       namespace: default
   ingress_domain: solateam.be
   ingress_issuer: letsencrypt-production
-
 supply_chain: testing_scanning
-
 tap_gui:
   app_config:
     app:
@@ -93,8 +84,8 @@ tap_gui:
       providers:
         github:
           development:
-            clientId: radradIv1.17314f7b8ab6bc25 #--------------------------------- cambiar
-            clientSecret: radrad377fe5a56f7e1d4c29622ca551104c7fb01c0c8c #--------- cambiar
+            clientId: radIv1.17314f7b8ab6bc25. #--------------------------------------------------------  cambiar
+            clientSecret: rad377fe5a56f7e1d4c29622ca551104c7fb01c0c8c #---------------------------------  cambiar
     catalog:
       locations:
         - target: https://github.com/RubenDillon/tap-gitops/blob/main/yelb-catalog/catalog-info.yaml
@@ -102,6 +93,7 @@ tap_gui:
     integrations:
       github:
         - host: github.com
-          token: radrad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 #------------------ cambiar
+          token: rad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 #------------------------------------------- cambiar
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
+
