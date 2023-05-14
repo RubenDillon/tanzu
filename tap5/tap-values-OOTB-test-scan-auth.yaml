@@ -96,7 +96,7 @@ tap_gui:
             clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3
     catalog:
       locations:
-        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+        - target: https://github.com/RubenDillon/tap-gitops/yelb-catalog/catalog-info.yaml
           type: url
     integrations:
       github:
