@@ -398,9 +398,36 @@ ootb_supply_chain_test_scan:
             	https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
 
 
+	  6. Review the deliverables of the deployment
+	 
+
+		kubectl get deliverables
+		
+		kubectl get deliverable tanzu-java-web-app -o yaml > deliverable-tanzu-java-web-app.yaml
+
+
+		7. Review the Knative service of the deployment
+		
+		kubectl get service.serving.knative.dev/tanzu-java-web-app
+
 
 ```
 
+## Using a better readable file 
+```
+
+	Deploy KubeNEAT
+
+wget -O - https://github.com/itaysk/kubectl-neat/releases/download/v2.0.3/kubectl-neat_linux_amd64.tar.gz | \
+  sudo tar -C /usr/local/bin -zxvf - kubectl-neat
+
+	Use it to review a better readable file
+
+
+		kubectl-neat < deliverable-tanzu-java-web-app.yaml > deliverable-limpio.yaml
+
+
+```
 
 
 ## Review the Self-Guided Workshop
