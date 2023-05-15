@@ -494,7 +494,7 @@ wget -O - https://github.com/itaysk/kubectl-neat/releases/download/v2.0.3/kubect
             
     6. To deploy a Spring Boot workshop, go to /learning on this git      
             
-            kubectl apply -f resources/spring-workshop.yaml
+            kubectl apply -f resources/spring-workshop.yaml 
             
             kubectl apply -f resources/spring-portal
             
