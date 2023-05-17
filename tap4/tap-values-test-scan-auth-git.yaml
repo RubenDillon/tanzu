@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------------------- #
 #
-#                    TAP values to deploy Testing and Scanning with Github auth
+#     TAP values to deploy Testing and Scanning with Github authentication
 #
 #
 #                              valid for TAP 1.5
@@ -11,67 +11,49 @@ buildservice:
   kp_default_repository_secret:
     name: registry-credentials
     namespace: default
-
 ceip_policy_disclosed: true
-
 contour:
   envoy:
     service:
       type: LoadBalancer
-
 excluded_packages:
   - contour.tanzu.vmware.com
   - cert-manager.tanzu.vmware.com
-
 grype:
   namespace: default
   targetImagePullSecret: registry-credentials
-
 learningcenter:
   ingressDomain: solateam.be
-
 metadata_store:
   app_service_type: ClusterIP
   ns_for_export_app_cert: default
-
 namespace_provisioner:
-  controller: true
   additional_sources:
     - git:
         ref: origin/main
         subPath: ns-provisioner-samples/testing-scanning-supplychain-polyglot
         url: https://github.com/vmware-tanzu/application-accelerator-samples.git
       path: _ytt_lib/testing-scanning-supplychain-polyglot-setup
-
-
-
+  controller: true
 ootb_supply_chain_testing_scanning:
-  registry:
-    server: "harbor.solateam.be"
-    repository: "tap-apps"
-
+  cluster_builder: default
   gitops:
-    ssh_secret: ""    # un token creado en el namespace
-
-    
+    ssh_secret: github-http-secret
+  registry:
+    repository: tap-apps
+    server: harbor.solateam.be
   scanning:
-    source:
-      policy: scan-policy-free
     image:
       policy: scan-policy-free
-
-  cluster_builder: default
+    source:
+      policy: scan-policy-free
   service_account: default
-
 policy:
   tuf_enabled: false
-
 profile: full
-
 scanning:
   metadataStore:
     url: ""
-
 shared:
   image_registry:
     project_path: harbor.solateam.be/tap
@@ -80,9 +62,7 @@ shared:
       namespace: default
   ingress_domain: solateam.be
   ingress_issuer: letsencrypt-production
-
 supply_chain: testing_scanning
-
 tap_gui:
   app_config:
     app:
@@ -92,21 +72,26 @@ tap_gui:
       providers:
         github:
           development:
-            clientId: Iv1.61f0b55ce5c4a0c0
-            clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3
+            clientId: Iv1.17314fxxxxx
+            clientSecret: 377fe5a56f7e1d4cxxxxx
     catalog:
       locations:
-        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/yelb-catalog/catalog-info.yaml
           type: url
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
+          type: url
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/node-express/catalog/catalog-info.yaml
+          type: url
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/angular-frontend/catalog/catalog-info.yaml
+          type: url
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
+          type: url
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/java-server-side-ui/catalog/catalog-info.yaml
+          type: url   
     integrations:
       github:
         - host: github.com
-          token: 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
+          token: ghp_WiijUnkstYT2fxxxx
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
-  
-ootb_delivery_basic:
-  service_account: default
 
-ootb_supply_chain_basic:
-  service_account: default
