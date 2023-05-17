@@ -53,7 +53,7 @@ ootb_supply_chain_testing_scanning:
       server_kind: github
     repository_name: tap-gitops
     repository_owner: RubenDillon
-    server_address: https://RubenDillon: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@github.com/
+    server_address: https://RubenDillon:rra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@github.com/
     ssh_secret: github-http-secret
     user_email: ruben_dillon@hotmail.com
     user_name: RubenDillon
@@ -90,8 +90,8 @@ tap_gui:
       providers:
         github:
           development:
-            clientId: Iv1.17314f7b8ab6bc25
-            clientSecret: 377fe5a56f7e1d4c29622ca551104c7fb01c0c8c
+            clientId: rraIv1.17314f7b8ab6bc25
+            clientSecret: rra377fe5a56f7e1d4c29622ca551104c7fb01c0c8c
     catalog:
       locations:
         - target: https://github.com/RubenDillon/tap-gitops/blob/main/yelb-catalog/catalog-info.yaml
@@ -101,7 +101,7 @@ tap_gui:
     integrations:
       github:
         - host: github.com
-          token: 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
+          token: rra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
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
 
