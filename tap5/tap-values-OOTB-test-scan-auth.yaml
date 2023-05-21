@@ -53,7 +53,7 @@ ootb_supply_chain_testing_scanning:
       server_kind: github
     repository_name: tap-gitops
     repository_owner: RubenDillon
-    server_address: https://RubenDillon:rra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@github.com/
+    server_address: https://github.com/
     ssh_secret: github-http-secret
     user_email: ruben_dillon@hotmail.com
     user_name: RubenDillon
@@ -90,20 +90,25 @@ tap_gui:
       providers:
         github:
           development:
-            clientId: rraIv1.17314f7b8ab6bc25
-            clientSecret: rra377fe5a56f7e1d4c29622ca551104c7fb01c0c8c
+            clientId: Iv1.17314f7b8ab6bc25xxxx
+            clientSecret: 377fe5a56f7e1d4c29622ca551104c7fb01c0c8cxxxx
     catalog:
       locations:
         - target: https://github.com/RubenDillon/tap-gitops/blob/main/yelb-catalog/catalog-info.yaml
           type: url
-        - target: https://github.com/RubenDillon/tap-gitops/blob/main/*/catalog/catalog-info.yaml
-          type: gitlab-discovery
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
+          type: url
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/node-express/catalog/catalog-info.yaml
+          type: url
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/angular-frontend/catalog/catalog-info.yaml
+          type: url
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
+          type: url
+        - target: https://github.com/RubenDillon/tap-gitops/blob/main/java-server-side-ui/catalog/catalog-info.yaml
+          type: url
     integrations:
       github:
         - host: github.com
-          token: rra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
+          token: ghp_WiijUnkstYT2f9k3yFxxxxxx_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
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
-
-
-
