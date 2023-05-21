@@ -250,6 +250,7 @@ Run the cluster-issuer.yaml file
 
 - https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/7-authentication/
 - https://backstage.io/docs/getting-started/configuration/#setting-up-a-github-integration
+- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/scc-git-auth.html
 
         1. Create a new public project in Harbor and call it "tap-apps" and "tap-gitops"
 
