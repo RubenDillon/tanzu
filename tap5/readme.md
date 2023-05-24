@@ -833,7 +833,7 @@ tanzu apps workload create weatherforecast-steeltoe \
 	
 		tanzu services class-claims get rabbitmq-1 --namespace default
 	
-	5. Now we deploy an example that consumes, this RabbitMQ
+	5. Now we deploy an example that consumes, this RabbitMQ. This application have two pieces, the consumer web and the producer.
 	
   tanzu apps workload create spring-sensors-consumer-web \
   --git-repo https://github.com/tanzu-end-to-end/spring-sensors \
