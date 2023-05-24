@@ -606,16 +606,7 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
 	    
 	    
 	    11. Use the LiveView to deploy it into TAP... wait until you need to Approve the Request... and finally see the deployment.
-	    
-	    
-	   
-		 
-		 
-		 
-		 
-		 
-		
-		
+	
    
 ```
 
@@ -818,6 +809,58 @@ tanzu apps workload create weatherforecast-steeltoe \
             --label app.kubernetes.io/part-of=hello-world \
             --yes \
             --namespace default
+
+```
+
+## Service Bindings
+```
+	- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-claim-services.html
+	- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-consume-services.html
+	
+	1. To review the default deployment that we have it, use the following
+	
+		tanzu service class list
+	
+	2. To review RabbitMQ, the service that we will be using
+	
+		tanzu service class get rabbitmq-unmanaged
+	
+	3. Create a claim of Rabbit with a 3GB space
+	
+		tanzu service class-claim create rabbitmq-1 --class rabbitmq-unmanaged --parameter storageGB=3
+	
+	4. Review the progress running
+	
+		tanzu services class-claims get rabbitmq-1 --namespace default
+	
+	5. Now we deploy an example that consumes, this RabbitMQ
+	
+  tanzu apps workload create spring-sensors-consumer-web \
+  --git-repo https://github.com/tanzu-end-to-end/spring-sensors \
+  --git-branch rabbit \
+  --type web \
+  --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+  --label apps.tanzu.vmware.com/has-tests=true \
+  --label app.kubernetes.io/part-of=spring-sensors \
+  --annotation autoscaling.knative.dev/minScale=1 \
+  --service-ref="rmq=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:rabbitmq-1"
+	
+	6. And run the following app as Producer
+	
+
+  tanzu apps workload create \
+  spring-sensors-producer \
+  --git-repo https://github.com/tanzu-end-to-end/spring-sensors-sensor \
+  --git-branch main \
+  --type web \
+  --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+  --label apps.tanzu.vmware.com/has-tests=true \
+  --label app.kubernetes.io/part-of=spring-sensors \
+  --annotation autoscaling.knative.dev/minScale=1 \
+  --service-ref="rmq=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:rabbitmq-1"
+
+	7. Go to the consumer-web deployment and wait until the Producer is running and giving information to RabbitMQ
+
 
 ```
 
