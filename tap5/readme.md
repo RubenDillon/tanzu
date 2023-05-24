@@ -841,27 +841,33 @@ tanzu apps workload create weatherforecast-steeltoe \
   --type web \
   --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
   --label apps.tanzu.vmware.com/has-tests=true \
-  --label app.kubernetes.io/part-of=spring-sensors \
+  --label app.kubernetes.io/part-of=spring-sensors-rabbit \
   --annotation autoscaling.knative.dev/minScale=1 \
   --service-ref="rmq=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:rabbitmq-1"
 	
 	6. And run the following app as Producer
 	
 
-  tanzu apps workload create \
-  spring-sensors-producer \
+  tanzu apps workload create spring-sensors-producer \
   --git-repo https://github.com/tanzu-end-to-end/spring-sensors-sensor \
   --git-branch main \
   --type web \
   --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
   --label apps.tanzu.vmware.com/has-tests=true \
-  --label app.kubernetes.io/part-of=spring-sensors \
+  --label app.kubernetes.io/part-of=spring-sensors-rabbit \
   --annotation autoscaling.knative.dev/minScale=1 \
-  --service-ref="rmq=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:rabbitmq-1"
+  --service-ref="rmq=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:rabbitmq-1" \
+  --tail -y
 
 	7. Go to the consumer-web deployment and wait until the Producer is running and giving information to RabbitMQ
 
+	8. Add the app to the catalog
 
+             https://github.com/tanzu-end-to-end/spring-sensors-sensor/blob/main/catalog/catalog-info.yaml
+	     
+	     
+	  
+	     
 ```
 
 
