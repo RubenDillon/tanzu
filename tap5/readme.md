@@ -251,6 +251,7 @@ Run the cluster-issuer.yaml file
 - https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/7-authentication/
 - https://backstage.io/docs/getting-started/configuration/#setting-up-a-github-integration
 - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/scc-git-auth.html
+- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/tap-gui-plugins-application-accelerator-git-repo.html#configuration
 
         1. Create a new public project in Harbor and call it "tap-apps" and "tap-gitops"
 
@@ -259,32 +260,13 @@ Run the cluster-issuer.yaml file
 		Homepage URL should be https://github.com/login/oauth/authorize
 		Authorization callback URL should point to the auth backend, https://tap-gui.solateam.be/api/auth/github
 		
-		Uncheck the Expire user authorization tokens under Callback URL 
-		Uncheck the Active box under Webhook 
-		
 	   The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
 		
 	3. Generate a new Client Secret and take a note of the Client ID and the Client Secret
 	
-	4. Modify the tap-gui part of the tap-values-OOTB-test-scan-auth.yaml file to looks like the following with your values
-	
-tap_gui:
-  app_config:
-    auth:
-      environment: development
-      providers:
-        github:
-          development:
-            clientId: Iv1.61f0bxxxxx
-            clientSecret: b9f8a2db250dcdfab8xxxxxx
-    catalog:
-      locations:
-        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
-          type: url
-  metadataStoreAutoconfiguration: true
-  service_type: ClusterIP
-	
-where ClientID is obtained from Github Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in Github		
+	4. Modify the tap-gui part of the tap-values-OOTB-test-scan-auth.yaml file to add ClientId and clientSecret values
+
+		where ClientID is obtained from Github Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in Github		
 
 	5. Create a new personal Token on Github (your user, settings, developer)
 	
@@ -292,29 +274,8 @@ where ClientID is obtained from Github Apps (Developer settings) and ClientSecre
 	
 	7. Apply the secret
 	
-	8. Modify the ootb_Supply_chain_test_scan part of the tap-values-OOTB-test-scan-auth.yaml file to looks like the following with your values
+	8. Modify the ootb_Supply_chain_test_scan part of the tap-values-OOTB-test-scan-auth.yaml with your data.
 
-
-#------------------REVISAR--------------
-
-
-ootb_supply_chain_test_scan:
-  registry:
-    server: "harbor.solateam.be"
-    repository: "tap-apps"
-
-  gitops:
-    server_address: https://github.com/
-    repository_owner: RubenDillon
-    branch: main
-    username: RubenDillon
-    email: ruben_dillon@hotmail.com
-    commit_message: supplychain@cluster.local
-    ssh_secret: github-http-secret                 # secret created on the default namespace
-    commit_strategy: direct
-
-  cluster_builder: default
-  service_account: default
 
 ```
 
@@ -541,6 +502,9 @@ wget -O - https://github.com/itaysk/kubectl-neat/releases/download/v2.0.3/kubect
                 - Source Image: harbor.solateam.be/tap-apps/tanzu-java-web-app
                 - Namespace: default.   
         
+	10. Do the same with the "Tanzu App Accelerator Extension for Visual Studio Code" 
+	
+	11. Once deployed configure tap-gui.solateam.be as the TAP GUI URL
 ```
 
 ## Using VS Code to deploy and iterate the example
@@ -572,6 +536,86 @@ wget -O - https://github.com/itaysk/kubectl-neat/releases/download/v2.0.3/kubect
          7. Modify /src/main/java/com/example/springboot/HelloController.java 
          
                 return "Greetings from Spring Boot + Tanzu!"; (change it to something and see the change in the application already deployed)    
+		
+		
+	 8. Using the terminal review your current path using pwd. Then move to the tanzu-java-web-app folder and commit the code
+	 
+	 	git -C /Users/rubendillon/tanzu/tap-gitops/tanzu-java-web-app add .
+		
+		git -C /Users/rubendillon/tanzu/tap-gitops/tanzu-java-web-app commit -a -m "Initial Commit of Tanzu Java Web App"
+		
+		git push
+		
+		
+		
+	  7. Revisar el archivo delivery.yml y subirlo al git
+	  
+	  	 git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app add delivery.yml
+		 
+		 git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app  commit -a -m "Adding deliverable"
+	 
+	 	 git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app pull -r
+		 
+		 git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app push -u origin main
+		 
+		 
+		 
+		 
+	   8. From the Application Accelerator link from the toolbar select create an App
+	   
+	   9. Select Tanzu Java Web App and complete the following
+	   		Use JAVA 17 and Spring Boot v3.0
+	   		harbor.solateam.be/tap-apps
+			
+		Complete the git repository information
+			Owner: RubenDillon
+			Repository Name: tanzu-java-web-app2
+			Repository Branch: main
+			
+	    10. Open the app and modify the tiltfile to see like the following
+	    
+allow_k8s_contexts('tkg2-tap-01')
+
+SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='harbor.solateam.be/tap-apps/tanzu-java-web-app3-source')
+LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
+NAMESPACE = os.getenv("NAMESPACE", default='default')
+OUTPUT_TO_NULL_COMMAND = os.getenv("OUTPUT_TO_NULL_COMMAND", default=' > /dev/null ')
+
+k8s_custom_deploy(
+    'tanzu-java-web-app3',
+    apply_cmd="tanzu apps workload apply -f config/workload.yaml --debug --live-update" +
+               " --local-path " + LOCAL_PATH +
+               " --source-image " + SOURCE_IMAGE +
+               " --namespace " + NAMESPACE +
+               " --label apps.tanzu.vmware.com/has-tests=true " +
+               " --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " +
+               " --yes " +
+               OUTPUT_TO_NULL_COMMAND +
+               " && kubectl get workload tanzu-java-web-app3 --namespace " + NAMESPACE + " -o yaml",
+    delete_cmd="tanzu apps workload delete -f config/workload.yaml --namespace " + NAMESPACE + " --yes",
+    deps=['pom.xml', './target/classes'],
+    container_selector='workload',
+    live_update=[
+      sync('./target/classes', '/workspace/BOOT-INF/classes')
+    ]
+)
+
+k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
+            extra_pod_selectors=[{'carto.run/workload-name': 'tanzu-java-web-app3', 'app.kubernetes.io/component': 'run'}])
+	    
+	    
+	    
+	    11. Use the LiveView to deploy it into TAP... wait until you need to Approve the Request... and finally see the deployment.
+	    
+	    
+	   
+		 
+		 
+		 
+		 
+		 
+		
+		
    
 ```
 
