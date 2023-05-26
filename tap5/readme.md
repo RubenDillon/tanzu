@@ -865,8 +865,18 @@ tanzu apps workload create weatherforecast-steeltoe \
 
              https://github.com/tanzu-end-to-end/spring-sensors-sensor/blob/main/catalog/catalog-info.yaml
 	     
+	   
+        9. If we want to do a Service Binding with a Database (PostgreSQL for example), the procedure is more or less the same
+	
+	
+		tanzu service class-claim create psql-1 --class postgresql-unmanaged --parameter storageGB=3
+		
+		tanzu services class-claims get psql-1
+		
+		tanzu service class-claim get psql-1
+		
+		tanzu apps workload create my-workload --image my-registry/my-app-image --service-ref db=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:psql-1
 	     
-	  
 	     
 ```
 
