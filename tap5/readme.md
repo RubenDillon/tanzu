@@ -1000,9 +1000,9 @@ spec:
 	15. You will found a vulnerability runned by Snyk on your VSCode or in the TAP-GuI the supply chain (hsqldb version 2.7.0)		
 		
 	
-		
+	16. To add this application to the Catalog, register the following Entity
 	
-	
+		https://github.com/RubenDillon/spring-sensors/blob/main/catalog-info.yaml	
 		
 	
 
