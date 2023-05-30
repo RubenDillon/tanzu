@@ -880,6 +880,134 @@ tanzu apps workload create weatherforecast-steeltoe \
 	     
 ```
 
+## A more complex application including MySQL as Service Binding
+```
+
+	1. Create a Spring-Sensors fork from https://github.com/RubenDillon/spring-sensors
+	
+	2. Do a git clone from your repository
+	
+		git clone https://github.com/<your github>/spring-sensors
+	
+	2. Open the folder on VS Code
+	
+	3. Run the application using the tiltfile and add the following information
+		
+		allow_k8s_contexts('tkg2-tap-01')
+		
+		
+               " --label apps.tanzu.vmware.com/has-tests=true " +
+               " --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " +
+		
+		
+	4. Wait until you have to approve the Pull Request. Press the Approval button on "Config Writer" step. 
+	
+	5. Select Merge in github and wait until the app be running and available
+	
+	6. Review from your local machine where spring-sensors is copied, go to the folder config and edit workload.yaml
+	
+		Modify the part where is the source code with your github space
+	
+	6. Using the terminal review your current path using pwd. Then move to the tap-gitops folder and commit the code
+	 
+	 	git -C /Users/rubendillon/tanzu/spring-sensors add .
+		
+		git -C /Users/rubendillon/tanzu/spring-sensors commit -a -m "Initial Commit of Spring Sensors"
+		
+		git push
+		
+		
+	7. Now is time to create the deliverable.yaml file into gitops-deliverables folder to move the deployment to the run (production environment)
+
+
+apiVersion: carto.run/v1alpha1
+kind: Deliverable
+metadata:
+  name: spring-sensors
+  labels:
+    app.tanzu.vmware.com/deliverable-type: web
+    app.kubernetes.io/part-of: spring-sensors
+    app.kubernetes.io/component: deliverable
+spec:
+  source:
+    git:
+      ref:
+        branch: main
+      url: https://github.com/RubenDillon/spring-sensors	
+	
+		
+	7. Subirlo al git
+	  
+	  	 git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables add deliverable.yaml
+		 
+		 git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables  commit -a -m "Adding deliverable"
+	 
+	 	 git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables pull -r
+		 
+		 git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables push -u origin main
+		 
+	8. Create the data base for the application
+	
+		tanzu service class list
+		
+		tanzu service class-claim create sensors-mysql --class mysql-unmanaged --parameter storageGB=3
+		
+		tanzu services class-claims get sensors-mysql
+	
+	8. Add the Data Services, we need to open the workload.yaml file from config
+	
+		  serviceClaims:
+                    - name: db
+                      ref:
+                        apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+                        kind: ClassClaim
+                        name: sensors-mysql	
+	
+	9. Push the changes to github
+	
+		 git -C /Users/rubendillon/tanzu/sp
+		 ring-sensors/config add .
+		 
+		 git -C /Users/rubendillon/tanzu/spring-sensors/config  commit -a -m "Adding Data Services"
+	 
+	 	 git -C /Users/rubendillon/tanzu/spring-sensors/config pull -r
+		  
+		 git -C /Users/rubendillon/tanzu/spring-sensors/config push -u origin main
+		 
+		 
+	10. Run the tiltfile again and wait up to have the Pull Request requirement in "Config Writer". 
+	
+	11. Approve the merge and wait until the app will be ready
+	
+	12. Now we could make modification to introduce problems with security. Modify spring-sensors/pom.xml from VS Code
+	
+		Search org.hsqldb
+		
+		replace 2.7.1 by 2.7.0
+	
+	13. Save the file
+	
+	14. Push the changes
+	
+	
+		git -C /Users/rubendillon/tanzu/spring-sensors commit -a -m "Initial Commit of Spring Sensors"
+		
+	 	 git -C /Users/rubendillon/tanzu/spring-sensors pull -r
+		  
+		 git -C /Users/rubendillon/tanzu/spring-sensors push -u origin main
+		 
+		 
+	15. You will found a vulnerability runned by Snyk on your VSCode or in the TAP-GuI the supply chain (hsqldb version 2.7.0)		
+		
+	
+		
+	
+	
+		
+	
+
+```
+
 
 
 ## Commands to use with Tanzu Application Platform
