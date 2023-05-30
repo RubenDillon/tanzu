@@ -1,5 +1,5 @@
 # Deploy Tanzu Application Platform v1.5 using Azure with Harbor (using FREE public certificates)
-## Deploy Test, Scan and Github authentication and GitOps  
+## Deploy Test, Scan and Github authentication and GitOps   
 
 ## Requirements
 ```
