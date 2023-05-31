@@ -405,19 +405,21 @@ Run the cluster-issuer.yaml file
 
 ```
 
-## Using a better readable file 
+## Using KubeNEAT to generate a readable file 
 ```
 
-	Deploy KubeNEAT
+	1. Deploy KubeNEAT
 
-wget -O - https://github.com/itaysk/kubectl-neat/releases/download/v2.0.3/kubectl-neat_linux_amd64.tar.gz | \
-  sudo tar -C /usr/local/bin -zxvf - kubectl-neat
+          wget -O - https://github.com/itaysk/kubectl-neat/releases/download/v2.0.3/kubectl-neat_linux_amd64.tar.gz | \
+          sudo tar -C /usr/local/bin -zxvf - kubectl-neat
 
-	Use it to review a better readable file
-
+	2. Use it to review a better readable file
 
 		kubectl-neat < deliverable-tanzu-java-web-app.yaml > deliverable-limpio.yaml
 
+	3. You could use that file to deploy the application into another cluster. For example, this environment will be for
+	   development and another cluster (run cluster) for production. In that cluster, we could deploy with this
+	   deliverable file.
 
 ```
 
