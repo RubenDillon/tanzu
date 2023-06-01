@@ -1038,7 +1038,7 @@ spec:
 	4. Download PostgreSQL
 		docker pull postgres
 		docker images
-		docker run --name postgresql -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=PASSw0rd2023 -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres
+		docker run --name postgresql -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=PASSw0rd2023 -p 5432:5432 --restart=always -v /data:/var/lib/postgresql/data -d postgres
 		docker ps -a 
 			to review that PostgreSQL is running
 		
