@@ -1046,7 +1046,7 @@ spec:
 		docker start postgresql
 		
 	6. To review the configuration
-		docker exec -it <docker name> psql -U admin
+		docker exec -it postgresql psql -U admin
 			you will receive the information about PostgreSQL version
 		\l
 			this will list the current databases on PostgreSQL
