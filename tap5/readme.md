@@ -1044,8 +1044,13 @@ spec:
 		
 	5. Install PGAdmin to manage this instance
 		docker pull dpage/pgadmin4:latest
-		docker run --name pgadmin -p 82:80 -e 'PGADMIN_DEFAULT_EMAIL=admin@local.net' -e 'PGADMIN_DEFAULT_PASSWORD=PASSw0rd2023'-d dpage/pgadmin4		
-
+		
+	6. Connecting to PGAdmin
+		ssh -L 127.0.0.1:8081:127.0.0.1:8081 ruben@20.64.24.36 (your IP address)
+		docker run --name pgadmin -p 8081:80 -e 'PGADMIN_DEFAULT_EMAIL=admin@local.net' -e 'PGADMIN_DEFAULT_PASSWORD=PASSw0rd2023'-d dpage/pgadmin4
+		
+		from your browser in your machine
+		http://localhost:8081
 ```
 
 
