@@ -1042,10 +1042,21 @@ spec:
 		docker ps -a 
 			to review that PostgreSQL is running
 		
-	5. Install PGAdmin to manage this instance
-		docker pull dpage/pgadmin4:latest
+	5. If you reboot the server PostgreSQL will be stoped
+		docker start postgresql
 		
-	6. Connecting to PGAdmin
+	6. To review the configuration
+		docker exec -it <docker name> psql -U admin
+			you will receive the information about PostgreSQL version
+		\l
+			this will list the current databases on PostgreSQL
+		\q
+			to exit
+	
+	7. Install PGAdmin to manage this instance from a web browser
+		docker pull dpage/pgadmin4:latest
+	
+	8. Connecting to PGAdmin
 		ssh -L 127.0.0.1:8081:127.0.0.1:8081 ruben@20.64.24.36 (your IP address)
 		docker run --name pgadmin -p 8081:80 -e 'PGADMIN_DEFAULT_EMAIL=admin@local.net' -e 'PGADMIN_DEFAULT_PASSWORD=PASSw0rd2023'-d dpage/pgadmin4
 		
