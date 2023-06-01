@@ -1052,7 +1052,11 @@ spec:
 			this will list the current databases on PostgreSQL
 		\q
 			to exit
-	
+	7. Test the connection from another machine
+		sudo apt-get install postgresql-client
+		psql -U admin -p 5432 -h postgresql.solateam.be
+			where postgresql.solateam.be is the DNS record generated por the postgreSQL docker running on a VM		
+		
 	7. Install PGAdmin to manage this instance from a web browser
 		docker pull dpage/pgadmin4:latest
 	
