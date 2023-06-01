@@ -1010,6 +1010,44 @@ spec:
 
 ```
 
+## Configure Persitent Storage for the GUI
+```
+
+	- https://snapshooter.com/learn/postgresql/deploy-postgres-with-docker
+	- https://hevodata.com/learn/docker-postgresql
+	
+	1. To provide a persisten storage for the TAP-GUI we need a PostgreSQL database. For that reason we create another instance 
+	
+	2. That new instance we created as follow
+		Ubuntu 20.04 LTS Server
+		4vCPU and 16 GB RAM (Standard D4s v3)
+		open ports 22, 80, 443 and 5432
+		connected to the network where the control plane of the TAP workload is running
+		postgresql as name
+	
+	3. Deploy docker
+		sudo su
+		apt-get install apt-transport-https ca-certificates curl software-properties-common -y
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+		add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+		apt-get install docker-ce docker-compose -y
+		docker --version
+		
+		At this moment we are using docker 24.0.2
+		
+	4. Download PostgreSQL
+		docker pull postgres
+		docker images
+		docker run --name postgresql -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=PASSw0rd2023 -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres
+		docker ps -a 
+			to review that PostgreSQL is running
+		
+	5. Install PGAdmin to manage this instance
+		docker pull dpage/pgadmin4:latest
+		docker run --name pgadmin -p 82:80 -e 'PGADMIN_DEFAULT_EMAIL=admin@local.net' -e 'PGADMIN_DEFAULT_PASSWORD=PASSw0rd2023'-d dpage/pgadmin4		
+
+```
+
 
 
 ## Commands to use with Tanzu Application Platform
