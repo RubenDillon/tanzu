@@ -1,0 +1,10 @@
+    backend:
+      database:
+        client: pg
+        pluginDivisionMode: database
+        connection:
+          host: postgresql.solateam.be
+          port: 5432
+          user: "admin"
+          password: "PASSw0rd2023"
+          ssl: {rejectUnauthorized: false} # Set to true if using SSL
