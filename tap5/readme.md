@@ -1016,7 +1016,7 @@ spec:
 	- https://snapshooter.com/learn/postgresql/deploy-postgres-with-docker
 	- https://hevodata.com/learn/docker-postgresql
 	- https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/5-config-2
-	
+	- https://blog.devart.com/configure-postgresql-to-allow-remote-connection.html	
 	
 	1. To provide a persisten storage for the TAP-GUI we need a PostgreSQL database. For that reason we create another instance 
 	
@@ -1043,15 +1043,23 @@ spec:
 			to exit
 			
 	4. Configure PostgreSQL to receive remote connections
-		xx
-			
+		vi /etc/postgresql/12/main/postgresql.conf
+			replace #listen_addresses = 'localhost' for #listen_addresses = '*'	
+		vi /etc/postgresql/12/main/pg_hba.con
+		    	replace....	host    all             all             127.0.0.1/32            md5 
+			by......... 	host    all             all             0.0.0.0/0           	md5 	
+		sudo ufw allow 5432/tcp 
+		sudo service postgresql restart			
 			
 	5. Test the connection from another machine
 		sudo apt-get install postgresql-client
-		psql -U admin -p 5432 -h postgresql.solateam.be
+		psql -U postgres -p 5432 -h postgresql.solateam.be
 			where postgresql.solateam.be is the DNS record generated por the postgreSQL docker running on a VM
 			
 		
+		
+		
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	
 	
 	
 	XXXXX Deploy docker
