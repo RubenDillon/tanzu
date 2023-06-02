@@ -1015,6 +1015,8 @@ spec:
 
 	- https://snapshooter.com/learn/postgresql/deploy-postgres-with-docker
 	- https://hevodata.com/learn/docker-postgresql
+	- https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/5-config-2
+	
 	
 	1. To provide a persisten storage for the TAP-GUI we need a PostgreSQL database. For that reason we create another instance 
 	
@@ -1024,8 +1026,35 @@ spec:
 		open ports 22, 80, 443 and 5432
 		connected to the network where the control plane of the TAP workload is running
 		postgresql as name
+		
+	3. Deploy PostgreSQL
+		
+		sudo apt-get install postgresql
+		sudo -u postgres psql
+			you will receive the information about PostgreSQL version
+		postgres=# ALTER USER postgres PASSWORD 'secreto';
+		\l
+			this will list the current databases on PostgreSQL
+		CREATE DATABASE prueba;
+			this will create a test database 
+		\l
+			review the databases 
+		\q
+			to exit
+			
+	4. Configure PostgreSQL to receive remote connections
+		xx
+			
+			
+	5. Test the connection from another machine
+		sudo apt-get install postgresql-client
+		psql -U admin -p 5432 -h postgresql.solateam.be
+			where postgresql.solateam.be is the DNS record generated por the postgreSQL docker running on a VM
+			
+		
 	
-	3. Deploy docker
+	
+	XXXXX Deploy docker
 		sudo su
 		apt-get install apt-transport-https ca-certificates curl software-properties-common -y
 		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -1041,6 +1070,12 @@ spec:
 		docker run --name postgresql -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=PASSw0rd2023 -p 5432:5432 --restart=always -v /data:/var/lib/postgresql/data -d postgres
 		docker ps -a 
 			to review that PostgreSQL is running
+			
+	
+			
+			
+			
+			
 		
 	5. If you reboot the server PostgreSQL will be stoped
 		docker start postgresql
@@ -1052,10 +1087,7 @@ spec:
 			this will list the current databases on PostgreSQL
 		\q
 			to exit
-	7. Test the connection from another machine
-		sudo apt-get install postgresql-client
-		psql -U admin -p 5432 -h postgresql.solateam.be
-			where postgresql.solateam.be is the DNS record generated por the postgreSQL docker running on a VM		
+	
 		
 	7. Install PGAdmin to manage this instance from a web browser
 		docker pull dpage/pgadmin4:latest
