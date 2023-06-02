@@ -1024,7 +1024,7 @@ spec:
 		Ubuntu 20.04 LTS Server
 		4vCPU and 16 GB RAM (Standard D4s v3)
 		open ports 22, 80, 443 and 5432
-		connected to the network where the control plane of the TAP workload is running
+		connected to the network where the worker nodes of the TAP workload is running
 		postgresql as name
 		
 	3. Deploy PostgreSQL
@@ -1058,56 +1058,9 @@ spec:
 		psql -U postgres -p 5432 -h postgresql.solateam.be
 			where postgresql.solateam.be is the DNS record generated por the postgreSQL docker running on a VM
 			
-		
-		
-		
-	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	
-	
-	
-	XXXXX Deploy docker
-		sudo su
-		apt-get install apt-transport-https ca-certificates curl software-properties-common -y
-		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-		add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-		apt-get install docker-ce docker-compose -y
-		docker --version
-		
-		At this moment we are using docker 24.0.2
-		
-	4. Download PostgreSQL
-		docker pull postgres
-		docker images
-		docker run --name postgresql -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=PASSw0rd2023 -p 5432:5432 --restart=always -v /data:/var/lib/postgresql/data -d postgres
-		docker ps -a 
-			to review that PostgreSQL is running
+	6. Then apply to the TAP configuration on TMC the content of tap-values.yaml file under tap-gui.
 			
-	
-			
-			
-			
-			
-		
-	5. If you reboot the server PostgreSQL will be stoped
-		docker start postgresql
-		
-	6. To review the configuration
-		docker exec -it postgresql psql -U admin
-			you will receive the information about PostgreSQL version
-		\l
-			this will list the current databases on PostgreSQL
-		\q
-			to exit
-	
-		
-	7. Install PGAdmin to manage this instance from a web browser
-		docker pull dpage/pgadmin4:latest
-	
-	8. Connecting to PGAdmin
-		ssh -L 127.0.0.1:8081:127.0.0.1:8081 ruben@20.64.24.36 (your IP address)
-		docker run --name pgadmin -p 8081:80 -e 'PGADMIN_DEFAULT_EMAIL=admin@local.net' -e 'PGADMIN_DEFAULT_PASSWORD=PASSw0rd2023'-d dpage/pgadmin4
-		
-		from your browser in your machine
-		http://localhost:8081
+						
 ```
 
 
