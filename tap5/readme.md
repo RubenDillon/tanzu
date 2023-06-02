@@ -1047,8 +1047,10 @@ spec:
 			replace #listen_addresses = 'localhost' for #listen_addresses = '*'	
 		vi /etc/postgresql/12/main/pg_hba.con
 		    	replace....	host    all             all             127.0.0.1/32            md5 
-			by......... 	host    all             all             0.0.0.0/0           	md5 	
+			by......... 	host    all             all             0.0.0.0/0           	md5 
+			add........	hostssl	all		all		0.0.0.0/0		md5
 		sudo ufw allow 5432/tcp 
+		sudo ufw allow 22/tcp 
 		sudo service postgresql restart			
 			
 	5. Test the connection from another machine
