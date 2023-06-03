@@ -70,7 +70,7 @@
         kind: ClusterIssuer
         metadata:
           name: letsencrypt-contour-cluster-issuer
-          namespace: tanzu-system-ingress
+          namespace: tanzu-helm-resources
         spec:
           acme:
             email: "rdillon@vmware.com"
