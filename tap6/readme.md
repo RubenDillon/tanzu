@@ -49,39 +49,21 @@
     
     10. Attach the AKS Cluster to TMC under TAP cluster group 
     
-    11. Deploy Cert-Manager using the defaults
+    11. Activate the Helm Chart Service and deploy Cert-Manager using the defaults from Helm Chart
     
-    12. Deploy Contour using the contour-values.yaml from this git
+    12. Deploy Contour using the defaults from Helm Chart 
     
-    13. Create the namespace tanzu-system-service-discovery 
+    13. Obtain the Public IP Address where Envoy is running
     
-            kubectl create ns tanzu-system-service-discovery
-    
-    14. Create un secreto con las credenciales de AWS
-            
-            kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=<AWS_ACCESS_KEY_ID> --from-literal=aws_secret_access_key=<AWS_SECRET_ACCESS_KEY> -n tanzu-system-service-discovery
-            
-            for example
-            
-            kubectl create secret generic route53-credentials --from-literal=aws_access_key_id=ASIA3... --from-literal=aws_secret_access_key=VmM0EpFiTZM8RiNEWm.... -n tanzu-system-service-discovery
-            
-    15. Deploy DNS-external from TMC Catalog or with the CLI using the DNS-external-values.yaml from this git. Modify the file as needed.
-            
-            tanzu package available list external-dns.tanzu.vmware.com -A
-            
-                to know the available packages and to select the newest, for example the following version 0.12.2+vmware.4-tkg.2
-                
-            tanzu package install external-dns \
-            --package external-dns.tanzu.vmware.com \
-            --version 0.12.2+vmware.4-tkg.2 \
-            --values-file external-dns.yaml \
-            --namespace tanzu-system-service-discovery
-    
-    16. Create the namespace tanzu-system-registry
+    		kubectl get svc -A | grep envoy
+		
+	In our case is running on 20.124.139.24
+      
+    14. Create the namespace tanzu-system-registry
        
             kubectl create ns tanzu-system-registry
         
-    10. Create a Cluster issuer using the following command
+    15. Create a Cluster issuer using the following command
 
         kubectl apply -f - <<'EOF'
         apiVersion: cert-manager.io/v1
