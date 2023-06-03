@@ -98,15 +98,15 @@
           subject:
             organizations:
             - vmware
-          commonName: harbor.solateam.be
+          commonName: harbor.tap.solateam.be
           isCA: false
           privateKey:
             size: 2048
             algorithm: RSA
             encoding: PKCS1
           dnsNames:
-          - harbor.solateam.be
-          - notary.harbor.solateam.be
+          - harbor.tap.solateam.be
+          - notary.harbor.tap.solateam.be
           issuerRef:
             name: letsencrypt-contour-cluster-issuer
             kind: ClusterIssuer
