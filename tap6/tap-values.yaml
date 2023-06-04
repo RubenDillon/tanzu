@@ -7,7 +7,7 @@
 # --------------------------------------------------------------------------------- #
 
 buildservice:
-  kp_default_repository: harbor.tap.solateam.be/tap/build-service
+  kp_default_repository: harbor.solateam.be/tap/build-service
   kp_default_repository_secret:
     name: registry-credentials
     namespace: default
@@ -23,7 +23,7 @@ grype:
   namespace: default
   targetImagePullSecret: registry-credentials
 learningcenter:
-  ingressDomain: tap.solateam.be
+  ingressDomain: solateam.be
 metadata_store:
   app_service_type: ClusterIP
   ns_for_export_app_cert: default
@@ -59,7 +59,7 @@ ootb_supply_chain_testing_scanning:
     user_name: RubenDillon
   registry:
     repository: tap-apps
-    server: harbor.tap.solateam.be
+    server: harbor.solateam.be
   scanning:
     image:
       policy: scan-policy-free
@@ -74,28 +74,28 @@ scanning:
     url: ""
 shared:
   image_registry:
-    project_path: harbor.tap.solateam.be/tap
+    project_path: harbor.solateam.be/tap
     secret:
       name: registry-credentials
       namespace: default
-  ingress_domain: tap.solateam.be
+  ingress_domain: solateam.be
   ingress_issuer: letsencrypt-production
 supply_chain: testing_scanning
 tap_gui:
   app:
-    baseUrl: https://tap-gui.tap.solateam.be
+    baseUrl: https://tap-gui.solateam.be
   auth:
     allowGuestAccess: false
     environment: development
     loginPage:
-      github: null
-      message: Enter with your GitHub account
-      title: Github Login
+      github:
+        message: Enter with your GitHub account
+        title: Github Login
     providers:
       github:
         development:
-          clientId: xyz46237e4ead319f8d2094
-          clientSecret: xyz061b253a798b4322cdf7cf33663f455d5f5e6acb
+          clientId: xxxxxx69bf35f140f12d4fe2a2
+          clientSecret: xxxxxxx384b73ecd03115861281824bea6ed73fddc7abbc
   catalog:
     locations:
       - target: https://github.com/RubenDillon/tap-gitops/blob/main/yelb-catalog/catalog-info.yaml
@@ -103,6 +103,6 @@ tap_gui:
   integrations:
     github:
       - host: github.com
-        token: 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xyz
+        token: xxxxxx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
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
