@@ -269,7 +269,7 @@ Run the cluster-issuer.yaml file
 	2. Go to https://github.com/settings/applications/new to create your OAuth App.
 
 		Homepage URL should be https://github.com/login/oauth/authorize
-		Authorization callback URL should point to the auth backend, https://tap-gui.solateam.be/api/auth/github
+		Authorization callback URL should point to the auth backend, https://tap-gui.tap.solateam.be/api/auth/github
 		
 	   The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
 		
