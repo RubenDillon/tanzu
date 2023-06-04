@@ -49,6 +49,13 @@
     
     10. Attach the AKS Cluster to TMC under TAP cluster group 
     
+    
+    
+    
+    11 Utilizar los paquetes de Tanzu para Cert-Manager y Contour
+    
+    
+    
     11. Activate the Helm Chart Service and deploy Cert-Manager using the defaults from Helm Chart
     
     	Modify InstallCRDs to True (default false)
@@ -128,7 +135,7 @@
     
             kubectl patch storageclass custom-storageclass -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
     
-    14. Deploy Harbor from the helm chart.              
+    14. Deploy Harbor using the Tanzu packages (follow the steps from Tanzu documentation)            
                  
     15. Connect to harbor and create "tap" project as public.
     
