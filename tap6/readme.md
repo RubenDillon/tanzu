@@ -49,18 +49,25 @@
     
     10. Attach the AKS Cluster to TMC under TAP cluster group 
     
+    11. Deploy Cert-Manager
     
+    		tanzu package available list -A
+		tanzu package available list cert-manager.tanzu.vmware.com -A
+    			we have available for example 1.10.2+vmware.1-tkg.1
+		kubectl create ns cert-manager
+		tanzu package install cert-manager --package cert-manager.tanzu.vmware.com --namespace cert-manager --version 1.10.2+vmware.1-tkg.1
     
-    
-    11 Utilizar los paquetes de Tanzu para Cert-Manager y Contour
-    
-    
-    
-    11. Activate the Helm Chart Service and deploy Cert-Manager using the defaults from Helm Chart
-    
-    	Modify InstallCRDs to True (default false)
-    
-    12. Deploy Contour using the defaults from Helm Chart 
+    12. Deploy Contour 
+    		
+		tanzu package available list contour.tanzu.vmware.com -A
+			we have available for example 1.23.5+vmware.1-tkg.1
+		kubectl create ns contour
+		
+		tanzu package install contour \
+--package contour.tanzu.vmware.com \
+--version 1.23.5+vmware.1-tkg.1 \
+--values-file contour-values.yaml \
+--namespace contour
     
     13. Obtain the Public IP Address where Envoy is running
     
@@ -135,7 +142,8 @@
     
             kubectl patch storageclass custom-storageclass -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
     
-    14. Deploy Harbor using the Tanzu packages (follow the steps from Tanzu documentation)            
+    14. Deploy Harbor using the Tanzu packages (follow the steps from Tanzu documentation)  
+             tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.6.3+vmware.1-tkg.1 --values-file harbor-ahora.yaml --namespace harbor
                  
     15. Connect to harbor and create "tap" project as public.
     
