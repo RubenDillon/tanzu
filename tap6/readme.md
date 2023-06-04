@@ -169,6 +169,9 @@
     --namespace tap-install \
     --export-to-all-namespaces \
     --yes
+    
+    4. Wait a couple of minutes and review if registry-credentials is in default namespace. 
+    	If it not, create it for the default namespace.
 
 ```
 ## create the Tanzu Net secret using TMC
