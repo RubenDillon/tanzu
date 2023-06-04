@@ -8,7 +8,7 @@
     3. An AWS subscription for route53 DNS service (we create solateam.be domain)
     4. Tanzu Mission Control
     5. To deploy 
-        - TAP 1.5.0 we need Kubernetes v1.24, 1.25 and 1.26. We will be using 1.26.3 on a AKS deployed on Azure
+        - TAP 1.5.0 we need Kubernetes v1.24, 1.25 and 1.26. We will be using 1.24.10 on a AKS deployed on Azure
     6. Sign in to VMware Tanzu Network and accept or confirm that you have accepted the EULAs for each of the following:
         - https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/#/releases/1238179 (Cluster Essentials for Tanzu)
         - https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1260040 (Tanzu App Platform)
@@ -33,7 +33,7 @@
           az aks get-versions --location eastus
           
     5. Create the AKS cluster
-          az aks create -g TAP-RG -n tap-on-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D4ds_v4 --kubernetes-version 1.26.3
+          az aks create -g TAP-RG -n tap-on-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D4ds_v4 --kubernetes-version 1.24.10
 
     6. Deploy kubectl
           sudo su
