@@ -73,7 +73,7 @@
     
     		kubectl get svc -A | grep envoy
 		
-	In our case is running on 20.124.139.24
+	In our case is running on 52.149.238.242
       
     14. Create the namespace tanzu-system-registry
        
