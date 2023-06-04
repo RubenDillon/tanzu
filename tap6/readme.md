@@ -137,15 +137,12 @@
             kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.crt"} | base64 --decode > tls-crt.txt
             
             kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.key"} | base64 --decode > tls-key.txt
-        
-    14. Verify if you have defined a default storage class. If you dont have it, use the following command (custom-storageclass is my storage class that is not default)
+       
     
-            kubectl patch storageclass custom-storageclass -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
-    
-    14. Deploy Harbor using the Tanzu packages (follow the steps from Tanzu documentation)  
+    13. Deploy Harbor using the Tanzu packages (follow the steps from Tanzu documentation)  
              tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.6.3+vmware.1-tkg.1 --values-file harbor-ahora.yaml --namespace harbor
                  
-    15. Connect to harbor and create "tap" project as public.
+    14. Connect to harbor and create "tap" project as public.
     
             
 ```      
