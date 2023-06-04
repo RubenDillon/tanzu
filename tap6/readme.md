@@ -163,7 +163,7 @@
     3. Create a internal registry secret
     
     tanzu secret registry add registry-credentials \
-    --server   harbor.solateam.be \
+    --server   harbor.tap.solateam.be \
     --username admin \
     --password "PASSw0rd2019202020212022" \
     --namespace tap-install \
