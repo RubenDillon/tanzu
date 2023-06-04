@@ -121,15 +121,15 @@
           subject:
             organizations:
             - vmware
-          commonName: harbor.tap.solateam.be
+          commonName: harbor.solateam.be
           isCA: false
           privateKey:
             size: 2048
             algorithm: RSA
             encoding: PKCS1
           dnsNames:
-          - harbor.tap.solateam.be
-          - notary.harbor.tap.solateam.be
+          - harbor.solateam.be
+          - notary.harbor.solateam.be
           issuerRef:
             name: letsencrypt-contour-cluster-issuer
             kind: ClusterIssuer
@@ -147,7 +147,7 @@
        
     
     13. Deploy Harbor using the Tanzu packages (follow the steps from Tanzu documentation)  
-             tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.6.3+vmware.1-tkg.1 --values-file harbor-ahora.yaml --namespace harbor
+             tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.6.3+vmware.1-tkg.1 --values-file harbor-values.yaml --namespace harbor
                  
     14. Connect to harbor and create "tap" project as public.
     
@@ -163,7 +163,7 @@
     3. Create a internal registry secret
     
     tanzu secret registry add registry-credentials \
-    --server   harbor.tap.solateam.be \
+    --server   harbor.solateam.be \
     --username admin \
     --password "PASSw0rd2019202020212022" \
     --namespace tap-install \
@@ -272,7 +272,7 @@ Run the cluster-issuer.yaml file
 	2. Go to https://github.com/settings/applications/new to create your OAuth App.
 
 		Homepage URL should be https://github.com/login/oauth/authorize
-		Authorization callback URL should point to the auth backend, https://tap-gui.tap.solateam.be/api/auth/github
+		Authorization callback URL should point to the auth backend, https://tap-gui.solateam.be/api/auth/github
 		
 	   The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
 		
