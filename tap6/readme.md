@@ -86,7 +86,7 @@
         kind: ClusterIssuer
         metadata:
           name: letsencrypt-contour-cluster-issuer
-          namespace: tanzu-helm-resources
+          namespace: cert-manager
         spec:
           acme:
             email: "rdillon@vmware.com"
