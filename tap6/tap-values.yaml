@@ -109,5 +109,5 @@ tap_gui:
     integrations:
       github:
         - host: github.com
-  metadataStoreAutoconfiguration: true
-  service_type: ClusterIP
+    metadataStoreAutoconfiguration: true
+    service_type: ClusterIP
