@@ -1,5 +1,5 @@
 namespace: tanzu-system-registry
-hostname: harbor.tap.solateam.be
+hostname: harbor.solateam.be
 port:
   https: 443
 logLevel: info
