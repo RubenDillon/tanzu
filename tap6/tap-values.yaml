@@ -6,7 +6,6 @@
 #                              valid for TAP 1.5.1
 # --------------------------------------------------------------------------------- #
 
-
 buildservice:
   kp_default_repository: harbor.tap.solateam.be/tap/build-service
   kp_default_repository_secret:
@@ -83,32 +82,22 @@ shared:
   ingress_issuer: letsencrypt-production
 supply_chain: testing_scanning
 tap_gui:
-    backend:
-      database:
-        client: pg
-        pluginDivisionMode: database
-        connection:
-          host: p3.solateam.be
-          port: 5432
-          user: "postgres"
-          password: "secreto"
-          ssl: {rejectUnauthorized: false} # Set to true if using SSL  app_config:
-    app:
-      baseUrl: https://tap-gui.tap.solateam.be
-    auth:
-      environment: development
-      providers:
-        github:
-          development:
-            clientId: xxxxyyy46237e4ead319f8d2094
-            clientSecret: xxxxxyyc4281d218bce5e3a4ca784d8cc6a0c2949bcb18b
-    catalog:
-      locations:
-        - target: https://github.com/RubenDillon/tap-gitops/blob/main/yelb-catalog/catalog-info.yaml
-          type: url
-    integrations:
+  app:
+    baseUrl: https://tap-gui.tap.solateam.be
+  auth:
+    environment: development
+    providers:
       github:
-        - host: github.com
-          token: ghp_WiijUnkstYT2f9k3yFxxxxxx_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
-    metadataStoreAutoconfiguration: true
-    service_type: ClusterIP
+        development:
+          clientId: xyztub46237e4ead319f8d2094
+          clientSecret: xyztyb061b253a798b4322cdf7cf33663f455d5f5e6acb
+  catalog:
+    locations:
+      - target: https://github.com/RubenDillon/tap-gitops/blob/main/yelb-catalog/catalog-info.yaml
+        type: url
+  integrations:
+    github:
+      - host: github.com
+        token: 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xyztub
+  metadataStoreAutoconfiguration: true
+  service_type: ClusterIP
