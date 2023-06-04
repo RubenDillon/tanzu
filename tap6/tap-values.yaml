@@ -8,7 +8,7 @@
 
 
 buildservice:
-  kp_default_repository: harbor.solateam.be/tap/build-service
+  kp_default_repository: harbor.tap.solateam.be/tap/build-service
   kp_default_repository_secret:
     name: registry-credentials
     namespace: default
@@ -24,7 +24,7 @@ grype:
   namespace: default
   targetImagePullSecret: registry-credentials
 learningcenter:
-  ingressDomain: solateam.be
+  ingressDomain: tap.solateam.be
 metadata_store:
   app_service_type: ClusterIP
   ns_for_export_app_cert: default
@@ -60,7 +60,7 @@ ootb_supply_chain_testing_scanning:
     user_name: RubenDillon
   registry:
     repository: tap-apps
-    server: harbor.solateam.be
+    server: harbor.tap.solateam.be
   scanning:
     image:
       policy: scan-policy-free
@@ -75,11 +75,11 @@ scanning:
     url: ""
 shared:
   image_registry:
-    project_path: harbor.solateam.be/tap
+    project_path: harbor.tap.solateam.be/tap
     secret:
       name: registry-credentials
       namespace: default
-  ingress_domain: solateam.be
+  ingress_domain: tap.solateam.be
   ingress_issuer: letsencrypt-production
 supply_chain: testing_scanning
 tap_gui:
@@ -94,7 +94,7 @@ tap_gui:
           password: "secreto"
           ssl: {rejectUnauthorized: false} # Set to true if using SSL  app_config:
     app:
-      baseUrl: https://tap-gui.solateam.be
+      baseUrl: https://tap-gui.tap.solateam.be
     auth:
       environment: development
       providers:
