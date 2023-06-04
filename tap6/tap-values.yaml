@@ -109,5 +109,6 @@ tap_gui:
     integrations:
       github:
         - host: github.com
+          token: ghp_WiijUnkstYT2f9k3yFxxxxxx_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
     metadataStoreAutoconfiguration: true
     service_type: ClusterIP
