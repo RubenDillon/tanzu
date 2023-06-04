@@ -49,6 +49,13 @@
     
     10. Attach the AKS Cluster to TMC under TAP cluster group 
     
+    11. Review that you are on the correct cluster
+    	kubectl config get-contexts
+	
+    12. Accept the EULA and download the 1.5.1 Tanzu cli. Follow this instructions https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/install-tanzu-cli.html
+    
+    13. Deploy Cluster Essentials. Follow this instructions https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.5/cluster-essentials/deploy.html
+    	
     11. Deploy Cert-Manager
     
     		tanzu package available list -A
