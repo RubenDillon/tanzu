@@ -85,12 +85,17 @@ tap_gui:
   app:
     baseUrl: https://tap-gui.tap.solateam.be
   auth:
+    allowGuestAccess: false
     environment: development
+    loginPage:
+      github: null
+      message: Enter with your GitHub account
+      title: Github Login
     providers:
       github:
         development:
-          clientId: xyztub46237e4ead319f8d2094
-          clientSecret: xyztyb061b253a798b4322cdf7cf33663f455d5f5e6acb
+          clientId: xyz46237e4ead319f8d2094
+          clientSecret: xyz061b253a798b4322cdf7cf33663f455d5f5e6acb
   catalog:
     locations:
       - target: https://github.com/RubenDillon/tap-gitops/blob/main/yelb-catalog/catalog-info.yaml
@@ -98,6 +103,6 @@ tap_gui:
   integrations:
     github:
       - host: github.com
-        token: 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xyztub
+        token: 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xyz
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
