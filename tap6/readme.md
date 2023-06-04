@@ -150,14 +150,10 @@
 ## Configure the cluster
 ```
     1. We connect to the cluster
-    
-    2. Then run the following
-    
-        kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
             
-    3. Create the namespace "tap-install"
+    2. Create the namespace "tap-install"
     
-    4. Create a internal registry secret
+    3. Create a internal registry secret
     
     tanzu secret registry add registry-credentials \
     --server   harbor.solateam.be \
@@ -182,7 +178,7 @@
 ## Create the repository
 ```
         Name: tanzu-tap-repository
-        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.5.0
+        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.5.1
 
 ```
 
