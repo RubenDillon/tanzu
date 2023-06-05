@@ -584,7 +584,6 @@ tanzu apps workload apply tanzu-java-web-app \
 	
 ootb_supply_chain_testing_scanning:
   cluster_builder: default
-  service_account: default
   gitops:
     Username: RubenDillon
     branch: main
@@ -601,11 +600,15 @@ ootb_supply_chain_testing_scanning:
     ssh_secret: github-http-secret
     user_email: ruben_dillon@hotmail.com
     user_name: RubenDillon
+  registry:
+    repository: tap-apps
+    server: harbor.solateam.be
   scanning:
+    image:
+      policy: scan-policy-free
     source:
       policy: scan-policy-free
-    image:
-      policy: scan-policy-free    
+  service_account: default    
     
     	2. Delete the tanzu-java-web-app and deploy it again
 		tanzu apps workload delete tanzu-java-web-app --namespace default -y
@@ -628,10 +631,6 @@ ootb_supply_chain_testing_scanning:
 	
 	6 With that, the supply chain continues and deploy the application in a couple of minutes
 	
-	
-	
-	
-
 ```
 
 
