@@ -300,6 +300,9 @@ Run the cluster-issuer.yaml file
 	
 		kubectl patch serviceaccount default --patch '{"secrets": [{"name": "github-http-secret"}]}'
 		
+		kubectl patch serviceaccount default --patch '{"secrets": [{"name": "registry-credentials"}]}'
+		
+		
 	2. Review the default service account
 	
 		kubectl describe serviceaccount default
