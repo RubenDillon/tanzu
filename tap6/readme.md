@@ -1204,13 +1204,40 @@ spec:
 		sudo ufw allow 22/tcp 
 		sudo service postgresql restart			
 			
-	5. Test the connection from another machine
+	5. Test the connection from another ubuntu machine
 		sudo apt-get install postgresql-client
+		
+	    Test from a Mac machine
+	    	brew doctor
+		brew update
+		brew install libpq		
+		brew link --force libpq
+		
+	     Connect to the PostgreSQL
+		
 		psql -U postgres -p 5432 -h postgresql.solateam.be
 			where postgresql.solateam.be is the DNS record generated por the postgreSQL docker running on a VM
 			
-	6. Then apply to the TAP configuration on TMC the content of tap-values.yaml file under tap-gui.
-			
+	6. Then apply to the TAP configuration on TMC the content of the following under tap-gui
+	
+      database:
+        client: pg
+        # Default pluginDivisionMode is 'database'
+        # Set to 'schema' to use schemas in a single database
+        pluginDivisionMode: database
+        connection:
+          host: p3.solateam.be
+          port: 5432
+          user: "postgres"
+          password: "secreto"
+          ssl:
+            rejectUnauthorized: false # Set to true if using SSL
+	    
+	    
+	 7. Stop the tap-gui (or all Kubernetes service) and start it again
+	 
+	 8. In the PostgreSQL you will see a couple of new databases. Those are used by TAP-GUI.
+
 						
 ```
 
