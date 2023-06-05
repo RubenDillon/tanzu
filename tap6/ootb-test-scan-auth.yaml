@@ -3,7 +3,7 @@
 #                    TAP values to deploy Testing and Scanning with Github auth
 #
 #
-#                              valid for TAP 1.5
+#                              valid for TAP 1.5.1
 # --------------------------------------------------------------------------------- #
 
 buildservice:
@@ -91,8 +91,8 @@ tap_gui:
       providers:
         github:
           development:
-            clientId: Iv1.61f0b55ce5c4a0c0
-            clientSecret: b9f8a2db250dcdfab889d64d33aa333a3b5822f3
+            clientId: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx change this xxxxx61f0xxxx
+            clientSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx change this xxxxxxb9f8a2db250dcdfab8
     catalog:
       locations:
         - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
@@ -100,7 +100,7 @@ tap_gui:
     integrations:
       github:
         - host: github.com
-          token: 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
+          token: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx change this xxxxxghp_vrMSM6zxxxxx
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
   
