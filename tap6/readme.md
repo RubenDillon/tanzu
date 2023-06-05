@@ -766,24 +766,8 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
 
 ## Try another applications as example
 ```
-            A Weather application using Steeltoe framework (.NET core)
+        A Weather application using Steeltoe framework (.NET core)
         
-tanzu apps workload create weatherforecast-steeltoe \
-            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
-            --sub-path weatherforecast-steeltoe \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=weatherforecast-steeltoe \
-	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-            --label apps.tanzu.vmware.com/has-tests=true \
-            --yes --tail\
-            --namespace default
-	    
-            To import use
-            https://github.com/RubenDillon/application-accelerator-samples/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
-	    
-	    
-	    or using our new Repository... tap-gitops
 	    
 	    tanzu apps workload create weatherforecast-steeltoe \
             --git-repo https://github.com/RubenDillon/tap-gitops \
@@ -791,31 +775,16 @@ tanzu apps workload create weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=weatherforecast-steeltoe \
-	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
             --label apps.tanzu.vmware.com/has-tests=true \
             --yes --tail\
             --namespace default
+	    
+	To import use
+            https://github.com/RubenDillon/tap-gitops/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
 	  
 
- 	    Another Java application 
-
-	    tanzu apps workload create java-server-side-ui \
-            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
-            --sub-path java-server-side-ui \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=java-server-side-ui \
-	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-	    --label apps.tanzu.vmware.com/has-tests=true \
-            --yes --tail \
-            --namespace default
+ 	Another Java application 
 	    
-
-            To import use
-	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/java-server-side-ui/catalog/catalog-info.yaml
-
-		
-	  or
 	  
 	    tanzu apps workload create java-server-side-ui \
             --git-repo https://github.com/RubenDillon/tap-gitops \
@@ -827,61 +796,31 @@ tanzu apps workload create weatherforecast-steeltoe \
 	    --label apps.tanzu.vmware.com/has-tests=true \
             --yes --tail \
             --namespace default
+	    
+	To import use
+	    https://github.com/RubenDillon/tap-gitops/blob/main/java-server-side-ui/catalog/catalog-info.yaml
 
 
 
 	    
-	    An Angular front end application
-	    
+	An Angular front end application
+
 	    tanzu apps workload create angular-frontend \
-            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
-            --sub-path angular-frontend \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=angular-frontend \
-	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-	    --label apps.tanzu.vmware.com/has-tests=true \
-            --yes --tail \
-            --namespace default
-	    
-	    To import use
-	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/angular-frontend/catalog/catalog-info.yaml
-	    
-	    or
-	    
-	     tanzu apps workload create angular-frontend \
             --git-repo https://github.com/RubenDillon/tap-gitops \
             --sub-path angular-frontend \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=angular-frontend \
-	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
 	    --label apps.tanzu.vmware.com/has-tests=true \
             --yes --tail \
             --namespace default
-	    
-	    
-	    
-	    A Node.js (using express.js) example
-	    
-	    tanzu apps workload create node-express \
-            --git-repo https://github.com/RubenDillon/application-accelerator-samples \
-            --sub-path node-express \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=node-express \
-	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-	    --label apps.tanzu.vmware.com/has-tests=true \
-            --yes --tail \
-            --namespace default
-
-		NOTE: use --label apps.tanzu.vmware.com/has-tests=true only if you configure testing on the supply chain
-	    
 	    
 	    To import use
-	    https://github.com/RubenDillon/application-accelerator-samples/blob/main/node-express/catalog/catalog-info.yaml
+	    https://github.com/RubenDillon/tap-gitops/blob/main/angular-frontend/catalog/catalog-info.yaml
 	    
-	    or use
+	    
+	    
+	A Node.js (using express.js) example
 	    
 	    tanzu apps workload create node-express \
             --git-repo https://github.com/RubenDillon/tap-gitops \
@@ -889,12 +828,14 @@ tanzu apps workload create weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=node-express \
-	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
 	    --label apps.tanzu.vmware.com/has-tests=true \
             --yes --tail \
             --namespace default
 	    
 	    
+	    To import use
+	    https://github.com/RubenDillon/tap-gitops/blob/main/node-express/catalog/catalog-info.yaml
+ 
 	    Another (but.. this is from an image)
 	    
 	    tanzu apps workload create simple-web-app \
@@ -907,9 +848,9 @@ tanzu apps workload create weatherforecast-steeltoe \
 	 
 	
 	    
-	   Pendiente ------------------- ver como agregar una imagen comun ---------------------------    
-	   ------------------------------------ no levanta el POD ya que no sabe que esta ------------
-	   ----------------------------- en el puerto 8080 -------------------------------------------
+	   Pendiente -------------------  ---------------------------    
+	   ----------------------------------------------
+	   -------------------------- puerto 8080 -------------------------------------------
 	    
 	    
 	    tanzu apps workload create smario-web-app \
