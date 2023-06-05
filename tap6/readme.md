@@ -1219,24 +1219,29 @@ spec:
 			where postgresql.solateam.be is the DNS record generated por the postgreSQL docker running on a VM
 			
 	6. Then apply to the TAP configuration on TMC the content of the following under tap-gui
-	
+    backend:
       database:
         client: pg
-        # Default pluginDivisionMode is 'database'
-        # Set to 'schema' to use schemas in a single database
-        pluginDivisionMode: database
         connection:
           host: p3.solateam.be
+          password: secreto
           port: 5432
-          user: "postgres"
-          password: "secreto"
           ssl:
-            rejectUnauthorized: false # Set to true if using SSL
+            rejectUnauthorized: false
+          user: postgres
+        pluginDivisionMode: database
 	    
 	    
 	 7. Stop the tap-gui (or all Kubernetes service) and start it again
 	 
 	 8. In the PostgreSQL you will see a couple of new databases. Those are used by TAP-GUI.
+	 
+	 	backstage_plugin_auth
+		backstage_plugin_catalog
+		backstage_plugin_pendo-analytics
+		backstage_plugin_scaffolder
+		backstage_plugin_search
+		backstage_plugin_user-settings
 
 						
 ```
