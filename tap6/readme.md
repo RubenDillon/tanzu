@@ -840,7 +840,7 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
 	    
 	    tanzu apps workload create simple-web-app \
             --image ghcr.io/vmware-tanzu-learning/simple-web-app:v1.1.0 \
-	    --label apps.tanzu.vmware.com/has-tests=false \
+	    --label apps.tanzu.vmware.com/has-tests=true \
             --type web \
             --yes
 	    
@@ -876,7 +876,7 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
 	
 ```
 
-## Automate the reading of Catalogs
+## Automate the reading of Catalogs (not to use it yet)
 ```
 	Modify the TAP installation adding the following to tap-gui
 	
@@ -888,21 +888,38 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
 
 ## Steps to create a TAP workload from an existing application 
 ```
-        Using a typical Hello World application based on .NET that I upload to my github
-        
-        1. Create the worload.yaml using the following command
-        
-                tanzu apps workload create my-workload --git-repo https://github.com/RubenDillon/Kubernetes/dotnet-core-hello-world.git --git-branch master > workload.yaml
-        
+        We will deploy a Hello World application based on .NET that is available in the Azure examples
         
             tanzu apps workload create hello-world \
-            --git-repo https://github.com/RubenDillon/Kubernetes \
-            --sub-path dotnet-core-hello-world \
-            --git-branch main \
+            --git-repo https://github.com/Azure-Samples/dotnetcore-docs-hello-world \
+            --git-branch master \
             --type web \
             --label app.kubernetes.io/part-of=hello-world \
+            --label apps.tanzu.vmware.com/has-tests=true \
             --yes \
+            --tail \
             --namespace default
+
+	Usng VS Code you could use snippet to create the workload.yaml and the catalog-info.yaml
+	Open a new file and write tanzu and wait the response of VS Code
+	VS Code will suggest a snippets
+		
+	
+	Another example... using Azure AI
+	
+	tanzu apps workload create chatgpt \
+            --git-repo https://github.com/Azure-Samples/chatgpt-quickstart \
+            --git-branch main \
+            --type web \
+            --label app.kubernetes.io/part-of=chatgpt \
+            --label apps.tanzu.vmware.com/has-tests=true \
+            --yes \
+            --tail \
+            --namespace default
+	    
+	Approve and confirm the Merge and wait until the application is running
+	
+	To use the application follow the instructions from https://github.com/Azure-Samples/chatgpt-quickstart	
 
 ```
 
