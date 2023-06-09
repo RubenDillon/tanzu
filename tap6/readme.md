@@ -1228,8 +1228,23 @@ EOF
 			 
 	3. Go to the TAP-GUI to the API Portal and you will see this example
 		
+	4. If we install steeltoe weather forecast application, we could add that application to API Portal
 			 
-			 
+kubectl apply -f - <<EOF                                                                                        
+apiVersion: apis.apps.tanzu.vmware.com/v1alpha1
+kind: APIDescriptor
+metadata:
+  name: weatherforecast-steeltoe
+spec:
+  type: openapi
+  description: A sample APIDescriptor to validate package installation successful
+  system: test-installation
+  owner: default-team
+  location:
+    path: "/v1/swagger.json"
+    baseURL:
+      url: https://weatherforecast-steeltoe.default.solateam.be/swagger
+EOF			 
 ```
 
 
