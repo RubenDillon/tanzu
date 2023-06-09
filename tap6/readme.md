@@ -1203,6 +1203,35 @@ spec:
 						
 ```
 
+## API Portal
+```
+	1. As example we will be adding an example
+
+kubectl apply -f - <<EOF
+apiVersion: apis.apps.tanzu.vmware.com/v1alpha1
+kind: APIDescriptor
+metadata:
+  name: sample-api-descriptor-with-absolute-url
+spec:
+  type: openapi
+  description: A sample APIDescriptor to validate package installation successful
+  system: test-installation
+  owner: test-installation
+  location:
+    path: "/api/v3/openapi.json"
+    baseURL:
+      url: https://petstore3.swagger.io
+EOF
+
+        2. Verify that the APIDescriptor status shows Ready:
+		kubectl get apidescriptors
+			 
+	3. Go to the TAP-GUI to the API Portal and you will see this example
+		
+			 
+			 
+```
+
 
 
 ## Commands to use with Tanzu Application Platform
