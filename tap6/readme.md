@@ -845,9 +845,8 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
             --yes
 	    
 	    curl -k https://simple-web-app.default.solateam.be/hello
-	 
-	
 	    
+	        
 	   Pendiente -------------------  ---------------------------    
 	   ----------------------------------------------
 	   -------------------------- puerto 8080 -------------------------------------------
