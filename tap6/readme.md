@@ -1205,13 +1205,13 @@ spec:
 
 ## API Portal
 ```
-	1. As example we will be adding an example
+	1. We will be creatig an example
 
 kubectl apply -f - <<EOF
 apiVersion: apis.apps.tanzu.vmware.com/v1alpha1
 kind: APIDescriptor
 metadata:
-  name: sample-api-descriptor-with-absolute-url
+  name: petstore3
 spec:
   type: openapi
   description: A sample APIDescriptor to validate package installation successful
@@ -1228,13 +1228,13 @@ EOF
 			 
 	3. Go to the TAP-GUI to the API Portal and you will see this example
 		
-	4. If we install steeltoe weather forecast application, we could add that application to API Portal
+	4. If we already installed steeltoe weather forecast application, we could add that application to API Portal
 			 
 kubectl apply -f - <<EOF                                                                                        
 apiVersion: apis.apps.tanzu.vmware.com/v1alpha1
 kind: APIDescriptor
 metadata:
-  name: weatherforecast-steeltoe
+  name: weather-forecast-steeltoe
 spec:
   type: openapi
   description: A sample APIDescriptor to validate package installation successful
@@ -1245,6 +1245,8 @@ spec:
     baseURL:
       url: https://weatherforecast-steeltoe.default.solateam.be/swagger
 EOF			 
+
+			
 ```
 
 
