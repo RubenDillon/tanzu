@@ -1274,6 +1274,49 @@ EOF
 
 # APPENDIX
 
+
+## Troubleshooting “Builder default is not ready” message
+
+```
+        1. Restart kpack by deleting the kpack-controller and kpack-webhook pods in the kpack namespace. Deleting these resources triggers their recreation:
+                kubectl delete pods --all --namespace kpack
+	    or
+	    	kubectl rollout restart deployment/kpack-controller -n kpack
+
+        2. Verify status of the replacement pods:
+                kubectl get pods --namespace kpack 
+
+        3. Verify the workload status after the new kpack pods STATUS are Running:
+                tanzu apps workload get YOUR-WORKLOAD-NAME
+
+```
+			
+## Troubleshooting error in Config Writer (Supply Chain)
+
+```
+	1. When you deploy an application and have an error in the Config Writer step,  and the log tell you something like user 
+	   don't found when TAP tries to write a commit to github.com
+			
+	2. You need to review the following
+		- The default account have the secrets needed (patch it)
+		- the secret have the correct github token
+		- the values for the TAP deployment have the right github token and OAuth information
+			
+```
+
+## Troubleshoot namespace Terminating
+```
+
+    For example the ns tanzu-system-service-discovery is in Terminating status...
+    
+    kubectl get namespace tanzu-system-service-discovery -o json \
+  | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
+  | kubectl replace --raw /api/v1/namespaces/tanzu-system-service-discovery/finalize -f -
+    
+    
+```
+	
+	
 ## Using Harbor as local registry to deploy TAP
 
 ```
@@ -1357,46 +1400,7 @@ EOF
 
 ```
 
-### Troubleshooting “Builder default is not ready” message
-
-```
-        1. Restart kpack by deleting the kpack-controller and kpack-webhook pods in the kpack namespace. Deleting these resources triggers their recreation:
-                kubectl delete pods --all --namespace kpack
-	    or
-	    	kubectl rollout restart deployment/kpack-controller -n kpack
-
-        2. Verify status of the replacement pods:
-                kubectl get pods --namespace kpack 
-
-        3. Verify the workload status after the new kpack pods STATUS are Running:
-                tanzu apps workload get YOUR-WORKLOAD-NAME
-
-```
-			
-### Troubleshooting error in Config Writer (Supply Chain)
-
-```
-	1. When you deploy an application and have an error in the Config Writer step,  and the log tell you something like user 
-	   don't found when TAP tries to write a commit to github.com
-			
-	2. You need to review the following
-		- The default account have the secrets needed (patch it)
-		- the secret have the correct github token
-		- the values for the TAP deployment have the right github token and OAuth information
-			
-```
-
-### Troubleshoot namespace Terminating
-```
-
-    For example the ns tanzu-system-service-discovery is in Terminating status...
-    
-    kubectl get namespace tanzu-system-service-discovery -o json \
-  | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
-  | kubectl replace --raw /api/v1/namespaces/tanzu-system-service-discovery/finalize -f -
-    
-    
-```
+	
 
 
   Basado en 
