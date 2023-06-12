@@ -243,9 +243,12 @@ Run the cluster-issuer.yaml file
 	Connect to Tanzu Networks and go to Tanzu Application Platform. Select tap-gui-catalogs-latest and then the catalog with yelb application
 	(Tanzu Application Platform GUI Yelb Catalog)
 	
-	Download and copy at tap-gitops, then restore the file 
+	Copy at tap-gitops, then restore the file 
 	
 		tar -xvf tap-gui-yelb-catalog.tgz
+		
+	To deply the yelb application to the cluster, use the file yelb-deploy.yaml from this git
+		kubectl apply -f yelb-deploy.yaml
 		
 	Upload the catalog
 	
