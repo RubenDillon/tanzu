@@ -65,7 +65,7 @@ metadata:
   name: yelb-ui-ingress
 spec:
   rules:
-    - host: yelb.mydomain.com
+    - host: yelb.solateam.be
       http:
         paths:
           - path: /
