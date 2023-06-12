@@ -230,7 +230,7 @@ Run the cluster-issuer.yaml file
 	Then create a Git repository
 
     		git init
-    		XX git remote add origin git@github.com:RubenDillon/tap-gitops.git
+    		(optional) git remote add origin git@github.com:RubenDillon/tap-gitops.git
 
 		create a file ("prueba.txt") on the directory then summit to the github
 		
@@ -249,6 +249,9 @@ Run the cluster-issuer.yaml file
 		
 	To deply the yelb application to the cluster, use the file yelb-deploy.yaml from this git
 		kubectl apply -f yelb-deploy.yaml
+		
+	Access the application using your browser http://yelb.solateam.be
+		Modify your /etc/hosts using your envoy external address
 		
 	Upload the catalog
 	
