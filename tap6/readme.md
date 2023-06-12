@@ -1372,6 +1372,19 @@ EOF
                 tanzu apps workload get YOUR-WORKLOAD-NAME
 
 ```
+			
+### Troubleshooting error in Config Writer (Supply Chain)
+
+```
+	1. When you deploy an application and have an error in the Config Writer step,  and the log tell you something like user 
+	   don't found when TAP tries to write a commit to github.com
+			
+	2. You need to review the following
+		- The default account have the secrets needed (patch it)
+		- the secret have the correct github token
+		- the values for the TAP deployment have the right github token and OAuth information
+			
+```
 
 ### Troubleshoot namespace Terminating
 ```
