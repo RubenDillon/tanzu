@@ -5,7 +5,7 @@
 ## Requirements
 ```
     1. An Azure subscription to deploy AKS
-    3. An AWS subscription for route53 DNS service (we create solateam.be domain)
+    3. An AWS subscription for route53 DNS service (we create latamteam.name domain)
     4. Tanzu Mission Control
     5. To deploy 
         - TAP 1.5.1 we need Kubernetes v1.24, 1.25 and 1.26. We will be using 1.24.10 on a AKS deployed on Azure
@@ -19,16 +19,16 @@
 ```
     1. For this environment we will be using DNS Route53 from AWS
     
-    2. We create a DNS domain called latam-team.be for this environment
+    2. We create a DNS domain called latamteam.name for this environment
     
     3. In that environment we will create the following records
-    		gitlab.latam-team.be
-		harbor.latam-team.be
-		notary.harbor.latam-team.be
-		tap-gui.latam-team.be
-		*.default.latam-team.be
-		learning-center-guided.latam-team.be
-		p3.latam-team.be
+    		gitlab.latamteam.name
+		harbor.latamteam.name
+		notary.harbor.latamteam.name
+		tap-gui.latamteam.name
+		*.default.latamteam.name
+		learning-center-guided.latamteam.name
+		p3.latamteam.name
 		
 		
 ```
@@ -139,15 +139,15 @@
           subject:
             organizations:
             - vmware
-          commonName: harbor.solateam.be
+          commonName: harbor.latamteam.name
           isCA: false
           privateKey:
             size: 2048
             algorithm: RSA
             encoding: PKCS1
           dnsNames:
-          - harbor.solateam.be
-          - notary.harbor.solateam.be
+          - harbor.latamteam.name
+          - notary.harbor.latamteam.name
           issuerRef:
             name: letsencrypt-contour-cluster-issuer
             kind: ClusterIssuer
@@ -181,7 +181,7 @@
     3. Create a internal registry secret
     
     tanzu secret registry add registry-credentials \
-    --server   harbor.solateam.be \
+    --server   harbor.latamteam.name \
     --username admin \
     --password "PASSw0rd2019202020212022" \
     --namespace tap-install \
@@ -222,7 +222,7 @@ Run the following command
 
 ## Obtain where is running ENVOY
 ```
-This is needed to register this address in the DNS namespaces (harbor.solateam.be, tap-gui.solateam.be....)
+This is needed to register this address in the DNS namespaces (harbor.latamteam.name, tap-gui.latamteam.name....)
       
       	kubectl get svc -A | grep envoy
      
@@ -271,7 +271,7 @@ sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 		export GITLAB_HOME=$HOME/gitlab
 		
 sudo docker run --detach \
---hostname gitlab.solateam.be \
+--hostname gitlab.latamteam.name \
 --publish 443:443 --publish 80:80  \
 --name gitlab \
 --restart always \
@@ -281,7 +281,7 @@ sudo docker run --detach \
 --shm-size 256m \
 gitlab/gitlab-ee:latest		
 		
-	5. Wait a couple of minutes and visit http://gitlab.solateam.be
+	5. Wait a couple of minutes and visit http://gitlab.latamteam.name
 	
 	6. Use the following command to obtain the root password
 		sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
@@ -312,7 +312,7 @@ gitlab/gitlab-ee:latest
 	
 	Using your machine select where you want to clone this repository
 	
-		git clone http://gitlab.solateam.be/root/tap-gitops.git (for example using my account)
+		git clone http://gitlab.latamteam.name/root/tap-gitops.git (for example using my account)
 
 	Then create a Git repository
 
@@ -352,7 +352,7 @@ gitlab/gitlab-ee:latest
 
 ```
 
-## Github authentication
+## GitLab authentication
 ```
 
 - https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/7-authentication/
@@ -365,7 +365,7 @@ gitlab/gitlab-ee:latest
 	2. Go to https://github.com/settings/applications/new to create your OAuth App.
 
 		Homepage URL should be https://github.com/login/oauth/authorize
-		Authorization callback URL should point to the auth backend, https://tap-gui.solateam.be/api/auth/github
+		Authorization callback URL should point to the auth backend, https://tap-gui.latamteam.name/api/auth/github
 		
 	   The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
 		
