@@ -1,6 +1,6 @@
 # Deploy Tanzu Application Platform v1.5.1 on Azure Cloud
 # using AKS with Harbor (using FREE public certificates) 
-## Deploy Test, Scan and Gitlab authentication and GitOps   
+## Deploy Test, Scan and GitLab authentication and GitOps   
 
 ## Requirements
 ```
