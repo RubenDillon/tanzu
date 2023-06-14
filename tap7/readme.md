@@ -15,6 +15,24 @@
     
 ```
 
+## Create the DNS records
+```
+    1. For this environment we will be using DNS Route53 from AWS
+    
+    2. We create a DNS domain called latam-team.be for this environment
+    
+    3. In that environment we will create the following records
+    		gitlab.latam-team.be
+		harbor.latam-team.be
+		notary.harbor.latam-team.be
+		tap-gui.latam-team.be
+		*.default.latam-team.be
+		learning-center-guided.latam-team.be
+		p3.latam-team.be
+		
+		
+```
+
 ## Create the environment
 ```
     1. Deploy azure client or upgrade it (in my case, Im using a Mac)
@@ -219,13 +237,82 @@ Run the cluster-issuer.yaml file
     
 ```
 
+## Create the Gitlab environment
+```
+
+	- https://docs.docker.com/engine/install/ubuntu/
+	- https://docs.gitlab.com/ee/install/docker.html
+	
+	
+	1. Create a Ubuntu 20.04 machine
+	
+	2. Deploy docker on that machine 
+		sudo apt-get update
+		sudo apt-get install ca-certificates curl gnupg
+		
+		sudo install -m 0755 -d /etc/apt/keyrings
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+		sudo chmod a+r /etc/apt/keyrings/docker.gpg	
+		
+echo \
+"deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+"$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+		
+		sudo apt-get update
+		
+		sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+		
+		
+	3. Assign the public IP Address of this machine to the DNS record gitlab.latam-team.be
+	
+	4. Deploy GitLab CE version from docker or the place you select
+		export GITLAB_HOME=/srv/gitlab
+		export GITLAB_HOME=$HOME/gitlab
+		
+sudo docker run --detach \
+--hostname gitlab.solateam.be \
+--publish 443:443 --publish 80:80  \
+--name gitlab \
+--restart always \
+--volume $GITLAB_HOME/config:/etc/gitlab \
+--volume $GITLAB_HOME/logs:/var/log/gitlab \
+--volume $GITLAB_HOME/data:/var/opt/gitlab \
+--shm-size 256m \
+gitlab/gitlab-ee:latest		
+		
+	5. Wait a couple of minutes and visit http://gitlab.solateam.be
+	
+	6. Use the following command to obtain the root password
+		sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
+		
+	7. Login to the Gitlab portal
+		On the top bar, select Main menu > Admin.
+		On the left sidebar, select Settings > General.
+		Expand the Visibility and access controls section.
+		Select each of Import sources to allow. At least select github and Repository by URL
+		Select Save changes.
+		
+	7. Import an project example
+		Select "Create a project"
+		Select "Import project"
+		Select "Repository by URL"
+		Add https://github.com/RubenDillon/tanzu-java-web-app in Git repository URL
+		In "Project URL" select root
+		Set "Visibility Level" to Internal 
+		Select "Create Project"
+	
+	
+```
+
+
 ## Create a GIT repository 
 ```
-	Using your Github account create a New Repository, as public and name it "tap-gitops"
+	Create a New Repository, as public and name it "tap-gitops"
 	
 	Using your machine select where you want to clone this repository
 	
-		git clone https://github.com/RubenDillon/tap-gitops.git (for example using my account)
+		git clone http://gitlab.solateam.be/root/tap-gitops.git (for example using my account)
 
 	Then create a Git repository
 
