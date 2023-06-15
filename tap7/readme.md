@@ -55,14 +55,14 @@
 	  to test.............. Standard_D4ds_v4 creates nodes with 4 vCPU and 16 GB RAM
 	  to have a real use... Standard_D8ds_v5 creates nodes with 8 vCPU and 32 GB RAM
 
-          az aks create -g TAP-RG -n -latam-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.24.10
+          az aks create -g LATAM-TAP-RG -n latam-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.24.10
 
     6. Deploy kubectl
           sudo su
           az aks install-cli
           
     7. Download the kubectl 
-          az aks get-credentials --name tap-on-azure --resource-group TAP-RG
+          az aks get-credentials --name latam-tap-azure --resource-group LATAM-TAP-RG
           
     8. Test the connection
           kubectl get nodes
@@ -168,7 +168,8 @@
             kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.key"} | base64 --decode > tls-key.txt
        
     
-    13. Deploy Harbor using the Tanzu packages (follow the steps from Tanzu documentation)  
+    13. Deploy Harbor using the Tanzu packages (follow the steps from Tanzu documentation)
+ 	     kubectl create ns harbor
              tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.6.3+vmware.1-tkg.1 --values-file harbor-values.yaml --namespace harbor
                  
     14. Connect to harbor and create "tap" project as public.
