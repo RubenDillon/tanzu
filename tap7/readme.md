@@ -1,4 +1,4 @@
-# Deploy Tanzu Application Platform v1.5.1 on Azure Cloud
+# Deploy Tanzu Application Platform v1.5.2 on Azure Cloud
 # using AKS with Harbor (using FREE public certificates) 
 ## Deploy Test, Scan and GitLab authentication and GitOps   
 
@@ -8,7 +8,7 @@
     3. An AWS subscription for route53 DNS service (we create latamteam.name domain)
     4. Tanzu Mission Control
     5. To deploy 
-        - TAP 1.5.1 we need Kubernetes v1.24, 1.25 and 1.26. We will be using 1.24.10 on a AKS deployed on Azure
+        - TAP 1.5.2 we need Kubernetes v1.24, 1.25 and 1.26. We will be using 1.24.10 on a AKS deployed on Azure
     6. Sign in to VMware Tanzu Network and accept or confirm that you have accepted the EULAs for each of the following:
         - https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/#/releases/1238179 (Cluster Essentials for Tanzu)
         - https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1260040 (Tanzu App Platform)
@@ -211,7 +211,7 @@
 ## Create the repository
 ```
         Name: tanzu-tap-repository
-        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.5.1
+        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.5.2
 
 ```
 
