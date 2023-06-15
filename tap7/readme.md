@@ -360,17 +360,15 @@ gitlab/gitlab-ee:latest
 ## GitLab authentication
 ```
 
-- https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/7-authentication/
-- https://backstage.io/docs/getting-started/configuration/#setting-up-a-github-integration
-- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/scc-git-auth.html
-- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/tap-gui-plugins-application-accelerator-git-repo.html#configuration
 
         1. Create a new public project in Harbor and call it "tap-apps" and "tap-gitops"
 
-	2. Go to https://github.com/settings/applications/new to create your OAuth App.
+	2. Create your OAuth App.
 
 		Homepage URL should be https://github.com/login/oauth/authorize
 		Authorization callback URL should point to the auth backend, https://tap-gui.latamteam.name/api/auth/github
+
+		http://tap-gui.latamteam.name/api/auth/gitlab/handler/frame
 		
 	   The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
 		
@@ -380,9 +378,9 @@ gitlab/gitlab-ee:latest
 
 		where ClientID is obtained from Github Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in Github		
 
-	5. Create a new personal Token on Github (your user, settings, developer)
+	5. Create a new personal Token on GitLab 
 	
-	6. Create a Secret on the default namespace as git-secret.yaml (from this github). Use the token as password and modify the user name.
+	6. Create a Secret on the default namespace as git-secret.yaml (from this gitLab). Use the token as password and modify the user name.
 	
 	7. Apply the secret
 	
