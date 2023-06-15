@@ -7,11 +7,11 @@
 # --------------------------------------------------------------------------------- #
 
 shared:
-  ingress_domain: solateam.be
+  ingress_domain: latamteam.name
   ingress_issuer: letsencrypt-production
   
   image_registry:
-    project_path: "harbor.solateam.be/tap"
+    project_path: "harbor.latamteam.name/tap"
     secret:
       name: registry-credentials
       namespace: default
@@ -27,7 +27,7 @@ ootb_supply_chain_basic:
     ssh_secret: ""
   registry:
     repository: tap-apps
-    server: harbor.solateam.be
+    server: harbor.latamteam.name
         
 contour:
   envoy:
@@ -35,7 +35,7 @@ contour:
       type: LoadBalancer
 
 buildservice:
-  kp_default_repository: harbor.solateam.be/tap/build-service
+  kp_default_repository: harbor.latamteam.name/tap/build-service
   kp_default_repository_secret:
     name: registry-credentials
     namespace: default
@@ -46,7 +46,7 @@ tap_gui:
   app_config:
     catalog:
       locations:
-        - target: https://github.com/RubenDillon/tap/blob/main/catalog-info.yaml
+        - target: http://gitlab.latamteam.name/root/tap-gitops/blob/master/yelb-catalog/catalog-info.yaml
           type: url    
     
 metadata_store:
@@ -70,7 +70,7 @@ excluded_packages:
   - cert-manager.tanzu.vmware.com
 
 learningcenter:
-  ingressDomain: solateam.be
+  ingressDomain: latamteam.name
 
 ootb_delivery_basic:
   service_account: default
