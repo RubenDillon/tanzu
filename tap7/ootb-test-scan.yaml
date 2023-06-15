@@ -1,0 +1,10 @@
+# Install values file for otb-supply-chain-testing-scanning.tanzu.vmware.com v0.12.5 
+registry:
+  server: "harbor.solateam.be"
+  repository: "tap-apps"
+
+gitops:
+  ssh_secret: ""
+
+cluster_builder: default
+service_account: default
