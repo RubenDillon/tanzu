@@ -45,13 +45,17 @@
           az account set --subscription dddddxxxx-xx-xxxxx-xxxxxxxx
     
     4. Create the resource group where AKS will be deployed
-          az group create --name TAP-RG --location eastus
+          az group create --name LATAM-TAP-RG --location eastus
           
     6. Verify the kubernetes versions available for AKS
           az aks get-versions --location eastus
-          
+        
     5. Create the AKS cluster
-          az aks create -g TAP-RG -n tap-on-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D4ds_v4 --kubernetes-version 1.24.10
+
+	  to test.............. Standard_D4ds_v4 creates nodes with 4 vCPU and 16 GB RAM
+	  to have a real use... Standard_D8ds_v5 creates nodes with 8 vCPU and 32 GB RAM
+
+          az aks create -g TAP-RG -n -latam-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.24.10
 
     6. Deploy kubectl
           sudo su
