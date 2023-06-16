@@ -290,6 +290,18 @@ gitlab/gitlab-ee:latest
 	
 	6. Use the following command to obtain the root password
 		sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
+
+	7. Adding Lets Encrypt to Gitlab
+		sudo docker exec -it gitlab /bin/bash
+
+	8. Edit /etc/gitlab/gitlab.rb and add/change the following
+
+		## GitLab instance
+		external_url "https://gitlab.latamteam.name"         # Must use https protocol
+		letsencrypt['contact_emails'] = ['rdillon@vmware.com'] # Optional
+
+	8 Reconfigure gitlab
+		gitlab-ctl reconfigure
 		
 	7. Login to the Gitlab portal
 		On the top bar, select Main menu > Admin.
