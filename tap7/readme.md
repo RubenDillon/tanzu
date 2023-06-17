@@ -378,9 +378,9 @@ gitlab/gitlab-ee:latest
 	2. Create your OAuth App.
 
 		Homepage URL should be https://github.com/login/oauth/authorize
-		Authorization callback URL should point to the auth backend, https://tap-gui.latamteam.name/api/auth/github
+		Authorization callback URL should point to the auth backend
 
-		http://tap-gui.latamteam.name/api/auth/gitlab/handler/frame
+		https://tap-gui.latamteam.name/api/auth/gitlab/handler/frame
 		
 	   The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
 		
