@@ -52,15 +52,20 @@ shared:
 supply_chain: basic
 tap_gui:
   app_config:
+    app:
+      baseUrl: https://tap-gui.latamteam.name
     auth:
       environment: development
       providers:
         gitlab:
           development:
             audience: https://gitlab.latamteam.name
-            clientId: changechange......28072cad7ef31e7e6dc5ff971020f8abab14d3f038904bbc8bbfcc9e306f2aac
-            clientSecret: changechange.........bac68c755cc59085ab3fb4150f85d10d702f7737d402f683bed2d8e34c4f1ba2
+            clientId: 28072cad7ef31e7e6dc5ff971020f8abab14d3f038904bbc8bbfcc9e306f2aac
+            clientSecret: bac68c755cc59085ab3fb4150f85d10d702f7737d402f683bed2d8e34c4f1ba2
     backend:
+      baseUrl: https://tap-gui.latamteam.name
+      cors:
+        origin: https://tap-gui.latamteam.name
       reading:
         allow:
           - host: gitlab.latamteam.name
@@ -73,6 +78,6 @@ tap_gui:
         - apiBaseUrl: https://gitlab.latamteam.name/api/v4
           baseUrl: https://gitlab.latamteam.name
           host: gitlab.latamteam.name
-          token: change...change...glpat-bQ_ZYwouGRuFdsydGCh5
+          token: glpat-bQ_ZYwouGRuFdsydGCh5
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
