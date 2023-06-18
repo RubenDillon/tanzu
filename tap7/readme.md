@@ -590,7 +590,7 @@ tanzu apps workload apply tanzu-java-web-app \
     1. run the following command to review the activated portals
             kubectl get trainingportals
     2. then connect to the defined URL
-            http://learning-center-guided.solateam.be
+            http://learning-center-guided.latamteam.name
 ```
 
 ## Deploy the different Learning Portals
@@ -637,10 +637,10 @@ tanzu apps workload apply tanzu-java-web-app \
      
     With this we will have four Learning portals
     
-            lab-k8s-fundamentals     http://lab-k8s-fundamentals-ui.solateam.be 
-            lab-markdown-sample      http://lab-markdown-sample-ui.solateam.be
-            lab-spring-boot-k8s-gs   http://lab-spring-boot-k8s-gs-ui.solateam.be
-            learning-center-guided   http://learning-center-guided.solateam.be
+            lab-k8s-fundamentals     http://lab-k8s-fundamentals-ui.latamteam.name
+            lab-markdown-sample      http://lab-markdown-sample-ui.latamteam.name
+            lab-spring-boot-k8s-gs   http://lab-spring-boot-k8s-gs-ui.slatamteam.name
+            learning-center-guided   http://learning-center-guided.latamteam.name
 
 ```
 
@@ -651,7 +651,7 @@ tanzu apps workload apply tanzu-java-web-app \
 ootb_supply_chain_testing_scanning:
   cluster_builder: default
   gitops:
-    Username: RubenDillon
+    Username: root
     branch: main
     commit_message: supplychain@cluster.local
     commit_strategy: pull_request
@@ -661,14 +661,14 @@ ootb_supply_chain_testing_scanning:
       pull_request_title: ready for review
       server_kind: github
     repository_name: tap-gitops
-    repository_owner: RubenDillon
-    server_address: https://github.com/
+    repository_owner: root
+    server_address: https://gitlab.latamteam.name
     ssh_secret: github-http-secret
     user_email: ruben_dillon@hotmail.com
-    user_name: RubenDillon
+    user_name: root
   registry:
     repository: tap-apps
-    server: harbor.solateam.be
+    server: harbor.latamteam.name
   scanning:
     image:
       policy: scan-policy-free
@@ -682,7 +682,7 @@ ootb_supply_chain_testing_scanning:
 	3. Deploy tanzu-java-web-app again
 	
 		tanzu apps workload apply tanzu-java-web-app \
-		--git-repo https://github.com/RubenDillon/tanzu-java-web-app \
+		--git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
 		--git-branch main \
 		--type web \
 		--app tanzu-java-web-app \
@@ -718,22 +718,19 @@ ootb_supply_chain_testing_scanning:
         9. Configure VMware Tanzu Developer Tools for VS Code
                 - Confirm Delete: This controls whether the extension asks for confirmation when deleting a workload.
                 - Enable Live Hover:  Reload VS Code for this change to take effect.
-                - Source Image: harbor.solateam.be/tap-apps/tanzu-java-web-app
+                - Source Image: harbor.latamteam.name/tap-apps/tanzu-java-web-app
                 - Namespace: default.   
         
 	10. Do the same with the "Tanzu App Accelerator Extension for Visual Studio Code" 
 	
-	11. Once deployed configure tap-gui.solateam.be as the TAP GUI URL
+	11. Once deployed configure tap-gui.latamteam.name as the TAP GUI URL
 ```
 
 ## Using VS Code to deploy and iterate the example
 
 ```
-        1. Copy the following repository to tap-gitops
             
-            https://github.com/RubenDillon/application-accelerator-samples.git
-            
-         2. Open VS Code and open the TANZU-JAVA-WEB-APP folder from the cloned github resource
+         1. Open VS Code and open the TANZU-JAVA-WEB-APP folder from the cloned gitlab resource
          
          3. Review the following files
          
@@ -776,10 +773,7 @@ ootb_supply_chain_testing_scanning:
 	 	 git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app pull -r
 		 
 		 git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app push -u origin main
-		 
-		 
-		 
-		 
+		 		 
 	   8. From the Application Accelerator link from the toolbar select create an App
 	   
 	   9. Select Tanzu Java Web App and complete the following
@@ -787,7 +781,7 @@ ootb_supply_chain_testing_scanning:
 	   		harbor.solateam.be/tap-apps
 			
 		Complete the git repository information
-			Owner: RubenDillon
+			Owner: root
 			Repository Name: tanzu-java-web-app2
 			Repository Branch: main
 			
@@ -795,7 +789,7 @@ ootb_supply_chain_testing_scanning:
 	    
 allow_k8s_contexts('tkg2-tap-01')
 
-SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='harbor.solateam.be/tap-apps/tanzu-java-web-app3-source')
+SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='harbor.latamteam.name/tap-apps/tanzu-java-web-app2-source')
 LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
 NAMESPACE = os.getenv("NAMESPACE", default='default')
 OUTPUT_TO_NULL_COMMAND = os.getenv("OUTPUT_TO_NULL_COMMAND", default=' > /dev/null ')
@@ -819,7 +813,7 @@ k8s_custom_deploy(
     ]
 )
 
-k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
+k8s_resource('tanzu-java-web-app2', port_forwards=["8080:8080"],
             extra_pod_selectors=[{'carto.run/workload-name': 'tanzu-java-web-app3', 'app.kubernetes.io/component': 'run'}])
 	    
 	    
@@ -833,10 +827,12 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
 ## Try another applications as example
 ```
         A Weather application using Steeltoe framework (.NET core)
+
+	Use the VSCode to create this example from the Application Accelerator and push to gitlab
         
 	    
 	    tanzu apps workload create weatherforecast-steeltoe \
-            --git-repo https://github.com/RubenDillon/tap-gitops \
+            --git-repo https://gitlab.latamteam.name/root/tap-gitops \
             --sub-path weatherforecast-steeltoe \
             --git-branch main \
             --type web \
@@ -845,15 +841,16 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
             --yes --tail\
             --namespace default
 	    
-	To import use
-            https://github.com/RubenDillon/tap-gitops/blob/main/weatherforecast-steeltoe/catalog/catalog-info.yaml
+	Automatically this application will be in the Application Catalog from TAP-GUI 
+            
 	  
 
  	Another Java application 
-	    
+
+	Use the VSCode to create this example from the Application Accelerator and push to gitlab
 	  
 	    tanzu apps workload create java-server-side-ui \
-            --git-repo https://github.com/RubenDillon/tap-gitops \
+            --git-repo https://gitlab.latamteam.name/root/tap-gitops \
             --sub-path java-server-side-ui \
             --git-branch main \
             --type web \
@@ -863,16 +860,17 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
             --yes --tail \
             --namespace default
 	    
-	To import use
-	    https://github.com/RubenDillon/tap-gitops/blob/main/java-server-side-ui/catalog/catalog-info.yaml
+	Automatically this application will be in the Application Catalog from TAP-GUI 
 
 
 
 	    
 	An Angular front end application
 
+	Use the VSCode to create this example from the Application Accelerator and push to gitlab
+
 	    tanzu apps workload create angular-frontend \
-            --git-repo https://github.com/RubenDillon/tap-gitops \
+            --git-repo https://gitlab.latamteam.name/root/tap-gitops \
             --sub-path angular-frontend \
             --git-branch main \
             --type web \
@@ -881,15 +879,16 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
             --yes --tail \
             --namespace default
 	    
-	    To import use
-	    https://github.com/RubenDillon/tap-gitops/blob/main/angular-frontend/catalog/catalog-info.yaml
+	   Automatically this application will be in the Application Catalog from TAP-GUI 
 	    
 	    
 	    
 	A Node.js (using express.js) example
+
+	Use the VSCode to create this example from the Application Accelerator and push to gitlab
 	    
 	    tanzu apps workload create node-express \
-            --git-repo https://github.com/RubenDillon/tap-gitops \
+            --git-repo https://gitlab.latamteam.be/root/tap-gitops \
             --sub-path node-express \
             --git-branch main \
             --type web \
@@ -898,10 +897,9 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
             --yes --tail \
             --namespace default
 	    
-	    
-	    To import use
-	    https://github.com/RubenDillon/tap-gitops/blob/main/node-express/catalog/catalog-info.yaml
- 
+	    Automatically this application will be in the Application Catalog from TAP-GUI 
+
+
 	    Another (but.. this is from an image)
 	    
 	    tanzu apps workload create simple-web-app \
@@ -910,44 +908,11 @@ k8s_resource('tanzu-java-web-app3', port_forwards=["8080:8080"],
             --type web \
             --yes
 	    
-	    curl -k https://simple-web-app.default.solateam.be/hello
+	    curl -k https://simple-web-app.default.tanzulatam.name/hello
 	    
-	        
-	   Pendiente -------------------  ---------------------------    
-	   ----------------------------------------------
-	   -------------------------- puerto 8080 -------------------------------------------
-	    
-	    
-	    tanzu apps workload create smario-web-app \
-            --image bharathshetty4/supermario:latest \
-	    --label apps.tanzu.vmware.com/has-tests=false \
-            --type web \
-            --yes
 	
 	
 	
-	tanzu apps workload apply tanzu-java-web-app \
-		--git-repo https://github.com/RubenDillon/tap-gitops \
-		--sub-path tanzu-java-web-app \
-		--git-branch main \
-		--type web \
-		--app tanzu-java-web-app \
-		--label apps.tanzu.vmware.com/has-tests="true" \
-		--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-		--tail \
-		--yes
-	
-	
-	
-```
-
-## Automate the reading of Catalogs (not to use it yet)
-```
-	Modify the TAP installation adding the following to tap-gui
-	
-	- type: github-discovery
-          target: https://github.com/RubenDillon/tap-gitops/blob/main/*/catalog/catalog-info.yaml
-
 ```
 
 
