@@ -1,0 +1,119 @@
+# --------------------------------------------------------------------------------- #
+#
+#                    TAP values to deploy OOTB Test, Scan, Authentication
+#
+#                              valid for TAP 1.5.2
+#
+# --------------------------------------------------------------------------------- #
+
+buildservice:
+  kp_default_repository: harbor.latamteam.name/tap/build-service
+  kp_default_repository_secret:
+    name: registry-credentials
+    namespace: default
+
+ceip_policy_disclosed: true
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+excluded_packages:
+  - contour.tanzu.vmware.com
+  - cert-manager.tanzu.vmware.com
+
+grype:
+  namespace: default
+  targetImagePullSecret: registry-credentials
+
+learningcenter:
+  ingressDomain: latamteam.name
+  
+namespace_provisioner:
+  controller: true
+  additional_sources:
+    - git:
+        ref: origin/main
+        subPath: ns-provisioner-samples/testing-scanning-supplychain-polyglot
+        url: https://github.com/vmware-tanzu/application-accelerator-samples.git
+      path: _ytt_lib/testing-scanning-supplychain-polyglot-setup
+
+metadata_store:
+  app_service_type: ClusterIP
+  ns_for_export_app_cert: default
+
+ootb_delivery_basic:
+  service_account: default
+
+ootb_supply_chain_basic:
+  service_account: default  
+
+ootb_supply_chain_testing_scanning:
+  registry:
+    server: harbor.latamteam.name
+    repository: "tap-apps"
+
+  gitops:
+    ssh_secret: github-http-secret    # un token creado en el namespace
+    
+  scanning:
+    source:
+      policy: scan-policy-free
+    image:
+      policy: scan-policy-free
+
+  cluster_builder: default
+  service_account: default
+
+policy:
+  tuf_enabled: false
+
+profile: full
+
+scanning:
+  metadataStore:
+    url: ""
+
+shared:
+  image_registry:
+    project_path: harbor.latamteam.name/tap
+    secret:
+      name: registry-credentials
+      namespace: default
+  ingress_domain: latamteam.name
+  ingress_issuer: letsencrypt-production
+
+supply_chain: testing_scanning
+
+tap_gui:
+  app_config:
+    app:
+      baseUrl: https://tap-gui.latamteam.name
+    auth:
+      environment: development
+      providers:
+        gitlab:
+          development:
+            audience: https://gitlab.latamteam.name
+            clientId: 28072cad7ef31e7e6dc5ff971020f8abab14d3f038904bbc8bbfcc9e306f2aac
+            clientSecret: bac68c755cc59085ab3fb4150f85d10d702f7737d402f683bed2d8e34c4f1ba2
+    backend:
+      baseUrl: https://tap-gui.latamteam.name
+      cors:
+        origin: https://tap-gui.latamteam.name
+      reading:
+        allow:
+          - host: gitlab.latamteam.name
+    catalog:
+      locations:
+        - target: https://gitlab.latamteam.name/blob/*/catalog/catalog-info.yaml
+          type: gitlab-discovery
+    integrations:
+      gitlab:
+        - apiBaseUrl: https://gitlab.latamteam.name/api/v4
+          baseUrl: https://gitlab.latamteam.name
+          host: gitlab.latamteam.name
+          token: glpat-bQ_ZYwouGRuFdsydGCh5
+  metadataStoreAutoconfiguration: true
+  service_type: ClusterIP
