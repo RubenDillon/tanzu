@@ -9,9 +9,6 @@
     4. Tanzu Mission Control
     5. To deploy 
         - TAP 1.5.2 we need Kubernetes v1.24, 1.25 and 1.26. We will be using 1.24.10 on a AKS deployed on Azure
-    6. Sign in to VMware Tanzu Network and accept or confirm that you have accepted the EULAs for each of the following:
-        - https://network.tanzu.vmware.com/products/tanzu-cluster-essentials/#/releases/1238179 (Cluster Essentials for Tanzu)
-        - https://network.tanzu.vmware.com/products/tanzu-application-platform/#/releases/1260040 (Tanzu App Platform)
     
 ```
 
@@ -67,14 +64,14 @@
     8. Test the connection
           kubectl get nodes
 
-    9. Create a Cluster Group (I create "TAP" Cluster group)
-    
-    10. Attach the AKS Cluster to TMC under TAP cluster group 
-    
-    11. Review that you are on the correct cluster
+    9. In TMC create a Cluster Group (I create "TAP" Cluster group)
+
+    10. Review that you are on the correct cluster
     	kubectl config get-contexts
+    
+    11. Attach the AKS Cluster to TMC under TAP cluster group 
 	
-    12. Accept the EULA and download the 1.5.1 Tanzu cli. Follow this instructions https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/install-tanzu-cli.html
+    12. Accept the EULA and deploy the Tanzu cli. Follow this instructions https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/install-tanzu-cli.html
     
     13. Deploy Cluster Essentials. Follow this instructions https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.5/cluster-essentials/deploy.html
     	
@@ -92,7 +89,7 @@
 			we have available for example 1.23.5+vmware.1-tkg.1
 		kubectl create ns contour
 		
-		tanzu package install contour \
+tanzu package install contour \
 --package contour.tanzu.vmware.com \
 --version 1.23.5+vmware.1-tkg.1 \
 --values-file contour-values.yaml \
@@ -101,8 +98,6 @@
     13. Obtain the Public IP Address where Envoy is running
     
     		kubectl get svc -A | grep envoy
-		
-	In our case is running on 52.149.238.242
       
     14. Create the namespace tanzu-system-registry
        
@@ -220,14 +215,12 @@
 Run the following command
 	
 	tanzu package repository list -A
-	
-	tanzu package repository get tanzu-tap-repository -n tkg-system
 
 ```
 
 ## Obtain where is running ENVOY
 ```
-This is needed to register this address in the DNS namespaces (harbor.latamteam.name, tap-gui.latamteam.name....)
+This is needed to register this IP address in the DNS namespaces (harbor.latamteam.name, tap-gui.latamteam.name....)
       
       	kubectl get svc -A | grep envoy
      
@@ -269,7 +262,7 @@ sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 		sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 		
 		
-	3. Assign the public IP Address of this machine to the DNS record gitlab.latam-team.be
+	3. Assign the public IP Address of this machine to the DNS record gitlab.latamteam.name
 	
 	4. Deploy GitLab CE version from docker or the place you select
 		export GITLAB_HOME=/srv/gitlab
@@ -285,16 +278,14 @@ sudo docker run --detach \
 --volume $GITLAB_HOME/data:/var/opt/gitlab \
 --shm-size 256m \
 gitlab/gitlab-ee:latest		
-		
-	5. Wait a couple of minutes and visit http://gitlab.latamteam.name
 	
-	6. Use the following command to obtain the root password
+	5. Use the following command to obtain the root password
 		sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 
-	7. Adding Lets Encrypt to Gitlab
+	6. Adding Lets Encrypt to Gitlab
 		sudo docker exec -it gitlab /bin/bash
 
-	8. Edit /etc/gitlab/gitlab.rb and add/change the following
+	7. Edit /etc/gitlab/gitlab.rb and add/change the following
 
 		## GitLab instance
 		external_url "https://gitlab.latamteam.name"         # Must use https protocol
@@ -302,15 +293,17 @@ gitlab/gitlab-ee:latest
 
 	8 Reconfigure gitlab
 		gitlab-ctl reconfigure
+
+	9. Wait a couple of minutes and visit https://gitlab.latamteam.name
 		
-	7. Login to the Gitlab portal
+	10. Login to the Gitlab portal
 		On the top bar, select Main menu > Admin.
 		On the left sidebar, select Settings > General.
 		Expand the Visibility and access controls section.
 		Select each of Import sources to allow. At least select github and Repository by URL
 		Select Save changes.
 		
-	7. Import an project example
+	11. Import an project example
 		Select "Create a project"
 		Select "Import project"
 		Select "Repository by URL"
@@ -329,12 +322,12 @@ gitlab/gitlab-ee:latest
 	
 	Using your machine select where you want to clone this repository
 	
-		git clone http://gitlab.latamteam.name/root/tap-gitops.git (for example using my account)
+		git clone http://gitlab.latamteam.name/root/tap-gitops.git 
 
 	Then create a Git repository
 
     		git init
-    		(optional) git remote add origin git@github.com:RubenDillon/tap-gitops.git
+    		(optional) git remote add origin git@gitlab.latamteam.name:root/tap-gitops.git
 
 		create a file ("prueba.txt") on the directory then summit to the github
 		
@@ -354,7 +347,7 @@ gitlab/gitlab-ee:latest
 	To deply the yelb application to the cluster, use the file yelb-deploy.yaml from this git
 		kubectl apply -f yelb-deploy.yaml
 		
-	Access the application using your browser http://yelb.solateam.be
+	Access the application using your browser http://yelb.latamteam.name
 		Modify your /etc/hosts using your envoy external address
 		
 	Upload the catalog
@@ -377,26 +370,20 @@ gitlab/gitlab-ee:latest
 
 	2. Create your OAuth App.
 
-		Homepage URL should be https://github.com/login/oauth/authorize
-		Authorization callback URL should point to the auth backend
-
-		https://tap-gui.latamteam.name/api/auth/gitlab/handler/frame
+		Redirect URI should point to the auth backend: https://tap-gui.latamteam.name/api/auth/gitlab/handler/frame
 		
 	   The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
 		
 	3. Generate a new Client Secret and take a note of the Client ID and the Client Secret
 	
-	4. Modify the tap-gui part of the tap-values-OOTB-test-scan-auth.yaml file to add ClientId and clientSecret values
+	4. Modify the tap-gui part of the tap-values-OOTB-basic.yaml file to add ClientId and clientSecret values
 
-		where ClientID is obtained from Github Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in Github		
-
+		where ClientID is obtained from GitLab Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in GitLab		
 	5. Create a new personal Token on GitLab 
 	
 	6. Create a Secret on the default namespace as git-secret.yaml (from this gitLab). Use the token as password and modify the user name.
 	
 	7. Apply the secret
-	
-	8. Modify the ootb_Supply_chain_test_scan part of the tap-values-OOTB-test-scan-auth.yaml with your data.
 
 
 ```
@@ -422,13 +409,13 @@ gitlab/gitlab-ee:latest
 ```
     1. Select the Tanzu Application Platform
     
-    2. Select tap as name and 1.5 for the version
+    2. Select tap as name and 1.5.2 for the version
     
     3. Copy the tap-values-OOTB-basic on the TMC UI
     
     4. Monitor the install by running
             
-            tanzu package installed get tap -n tap-88xxx
+            tanzu package installed get tap -n tap-xxxxxx
             
     5. Verify all packages are successfully reconciled
             
@@ -474,18 +461,11 @@ gitlab/gitlab-ee:latest
 ## Test an Example in a basic Supply Chain
 ```
 
-	1. Connect to your github environment and create a new repository
 	
-	2. Select to "import" and then copy the following link "https://github.com/vmware-tanzu-learning/tanzu-java-web-app"
-	
-	3. Now we have created a repository with the address like https://github.com/<your user>/tanzu-java-web-app. In my case 
-	
-		https://github.com/RubenDillontanzu-java-web-app
-	
-	4. Now we will be deploying the example using that repository
+	1. Now we will be deploying the example using that repository
 	
 		tanzu apps workload apply tanzu-java-web-app \
-		--git-repo https://github.com/RubenDillon/tanzu-java-web-app \
+		--git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
 		--git-branch main \
 		--type web \
 		--app tanzu-java-web-app \
@@ -500,9 +480,8 @@ gitlab/gitlab-ee:latest
     
             	tanzu apps workload get tanzu-java-web-app --namespace default
             
-          7. To register the application, go to the tap-gui.solateam.be and click "Register Entity" and use the following as input
-    
-            	https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
+          7. The application will be in the Catalog of the TAP-GUI UI
+            	
 
 ```
 
@@ -537,8 +516,7 @@ gitlab/gitlab-ee:latest
         
         
 tanzu apps workload apply tanzu-java-web-app \
---git-repo https://github.com/RubenDillon/application-accelerator-samples \
---sub-path tanzu-java-web-app \
+--git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
 --git-branch main \
 --type web \
 --app tanzu-java-web-app \
@@ -548,16 +526,6 @@ tanzu apps workload apply tanzu-java-web-app \
 	
 ```	
 
-### Modify the supply chain to use Testing, Scanning and Github Authentication
-```
-	1. Go to TMC and use the TAP package
-	
-	2. Delete the deployment
-	
-	3. Create a new deployment using the OOTB-test-scan-auth.yaml with your github values
-	
-```
-
         
 ### Test an Example in a Testing and Scanning supply chain
 ```
@@ -565,7 +533,7 @@ tanzu apps workload apply tanzu-java-web-app \
 	1. Now we will be deploying the example using that repository
 	
 		tanzu apps workload apply tanzu-java-web-app \
-		--git-repo https://github.com/RubenDillon/tanzu-java-web-app \
+		--git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
 		--git-branch main \
 		--type web \
 		--app tanzu-java-web-app \
@@ -587,13 +555,9 @@ tanzu apps workload apply tanzu-java-web-app \
    	  4. After ends you could access the TAP GUI to see the process and review the app using the following command
     
             	tanzu apps workload get tanzu-java-web-app --namespace default
-            
-          5. To register the application, go to the tap-gui.solateam.be and click "Register Entity" and use the following as input
-    
-            	https://github.com/RubenDillon/application-accelerator-samples/blob/main/tanzu-java-web-app/catalog/catalog-info.yaml
 
 
-	  6. Review the deliverables of the deployment
+	  5. Review the deliverables of the deployment
 	 
 
 		kubectl get deliverables
@@ -601,7 +565,7 @@ tanzu apps workload apply tanzu-java-web-app \
 		kubectl get deliverable tanzu-java-web-app -o yaml > deliverable-tanzu-java-web-app.yaml
 
 
-		7. Review the Knative service of the deployment
+	  6. Review the Knative service of the deployment
 		
 		kubectl get service.serving.knative.dev/tanzu-java-web-app
 
@@ -1410,6 +1374,13 @@ EOF
 		- the secret have the correct github token
 		- the values for the TAP deployment have the right github token and OAuth information
 			
+```
+
+## Troubleshoot TAP-GUI update configure in TAP-VALUES
+```
+	1. Run the following command to renew the tap-gui pod
+		kubectl rollout restart -n tap-gui deployment server
+
 ```
 
 ## Troubleshoot namespace Terminating
