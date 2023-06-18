@@ -489,31 +489,25 @@ gitlab/gitlab-ee:latest
 ```
  
        
-       1. create the Test and Scanning OOTB using ootb-test-scan.yaml from this git
-		
-       2. review the current version of the package
-		
-		tanzu package available list ootb-supply-chain-testing-scanning.tanzu.vmware.com  -n tap-install
-			currently we have available 0.12.6 version
+        1. Modify the tap-values-ootb-test-scan-auth.yaml from gitlab
+
+	2. Apply this file into TAP package using the TMC Catalog
        
-       4. Run the deployment 
-	
-     tanzu package install ootb-supply-chain-testing-scanning -p ootb-supply-chain-testing-scanning.tanzu.vmware.com -v 0.12.6 --values-file ootb-test-scan.yaml -n tap-install
-       
-       5. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
+        3. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
         
                 kubectl apply -f scan-policy.yaml
                 
                 kubectl apply -f scan-template.yaml
                 
-	6. Create a Tekton pipeline and scan policies 
+	4. Create a Tekton pipeline and scan policies 
      
             	kubectl apply -f pipeline.yaml      
 	 
 	 	kubectl get pipeline.tekton.dev,scanpolicies
 	        
         7. Delete and re-create the application deployment setting the label has-tests to true
-        
+
+tanzu apps workload delete tanzu-java-web-app -y    
         
 tanzu apps workload apply tanzu-java-web-app \
 --git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
