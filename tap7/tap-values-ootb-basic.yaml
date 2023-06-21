@@ -69,6 +69,7 @@ tap_gui:
       reading:
         allow:
           - host: gitlab.latamteam.name
+          - host: acc-server.accelerator-system.svc.cluster.local       
     catalog:
       locations:
         - target: https://gitlab.latamteam.name/blob/*/catalog/catalog-info.yaml
