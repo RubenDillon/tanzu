@@ -440,27 +440,8 @@ gitlab/gitlab-ee:latest
 		kubectl get secrets,serviceaccount,rolebinding,pods,workload,configmap,limitrange -n default
 ```
 
-## Configure the Test and Scanning components
-```
-
- - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
- - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/namespace-provisioner-ootb-supply-chain.html#testing--scanning-supply-chain-3  
-
-       1. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
-        
-                kubectl apply -f scan-policy.yaml.  
-		
-		Because we are not using the default scan-policy we apply this one that creates scan-policy-free policy, 
-		and we define their use in tap-values
-                
-	2. Review Tekton pipeline and scan policies 
-     
-	 	kubectl get pipeline.tekton.dev,scanpolicies
-```
-
 ## Test an Example in a basic Supply Chain
 ```
-
 	
 	1. Now we will be deploying the example using that repository
 	
@@ -472,51 +453,49 @@ gitlab/gitlab-ee:latest
 		--tail \
 		--yes
 
-	  5. View the build 
+	  2. View the build 
             
            	 kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
     
-   	  6. After ends you could access the TAP GUI to see the process and review the app using the following command
+   	  3. After ends you could access the TAP GUI to see the process and review the app using the following command
     
             	tanzu apps workload get tanzu-java-web-app --namespace default
             
-          7. The application will be in the Catalog of the TAP-GUI UI
+          4. The application will be in the Catalog of the TAP-GUI UI (because TAP discovers where catalog files are)
             	
 
 ```
 
 ### Modify the supply chain to use Testing and Scanning
 ```
+
+ - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
+ - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/namespace-provisioner-ootb-supply-chain.html#testing--scanning-supply-chain-3 
  
-       
         1. Modify the tap-values-ootb-test-scan-auth.yaml from gitlab
 
 	2. Apply this file into TAP package using the TMC Catalog
        
-        3. Create the Scan policy applying the scan-policy.yaml and scan-template.yaml
+        3. Create the Scan policy applying the scan-policy-free.yaml and scan-template.yaml
         
-                kubectl apply -f scan-policy.yaml
+                kubectl apply -f scan-policy-free.yaml
                 
                 kubectl apply -f scan-template.yaml
-                
-	4. Create a Tekton pipeline and scan policies 
+		
+		Because we are not using the default scan-policy we apply this one that creates scan-policy-free policy, 
+		and we define their use in tap-values
+
+       
+	4. Create a Tekton pipeline 
      
             	kubectl apply -f pipeline.yaml      
 	 
 	 	kubectl get pipeline.tekton.dev,scanpolicies
 	        
-        7. Delete and re-create the application deployment setting the label has-tests to true
+        5. Delete the example application
 
-tanzu apps workload delete tanzu-java-web-app -y    
+		tanzu apps workload delete tanzu-java-web-app -y    
         
-tanzu apps workload apply tanzu-java-web-app \
---git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
---git-branch main \
---type web \
---app tanzu-java-web-app \
---label apps.tanzu.vmware.com/has-tests="true" \
---tail \
---yes
 	
 ```	
 
@@ -541,7 +520,9 @@ tanzu apps workload apply tanzu-java-web-app \
 	
 		--param scanning_source_policy="lax-scan-policy" \
 		--param scanning_image_policy="lax-scan-policy" \
-	
+
+	     You need to go to gitlab and approve and merge the deployment.
+
 	  3. View the build 
             
            	 kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
@@ -566,7 +547,7 @@ tanzu apps workload apply tanzu-java-web-app \
 
 ```
 
-## Using KubeNEAT to generate a readable delivery file 
+## Use KubeNEAT to generate a readable delivery file 
 ```
 
 	1. Deploy KubeNEAT
