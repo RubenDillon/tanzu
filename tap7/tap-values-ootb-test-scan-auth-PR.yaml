@@ -11,54 +11,48 @@ buildservice:
   kp_default_repository_secret:
     name: registry-credentials
     namespace: default
-
+    
 ceip_policy_disclosed: true
 
 contour:
   envoy:
     service:
       type: LoadBalancer
-
+      
 excluded_packages:
   - contour.tanzu.vmware.com
   - cert-manager.tanzu.vmware.com
-
+  
 grype:
   namespace: default
   targetImagePullSecret: registry-credentials
-
+  
 learningcenter:
   ingressDomain: latamteam.name
   
+metadata_store:
+  app_service_type: ClusterIP
+  ns_for_export_app_cert: default
+  
 namespace_provisioner:
-  controller: true
   additional_sources:
     - git:
         ref: origin/main
         subPath: ns-provisioner-samples/testing-scanning-supplychain-polyglot
         url: https://github.com/vmware-tanzu/application-accelerator-samples.git
       path: _ytt_lib/testing-scanning-supplychain-polyglot-setup
-
-metadata_store:
-  app_service_type: ClusterIP
-  ns_for_export_app_cert: default
-
+  controller: true
+  
 ootb_delivery_basic:
   service_account: default
-
+  
 ootb_supply_chain_basic:
-  service_account: default  
-
+  service_account: default
+  
 ootb_supply_chain_testing_scanning:
-  registry:
-    server: harbor.latamteam.name
-    repository: "tap-apps"
-
+  cluster_builder: default
   gitops:
-    
-    Username: root
     branch: main
-    commit_message: supplychain@cluster.local
     commit_strategy: pull_request
     pull_request:
       commit_branch: ""
@@ -69,27 +63,25 @@ ootb_supply_chain_testing_scanning:
     repository_owner: root
     server_address: https://gitlab.latamteam.name/
     ssh_secret: github-http-secret
-    user_email: ruben_dillon@hotmail.com
-    user_name: root    
- 
+  registry:
+    repository: tap-apps
+    server: harbor.latamteam.name
   scanning:
-    source:
-      policy: scan-policy-free
     image:
       policy: scan-policy-free
-
-  cluster_builder: default
+    source:
+      policy: scan-policy-free
   service_account: default
-
+  
 policy:
   tuf_enabled: false
-
+  
 profile: full
 
 scanning:
   metadataStore:
     url: ""
-
+    
 shared:
   image_registry:
     project_path: harbor.latamteam.name/tap
@@ -98,7 +90,7 @@ shared:
       namespace: default
   ingress_domain: latamteam.name
   ingress_issuer: letsencrypt-production
-
+  
 supply_chain: testing_scanning
 
 tap_gui:
@@ -120,6 +112,7 @@ tap_gui:
       reading:
         allow:
           - host: gitlab.latamteam.name
+          - host: acc-server.accelerator-system.svc.cluster.local
     catalog:
       locations:
         - target: https://gitlab.latamteam.name/blob/*/catalog/catalog-info.yaml
