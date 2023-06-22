@@ -521,7 +521,6 @@ gitlab/gitlab-ee:latest
 		--param scanning_source_policy="lax-scan-policy" \
 		--param scanning_image_policy="lax-scan-policy" \
 
-	     You need to go to gitlab and approve and merge the deployment.
 
 	  3. View the build 
             
