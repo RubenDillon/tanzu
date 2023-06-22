@@ -684,6 +684,10 @@ gitlab/gitlab-ee:latest
 ```
             
          1. Open VS Code and open the TANZU-JAVA-WEB-APP folder from the cloned gitlab resource
+
+	 2. Do a docker login against gitlab
+
+		docker login gitlab.latamteam.name -u root
          
          3. Review the following files
          
@@ -785,8 +789,7 @@ k8s_resource('tanzu-java-web-app2', port_forwards=["8080:8080"],
         
 	    
 	    tanzu apps workload create weatherforecast-steeltoe \
-            --git-repo https://gitlab.latamteam.name/root/tap-gitops \
-            --sub-path weatherforecast-steeltoe \
+            --git-repo https://gitlab.latamteam.name/root/weatherforecast-steeltoe \
             --git-branch main \
             --type web \
             --label app.kubernetes.io/part-of=weatherforecast-steeltoe \
