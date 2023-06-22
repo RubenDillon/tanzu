@@ -1296,6 +1296,9 @@ EOF
 	1. Run the following command to renew the tap-gui pod
 		kubectl rollout restart -n tap-gui deployment server
 
+	or delete the backstage pods
+		kubectl delete pod -l app=backstage -n tap-gui
+
 ```
 
 ## Troubleshoot namespace Terminating
