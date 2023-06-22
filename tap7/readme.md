@@ -24,7 +24,7 @@
 		notary.harbor.latamteam.name
 		tap-gui.latamteam.name
 		*.default.latamteam.name
-		learning-center-guided.latamteam.name
+		*.learning-center.latamteam.name
 		p3.latamteam.name
 		
 		
