@@ -5,11 +5,11 @@
 Requirements
 ============
 
-    1. An Azure subscription to deploy AKS
-    3. An AWS subscription for route53 DNS service (we create latamteam.name domain)
-    4. Tanzu Mission Control
-    5. To deploy TAP 1.5.2 we need Kubernetes v1.24, 1.25 and 1.26.
-	We will be using 1.24.10 on a AKS deployed on Azure
+1. An Azure subscription to deploy AKS
+3. An AWS subscription for route53 DNS service (we create latamteam.name domain)
+4. Tanzu Mission Control
+5. To deploy TAP 1.5.2 we need Kubernetes v1.24, 1.25 and 1.26.
+We will be using 1.24.10 on a AKS deployed on Azure
 
   NOTE: We will be using lets Encrypt to obtain public free digital certificates.
 	Using Lets Encrypt has a limitation.  A certificate for the same domain
@@ -20,11 +20,11 @@ Requirements
 
 Create the DNS records
 ======================
-    1. For this environment we will be using DNS Route53 from AWS
+1. For this environment we will be using DNS Route53 from AWS
     
-    2. We create a DNS domain called latamteam.name for this environment
+2. We create a DNS domain called latamteam.name for this environment
     
-    3. In that environment we will create the following records
+3. In that environment we will create the following records
     		gitlab.latamteam.name
 		harbor.latamteam.name
 		notary.harbor.latamteam.name
@@ -37,45 +37,44 @@ Create the DNS records
 Create the environment
 ======================
 
-    1. Deploy azure client or upgrade it (in my case, Im using a Mac)
-    ```
-    brew update && brew install azure-cli
-    ```
+1. Deploy azure client or upgrade it (in my case, Im using a Mac)
+```
+brew update && brew install azure-cli
+```
     
-    2. Log to Azure 
-    ```
-    az login
-    ```
+2. Log to Azure 
+```
+az login
+```
     
-    3. Define your subscription
-    ```
-    az account set --subscription dddddxxxx-xx-xxxxx-xxxxxxxx
-    ```
+3. Define your subscription
+```
+az account set --subscription dddddxxxx-xx-xxxxx-xxxxxxxx
+```
     
-    4. Create the resource group where AKS will be deployed
-    ```
-    az group create --name LATAM-TAP-RG --location eastus
-    ```
+4. Create the resource group where AKS will be deployed
+```
+az group create --name LATAM-TAP-RG --location eastus
+```
     
-    6. Verify the kubernetes versions available for AKS
-    ```
-    az aks get-versions --location eastus
-    ```
+6. Verify the kubernetes versions available for AKS
+```
+az aks get-versions --location eastus
+```
     
-    5. Create the AKS cluster
-
+5. Create the AKS cluster
 	  to test.............. Standard_D4ds_v4 creates nodes with 4 vCPU and 16 GB RAM
 	  to have a real use... Standard_D8ds_v5 creates nodes with 8 vCPU and 32 GB RAM
 
-    ```
-    az aks create -g LATAM-TAP-RG -n latam-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.24.10
-    ```
+```
+az aks create -g LATAM-TAP-RG -n latam-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.24.10
+```
 
-    6. Deploy kubectl
-    ```
-    sudo su
-    az aks install-cli
-    ```
+6. Deploy kubectl
+```
+sudo su
+az aks install-cli
+```
     
     7. Download the kubectl 
     ```
