@@ -1043,12 +1043,12 @@ tanzu services class-claims get sensors-mysql
 	
 9. Add the Data Services, we need to open the workload.yaml file from config
 
-		  serviceClaims:
-                    - name: db
-                      ref:
-                        apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-                        kind: ClassClaim
-                        name: sensors-mysql	
+serviceClaims:
+   - name: db
+     ref:
+       apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+       kind: ClassClaim
+       name: sensors-mysql	
 	
 9. Push the changes to github
 ```	
