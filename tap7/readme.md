@@ -875,153 +875,141 @@ curl -k https://simple-web-app.default.tanzulatam.name/hello
 
 
 
-## Steps to create a TAP workload from an existing application 
+Steps to create a TAP workload from an existing application 
+=
+
+We will deploy a Hello World application based on .NET that is available in Azure examples
+```        
+tanzu apps workload create hello-world \
+--git-repo https://github.com/Azure-Samples/dotnetcore-docs-hello-world \
+--git-branch master \
+--type web \
+--label app.kubernetes.io/part-of=hello-world \
+--label apps.tanzu.vmware.com/has-tests=true \
+--yes \
+--tail \
+--namespace default
 ```
-        We will deploy a Hello World application based on .NET that is available in Azure examples
-        
-            tanzu apps workload create hello-world \
-            --git-repo https://github.com/Azure-Samples/dotnetcore-docs-hello-world \
-            --git-branch master \
-            --type web \
-            --label app.kubernetes.io/part-of=hello-world \
-            --label apps.tanzu.vmware.com/has-tests=true \
-            --yes \
-            --tail \
-            --namespace default
 
-	Usng VS Code you could use snippet to create the workload.yaml and the catalog-info.yaml
+Using VS Code you could use snippet to create the workload.yaml and the catalog-info.yaml
 
-	Open a new file and write tanzu and wait the response of VS Code
-
-	VS Code will suggest a snippets
+1. Open a new file and write tanzu and wait the response of VS Code
+2. VS Code will suggest a snippets
 		
 	
-	Another example... using Azure AI
+### Another example... using Azure AI
+```	
+tanzu apps workload create chatgpt \
+--git-repo https://github.com/Azure-Samples/chatgpt-quickstart \
+--git-branch main \
+--type web \
+--label app.kubernetes.io/part-of=chatgpt \
+--label apps.tanzu.vmware.com/has-tests=true \
+--yes \
+--tail \
+--namespace default
+```	    
+Approve and confirm the Merge and wait until the application is running
 	
-	tanzu apps workload create chatgpt \
-            --git-repo https://github.com/Azure-Samples/chatgpt-quickstart \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=chatgpt \
-            --label apps.tanzu.vmware.com/has-tests=true \
-            --yes \
-            --tail \
-            --namespace default
-	    
-	Approve and confirm the Merge and wait until the application is running
-	
-	To use the application follow the instructions from https://github.com/Azure-Samples/chatgpt-quickstart	
+To use the application follow the instructions from https://github.com/Azure-Samples/chatgpt-quickstart	
 
-```
 
-## Service Bindings
-```
+Service Bindings
+=
+
 	- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-claim-services.html
 	- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-consume-services.html
 	
-	1. To review the default deployment that we have it, use the following
-	
-		tanzu service class list
-	
-	2. To review RabbitMQ, the service that we will be using
-	
-		tanzu service class get rabbitmq-unmanaged
-	
-	3. Create a claim of Rabbit with a 3GB space
-	
-		tanzu service class-claim create rabbitmq-1 --class rabbitmq-unmanaged --parameter storageGB=3
-	
-	4. Review the progress running
-	
-		tanzu services class-claims get rabbitmq-1 --namespace default
-	
-	5. Now we deploy an example that consumes, this RabbitMQ. This application have two pieces, the consumer web and the producer.
-	
-  tanzu apps workload create spring-sensors-consumer-web \
-  --git-repo https://github.com/tanzu-end-to-end/spring-sensors \
-  --git-branch rabbit \
-  --type web \
-  --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-  --label apps.tanzu.vmware.com/has-tests=true \
-  --label app.kubernetes.io/part-of=spring-sensors-rabbit \
-  --annotation autoscaling.knative.dev/minScale=1 \
-  --service-ref="rmq=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:rabbitmq-1"
-	
-	6. And run the following app as Producer
-	
+1. To review the default deployment that we have it, use the following
+``` 
+tanzu service class list
+```	
+2. To review RabbitMQ, the service that we will be using
+```	
+tanzu service class get rabbitmq-unmanaged
+```	
+3. Create a claim of Rabbit with a 3GB space
+```	
+tanzu service class-claim create rabbitmq-1 --class rabbitmq-unmanaged --parameter storageGB=3
+```	
+4. Review the progress running
+```	
+tanzu services class-claims get rabbitmq-1 --namespace default
+```	
+5. Now we deploy an example that consumes, this RabbitMQ. This application have two pieces, the consumer web and the producer.
+```	
+tanzu apps workload create spring-sensors-consumer-web \
+--git-repo https://github.com/tanzu-end-to-end/spring-sensors \
+--git-branch rabbit \
+--type web \
+--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+--label apps.tanzu.vmware.com/has-tests=true \
+--label app.kubernetes.io/part-of=spring-sensors-rabbit \
+--annotation autoscaling.knative.dev/minScale=1 \
+--service-ref="rmq=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:rabbitmq-1"
+```	
+6. And run the following app as Producer
+```	
+tanzu apps workload create spring-sensors-producer \
+--git-repo https://github.com/tanzu-end-to-end/spring-sensors-sensor \
+--git-branch main \
+--type web \
+--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+--label apps.tanzu.vmware.com/has-tests=true \
+--label app.kubernetes.io/part-of=spring-sensors-rabbit \
+--annotation autoscaling.knative.dev/minScale=1 \
+--service-ref="rmq=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:rabbitmq-1" \
+--tail -y
+```
+7. Go to the consumer-web deployment and wait until the Producer is running and giving information to RabbitMQ
 
-  tanzu apps workload create spring-sensors-producer \
-  --git-repo https://github.com/tanzu-end-to-end/spring-sensors-sensor \
-  --git-branch main \
-  --type web \
-  --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-  --label apps.tanzu.vmware.com/has-tests=true \
-  --label app.kubernetes.io/part-of=spring-sensors-rabbit \
-  --annotation autoscaling.knative.dev/minScale=1 \
-  --service-ref="rmq=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:rabbitmq-1" \
-  --tail -y
-
-	7. Go to the consumer-web deployment and wait until the Producer is running and giving information to RabbitMQ
-
-	8. Add the app to the catalog
-
-             https://github.com/tanzu-end-to-end/spring-sensors-sensor/blob/main/catalog/catalog-info.yaml
-	     
+8. Add the app to the catalog
+```
+https://github.com/tanzu-end-to-end/spring-sensors-sensor/blob/main/catalog/catalog-info.yaml
+```	     
 	   
-        9. If we want to do a Service Binding with a Database (PostgreSQL for example), the procedure is more or less the same
-	
-	
-		tanzu service class-claim create psql-1 --class postgresql-unmanaged --parameter storageGB=3
-		
-		tanzu services class-claims get psql-1
-		
-		tanzu service class-claim get psql-1
-		
-		tanzu apps workload create my-workload --image my-registry/my-app-image --service-ref db=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:psql-1
-	     
-	     
+9. If we want to do a Service Binding with a Database (PostgreSQL for example), the procedure is more or less the same
+```	
+tanzu service class-claim create psql-1 --class postgresql-unmanaged --parameter storageGB=3		
+tanzu services class-claims get psql-1		
+tanzu service class-claim get psql-1		
+tanzu apps workload create my-workload --image my-registry/my-app-image --service-ref db=services.apps.tanzu.vmware.com/v1alpha1:ClassClaim:psql-1
 ```
 
-## A more complex application including MySQL as Service Binding
+A more complex application including MySQL as Service Binding
+=
+
+1. Create a Spring-Sensors fork from https://github.com/RubenDillon/spring-sensors	
+2. Do a git clone from your repository
 ```
-
-	1. Create a Spring-Sensors fork from https://github.com/RubenDillon/spring-sensors
+git clone https://github.com/<your github>/spring-sensors
+```	
+2. Open the folder on VS Code	
+3. Run the application using the tiltfile and add the following information
+```
+allow_k8s_contexts('tkg2-tap-01')
+				
+" --label apps.tanzu.vmware.com/has-tests=true " +
+" --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " +
+```		
+		
+4. Wait until you have to approve the Pull Request. Press the Approval button on "Config Writer" step. 
 	
-	2. Do a git clone from your repository
+5. Select Merge in github and wait until the app be running and available
 	
-		git clone https://github.com/<your github>/spring-sensors
+6. Review from your local machine where spring-sensors is copied, go to the folder config and edit workload.yaml
 	
-	2. Open the folder on VS Code
+Modify the part where is the source code with your github space
 	
-	3. Run the application using the tiltfile and add the following information
+6. Using the terminal review your current path using pwd. Then move to the tap-gitops folder and commit the code
+```	 
+git -C /Users/rubendillon/tanzu/spring-sensors add .		
+git -C /Users/rubendillon/tanzu/spring-sensors commit -a -m "Initial Commit of Spring Sensors"		
+git push
+```		
 		
-		allow_k8s_contexts('tkg2-tap-01')
-		
-		
-               " --label apps.tanzu.vmware.com/has-tests=true " +
-               " --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " +
-		
-		
-	4. Wait until you have to approve the Pull Request. Press the Approval button on "Config Writer" step. 
-	
-	5. Select Merge in github and wait until the app be running and available
-	
-	6. Review from your local machine where spring-sensors is copied, go to the folder config and edit workload.yaml
-	
-		Modify the part where is the source code with your github space
-	
-	6. Using the terminal review your current path using pwd. Then move to the tap-gitops folder and commit the code
-	 
-	 	git -C /Users/rubendillon/tanzu/spring-sensors add .
-		
-		git -C /Users/rubendillon/tanzu/spring-sensors commit -a -m "Initial Commit of Spring Sensors"
-		
-		git push
-		
-		
-	7. Now is time to create the deliverable.yaml file into gitops-deliverables folder to move the deployment to the run (production environment)
-
-
+7. Now is time to create the deliverable.yaml file into gitops-deliverables folder to move the deployment to the run (production environment)
+```
 apiVersion: carto.run/v1alpha1
 kind: Deliverable
 metadata:
@@ -1036,28 +1024,25 @@ spec:
       ref:
         branch: main
       url: https://github.com/RubenDillon/spring-sensors	
-	
+```	
 		
-	7. Subirlo al git
-	  
-	  	 git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables add deliverable.yaml
+7. Subirlo al git
+```	  
+git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables add deliverable.yaml		 
+git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables  commit -a -m "Adding deliverable"
+git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables pull -r
+git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables push -u origin main
+```
 		 
-		 git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables  commit -a -m "Adding deliverable"
-	 
-	 	 git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables pull -r
-		 
-		 git -C /Users/rubendillon/tanzu/spring-sensors/gitops-deliverables push -u origin main
-		 
-	8. Create the data base for the application
+8. Create the database for the application	
+```	
+tanzu service class list
+tanzu service class-claim create sensors-mysql --class mysql-unmanaged --parameter storageGB=3		
+tanzu services class-claims get sensors-mysql
+```
 	
-		tanzu service class list
-		
-		tanzu service class-claim create sensors-mysql --class mysql-unmanaged --parameter storageGB=3
-		
-		tanzu services class-claims get sensors-mysql
-	
-	8. Add the Data Services, we need to open the workload.yaml file from config
-	
+9. Add the Data Services, we need to open the workload.yaml file from config
+
 		  serviceClaims:
                     - name: db
                       ref:
@@ -1065,50 +1050,38 @@ spec:
                         kind: ClassClaim
                         name: sensors-mysql	
 	
-	9. Push the changes to github
-	
-		 git -C /Users/rubendillon/tanzu/sp
-		 ring-sensors/config add .
+9. Push the changes to github
+```	
+git -C /Users/rubendillon/tanzu/spring-sensors/config add .
+git -C /Users/rubendillon/tanzu/spring-sensors/config  commit -a -m "Adding Data Services"	 
+git -C /Users/rubendillon/tanzu/spring-sensors/config pull -r
+git -C /Users/rubendillon/tanzu/spring-sensors/config push -u origin main
+```		 
 		 
-		 git -C /Users/rubendillon/tanzu/spring-sensors/config  commit -a -m "Adding Data Services"
-	 
-	 	 git -C /Users/rubendillon/tanzu/spring-sensors/config pull -r
-		  
-		 git -C /Users/rubendillon/tanzu/spring-sensors/config push -u origin main
+10. Run the tiltfile again and wait up to have the Pull Request requirement in "Config Writer". 
+	
+11. Approve the merge and wait until the app will be ready
+	
+12. Now we could make modification to introduce problems with security. Modify spring-sensors/pom.xml from VS Code
+	
+	- Search org.hsqldb
+	- replace 2.7.1 by 2.7.0
+	
+13. Save the file
+14. Push the changes
+```	
+git -C /Users/rubendillon/tanzu/spring-sensors commit -a -m "Initial Commit of Spring Sensors"
+git -C /Users/rubendillon/tanzu/spring-sensors pull -r
+git -C /Users/rubendillon/tanzu/spring-sensors push -u origin main
+```		 
 		 
-		 
-	10. Run the tiltfile again and wait up to have the Pull Request requirement in "Config Writer". 
-	
-	11. Approve the merge and wait until the app will be ready
-	
-	12. Now we could make modification to introduce problems with security. Modify spring-sensors/pom.xml from VS Code
-	
-		Search org.hsqldb
+15. You will found a vulnerability runned by Snyk on your VSCode or in the TAP-GuI the supply chain (hsqldb version 2.7.0)		
 		
-		replace 2.7.1 by 2.7.0
-	
-	13. Save the file
-	
-	14. Push the changes
-	
-	
-		git -C /Users/rubendillon/tanzu/spring-sensors commit -a -m "Initial Commit of Spring Sensors"
-		
-	 	 git -C /Users/rubendillon/tanzu/spring-sensors pull -r
-		  
-		 git -C /Users/rubendillon/tanzu/spring-sensors push -u origin main
-		 
-		 
-	15. You will found a vulnerability runned by Snyk on your VSCode or in the TAP-GuI the supply chain (hsqldb version 2.7.0)		
-		
-	
-	16. To add this application to the Catalog, register the following Entity
-	
-		https://github.com/RubenDillon/spring-sensors/blob/main/catalog-info.yaml	
-		
-	
+16. To add this application to the Catalog, register the following Entity
+```	
+https://github.com/RubenDillon/spring-sensors/blob/main/catalog-info.yaml	
+```		
 
-```
 
 ## Configure Persitent Storage for the GUI
 ```
