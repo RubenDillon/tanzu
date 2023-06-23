@@ -113,7 +113,7 @@ tanzu package available list cert-manager.tanzu.vmware.com -A
 kubectl create ns cert-manager
 tanzu package install cert-manager --package cert-manager.tanzu.vmware.com --namespace cert-manager --version 1.10.2+vmware.1-tkg.1
 ```
-NOTE: at this moment we have available for example 1.10.2+vmware.1-tkg.1   
+	NOTE: at this moment we have available for example 1.10.2+vmware.1-tkg.1   
   
 16. Deploy Contour 
 ```    		
@@ -126,7 +126,7 @@ tanzu package install contour \
 --values-file contour-values.yaml \
 --namespace contour
 ```
-NOTE: at this time we have available for example 1.23.5+vmware.1-tkg.1
+	NOTE: at this time we have available for example 1.23.5+vmware.1-tkg.1
 
 17. Obtain the Public IP Address where Envoy is running
 ```    
