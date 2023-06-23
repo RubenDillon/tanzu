@@ -32,11 +32,11 @@ Create the DNS records
 3. In that environment we will create the following records
 	- gitlab.latamteam.name
 	- harbor.latamteam.name
-- notary.harbor.latamteam.name
-- tap-gui.latamteam.name
-- *.default.latamteam.name
-- *.learning.latamteam.name
-- pgs.latamteam.name
+	- notary.harbor.latamteam.name
+	- tap-gui.latamteam.name
+	- *.default.latamteam.name
+	- *.learning.latamteam.name
+	- pgs.latamteam.name
 				
 
 Create the environment
@@ -69,9 +69,9 @@ az aks get-versions --location eastus
     
 6. Create the AKS cluster
 
-to test.............. Standard_D4ds_v4 creates nodes with 4 vCPU and 16 GB RAM
+	to test.............. Standard_D4ds_v4 creates nodes with 4 vCPU and 16 GB RAM
 
-to have a real use... Standard_D8ds_v5 creates nodes with 8 vCPU and 32 GB RAM
+	to have a real use... Standard_D8ds_v5 creates nodes with 8 vCPU and 32 GB RAM
 
 ```
 az aks create -g LATAM-TAP-RG -n latam-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.24.10
