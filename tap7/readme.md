@@ -1,7 +1,9 @@
 # Deploying Tanzu Application Platform v1.5.2 on Azure Cloud
 
 ### using AKS with Harbor and GitLab using FREE public certificates from Let's Encrypt 
-### Deploy Test and Scan supply chain and GitLab authentication and integration   
+
+In this tutorial we will be deploying Test and Scan supply chain and GitLab 
+authentication and integration.   
 
 
 
