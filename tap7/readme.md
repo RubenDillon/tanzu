@@ -1,3 +1,5 @@
+![alt text](https://github.com/RubenDillon/tanzu/blob/main/tap7/resources/PXL_20220207_201728242.jpeg?raw=true)
+
 # Deploying Tanzu Application Platform v1.5.2 on Azure Cloud
 
 ### using AKS with Harbor and GitLab using FREE public certificates from Let's Encrypt 
