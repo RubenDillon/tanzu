@@ -30,8 +30,8 @@ Environment
 =
 
 At the end of this step by step we will be using the following infrastructure
-- A DNS service in AWS (Route53)
-- An AKS platform
+- A DNS service in AWS (Route53) for the domain latamteam.name
+- An AKS platform (one kubernetes cluster)
 - Let's Encrypt certificates
 - Harbor running in harbor.latamteam.name
 - GitLab running in gitlab.latamteam.name
