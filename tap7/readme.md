@@ -695,36 +695,35 @@ tanzu apps workload apply tanzu-java-web-app \
 ```	
 
 4. When the Supply Chain reach the Config Writer state, you will have a "Approve" button. 
-	
+
 5. That button direct you to the gitlab merge request 
-		
+
 6 With that, the supply chain continues and deploy the application in a couple of minutes
 
 
+Configure VS Code
+=
 
-## Configure VS Code
-```
-        1. Deploy VS Code on your machine
-        2. Connect to Tanzu Network and download TANZU Developers Tools for Visual Studio Code
-        3. Open VS Code.
-        4. Press cmd+shift+P to open the Command Palette and run Extensions: Install from VSIX....
-        5. Select the extension file tanzu-vscode-extension.vsix.
-        6. If you do not have the following extensions, and they do not automatically install, install them from VS Code Marketplace:
-                - Debugger for Java
-                - Language Support for Java(™) by Red Hat
-                - YAML
-        7. Ensure Language Support for Java is running in Standard Mode. You can configure it in the Settings menu by going to Code > Preferences >      Settings under Java > Server: Launch Mode.
-        8. When the JDK and Language Support for Java are configured correctly, you see that the integrated development environment creates a directory target where the code is compiled.
-        9. Configure VMware Tanzu Developer Tools for VS Code
-                - Confirm Delete: This controls whether the extension asks for confirmation when deleting a workload.
-                - Enable Live Hover:  Reload VS Code for this change to take effect.
-                - Source Image: harbor.latamteam.name/tap-apps/tanzu-java-web-app
-                - Namespace: default.   
-        
-	10. Do the same with the "Tanzu App Accelerator Extension for Visual Studio Code" 
-	
-	11. Once deployed configure tap-gui.latamteam.name as the TAP GUI URL
-```
+1. Deploy VS Code on your machine
+2. Connect to Tanzu Network and download TANZU Developers Tools for Visual Studio Code
+3. Open VS Code.
+4. Press cmd+shift+P to open the Command Palette and run Extensions: Install from VSIX....
+5. Select the extension file tanzu-vscode-extension.vsix.
+6. If you do not have the following extensions, and they do not automatically install, install them from VS Code Marketplace:
+     - Debugger for Java
+     - Language Support for Java(™) by Red Hat
+     - YAML
+7. Ensure Language Support for Java is running in Standard Mode. You can configure it in the Settings menu by going to Code > Preferences >      Settings under Java > Server: Launch Mode.
+8. When the JDK and Language Support for Java are configured correctly, you see that the integrated development environment creates a directory target where the code is compiled.
+9. Configure VMware Tanzu Developer Tools for VS Code
+     - Confirm Delete: This controls whether the extension asks for confirmation when deleting a workload.
+     - Enable Live Hover:  Reload VS Code for this change to take effect.
+     - Source Image: harbor.latamteam.name/tap-apps/tanzu-java-web-app
+     - Namespace: default.   
+   
+10. Do the same with the "Tanzu App Accelerator Extension for Visual Studio Code" 	
+11. Once deployed configure tap-gui.latamteam.name as the TAP GUI URL
+
 
 ## Using VS Code to deploy and iterate the example
 
