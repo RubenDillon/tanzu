@@ -474,7 +474,8 @@ gitlab/gitlab-ee:latest
  
         1. Modify the tap-values-ootb-test-scan-auth.yaml from this github
 
-	2. Apply this file into TAP package using the TMC Catalog
+	2. Apply this file into TAP package using the TMC Catalog. If you decide uninstall TAP and then use this tap-values to deploy again,
+		remember to add all the previous steps like patch service account and anything that already we did.
        
         3. Create the Scan policy applying the scan-policy-free.yaml and scan-template.yaml
         
@@ -626,8 +627,10 @@ gitlab/gitlab-ee:latest
 
 ## Configure Pull Request (PR) for the supply chain
 ```
-	1. Modify the tap-values-ootb_test_Scan-auth-PR.yaml and copy in the TAP package to add Pull Request. 
-    
+	1. Modify the tap-values-ootb_test_Scan-auth-PR.yaml and copy in the TAP package to add Pull Request.
+	   If you decide uninstall TAP and then use this tap-values to deploy again,
+	   remember to add all the previous steps like patch service account and anything that already we did.
+ 
     	2. Delete the tanzu-java-web-app and deploy it again
 		tanzu apps workload delete tanzu-java-web-app --namespace default -y
 	
@@ -685,9 +688,9 @@ gitlab/gitlab-ee:latest
             
          1. Open VS Code and open the TANZU-JAVA-WEB-APP folder from the cloned gitlab resource
 
-	 2. Do a docker login against gitlab
+	 2. Do a docker login against harbor
 
-		docker login gitlab.latamteam.name -u root
+		docker login harbor.latamteam.name -u admin
          
          3. Review the following files
          
@@ -700,7 +703,8 @@ gitlab/gitlab-ee:latest
 	 	allow_k8s_contexts('<name of your cluster>')
 	 
 	 5. Remember that you probably need to add the label for pipeline (needs to looks like the following)
-	 
+
+		" --label apps.tanzu.vmware.com/has-tests=true " +
 	 	" --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " +
 	 
        
@@ -708,8 +712,7 @@ gitlab/gitlab-ee:latest
          
          7. Modify /src/main/java/com/example/springboot/HelloController.java 
          
-                return "Greetings from Spring Boot + Tanzu!"; (change it to something and see the change in the application already deployed)    
-		
+                return "Greetings from Spring Boot + Tanzu!"; (change it to something and see the change in the application already deployed)    	
 		
 	 8. Using the terminal review your current path using pwd. Then move to the tanzu-java-web-app folder and commit the code
 	 
@@ -718,7 +721,6 @@ gitlab/gitlab-ee:latest
 		git -C /Users/rubendillon/tanzu/tap-gitops/tanzu-java-web-app commit -a -m "Initial Commit of Tanzu Java Web App"
 		
 		git push
-		
 		
 		
 	  7. Revisar el archivo delivery.yml y subirlo al git
@@ -742,38 +744,12 @@ gitlab/gitlab-ee:latest
 			Repository Name: tanzu-java-web-app2
 			Repository Branch: main
 			
-	    10. Open the app and modify the tiltfile to see like the following
+	    10. Open the app and modify the tiltfile to include the following
 	    
-allow_k8s_contexts('tkg2-tap-01')
+			allow_k8s_contexts('<your cluster>')
 
-SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='harbor.latamteam.name/tap-apps/tanzu-java-web-app2-source')
-LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
-NAMESPACE = os.getenv("NAMESPACE", default='default')
-OUTPUT_TO_NULL_COMMAND = os.getenv("OUTPUT_TO_NULL_COMMAND", default=' > /dev/null ')
-
-k8s_custom_deploy(
-    'tanzu-java-web-app3',
-    apply_cmd="tanzu apps workload apply -f config/workload.yaml --debug --live-update" +
-               " --local-path " + LOCAL_PATH +
-               " --source-image " + SOURCE_IMAGE +
-               " --namespace " + NAMESPACE +
-               " --label apps.tanzu.vmware.com/has-tests=true " +
-               " --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " +
-               " --yes " +
-               OUTPUT_TO_NULL_COMMAND +
-               " && kubectl get workload tanzu-java-web-app3 --namespace " + NAMESPACE + " -o yaml",
-    delete_cmd="tanzu apps workload delete -f config/workload.yaml --namespace " + NAMESPACE + " --yes",
-    deps=['pom.xml', './target/classes'],
-    container_selector='workload',
-    live_update=[
-      sync('./target/classes', '/workspace/BOOT-INF/classes')
-    ]
-)
-
-k8s_resource('tanzu-java-web-app2', port_forwards=["8080:8080"],
-            extra_pod_selectors=[{'carto.run/workload-name': 'tanzu-java-web-app3', 'app.kubernetes.io/component': 'run'}])
-	    
-	    
+               		" --label apps.tanzu.vmware.com/has-tests=true " +
+               		" --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " + 
 	    
 	    11. Use the LiveView to deploy it into TAP... wait until you need to Approve the Request... and finally see the deployment.
 	
@@ -781,12 +757,13 @@ k8s_resource('tanzu-java-web-app2', port_forwards=["8080:8080"],
 ```
 
 
-## Try another applications as example
+## Try another application as example
 ```
         A Weather application using Steeltoe framework (.NET core)
 
-	Use the VSCode to create this example from the Application Accelerator and push to gitlab
-        
+	Use the VSCode to create this example from the Application Accelerator and push to gitlab...
+
+	Then you could use VS Code or run it from terminal using the following command
 	    
 	    tanzu apps workload create weatherforecast-steeltoe \
             --git-repo https://gitlab.latamteam.name/root/weatherforecast-steeltoe \
@@ -803,7 +780,9 @@ k8s_resource('tanzu-java-web-app2', port_forwards=["8080:8080"],
 
  	Another Java application 
 
-	Use the VSCode to create this example from the Application Accelerator and push to gitlab
+	Use the VSCode to create this example from the Application Accelerator and push to gitlab.
+
+	Then you could use VS Code or run it from terminal using the following command
 	  
 	    tanzu apps workload create java-server-side-ui \
             --git-repo https://gitlab.latamteam.name/root/tap-gitops \
@@ -819,11 +798,12 @@ k8s_resource('tanzu-java-web-app2', port_forwards=["8080:8080"],
 	Automatically this application will be in the Application Catalog from TAP-GUI 
 
 
-
 	    
 	An Angular front end application
 
 	Use the VSCode to create this example from the Application Accelerator and push to gitlab
+
+	Then you could use VS Code or run it from terminal using the following command
 
 	    tanzu apps workload create angular-frontend \
             --git-repo https://gitlab.latamteam.name/root/tap-gitops \
@@ -842,6 +822,8 @@ k8s_resource('tanzu-java-web-app2', port_forwards=["8080:8080"],
 	A Node.js (using express.js) example
 
 	Use the VSCode to create this example from the Application Accelerator and push to gitlab
+
+	Then you could use VS Code or run it from terminal using the following command
 	    
 	    tanzu apps workload create node-express \
             --git-repo https://gitlab.latamteam.be/root/tap-gitops \
@@ -867,14 +849,12 @@ k8s_resource('tanzu-java-web-app2', port_forwards=["8080:8080"],
 	    curl -k https://simple-web-app.default.tanzulatam.name/hello
 	    
 	
-	
-	
 ```
 
 
 ## Steps to create a TAP workload from an existing application 
 ```
-        We will deploy a Hello World application based on .NET that is available in the Azure examples
+        We will deploy a Hello World application based on .NET that is available in Azure examples
         
             tanzu apps workload create hello-world \
             --git-repo https://github.com/Azure-Samples/dotnetcore-docs-hello-world \
@@ -887,7 +867,9 @@ k8s_resource('tanzu-java-web-app2', port_forwards=["8080:8080"],
             --namespace default
 
 	Usng VS Code you could use snippet to create the workload.yaml and the catalog-info.yaml
+
 	Open a new file and write tanzu and wait the response of VS Code
+
 	VS Code will suggest a snippets
 		
 	
