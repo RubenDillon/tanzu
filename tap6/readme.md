@@ -1,6 +1,6 @@
 # Deploy Tanzu Application Platform v1.5.1 on Azure Cloud
 # using AKS with Harbor (using FREE public certificates) 
-## Deploy Test, Scan and Github authentication and integration  
+## Deploy Test and Scan supply chain and Github authentication and integration  
 
 ![alt text](https://github.com/RubenDillon/tanzu/blob/main/tap7/resources/environment.png?raw=true)
 
