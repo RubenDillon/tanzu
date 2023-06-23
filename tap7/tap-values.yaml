@@ -11,29 +11,22 @@ buildservice:
   kp_default_repository_secret:
     name: registry-credentials
     namespace: default
-    
 ceip_policy_disclosed: true
-
 contour:
   envoy:
     service:
       type: LoadBalancer
-      
 excluded_packages:
   - contour.tanzu.vmware.com
   - cert-manager.tanzu.vmware.com
-  
 grype:
   namespace: default
   targetImagePullSecret: registry-credentials
-  
 learningcenter:
-  ingressDomain: latamteam.name
-  
+  ingressDomain: learning-center.latamteam.name
 metadata_store:
   app_service_type: ClusterIP
   ns_for_export_app_cert: default
-  
 namespace_provisioner:
   additional_sources:
     - git:
@@ -42,13 +35,10 @@ namespace_provisioner:
         url: https://github.com/vmware-tanzu/application-accelerator-samples.git
       path: _ytt_lib/testing-scanning-supplychain-polyglot-setup
   controller: true
-  
 ootb_delivery_basic:
   service_account: default
-  
 ootb_supply_chain_basic:
   service_account: default
-  
 ootb_supply_chain_testing_scanning:
   cluster_builder: default
   gitops:
@@ -72,16 +62,12 @@ ootb_supply_chain_testing_scanning:
     source:
       policy: scan-policy-free
   service_account: default
-  
 policy:
   tuf_enabled: false
-  
 profile: full
-
 scanning:
   metadataStore:
     url: ""
-    
 shared:
   image_registry:
     project_path: harbor.latamteam.name/tap
@@ -90,9 +76,7 @@ shared:
       namespace: default
   ingress_domain: latamteam.name
   ingress_issuer: letsencrypt-production
-  
 supply_chain: testing_scanning
-
 tap_gui:
   app_config:
     app:
