@@ -539,89 +539,84 @@ kubectl get pipeline.tekton.dev,scanpolicies
 tanzu apps workload delete tanzu-java-web-app -y    
 ```        	
         
-### Test an Example in a Testing and Scanning supply chain
+Test an Example in a Testing and Scanning supply chain
+=
+	
+1. Now we will be deploying the example using that repository
+```	
+tanzu apps workload apply tanzu-java-web-app \
+--git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
+--git-branch main \
+--type web \
+--app tanzu-java-web-app \
+--label apps.tanzu.vmware.com/has-tests="true" \
+--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+--tail \
+--yes
 ```
 	
-	1. Now we will be deploying the example using that repository
+2. For scan policy, we already define a default in our configuration (tap-values...yaml), but if we dont do that.. 
+the default policy (scan-policy) is very restrictive and we need to define which one.. we want to use..
 	
-		tanzu apps workload apply tanzu-java-web-app \
-		--git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
-		--git-branch main \
-		--type web \
-		--app tanzu-java-web-app \
-		--label apps.tanzu.vmware.com/has-tests="true" \
-		--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-		--tail \
-		--yes
-	
-	  2. For scan policy, we already define a default in our configuration (tap-values...yaml), but if we dont do that.. 
-	  the default policy (scan-policy) is very restrictive and we need to define which one.. we want to use..
-	
-		--param scanning_source_policy="lax-scan-policy" \
-		--param scanning_image_policy="lax-scan-policy" \
+	- --param scanning_source_policy="lax-scan-policy" \
+	- --param scanning_image_policy="lax-scan-policy" \
 
-
-	  3. View the build 
-            
-           	 kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
+3. View the build 
+```            
+kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
+```
     
-   	  4. After ends you could access the TAP GUI to see the process and review the app using the following command
-    
-            	tanzu apps workload get tanzu-java-web-app --namespace default
-
-
-	  5. Review the deliverables of the deployment
-	 
-
-		kubectl get deliverables
-		
-		kubectl get deliverable tanzu-java-web-app -o yaml > deliverable-tanzu-java-web-app.yaml
-
-
-	  6. Review the Knative service of the deployment
-		
-		kubectl get service.serving.knative.dev/tanzu-java-web-app
-
-
+4. After ends you could access the TAP GUI to see the process and review the app using the following command
+```    
+tanzu apps workload get tanzu-java-web-app --namespace default
 ```
 
-## Use KubeNEAT to generate a readable delivery file 
+5. Review the deliverables of the deployment
+```	 
+kubectl get deliverables		
+kubectl get deliverable tanzu-java-web-app -o yaml > deliverable-tanzu-java-web-app.yaml
 ```
 
-	1. Deploy KubeNEAT
-
-          wget -O - https://github.com/itaysk/kubectl-neat/releases/download/v2.0.3/kubectl-neat_linux_amd64.tar.gz | \
-          sudo tar -C /usr/local/bin -zxvf - kubectl-neat
-
-	2. Use it to review a better readable file
-
-		kubectl-neat < deliverable-tanzu-java-web-app.yaml > deliverable-limpio.yaml
-
-	3. You could use that file to deploy the application into another cluster. For example, this environment will be for
-	   development and another cluster (run cluster) for production. In that cluster, we could deploy with this
-	   deliverable file.
-
+6. Review the Knative service of the deployment
+```		
+kubectl get service.serving.knative.dev/tanzu-java-web-app
 ```
 
+Use KubeNEAT to generate a readable delivery file 
+=
 
-## Review the Self-Guided Workshop
+1. Deploy KubeNEAT
 ```
-    1. run the following command to review the activated portals
-            kubectl get trainingportals
+wget -O - https://github.com/itaysk/kubectl-neat/releases/download/v2.0.3/kubectl-neat_linux_amd64.tar.gz | \
+sudo tar -C /usr/local/bin -zxvf - kubectl-neat
+```
 
-    2. then connect to the defined URL
-            http://learning-center-guided.learning.latamteam.name
+2. Use it to review a better readable file
+```
+kubectl-neat < deliverable-tanzu-java-web-app.yaml > deliverable-limpio.yaml
+```
+3. You could use that file to deploy the application into another cluster. For example, this environment will be for
+development and another cluster (run cluster) for production. In that cluster, we could deploy with this deliverable file.
 
-  NOTE: This is a good example on how to build a workshop. Only one thing that we need to consider
-	about this particular example. Everything works, except when we try to reach the registry
+
+
+Review the Self-Guided Workshop
+=
+
+1. run the following command to review the activated portals
+```
+kubectl get trainingportals
+```
+
+2. then connect to the defined URL http://learning-center-guided.learning.latamteam.name
+
+NOTE: This is a good example on how to build a workshop. Only one thing that we need to consider
+      	about this particular example. Everything works, except when we try to reach the registry
 	inside the workshop. This is a limitation on containerd when we use http, as we are using
 	with this deployment of Learning Center. This is not the case when we use a secure
 	connection using https.
 
 	- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/learning-center-getting-started-learning-center-operator.html	 
-
-
-```
 
 ## Deploy the different Learning Portals
 ```
