@@ -113,7 +113,7 @@ tanzu package available list cert-manager.tanzu.vmware.com -A
 kubectl create ns cert-manager
 tanzu package install cert-manager --package cert-manager.tanzu.vmware.com --namespace cert-manager --version 1.10.2+vmware.1-tkg.1
 ```
-	NOTE: at this moment we have available for example 1.10.2+vmware.1-tkg.1   
+NOTE: at this moment we have available for example 1.10.2+vmware.1-tkg.1   
   
 16. Deploy Contour 
 ```    		
@@ -126,7 +126,7 @@ tanzu package install contour \
 --values-file contour-values.yaml \
 --namespace contour
 ```
-	NOTE: at this time we have available for example 1.23.5+vmware.1-tkg.1
+NOTE: at this time we have available for example 1.23.5+vmware.1-tkg.1
 
 17. Obtain the Public IP Address where Envoy is running
 ```    
@@ -208,35 +208,36 @@ tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.6.3+v
 24. Connect to harbor and create "tap" project as public.
         
 
-## Configure the cluster
-```
-    1. We connect to the cluster
+Configure the cluster
+=
+1. We connect to the cluster
             
-    2. Create the namespace "tap-install"
+2. Create the namespace "tap-install"
     
-    3. Create a internal registry secret
-    
-    tanzu secret registry add registry-credentials \
-    --server   harbor.latamteam.name \
-    --username admin \
-    --password "PASSw0rd2019202020212022" \
-    --namespace tap-install \
-    --export-to-all-namespaces \
-    --yes
-    
-    4. Wait a couple of minutes and review if registry-credentials is in default namespace. 
-    	If it not, create it for the default namespace.
-
+3. Create a internal registry secret
+```    
+tanzu secret registry add registry-credentials \
+--server   harbor.latamteam.name \
+--username admin \
+--password "PASSw0rd2019202020212022" \
+--namespace tap-install \
+--export-to-all-namespaces \
+--yes
 ```
-## create the Tanzu Net secret using TMC
-```
-        Secret name: tap-registry
-        Image registry URL: registry.tanzu.vmware.com
-        Username: <your-tanzu-net-username>
-        Password: <your-tanzu-net-password>
-        namespace: tap-install
-        export to all namespaces
+    
+4. Wait a couple of minutes and review if registry-credentials is in default namespace. 
+   If it not, create it for the default namespace.
 
+
+create the Tanzu Net secret using TMC
+=
+```
+Secret name: tap-registry
+Image registry URL: registry.tanzu.vmware.com
+Username: <your-tanzu-net-username>
+Password: <your-tanzu-net-password>
+namespace: tap-install
+export to all namespaces
 ```
 
 ## Create the repository
