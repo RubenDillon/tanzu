@@ -2,8 +2,9 @@
 # using AKS with Harbor (using FREE public certificates) 
 ## Deploy Test, Scan and GitLab authentication and GitOps   
 
-## Requirements
-```
+Requirements
+============
+
     1. An Azure subscription to deploy AKS
     3. An AWS subscription for route53 DNS service (we create latamteam.name domain)
     4. Tanzu Mission Control
@@ -16,10 +17,9 @@
 	careful when we modify the supply chain and install / uninstall
 	continuously TAP.
 
-```
 
-## Create the DNS records
-```
+Create the DNS records
+======================
     1. For this environment we will be using DNS Route53 from AWS
     
     2. We create a DNS domain called latamteam.name for this environment
@@ -33,46 +33,66 @@
 		*.learning.latamteam.name
 		pgs.latamteam.name
 				
-```
 
-## Create the environment
-```
+Create the environment
+======================
+
     1. Deploy azure client or upgrade it (in my case, Im using a Mac)
-          brew update && brew install azure-cli
-
+    ```
+    brew update && brew install azure-cli
+    ```
+    
     2. Log to Azure 
-          az login
+    ```
+    az login
+    ```
     
     3. Define your subscription
-          az account set --subscription dddddxxxx-xx-xxxxx-xxxxxxxx
+    ```
+    az account set --subscription dddddxxxx-xx-xxxxx-xxxxxxxx
+    ```
     
     4. Create the resource group where AKS will be deployed
-          az group create --name LATAM-TAP-RG --location eastus
-          
+    ```
+    az group create --name LATAM-TAP-RG --location eastus
+    ```
+    
     6. Verify the kubernetes versions available for AKS
-          az aks get-versions --location eastus
-        
+    ```
+    az aks get-versions --location eastus
+    ```
+    
     5. Create the AKS cluster
 
 	  to test.............. Standard_D4ds_v4 creates nodes with 4 vCPU and 16 GB RAM
 	  to have a real use... Standard_D8ds_v5 creates nodes with 8 vCPU and 32 GB RAM
 
-          az aks create -g LATAM-TAP-RG -n latam-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.24.10
+    ```
+    az aks create -g LATAM-TAP-RG -n latam-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.24.10
+    ```
 
     6. Deploy kubectl
-          sudo su
-          az aks install-cli
-          
+    ```
+    sudo su
+    az aks install-cli
+    ```
+    
     7. Download the kubectl 
-          az aks get-credentials --name latam-tap-azure --resource-group LATAM-TAP-RG
-          
+    ```
+    az aks get-credentials --name latam-tap-azure --resource-group LATAM-TAP-RG
+    ```
+    
     8. Test the connection
-          kubectl get nodes
+    ```
+    kubectl get nodes
+    ```
 
     9. In TMC create a Cluster Group (I create "TAP" Cluster group)
 
     10. Review that you are on the correct cluster
-    	kubectl config get-contexts
+    ```
+    kubectl config get-contexts
+    ```
     
     11. Attach the AKS Cluster to TMC under TAP cluster group 
 	
@@ -81,13 +101,14 @@
     13. Deploy Cluster Essentials. Follow this instructions https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.5/cluster-essentials/deploy.html
     	
     11. Deploy Cert-Manager
-    
-    		tanzu package available list -A
-		tanzu package available list cert-manager.tanzu.vmware.com -A
-    			we have available for example 1.10.2+vmware.1-tkg.1
-		kubectl create ns cert-manager
-		tanzu package install cert-manager --package cert-manager.tanzu.vmware.com --namespace cert-manager --version 1.10.2+vmware.1-tkg.1
-    
+    ```
+    tanzu package available list -A
+    tanzu package available list cert-manager.tanzu.vmware.com -A	
+    kubectl create ns cert-manager
+    tanzu package install cert-manager --package cert-manager.tanzu.vmware.com --namespace cert-manager --version 1.10.2+vmware.1-tkg.1
+    ```
+		at this moment we have available for example 1.10.2+vmware.1-tkg.1   
+  
     12. Deploy Contour 
     		
 		tanzu package available list contour.tanzu.vmware.com -A
@@ -173,9 +194,7 @@ tanzu package install contour \
              tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.6.3+vmware.1-tkg.1 --values-file harbor-values.yaml --namespace harbor
                  
     14. Connect to harbor and create "tap" project as public.
-    
-            
-```      
+        
 
 ## Configure the cluster
 ```
