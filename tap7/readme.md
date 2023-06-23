@@ -577,6 +577,16 @@ gitlab/gitlab-ee:latest
             kubectl get trainingportals
     2. then connect to the defined URL
             http://learning-center-guided.latamteam.name
+
+  NOTE: This is a good example on how to build a workshop. Only one thing that we need to consider
+	about this particular example. Everything works, except when we try to reach the registry
+	inside the workshop. This is a limitation on containerd when we use http, as we are using
+	with this deployment of Learning Center. This is not the case when we use a secure
+	connection using https.
+
+	- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/learning-center-getting-started-learning-center-operator.html	 
+
+
 ```
 
 ## Deploy the different Learning Portals
