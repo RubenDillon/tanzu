@@ -30,16 +30,16 @@ Environment
 =
 
 At the end of this step by step we will be using the following infrastructure
-	- An AKS platform
- 	- Let's Encrypt certificates
-  	- Harbor running in harbor.latamteam.name
-   	- GitLab running in gitlab.latamteam.name
-    	- PostgreSQL running in pgs.latamteam.name
-	- TAP 1.5.2 running in
- 		- tap-gui.latamteam.name
-   		- *.learning.latamteam.name
-     	- Application running in
-      		- *.default.latamteam.name
+- An AKS platform
+- Let's Encrypt certificates
+- Harbor running in harbor.latamteam.name
+- GitLab running in gitlab.latamteam.name
+- PostgreSQL running in pgs.latamteam.name
+- TAP 1.5.2 running in
+	- tap-gui.latamteam.name
+	- *.learning.latamteam.name
+- Applications running in
+  	- *.default.latamteam.name
 
 
 Create the DNS records
