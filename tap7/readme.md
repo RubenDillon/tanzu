@@ -768,19 +768,19 @@ git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app pus
 	- Use JAVA 17 and Spring Boot v3.0
 	- harbor.solateam.be/tap-apps
 
-Complete the git repository information
+10. Complete the git repository information
 	- Owner: root
 	- Repository Name: tanzu-java-web-app2
 	- Repository Branch: main
 		
-10. Open the app and modify the tiltfile to include the following
+11. Open the app and modify the tiltfile to include the following
 ```	    
 allow_k8s_contexts('<your cluster>')
 
 " --label apps.tanzu.vmware.com/has-tests=true " +
 " --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " + 
 ```	    
-11. Use the LiveView to deploy it into TAP... wait until you need to Approve the Request... and finally see the deployment.
+12. Use the LiveView to deploy it into TAP... wait until you need to Approve the Request... and finally see the deployment.
 
 
 ## Try another application as example
