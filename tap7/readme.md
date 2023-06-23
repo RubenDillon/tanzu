@@ -14,7 +14,9 @@ Requirements
 5. To deploy TAP 1.5.2 we need Kubernetes v1.24, 1.25 and 1.26.
 We will be using 1.24.10 on a AKS deployed on Azure
 
-  NOTE: We will be using lets Encrypt to obtain public free digital certificates.
+  NOTE: 
+  =
+  	We will be using lets Encrypt to obtain public free digital certificates.
 	Using Lets Encrypt has a limitation.  A certificate for the same domain
 	cannot be requested more than 5 times a week. That's why we must be
 	careful when we modify the supply chain and install / uninstall
