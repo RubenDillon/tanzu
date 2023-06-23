@@ -1243,6 +1243,34 @@ EOF
 
 # APPENDIX
 
+## Troubleshooting Certificates error
+```
+	We need to be careful about installing and uninstalling TAP components that require digital certificates.
+	Lets Encrypt will revoke new certificates when it detects this situation.
+
+	You probably will have problems to connect TAP-GUI interface and if review the certificates, we will have
+	see in False the READY column. To review the state of secrets, run the following
+
+		kubectl get certificates -A
+
+	For example, if we want to see what happen with tap-gui-cert, run the following
+
+		kubectl describe certificates tap-gui-cert -n tap-gui
+
+	Yo will see something like that...
+
+		The certificate request has failed to complete and will be retried: Failed to wait
+		for order resource "tap-gui-cert-7r56d-3305844173" to become ready: order is in "errored"
+		state: Failed to create Order: 429 urn:ietf:params:acme:error:rateLimited: Error creating
+		new order :: too many certificates (5) already issued for this exact set of domains in
+		the last 168 hours: tap-gui.latamteam.name, retry after 2023-06-24T20:24:42Z:
+		see https://letsencrypt.org/docs/duplicate-certificate-limit/
+
+	We will need until the time exposed by the log
+
+
+```
+
 
 ## Troubleshooting “Builder default is not ready” message
 
