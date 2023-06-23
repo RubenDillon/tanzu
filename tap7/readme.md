@@ -725,79 +725,62 @@ Configure VS Code
 11. Once deployed configure tap-gui.latamteam.name as the TAP GUI URL
 
 
-## Using VS Code to deploy and iterate the example
-
+Using VS Code to deploy and iterate the example
+=            
+1. Open VS Code and open the TANZU-JAVA-WEB-APP folder from the cloned gitlab resource
+2. Do a docker login against harbor
 ```
-            
-         1. Open VS Code and open the TANZU-JAVA-WEB-APP folder from the cloned gitlab resource
-
-	 2. Do a docker login against harbor
-
-		docker login harbor.latamteam.name -u admin
-         
-         3. Review the following files
-         
-                config/workload.yaml
-                catalog/catalog-info.yaml
-                tiltfile
-		
-	 4. Probably (if you use another name to your cluster) you will need to add a first line providing the name of the cluster
-	 
-	 	allow_k8s_contexts('<name of your cluster>')
-	 
-	 5. Remember that you probably need to add the label for pipeline (needs to looks like the following)
-
-		" --label apps.tanzu.vmware.com/has-tests=true " +
-	 	" --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " +
-	 
-       
-         6. Use the TANZU:Live Update Start and review the terminal to see the process to attach the application to the platform
-         
-         7. Modify /src/main/java/com/example/springboot/HelloController.java 
-         
-                return "Greetings from Spring Boot + Tanzu!"; (change it to something and see the change in the application already deployed)    	
-		
-	 8. Using the terminal review your current path using pwd. Then move to the tanzu-java-web-app folder and commit the code
-	 
-	 	git -C /Users/rubendillon/tanzu/tap-gitops/tanzu-java-web-app add .
-		
-		git -C /Users/rubendillon/tanzu/tap-gitops/tanzu-java-web-app commit -a -m "Initial Commit of Tanzu Java Web App"
-		
-		git push
-		
-		
-	  7. Revisar el archivo delivery.yml y subirlo al git
-	  
-	  	 git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app add delivery.yml
-		 
-		 git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app  commit -a -m "Adding deliverable"
-	 
-	 	 git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app pull -r
-		 
-		 git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app push -u origin main
-		 		 
-	   8. From the Application Accelerator link from the toolbar select create an App
-	   
-	   9. Select Tanzu Java Web App and complete the following
-	   		Use JAVA 17 and Spring Boot v3.0
-	   		harbor.solateam.be/tap-apps
-			
-		Complete the git repository information
-			Owner: root
-			Repository Name: tanzu-java-web-app2
-			Repository Branch: main
-			
-	    10. Open the app and modify the tiltfile to include the following
-	    
-			allow_k8s_contexts('<your cluster>')
-
-               		" --label apps.tanzu.vmware.com/has-tests=true " +
-               		" --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " + 
-	    
-	    11. Use the LiveView to deploy it into TAP... wait until you need to Approve the Request... and finally see the deployment.
-	
-   
+docker login harbor.latamteam.name -u admin
+```         
+3. Review the following files
+```         
+config/workload.yaml
+catalog/catalog-info.yaml
+tiltfile
+```		
+4. Probably (if you use another name to your cluster) you will need to add a first line providing the name of the cluster
+```	 
+allow_k8s_contexts('<name of your cluster>')
+```	 
+5. Remember that you probably need to add the label for pipeline (needs to looks like the following)
 ```
+" --label apps.tanzu.vmware.com/has-tests=true " +
+" --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " +
+```	        
+6. Use the TANZU:Live Update Start and review the terminal to see the process to attach the application to the platform         
+7. Modify /src/main/java/com/example/springboot/HelloController.java 
+return "Greetings from Spring Boot + Tanzu!"; (change it to something and see the change in the application already deployed)    	
+8. Using the terminal review your current path using pwd. Then move to the tanzu-java-web-app folder and commit the code
+```	 
+git -C /Users/rubendillon/tanzu/tap-gitops/tanzu-java-web-app add .		
+git -C /Users/rubendillon/tanzu/tap-gitops/tanzu-java-web-app commit -a -m "Initial Commit of Tanzu Java Web App"		
+git push
+```		
+7. Revisar el archivo delivery.yml y subirlo al git
+```	  
+git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app add delivery.yml		 
+git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app  commit -a -m "Adding deliverable"	 
+git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app pull -r		 
+git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app push -u origin main
+```
+8. From the Application Accelerator link from the toolbar select create an App
+9. Select Tanzu Java Web App and complete the following
+	- Use JAVA 17 and Spring Boot v3.0
+	- harbor.solateam.be/tap-apps
+		
+Complete the git repository information
+	- Owner: root
+	- Repository Name: tanzu-java-web-app2
+	- Repository Branch: main
+		
+10. Open the app and modify the tiltfile to include the following
+```	    
+allow_k8s_contexts('<your cluster>')
+
+" --label apps.tanzu.vmware.com/has-tests=true " +
+" --param-yaml testing_pipeline_matching_labels='{"+"apps.tanzu.vmware.com/language"+": "+"java"+"}' " + 
+```	    
+11. Use the LiveView to deploy it into TAP... wait until you need to Approve the Request... and finally see the deployment.
 
 
 ## Try another application as example
