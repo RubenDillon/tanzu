@@ -65,6 +65,7 @@ az aks get-versions --location eastus
 6. Create the AKS cluster
 
 to test.............. Standard_D4ds_v4 creates nodes with 4 vCPU and 16 GB RAM
+
 to have a real use... Standard_D8ds_v5 creates nodes with 8 vCPU and 32 GB RAM
 
 ```
