@@ -28,7 +28,7 @@ grype:
   targetImagePullSecret: registry-credentials
 
 learningcenter:
-  ingressDomain: latamteam.name
+  ingressDomain: learning.latamteam.name
   
 namespace_provisioner:
   controller: true
