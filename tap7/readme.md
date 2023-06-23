@@ -403,7 +403,7 @@ git push -u origin main
 		
 10. Review that the file were uploaded to tap-gitops	
 
-
+ 
 ## GitLab authentication
 ```
 
