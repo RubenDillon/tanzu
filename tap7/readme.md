@@ -1084,64 +1084,73 @@ https://github.com/RubenDillon/spring-sensors/blob/main/catalog-info.yaml
 ```		
 
 
-## Configure Persitent Storage for the GUI
-```
+Configure Persitent Storage for the GUI
+=
 
 	- https://snapshooter.com/learn/postgresql/deploy-postgres-with-docker
 	- https://hevodata.com/learn/docker-postgresql
 	- https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/5-config-2
 	- https://blog.devart.com/configure-postgresql-to-allow-remote-connection.html	
+
+1. To provide a persistent storage for the TAP-GUI we need a PostgreSQL database. For that reason we create another instance 
 	
-	1. To provide a persistent storage for the TAP-GUI we need a PostgreSQL database. For that reason we create another instance 
-	
-	2. That new instance we created as follow
-		Ubuntu 20.04 LTS Server
-		4vCPU and 16 GB RAM (Standard D4s v3)
-		open ports 22, 80, 443 and 5432
-		connected to the network where the worker nodes of the TAP workload is running
-		postgresql as name
+2. That new instance we created as follow
+	- Ubuntu 20.04 LTS Server
+	- 4vCPU and 16 GB RAM (Standard D4s v3)
+	- open ports 22, 80, 443 and 5432
+	- connected to the network where the worker nodes of the TAP workload is running
+	- postgresql as name
 		
-	3. Deploy PostgreSQL
-		
-		sudo apt-get install postgresql
-		sudo -u postgres psql
-			you will receive the information about PostgreSQL version
-		postgres=# ALTER USER postgres PASSWORD 'secreto';
-		\l
-			this will list the current databases on PostgreSQL
-		CREATE DATABASE prueba;
-			this will create a test database 
-		\l
-			review the databases 
-		\q
-			to exit
+3. Deploy PostgreSQL
+```		
+sudo apt-get install postgresql
+sudo -u postgres psql
 			
-	4. Configure PostgreSQL to receive remote connections
-		vi /etc/postgresql/12/main/postgresql.conf
+postgres=# ALTER USER postgres PASSWORD 'secreto';
+\l
+         this will list the current databases on PostgreSQL
+CREATE DATABASE prueba;
+	this will create a test database 
+\l
+	review the databases 
+\q
+	to exit
+```
+			
+4. Configure PostgreSQL to receive remote connection
+```
+vi /etc/postgresql/12/main/postgresql.conf
 			replace #listen_addresses = 'localhost' for #listen_addresses = '*'	
-		vi /etc/postgresql/12/main/pg_hba.con
+
+vi /etc/postgresql/12/main/pg_hba.con
 		    	replace....	host    all             all             127.0.0.1/32            md5 
 			by......... 	host    all             all             0.0.0.0/0           	md5 
 			add........	hostssl	all		all		0.0.0.0/0		md5
-		sudo ufw allow 5432/tcp 
-		sudo ufw allow 22/tcp 
-		sudo service postgresql restart			
+sudo ufw allow 5432/tcp 
+sudo ufw allow 22/tcp 
+sudo service postgresql restart			
+```
 			
-	5. Test the connection from another ubuntu machine
-		sudo apt-get install postgresql-client
+5. Test the connection from another ubuntu machine
+```
+sudo apt-get install postgresql-client
+```		
+6. Test (from a Mac machine this are the steps)
+```
+brew doctor
+brew update
+brew install libpq		
+brew link --force libpq
+```
 		
-	    Test from a Mac machine
-	    	brew doctor
-		brew update
-		brew install libpq		
-		brew link --force libpq
-		
-	     Connect to the PostgreSQL
-		
-		psql -U postgres -p 5432 -h pgs.latamteam.name
-			where pgs.latamteam.name is the DNS record generated por the postgreSQL docker running on a VM
+7. Connect to the PostgreSQL
+```		
+psql -U postgres -p 5432 -h pgs.latamteam.name
+	where pgs.latamteam.name is the DNS record generated por the postgreSQL docker running on a VM
+```
 			
-	6. Then apply to the TAP configuration on TMC the content of the following under tap-gui
+6. Then apply to the TAP configuration on TMC the content of the following under tap-gui
+```
     backend:
       database:
         client: pg
@@ -1153,26 +1162,26 @@ https://github.com/RubenDillon/spring-sensors/blob/main/catalog-info.yaml
             rejectUnauthorized: false
           user: postgres
         pluginDivisionMode: database
+```	    
 	    
-	    
-	 7. Stop the tap-gui (or all Kubernetes service) and start it again
+7. Stop the tap-gui (or all Kubernetes service) and start it again
 	 
-	 8. In the PostgreSQL you will see a couple of new databases. Those are used by TAP-GUI.
+8. In the PostgreSQL you will see a couple of new databases. Those are used by TAP-GUI.
 	 
-	 	backstage_plugin_auth
-		backstage_plugin_catalog
-		backstage_plugin_pendo-analytics
-		backstage_plugin_scaffolder
-		backstage_plugin_search
-		backstage_plugin_user-settings
+	- backstage_plugin_auth
+	- backstage_plugin_catalog
+	- backstage_plugin_pendo-analytics
+	- backstage_plugin_scaffolder
+	- backstage_plugin_search
+	- backstage_plugin_user-settings
 
-						
+
+
+API Portal
+=
+
+1. We will be creatig an example
 ```
-
-## API Portal
-```
-	1. We will be creatig an example
-
 kubectl apply -f - <<EOF
 apiVersion: apis.apps.tanzu.vmware.com/v1alpha1
 kind: APIDescriptor
@@ -1188,14 +1197,17 @@ spec:
     baseURL:
       url: https://petstore3.swagger.io
 EOF
+```
 
-        2. Verify that the APIDescriptor status shows Ready:
-		kubectl get apidescriptors
+2. Verify that the APIDescriptor status shows Ready:
+```
+  kubectl get apidescriptors
+```
 			 
-	3. Go to the TAP-GUI to the API Portal and you will see this example
+3. Go to the TAP-GUI to the API Portal and you will see this example
 		
-	4. If we already installed steeltoe weather forecast application, we could add that application to API Portal
-			 
+4. If we already installed steeltoe weather forecast application, we could add that application to API Portal
+```			 
 kubectl apply -f - <<EOF                                                                                        
 apiVersion: apis.apps.tanzu.vmware.com/v1alpha1
 kind: APIDescriptor
@@ -1210,16 +1222,13 @@ spec:
     path: "/v1/swagger.json"
     baseURL:
       url: https://weatherforecast-steeltoe.default.solateam.be/swagger
-EOF			 
-
-			
+EOF			 			
 ```
-
 
 
 ## Commands to use with Tanzu Application Platform
-```
 
+```
     kubectl get ScanPolicy
     
     kubectl get PipeLine
@@ -1235,7 +1244,6 @@ EOF
     kubectl get SourceScan
     
 ```
-
 
 
 # APPENDIX
