@@ -240,70 +240,68 @@ namespace: tap-install
 export to all namespaces
 ```
 
-## Create the repository
+Create the repository
+=
 ```
-        Name: tanzu-tap-repository
-        Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.5.2
+Name: tanzu-tap-repository
+Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.5.2
+```
 
-```
-
-## Review the status of the repository
-```
+Review the status of the repository
+=
 Run the following command
-	
-	tanzu package repository list -A
-
+```
+tanzu package repository list -A
 ```
 
-## Obtain where is running ENVOY
-```
+Obtain where is running ENVOY
+=
 This is needed to register this IP address in the DNS namespaces (harbor.latamteam.name, tap-gui.latamteam.name....)
-      
-      	kubectl get svc -A | grep envoy
-     
+
+```
+      	kubectl get svc -A | grep envoy 
 ```  
 
-## Configure Lets Encryt for the internal communications
-
-```
+Configure Lets Encryt for the internal communications
+#
 Run the cluster-issuer.yaml file
-
-	kubectl apply -f cluster-issuer.yaml
-    
+```
+	kubectl apply -f cluster-issuer.yaml 
 ```
 
-## Create the Gitlab environment
-```
+Create the Gitlab environment
+=
 
 	- https://docs.docker.com/engine/install/ubuntu/
 	- https://docs.gitlab.com/ee/install/docker.html
+
+1. Create a Ubuntu 20.04 machine
 	
-	
-	1. Create a Ubuntu 20.04 machine
-	
-	2. Deploy docker on that machine 
-		sudo apt-get update
-		sudo apt-get install ca-certificates curl gnupg
+2. Deploy docker on that machine 
+```
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
 		
-		sudo install -m 0755 -d /etc/apt/keyrings
-		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-		sudo chmod a+r /etc/apt/keyrings/docker.gpg	
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg	
 		
 echo \
 "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
 "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
 sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 		
-		sudo apt-get update
+sudo apt-get update
 		
-		sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```		
 		
-		
-	3. Assign the public IP Address of this machine to the DNS record gitlab.latamteam.name
+3. Assign the public IP Address of this machine to the DNS record gitlab.latamteam.name
 	
-	4. Deploy GitLab CE version from docker or the place you select
-		export GITLAB_HOME=/srv/gitlab
-		export GITLAB_HOME=$HOME/gitlab
+4. Deploy GitLab CE version from docker or the place you select
+```
+export GITLAB_HOME=/srv/gitlab
+export GITLAB_HOME=$HOME/gitlab
 		
 sudo docker run --detach \
 --hostname gitlab.latamteam.name \
@@ -315,89 +313,96 @@ sudo docker run --detach \
 --volume $GITLAB_HOME/data:/var/opt/gitlab \
 --shm-size 256m \
 gitlab/gitlab-ee:latest		
+```
 	
-	5. Use the following command to obtain the root password
-		sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
-
-	6. Adding Lets Encrypt to Gitlab
-		sudo docker exec -it gitlab /bin/bash
-
-	7. Edit /etc/gitlab/gitlab.rb and add/change the following
-
-		## GitLab instance
-		external_url "https://gitlab.latamteam.name"         # Must use https protocol
-		letsencrypt['contact_emails'] = ['rdillon@vmware.com'] # Optional
-
-	8 Reconfigure gitlab
-		gitlab-ctl reconfigure
-
-	9. Wait a couple of minutes and visit https://gitlab.latamteam.name
-		
-	10. Login to the Gitlab portal
-		On the top bar, select Main menu > Admin.
-		On the left sidebar, select Settings > General.
-		Expand the Visibility and access controls section.
-		Select each of Import sources to allow. At least select github and Repository by URL
-		Select Save changes.
-		
-	11. Import an project example
-		Select "Create a project"
-		Select "Import project"
-		Select "Repository by URL"
-		Add https://github.com/RubenDillon/tanzu-java-web-app in Git repository URL
-		In "Project URL" select root
-		Set "Visibility Level" to Internal 
-		Select "Create Project"
-	
-	
+5. Use the following command to obtain the root password
+```
+sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 ```
 
-
-## Create a GIT repository 
+6. Adding Lets Encrypt to Gitlab
 ```
-	Create a New Repository, as public and name it "tap-gitops"
-	
-	Using your machine select where you want to clone this repository
-	
-		git clone http://gitlab.latamteam.name/root/tap-gitops.git 
+sudo docker exec -it gitlab /bin/bash
+```
 
-	Then create a Git repository
+7. Edit /etc/gitlab/gitlab.rb and add/change the following
+```
+external_url "https://gitlab.latamteam.name"         # Must use https protocol
+letsencrypt['contact_emails'] = ['rdillon@vmware.com'] # Optional
+```
 
-    		git init
-    		(optional) git remote add origin git@gitlab.latamteam.name:root/tap-gitops.git
+8 Reconfigure gitlab
+```
+gitlab-ctl reconfigure
+```
 
-		create a file ("prueba.txt") on the directory then summit to the github
+9. Wait a couple of minutes and visit https://gitlab.latamteam.name
 		
-		git add prueba.txt
-		git commit -m "Mensaje de confirmación"
-		git push
+10. Login to the Gitlab portal
+	- On the top bar, select Main menu > Admin.
+	- On the left sidebar, select Settings > General.
+	- Expand the Visibility and access controls section.
+	- Select each of Import sources to allow. At least select github and Repository by URL
+	- Select Save changes.
+		
+11. Import an project example
+	- Select "Create a project"
+	- Select "Import project"
+	- Select "Repository by URL"
+	- Add https://github.com/RubenDillon/tanzu-java-web-app in Git repository URL
+	- In "Project URL" select root
+	- Set "Visibility Level" to Internal 
+	- Select "Create Project"
 
-	Review that the file were uploaded to tap-gitops
+
+Create a GIT repository 
+=
+1. Create a New Repository, as public and name it "tap-gitops"
 	
-	Connect to Tanzu Networks and go to Tanzu Application Platform. Select tap-gui-catalogs-latest and then the catalog with yelb application
+2. Using your machine select where you want to clone this repository
+```	
+git clone http://gitlab.latamteam.name/root/tap-gitops.git 
+```
+
+3. Then create a Git repository
+```
+git init
+(optional) git remote add origin git@gitlab.latamteam.name:root/tap-gitops.git
+
+create a file ("prueba.txt") on the directory then summit to the github
+		
+git add prueba.txt
+git commit -m "Mensaje de confirmación"
+git push
+```
+4. Review that the file were uploaded to tap-gitops
+	
+5. Connect to Tanzu Networks and go to Tanzu Application Platform. Select tap-gui-catalogs-latest and then the catalog with yelb application
 	(Tanzu Application Platform GUI Yelb Catalog)
 	
-	Copy at tap-gitops, then restore the file 
-	
-		tar -xvf tap-gui-yelb-catalog.tgz
-		
-	To deply the yelb application to the cluster, use the file yelb-deploy.yaml from this git
-		kubectl apply -f yelb-deploy.yaml
-		
-	Access the application using your browser http://yelb.latamteam.name
-		Modify your /etc/hosts using your envoy external address
-		
-	Upload the catalog
-	
-		git add .
-		git commit -m "adding catalog"
-		git branch -M main
-		git push -u origin main
-		
-	Review that the file were uploaded to tap-gitops	
-
-
+6. Copy at tap-gitops, then restore the file 
 ```
+tar -xvf tap-gui-yelb-catalog.tgz
+```		
+
+7. To deply the yelb application to the cluster, use the file yelb-deploy.yaml from this git
+```
+kubectl apply -f yelb-deploy.yaml
+```
+		
+8. Access the application using your browser http://yelb.latamteam.name
+	- Modify your /etc/hosts using your envoy external address
+		
+9. Upload the catalog
+```
+git add .
+git commit -m "adding catalog"
+git branch -M main
+git push -u origin main
+```
+		
+10. Review that the file were uploaded to tap-gitops	
+
 
 ## GitLab authentication
 ```
