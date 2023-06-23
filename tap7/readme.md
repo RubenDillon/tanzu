@@ -616,89 +616,89 @@ NOTE: This is a good example on how to build a workshop. Only one thing that we 
 	with this deployment of Learning Center. This is not the case when we use a secure
 	connection using https.
 
-	- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/learning-center-getting-started-learning-center-operator.html	 
+- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/learning-center-getting-started-learning-center-operator.html	 
 
-## Deploy the different Learning Portals
+Deploy the different Learning Portals
+=
+
+1. Run the following command
 ```
-    1. Run the following command
-
-            kubectl apply -f learning/training-portal.yaml
-            
-            kubectl apply -f learning/portal.yaml
+kubectl apply -f learning/training-portal.yaml            
+kubectl apply -f learning/portal.yaml
+```
     
-    2. Review the deployment
-    
-            kubectl get workshops
-            
-    3. To see what we have created
-     
-            kubectl get learningcenter-training -o name
-     
-    4. To see the sessions created
-     
-            kubectl get workshopsessions
-            
-    5. To found the portals information and admin users use the following
-     
-            kubectl get trainingportals
-            
-            
-    6. To deploy a Spring Boot workshop, go to /learning on this git      
-            
-            kubectl apply -f resources/spring-workshop.yaml 
-            
-            kubectl apply -f resources/spring-portal
-            
-            kubectl get trainingportals
-            
-            
-    7. Use another example... learning-center-workshop-samples/lab-markdown-sample
-     
-            kubectl apply -f earning-center-workshop-samples/lab-markdown-sample/resources/workshop.yaml
-            
-            kubectl apply -f learning-center-workshop-samples/lab-markdown-sample/resources/training-portal.yaml
-            
-            kubectl get trainingportals
-     
-    With this we will have four Learning portals
-    
-            lab-k8s-fundamentals     http://lab-k8s-fundamentals-ui.learning.latamteam.name
-            lab-markdown-sample      http://lab-markdown-sample-ui.learning.latamteam.name
-            lab-spring-boot-k8s-gs   http://lab-spring-boot-k8s-gs-ui.learning.slatamteam.name
-            learning-center-guided   http://learning-center-guided.learning.latamteam.name
-
+2. Review the deployment
+```    
+kubectl get workshops
 ```
 
-## Configure Pull Request (PR) for the supply chain
+3. To see what we have created
+```     
+kubectl get learningcenter-training -o name
 ```
-	1. Modify the tap-values-ootb_test_Scan-auth-PR.yaml and copy in the TAP package to add Pull Request.
-	   If you decide uninstall TAP and then use this tap-values to deploy again,
-	   remember to add all the previous steps like patch service account and anything that already we did.
+     
+4. To see the sessions created
+```     
+kubectl get workshopsessions
+```            
+
+5. To found the portals information and admin users use the following
+```     
+kubectl get trainingportals
+```            
+            
+6. To deploy a Spring Boot workshop, go to /learning on this git      
+```            
+kubectl apply -f learning/spring-workshop.yaml 
+kubectl apply -f learning/spring-portal
+kubectl get trainingportals
+```            
+            
+7. Use another example... learning-center-workshop-samples/lab-markdown-sample
+```     
+kubectl apply -f earning-center-workshop-samples/lab-markdown-sample/resources/workshop.yaml            
+kubectl apply -f learning-center-workshop-samples/lab-markdown-sample/resources/training-portal.yaml            
+kubectl get trainingportals
+```     
+
+8. With this we will have four Learning portals
+    
+            - lab-k8s-fundamentals     http://lab-k8s-fundamentals-ui.learning.latamteam.name
+            - lab-markdown-sample      http://lab-markdown-sample-ui.learning.latamteam.name
+            - lab-spring-boot-k8s-gs   http://lab-spring-boot-k8s-gs-ui.learning.slatamteam.name
+            - learning-center-guided   http://learning-center-guided.learning.latamteam.name
+
+
+Configure Pull Request (PR) for the supply chain
+=
+
+1. Modify the tap-values-ootb_test_Scan-auth-PR.yaml and copy in the TAP package to add Pull Request.
+If you decide uninstall TAP and then use this tap-values to deploy again,
+remember to add all the previous steps like patch service account and anything that already we did.
  
-    	2. Delete the tanzu-java-web-app and deploy it again
-		tanzu apps workload delete tanzu-java-web-app --namespace default -y
-	
-	3. Deploy tanzu-java-web-app again
-	
-		tanzu apps workload apply tanzu-java-web-app \
-		--git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
-		--git-branch main \
-		--type web \
-		--app tanzu-java-web-app \
-		--label apps.tanzu.vmware.com/has-tests="true" \
-		--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-		--tail \
-		--yes
-	
-	4. When the Supply Chain reach the Config Writer state, you will have a "Approve" button. 
-	
-	5. That button direct you to the gitlab merge request 
-	
-	6 With that, the supply chain continues and deploy the application in a couple of minutes
-
-	
+2. Delete the tanzu-java-web-app and deploy it again
 ```
+tanzu apps workload delete tanzu-java-web-app --namespace default -y
+```	
 
+3. Deploy tanzu-java-web-app again
+```	
+tanzu apps workload apply tanzu-java-web-app \
+--git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
+--git-branch main \
+--type web \
+--app tanzu-java-web-app \
+--label apps.tanzu.vmware.com/has-tests="true" \
+--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+--tail \
+--yes
+```	
+
+4. When the Supply Chain reach the Config Writer state, you will have a "Approve" button. 
+	
+5. That button direct you to the gitlab merge request 
+		
+6 With that, the supply chain continues and deploy the application in a couple of minutes
 
 
 
