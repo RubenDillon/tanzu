@@ -29,13 +29,13 @@ Create the DNS records
 2. We create a DNS domain called latamteam.name for this environment
     
 3. In that environment we will create the following records
-    		gitlab.latamteam.name
-		harbor.latamteam.name
-		notary.harbor.latamteam.name
-		tap-gui.latamteam.name
-		*.default.latamteam.name
-		*.learning.latamteam.name
-		pgs.latamteam.name
+- gitlab.latamteam.name
+- harbor.latamteam.name
+- notary.harbor.latamteam.name
+- tap-gui.latamteam.name
+- *.default.latamteam.name
+- *.learning.latamteam.name
+- pgs.latamteam.name
 				
 
 Create the environment
