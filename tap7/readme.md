@@ -783,99 +783,96 @@ allow_k8s_contexts('<your cluster>')
 12. Use the LiveView to deploy it into TAP... wait until you need to Approve the Request... and finally see the deployment.
 
 
-## Try another application as example
-```
-        A Weather application using Steeltoe framework (.NET core)
+Try another application as example
+=
+A Weather application using Steeltoe framework (.NET core)
 
-	Use the VSCode to create this example from the Application Accelerator and push to gitlab...
+Use the VSCode to create this example from the Application Accelerator and push to gitlab...
 
-	Then you could use VS Code or run it from terminal using the following command
-	    
-	    tanzu apps workload create weatherforecast-steeltoe \
-            --git-repo https://gitlab.latamteam.name/root/weatherforecast-steeltoe \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=weatherforecast-steeltoe \
-            --label apps.tanzu.vmware.com/has-tests=true \
-            --yes --tail\
-            --namespace default
-	    
-	Automatically this application will be in the Application Catalog from TAP-GUI 
-            
+Then you could use VS Code or run it from terminal using the following command
+```	    
+tanzu apps workload create weatherforecast-steeltoe \
+--git-repo https://gitlab.latamteam.name/root/weatherforecast-steeltoe \
+--git-branch main \
+--type web \
+--label app.kubernetes.io/part-of=weatherforecast-steeltoe \
+--label apps.tanzu.vmware.com/has-tests=true \
+--yes --tail\
+--namespace default
+```	    
+Automatically this application will be in the Application Catalog from TAP-GUI 
+           
 	  
+Another Java application 
 
- 	Another Java application 
+Use the VSCode to create this example from the Application Accelerator and push to gitlab.
 
-	Use the VSCode to create this example from the Application Accelerator and push to gitlab.
+Then you could use VS Code or run it from terminal using the following command
+```	  
+tanzu apps workload create java-server-side-ui \
+--git-repo https://gitlab.latamteam.name/root/tap-gitops \
+--sub-path java-server-side-ui \
+--git-branch main \
+--type web \
+--label app.kubernetes.io/part-of=java-server-side-ui \
+--param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
+--label apps.tanzu.vmware.com/has-tests=true \
+--yes --tail \
+--namespace default
+```	    
 
-	Then you could use VS Code or run it from terminal using the following command
-	  
-	    tanzu apps workload create java-server-side-ui \
-            --git-repo https://gitlab.latamteam.name/root/tap-gitops \
-            --sub-path java-server-side-ui \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=java-server-side-ui \
-	    --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
-	    --label apps.tanzu.vmware.com/has-tests=true \
-            --yes --tail \
-            --namespace default
+Automatically this application will be in the Application Catalog from TAP-GUI 
 	    
-	Automatically this application will be in the Application Catalog from TAP-GUI 
-
-
-	    
-	An Angular front end application
-
-	Use the VSCode to create this example from the Application Accelerator and push to gitlab
-
-	Then you could use VS Code or run it from terminal using the following command
-
-	    tanzu apps workload create angular-frontend \
-            --git-repo https://gitlab.latamteam.name/root/tap-gitops \
-            --sub-path angular-frontend \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=angular-frontend \
-	    --label apps.tanzu.vmware.com/has-tests=true \
-            --yes --tail \
-            --namespace default
-	    
-	   Automatically this application will be in the Application Catalog from TAP-GUI 
-	    
-	    
-	    
-	A Node.js (using express.js) example
-
-	Use the VSCode to create this example from the Application Accelerator and push to gitlab
-
-	Then you could use VS Code or run it from terminal using the following command
-	    
-	    tanzu apps workload create node-express \
-            --git-repo https://gitlab.latamteam.be/root/tap-gitops \
-            --sub-path node-express \
-            --git-branch main \
-            --type web \
-            --label app.kubernetes.io/part-of=node-express \
-	    --label apps.tanzu.vmware.com/has-tests=true \
-            --yes --tail \
-            --namespace default
-	    
-	    Automatically this application will be in the Application Catalog from TAP-GUI 
-
-
-	    Another (but.. this is from an image)
-	    
-	    tanzu apps workload create simple-web-app \
-            --image ghcr.io/vmware-tanzu-learning/simple-web-app:v1.1.0 \
-	    --label apps.tanzu.vmware.com/has-tests=true \
-            --type web \
-            --yes
-	    
-	    curl -k https://simple-web-app.default.tanzulatam.name/hello
-	    
+An Angular front end application
 	
+Use the VSCode to create this example from the Application Accelerator and push to gitlab
+
+Then you could use VS Code or run it from terminal using the following command
 ```
+tanzu apps workload create angular-frontend \
+--git-repo https://gitlab.latamteam.name/root/tap-gitops \
+--sub-path angular-frontend \
+--git-branch main \
+--type web \
+--label app.kubernetes.io/part-of=angular-frontend \
+--label apps.tanzu.vmware.com/has-tests=true \
+--yes --tail \
+--namespace default
+```	    
+
+Automatically this application will be in the Application Catalog from TAP-GUI 
+	    
+A Node.js (using express.js) example
+
+Use the VSCode to create this example from the Application Accelerator and push to gitlab
+
+Then you could use VS Code or run it from terminal using the following command
+```
+tanzu apps workload create node-express \
+--git-repo https://gitlab.latamteam.be/root/tap-gitops \
+--sub-path node-express \
+--git-branch main \
+--type web \
+--label app.kubernetes.io/part-of=node-express \
+--label apps.tanzu.vmware.com/has-tests=true \
+--yes --tail \
+--namespace default
+```	    
+Automatically this application will be in the Application Catalog from TAP-GUI 
+
+Another (but.. this is from an image)
+```	    
+tanzu apps workload create simple-web-app \
+--image ghcr.io/vmware-tanzu-learning/simple-web-app:v1.1.0 \
+--label apps.tanzu.vmware.com/has-tests=true \
+--type web \
+--yes
+```	    
+To review the application use the following command
+```
+curl -k https://simple-web-app.default.tanzulatam.name/hello
+```	    
+
 
 
 ## Steps to create a TAP workload from an existing application 
