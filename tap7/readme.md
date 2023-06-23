@@ -767,7 +767,7 @@ git -C /Users/rubendillon/tanzu/tap-gitops/config/default/tanzu-java-web-app pus
 9. Select Tanzu Java Web App and complete the following
 	- Use JAVA 17 and Spring Boot v3.0
 	- harbor.solateam.be/tap-apps
-		
+
 Complete the git repository information
 	- Owner: root
 	- Repository Name: tanzu-java-web-app2
