@@ -13,8 +13,7 @@ Requirements
 1. An Azure subscription to deploy AKS
 3. An AWS subscription for route53 DNS service (we create latamteam.name domain)
 4. Tanzu Mission Control
-5. To deploy TAP 1.5.2 we need Kubernetes v1.24, 1.25 and 1.26.
-We will be using 1.24.10 on a AKS deployed on Azure
+5. TAP 1.5.2 use Kubernetes v1.24, 1.25 and 1.26. We will be using 1.24.10 on a AKS 
 
 ## NOTE: 
 We will be using lets Encrypt to obtain public free digital certificates.
