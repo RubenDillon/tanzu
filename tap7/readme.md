@@ -263,7 +263,7 @@ This is needed to register this IP address in the DNS namespaces (harbor.latamte
 ```  
 
 Configure Lets Encryt for the internal communications
-#
+=
 Run the cluster-issuer.yaml file
 ```
 	kubectl apply -f cluster-issuer.yaml 
@@ -405,144 +405,139 @@ git push -u origin main
 10. Review that the file were uploaded to tap-gitops	
 
  
-## GitLab authentication
+GitLab authentication
+=
+
+1. Create a new public project in Harbor and call it "tap-apps" and "tap-gitops"
+
+2. Create your OAuth App.
+
+	- Redirect URI should point to the auth backend: https://tap-gui.latamteam.name/api/auth/gitlab/handler/frame		
+	- The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
+		
+3. Generate a new Client Secret and take a note of the Client ID and the Client Secret
+	
+4. Modify the tap-gui part of the tap-values-OOTB-basic.yaml file to add ClientId and clientSecret values
+	- where ClientID is obtained from GitLab Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in GitLab		
+5. Create a new personal Token on GitLab 
+	
+6. Create a Secret on the default namespace as git-secret.yaml (from this github). Use the token as password and modify the user name.
+	
+7. Apply the secret
+
+
+GitOps integration
+=
+
+1. Update (patch) the default service account with the new secret
+```	
+kubectl patch serviceaccount default --patch '{"secrets": [{"name": "github-http-secret"}]}'		
+kubectl patch serviceaccount default --patch '{"secrets": [{"name": "registry-credentials"}]}'
+```				
+
+2. Review the default service account
+```	
+kubectl describe serviceaccount default		
 ```
 
 
-        1. Create a new public project in Harbor and call it "tap-apps" and "tap-gitops"
+Install Tanzu Application Platform package from TMC Catalog
+=
 
-	2. Create your OAuth App.
-
-		Redirect URI should point to the auth backend: https://tap-gui.latamteam.name/api/auth/gitlab/handler/frame
-		
-	   The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
-		
-	3. Generate a new Client Secret and take a note of the Client ID and the Client Secret
-	
-	4. Modify the tap-gui part of the tap-values-OOTB-basic.yaml file to add ClientId and clientSecret values
-
-		where ClientID is obtained from GitLab Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in GitLab		
-	5. Create a new personal Token on GitLab 
-	
-	6. Create a Secret on the default namespace as git-secret.yaml (from this github). Use the token as password and modify the user name.
-	
-	7. Apply the secret
-
-
-```
-
-### GitOps integration
-```
-
-	1. Update (patch) the default service account with the new secret
-	
-		kubectl patch serviceaccount default --patch '{"secrets": [{"name": "github-http-secret"}]}'
-		
-		kubectl patch serviceaccount default --patch '{"secrets": [{"name": "registry-credentials"}]}'
-		
-		
-	2. Review the default service account
-	
-		kubectl describe serviceaccount default
-		
-```
-
-
-## Install Tanzu Application Platform package from TMC Catalog
-```
-    1. Select the Tanzu Application Platform
+1. Select the Tanzu Application Platform
     
-    2. Select tap as name and 1.5.2 for the version
+2. Select tap as name and 1.5.2 for the version
     
-    3. Copy the tap-values-OOTB-basic on the TMC UI
+3. Copy the tap-values-OOTB-basic on the TMC UI
     
-    4. Monitor the install by running
+4. Monitor the install by running
+```            
+tanzu package installed get tap -n tap-xxxxxx
+```
             
-            tanzu package installed get tap -n tap-xxxxxx
-            
-    5. Verify all packages are successfully reconciled
-            
-            tanzu package installed list -A
+5. Verify all packages are successfully reconciled
+```            
+tanzu package installed list -A
+```
           
-    6. The UI (tap-gui) receive a public certificate from lets encrypt. If you want to review it 
-    
-    	    kubectl get secret -n tap-gui tap-gui-cert -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -text
-	    
+6. The UI (tap-gui) receive a public certificate from lets encrypt. If you want to review it 
+```    
+kubectl get secret -n tap-gui tap-gui-cert -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -text	    
 ```  
 
-## Prepare the developer namespace
+Prepare the developer namespace
+=
+1. Create a namespace using kubectl (if you change the namespace will be used for developers)
+```
+kubectl create namespace xxxy (we are using default namespace.. for that we don't need to create it)
 ```
 
- 	1. Create a namespace using kubectl (if you change the namespace will be used for developers)
-		kubectl create namespace xxxy (we are using default namespace.. for that we don't need to create it)
-
-	2. Label the namespace
-		kubectl label namespaces default apps.tanzu.vmware.com/tap-ns=""
-	
-	3. Review the configuration 
-		kubectl get secrets,serviceaccount,rolebinding,pods,workload,configmap,limitrange -n default
+2. Label the namespace
 ```
-
-## Test an Example in a basic Supply Chain
+kubectl label namespaces default apps.tanzu.vmware.com/tap-ns=""
 ```
 	
-	1. Now we will be deploying the example using that repository
-	
-		tanzu apps workload apply tanzu-java-web-app \
-		--git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
-		--git-branch main \
-		--type web \
-		--app tanzu-java-web-app \
-		--tail \
-		--yes
+3. Review the configuration 
+```
+kubectl get secrets,serviceaccount,rolebinding,pods,workload,configmap,limitrange -n default
+```
 
-	  2. View the build 
-            
-           	 kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
+Test an Example in a basic Supply Chain
+=	
+1. Now we will be deploying the example using that repository
+```	
+tanzu apps workload apply tanzu-java-web-app \
+--git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
+--git-branch main \
+--type web \
+--app tanzu-java-web-app \
+--tail \
+--yes
+```
+	  
+2. View the build 
+```            
+kubectl get workload,gitrepository,pipelinerun,images.kpack,podintent,app,services.serving
+```
     
-   	  3. After ends you could access the TAP GUI to see the process and review the app using the following command
-    
-            	tanzu apps workload get tanzu-java-web-app --namespace default
+3. After ends you could access the TAP GUI to see the process and review the app using the following command
+```    
+tanzu apps workload get tanzu-java-web-app --namespace default
+```
             
-          4. The application will be in the Catalog of the TAP-GUI UI (because TAP discovers where catalog files are)
-            	
+4. The application will be in the Catalog of the TAP-GUI UI (because TAP discovers where catalog files are)            	
 
-```
 
-### Modify the supply chain to use Testing and Scanning
-```
+Modify the supply chain to use Testing and Scanning
+=
 
  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-add-test-and-security.html
  - https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/namespace-provisioner-ootb-supply-chain.html#testing--scanning-supply-chain-3 
  
-        1. Modify the tap-values-ootb-test-scan-auth.yaml from this github
+1. Modify the tap-values-ootb-test-scan-auth.yaml from this github
 
-	2. Apply this file into TAP package using the TMC Catalog. If you decide uninstall TAP and then use this tap-values to deploy again,
+2. Apply this file into TAP package using the TMC Catalog. If you decide uninstall TAP and then use this tap-values to deploy again,
 		remember to add all the previous steps like patch service account and anything that already we did.
        
-        3. Create the Scan policy applying the scan-policy-free.yaml and scan-template.yaml
-        
-                kubectl apply -f scan-policy-free.yaml
-                
-                kubectl apply -f scan-template.yaml
-		
-		Because we are not using the default scan-policy we apply this one that creates scan-policy-free policy, 
-		and we define their use in tap-values
+3. Create the Scan policy applying the scan-policy-free.yaml and scan-template.yaml
+```        
+kubectl apply -f scan-policy-free.yaml                
+kubectl apply -f scan-template.yaml
+```		
+Because we are not using the default scan-policy we apply this one that creates scan-policy-free policy, 
+and we define their use in tap-values
 
        
-	4. Create a Tekton pipeline 
-     
-            	kubectl apply -f pipeline.yaml      
-	 
-	 	kubectl get pipeline.tekton.dev,scanpolicies
+4. Create a Tekton pipeline 
+```     
+kubectl apply -f pipeline.yaml      	 
+kubectl get pipeline.tekton.dev,scanpolicies
+```
 	        
-        5. Delete the example application
-
-		tanzu apps workload delete tanzu-java-web-app -y    
-        
-	
-```	
-
+5. Delete the example application
+```
+tanzu apps workload delete tanzu-java-web-app -y    
+```        	
         
 ### Test an Example in a Testing and Scanning supply chain
 ```
