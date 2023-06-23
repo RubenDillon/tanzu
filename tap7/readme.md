@@ -63,8 +63,9 @@ az aks get-versions --location eastus
 ```
     
 5. Create the AKS cluster
-	  to test.............. Standard_D4ds_v4 creates nodes with 4 vCPU and 16 GB RAM
-	  to have a real use... Standard_D8ds_v5 creates nodes with 8 vCPU and 32 GB RAM
+
+to test.............. Standard_D4ds_v4 creates nodes with 4 vCPU and 16 GB RAM
+to have a real use... Standard_D8ds_v5 creates nodes with 8 vCPU and 32 GB RAM
 
 ```
 az aks create -g LATAM-TAP-RG -n latam-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.24.10
@@ -76,79 +77,83 @@ sudo su
 az aks install-cli
 ```
     
-    7. Download the kubectl 
-    ```
-    az aks get-credentials --name latam-tap-azure --resource-group LATAM-TAP-RG
-    ```
+7. Download the kubectl 
+```
+az aks get-credentials --name latam-tap-azure --resource-group LATAM-TAP-RG
+```
     
-    8. Test the connection
-    ```
-    kubectl get nodes
-    ```
+8. Test the connection
+```
+kubectl get nodes
+```
 
-    9. In TMC create a Cluster Group (I create "TAP" Cluster group)
+9. In TMC create a Cluster Group (I create "TAP" Cluster group)
 
-    10. Review that you are on the correct cluster
-    ```
-    kubectl config get-contexts
-    ```
+10. Review that you are on the correct cluster
+```
+kubectl config get-contexts
+```
     
-    11. Attach the AKS Cluster to TMC under TAP cluster group 
+11. Attach the AKS Cluster to TMC under TAP cluster group 
 	
-    12. Accept the EULA and deploy the Tanzu cli. Follow this instructions https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/install-tanzu-cli.html
+12. Accept the EULA and deploy the Tanzu cli. Follow this instructions https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/install-tanzu-cli.html
     
-    13. Deploy Cluster Essentials. Follow this instructions https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.5/cluster-essentials/deploy.html
+13. Deploy Cluster Essentials. Follow this instructions https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.5/cluster-essentials/deploy.html
     	
-    11. Deploy Cert-Manager
-    ```
-    tanzu package available list -A
-    tanzu package available list cert-manager.tanzu.vmware.com -A	
-    kubectl create ns cert-manager
-    tanzu package install cert-manager --package cert-manager.tanzu.vmware.com --namespace cert-manager --version 1.10.2+vmware.1-tkg.1
-    ```
-		at this moment we have available for example 1.10.2+vmware.1-tkg.1   
+11. Deploy Cert-Manager
+```
+tanzu package available list -A
+tanzu package available list cert-manager.tanzu.vmware.com -A	
+kubectl create ns cert-manager
+tanzu package install cert-manager --package cert-manager.tanzu.vmware.com --namespace cert-manager --version 1.10.2+vmware.1-tkg.1
+```
+	at this moment we have available for example 1.10.2+vmware.1-tkg.1   
   
-    12. Deploy Contour 
-    		
-		tanzu package available list contour.tanzu.vmware.com -A
-			we have available for example 1.23.5+vmware.1-tkg.1
-		kubectl create ns contour
+12. Deploy Contour 
+```    		
+tanzu package available list contour.tanzu.vmware.com -A			
+kubectl create ns contour
 		
 tanzu package install contour \
 --package contour.tanzu.vmware.com \
 --version 1.23.5+vmware.1-tkg.1 \
 --values-file contour-values.yaml \
 --namespace contour
-    
-    13. Obtain the Public IP Address where Envoy is running
-    
-    		kubectl get svc -A | grep envoy
-      
-    14. Create the namespace tanzu-system-registry
-       
-            kubectl create ns tanzu-system-registry
-        
-    15. Create a Cluster issuer using the following command
+```
+	at this time we have available for example 1.23.5+vmware.1-tkg.1
 
-        kubectl apply -f - <<'EOF'
-        apiVersion: cert-manager.io/v1
-        kind: ClusterIssuer
-        metadata:
-          name: letsencrypt-contour-cluster-issuer
-          namespace: cert-manager
-        spec:
-          acme:
-            email: "rdillon@vmware.com"
-            privateKeySecretRef:
-              name: acme-account-key
-            server: https://acme-v02.api.letsencrypt.org/directory
-            solvers:
-            - http01:
-                ingress:
-                  class: contour
-        EOF
+13. Obtain the Public IP Address where Envoy is running
+```    
+kubectl get svc -A | grep envoy
+```
+      
+14. Create the namespace tanzu-system-registry
+```       
+kubectl create ns tanzu-system-registry
+```
+        
+15. Create a Cluster issuer using the following command
+```
+kubectl apply -f - <<'EOF'
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-contour-cluster-issuer
+  namespace: cert-manager
+spec:
+  acme:
+    email: "rdillon@vmware.com"
+    privateKeySecretRef:
+      name: acme-account-key
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - http01:
+        ingress:
+          class: contour
+EOF
+```
     
-    11. Request the certificate as follow
+11. Request the certificate as follow
     
         kubectl apply -f - <<'EOF'
         apiVersion: cert-manager.io/v1
