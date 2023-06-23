@@ -23,7 +23,7 @@ grype:
   namespace: default
   targetImagePullSecret: registry-credentials
 learningcenter:
-  ingressDomain: latamteam.name
+  ingressDomain: learning.latamteam.name
 metadata_store:
   app_service_type: ClusterIP
   ns_for_export_app_cert: default
