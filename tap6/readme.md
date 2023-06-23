@@ -2,6 +2,8 @@
 # using AKS with Harbor (using FREE public certificates) 
 ## Deploy Test, Scan and Github authentication and GitOps   
 
+![alt text](https://github.com/RubenDillon/tanzu/blob/main/tap7/resources/environment.png?raw=true)
+
 ## Requirements
 ```
     1. An Azure subscription to deploy AKS
