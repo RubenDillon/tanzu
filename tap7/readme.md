@@ -7,9 +7,15 @@
     1. An Azure subscription to deploy AKS
     3. An AWS subscription for route53 DNS service (we create latamteam.name domain)
     4. Tanzu Mission Control
-    5. To deploy 
-        - TAP 1.5.2 we need Kubernetes v1.24, 1.25 and 1.26. We will be using 1.24.10 on a AKS deployed on Azure
-    
+    5. To deploy TAP 1.5.2 we need Kubernetes v1.24, 1.25 and 1.26.
+	We will be using 1.24.10 on a AKS deployed on Azure
+
+  NOTE: We will be using lets Encrypt to obtain public free digital certificates.
+	Using Lets Encrypt has a limitation.  A certificate for the same domain
+	cannot be requested more than 5 times a week. That's why we must be
+	careful when we modify the supply chain and install / uninstall
+	continuously TAP.
+
 ```
 
 ## Create the DNS records
@@ -24,10 +30,9 @@
 		notary.harbor.latamteam.name
 		tap-gui.latamteam.name
 		*.default.latamteam.name
-		*.learning-center.latamteam.name
-		p3.latamteam.name
-		
-		
+		*.learning.latamteam.name
+		pgs.latamteam.name
+				
 ```
 
 ## Create the environment
@@ -1095,7 +1100,7 @@ spec:
 	- https://backstage.spotify.com/learn/standing-up-backstage/configuring-backstage/5-config-2
 	- https://blog.devart.com/configure-postgresql-to-allow-remote-connection.html	
 	
-	1. To provide a persisten storage for the TAP-GUI we need a PostgreSQL database. For that reason we create another instance 
+	1. To provide a persistent storage for the TAP-GUI we need a PostgreSQL database. For that reason we create another instance 
 	
 	2. That new instance we created as follow
 		Ubuntu 20.04 LTS Server
@@ -1141,15 +1146,15 @@ spec:
 		
 	     Connect to the PostgreSQL
 		
-		psql -U postgres -p 5432 -h postgresql.solateam.be
-			where postgresql.solateam.be is the DNS record generated por the postgreSQL docker running on a VM
+		psql -U postgres -p 5432 -h pgs.latamteam.name
+			where pgs.latamteam.name is the DNS record generated por the postgreSQL docker running on a VM
 			
 	6. Then apply to the TAP configuration on TMC the content of the following under tap-gui
     backend:
       database:
         client: pg
         connection:
-          host: p3.solateam.be
+          host: pgs.latamteam.name
           password: secreto
           port: 5432
           ssl:
@@ -1245,6 +1250,8 @@ EOF
 
 ## Troubleshooting Certificates error
 ```
+	- https://letsencrypt.org/docs/duplicate-certificate-limit/
+
 	We need to be careful about installing and uninstalling TAP components that require digital certificates.
 	Lets Encrypt will revoke new certificates when it detects this situation.
 
