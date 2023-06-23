@@ -1,3 +1,4 @@
+![alt text](https://github.com/RubenDillon/tanzu/blob/main/tap7/resources/environment.png?raw=true)
 
 # Deploying Tanzu Application Platform v1.5.2 on Azure Cloud
 
