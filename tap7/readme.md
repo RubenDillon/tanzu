@@ -381,7 +381,7 @@ gitlab/gitlab-ee:latest
 		where ClientID is obtained from GitLab Apps (Developer settings) and ClientSecret.. is the client secret generated for that App in GitLab		
 	5. Create a new personal Token on GitLab 
 	
-	6. Create a Secret on the default namespace as git-secret.yaml (from this gitLab). Use the token as password and modify the user name.
+	6. Create a Secret on the default namespace as git-secret.yaml (from this github). Use the token as password and modify the user name.
 	
 	7. Apply the secret
 
