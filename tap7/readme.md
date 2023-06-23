@@ -575,8 +575,9 @@ gitlab/gitlab-ee:latest
 ```
     1. run the following command to review the activated portals
             kubectl get trainingportals
+
     2. then connect to the defined URL
-            http://learning-center-guided.latamteam.name
+            http://learning-center-guided.learning.latamteam.name
 
   NOTE: This is a good example on how to build a workshop. Only one thing that we need to consider
 	about this particular example. Everything works, except when we try to reach the registry
@@ -633,10 +634,10 @@ gitlab/gitlab-ee:latest
      
     With this we will have four Learning portals
     
-            lab-k8s-fundamentals     http://lab-k8s-fundamentals-ui.latamteam.name
-            lab-markdown-sample      http://lab-markdown-sample-ui.latamteam.name
-            lab-spring-boot-k8s-gs   http://lab-spring-boot-k8s-gs-ui.slatamteam.name
-            learning-center-guided   http://learning-center-guided.latamteam.name
+            lab-k8s-fundamentals     http://lab-k8s-fundamentals-ui.learning.latamteam.name
+            lab-markdown-sample      http://lab-markdown-sample-ui.learning.latamteam.name
+            lab-spring-boot-k8s-gs   http://lab-spring-boot-k8s-gs-ui.learning.slatamteam.name
+            learning-center-guided   http://learning-center-guided.learning.latamteam.name
 
 ```
 
