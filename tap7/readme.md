@@ -785,7 +785,7 @@ allow_k8s_contexts('<your cluster>')
 
 Try another application as example
 =
-A Weather application using Steeltoe framework (.NET core)
+### A Weather application using Steeltoe framework (.NET core)
 
 Use the VSCode to create this example from the Application Accelerator and push to gitlab...
 
@@ -803,7 +803,7 @@ tanzu apps workload create weatherforecast-steeltoe \
 Automatically this application will be in the Application Catalog from TAP-GUI 
            
 	  
-Another Java application 
+### Another Java application 
 
 Use the VSCode to create this example from the Application Accelerator and push to gitlab.
 
@@ -823,7 +823,7 @@ tanzu apps workload create java-server-side-ui \
 
 Automatically this application will be in the Application Catalog from TAP-GUI 
 	    
-An Angular front end application
+### An Angular front end application
 	
 Use the VSCode to create this example from the Application Accelerator and push to gitlab
 
@@ -842,7 +842,7 @@ tanzu apps workload create angular-frontend \
 
 Automatically this application will be in the Application Catalog from TAP-GUI 
 	    
-A Node.js (using express.js) example
+### A Node.js (using express.js) example
 
 Use the VSCode to create this example from the Application Accelerator and push to gitlab
 
@@ -860,7 +860,7 @@ tanzu apps workload create node-express \
 ```	    
 Automatically this application will be in the Application Catalog from TAP-GUI 
 
-Another (but.. this is from an image)
+### Another (but.. this is from an image)
 ```	    
 tanzu apps workload create simple-web-app \
 --image ghcr.io/vmware-tanzu-learning/simple-web-app:v1.1.0 \
