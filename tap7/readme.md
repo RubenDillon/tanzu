@@ -368,9 +368,10 @@ git clone http://gitlab.latamteam.name/root/tap-gitops.git
 ```
 git init
 (optional) git remote add origin git@gitlab.latamteam.name:root/tap-gitops.git
+```
 
-create a file ("prueba.txt") on the directory then summit to the github
-		
+Create a file ("prueba.txt") on the directory then summit to the github
+```		
 git add prueba.txt
 git commit -m "Mensaje de confirmación"
 git push
