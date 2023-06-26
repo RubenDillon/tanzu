@@ -91,6 +91,7 @@ tap_gui:
     app:
       baseUrl: https://tap-gui.latamteam.name
     auth:
+    allowGuestAccess: true
       environment: development
       providers:
         gitlab:
