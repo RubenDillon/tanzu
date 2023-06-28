@@ -526,65 +526,75 @@ tanzu apps workload apply tanzu-java-web-app \
 
 ```
 
+Review the Self-Guided Workshop
+=
 
-## Review the Self-Guided Workshop
+1. run the following command to review the activated portals
 ```
-    1. run the following command to review the activated portals
-            kubectl get trainingportals
-    2. then connect to the defined URL
-            http://learning-center-guided.solateam.be
+kubectl get trainingportals
 ```
 
-## Deploy the different Learning Portals
-```
-    1. Run the following command
+2. then connect to the defined URL http://learning-center-guided.learning.latamteam.name
 
-            kubectl apply -f learning/training-portal.yaml
-            
-            kubectl apply -f learning/portal.yaml
+NOTE: This is a good example on how to build a workshop. Only one thing that we need to consider
+      	about this particular example. Everything works, except when we try to reach the registry
+	inside the workshop. This is a limitation on containerd when we use http, as we are using
+	with this deployment of Learning Center. This is not the case when we use a secure
+	connection using https.
+
+- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/learning-center-getting-started-learning-center-operator.html	 
+
+Deploy the different Learning Portals
+=
+
+1. Run the following command
+```
+kubectl apply -f learning/training-portal.yaml            
+kubectl apply -f learning/portal.yaml
+```
     
-    2. Review the deployment
-    
-            kubectl get workshops
-            
-    3. To see what we have created
-     
-            kubectl get learningcenter-training -o name
-     
-    4. To see the sessions created
-     
-            kubectl get workshopsessions
-            
-    5. To found the portals information and admin users use the following
-     
-            kubectl get trainingportals
-            
-            
-    6. To deploy a Spring Boot workshop, go to /learning on this git      
-            
-            kubectl apply -f resources/spring-workshop.yaml 
-            
-            kubectl apply -f resources/spring-portal
-            
-            kubectl get trainingportals
-            
-            
-    7. Use another example... learning-center-workshop-samples/lab-markdown-sample
-     
-            kubectl apply -f earning-center-workshop-samples/lab-markdown-sample/resources/workshop.yaml
-            
-            kubectl apply -f learning-center-workshop-samples/lab-markdown-sample/resources/training-portal.yaml
-            
-            kubectl get trainingportals
-     
-    With this we will have four Learning portals
-    
-            lab-k8s-fundamentals     http://lab-k8s-fundamentals-ui.solateam.be 
-            lab-markdown-sample      http://lab-markdown-sample-ui.solateam.be
-            lab-spring-boot-k8s-gs   http://lab-spring-boot-k8s-gs-ui.solateam.be
-            learning-center-guided   http://learning-center-guided.solateam.be
-
+2. Review the deployment
+```    
+kubectl get workshops
 ```
+
+3. To see what we have created
+```     
+kubectl get learningcenter-training -o name
+```
+     
+4. To see the sessions created
+```     
+kubectl get workshopsessions
+```            
+
+5. To found the portals information and admin users use the following
+```     
+kubectl get trainingportals
+```            
+            
+6. To deploy a Spring Boot workshop, go to /learning on this git      
+```            
+kubectl apply -f learning/spring-workshop.yaml 
+kubectl apply -f learning/spring-portal
+kubectl get trainingportals
+```            
+            
+7. Use another example... learning-center-workshop-samples/lab-markdown-sample
+```     
+kubectl apply -f earning-center-workshop-samples/lab-markdown-sample/resources/workshop.yaml            
+kubectl apply -f learning-center-workshop-samples/lab-markdown-sample/resources/training-portal.yaml            
+kubectl get trainingportals
+```     
+
+8. With this we will have four Learning portals
+    
+            - lab-k8s-fundamentals     http://lab-k8s-fundamentals-ui.learning.latamteam.name
+            - lab-markdown-sample      http://lab-markdown-sample-ui.learning.latamteam.name
+            - lab-spring-boot-k8s-gs   http://lab-spring-boot-k8s-gs-ui.learning.slatamteam.name
+            - learning-center-guided   http://learning-center-guided.learning.latamteam.name
+
+
 
 ## Configure Pull Request (PR) for the supply chain
 ```
