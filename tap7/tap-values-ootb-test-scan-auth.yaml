@@ -22,13 +22,15 @@ contour:
 excluded_packages:
   - contour.tanzu.vmware.com
   - cert-manager.tanzu.vmware.com
+  - learningcenter.tanzu.vmware.com
+  - workshops.learningcenter.tanzu.vmware.com
 
 grype:
   namespace: default
   targetImagePullSecret: registry-credentials
 
-learningcenter:
-  ingressDomain: learning.latamteam.name
+# learningcenter:
+#   ingressDomain: learning.latamteam.name
   
 namespace_provisioner:
   controller: true
