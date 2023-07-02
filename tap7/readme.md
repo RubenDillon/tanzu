@@ -675,6 +675,7 @@ Configure VS Code
    
 10. Do the same with the "Tanzu App Accelerator Extension for Visual Studio Code" 	
 11. Once deployed configure tap-gui.latamteam.name as the TAP GUI URL
+12. Review VS.Code to use an Extension to connect Gitlab and login
 
 
 Using VS Code to deploy and iterate the example
