@@ -892,7 +892,7 @@ tanzu services class-claims get rabbitmq-1 --namespace default
 5. Now we deploy an example that consumes, this RabbitMQ. This application have two pieces, the consumer web and the producer.
 ```	
 tanzu apps workload create spring-sensors-consumer-web \
---git-repo https://github.com/tanzu-end-to-end/spring-sensors \
+--git-repo https://gitlab.latamteam.name/root/spring-sensors \
 --git-branch rabbit \
 --type web \
 --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
@@ -904,7 +904,7 @@ tanzu apps workload create spring-sensors-consumer-web \
 6. And run the following app as Producer
 ```	
 tanzu apps workload create spring-sensors-producer \
---git-repo https://github.com/tanzu-end-to-end/spring-sensors-sensor \
+--git-repo https://gitlab.latamteam.name/root/spring-sensors-sensor \
 --git-branch main \
 --type web \
 --param-yaml testing_pipeline_matching_labels='{"apps.tanzu.vmware.com/language": "java"}' \
