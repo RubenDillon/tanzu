@@ -916,9 +916,31 @@ tanzu apps workload create spring-sensors-producer \
 ```
 7. Go to the consumer-web deployment and wait until the Producer is running and giving information to RabbitMQ
 
-8. Add the app to the catalog
+8. If you want to add this application to the Catalog, create the following file in https://gitlab.latamteam.name/root/spring-sensors/main/catalog/catalog-info.yaml
+   with the following content
+
 ```
-https://github.com/tanzu-end-to-end/spring-sensors-sensor/blob/main/catalog/catalog-info.yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: spring-sensors
+  description: Spring Sensors Rabbit Consumer
+  tags:
+    - app-accelerator
+    - java
+    - spring
+    - tanzu
+  annotations:
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=spring-sensors-rabbit'
+spec:
+  type: service
+  lifecycle: experimental
+  owner: default-team
+```   
+
+10. Add the app to the catalog using the botton "Register Entity" and use the following link as URL
+```
+	https://gitlab.latamteam.name/root/spring-sensors/blob/main/catalog/catalog-info.yaml
 ```	     
 	   
 9. If we want to do a Service Binding with a Database (PostgreSQL for example), the procedure is more or less the same
