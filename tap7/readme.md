@@ -1198,7 +1198,7 @@ spec:
   location:
     path: "/v1/swagger.json"
     baseURL:
-      url: https://weatherforecast-steeltoe.default.solateam.be/swagger
+      url: https://weatherforecast-steeltoe.default.latamteam.name/swagger
 EOF			 			
 ```
 
