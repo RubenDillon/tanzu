@@ -377,7 +377,7 @@ gitlab-ctl reconfigure
 
 Create a GIT repository 
 =
-1. Create a New Repository, as public and name it "tap-gitops"
+1. Create a New Repository, as public and name it "tap-gitops" or import from https://github.com/RubenDillon/tap-gitops.git
 	
 2. Using your machine select where you want to clone this repository
 ```	
