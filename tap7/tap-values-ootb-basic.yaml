@@ -11,7 +11,13 @@ buildservice:
   kp_default_repository_secret:
     name: registry-credentials
     namespace: default
+    
 ceip_policy_disclosed: true
+
+accelerator:
+    ingress:
+    include: true
+
 contour:
   envoy:
     service:
