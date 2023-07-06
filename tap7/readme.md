@@ -832,9 +832,16 @@ Steps to create a TAP workload from an existing application
 =
 
 We will deploy a Hello World application based on .NET that is available in Azure examples
+
+1. Create in Gitlab a repository importing the hello-world example from Azure
+```
+https://github.com/Azure-Samples/dotnetcore-docs-hello-world
+```
+ 
+2. Deploy the application 
 ```        
 tanzu apps workload create hello-world \
---git-repo https://github.com/Azure-Samples/dotnetcore-docs-hello-world \
+--git-repo https://gitlab.latamteam.name/root/dotnetcore-docs-hello-world \
 --git-branch master \
 --type web \
 --label app.kubernetes.io/part-of=hello-world \
@@ -844,10 +851,11 @@ tanzu apps workload create hello-world \
 --namespace default
 ```
 
-Using VS Code you could use snippet to create the workload.yaml and the catalog-info.yaml
+3. Accept the Pull Request and access to the new deployed application
 
-1. Open a new file and write tanzu and wait the response of VS Code
-2. VS Code will suggest a snippets
+4. Using VS Code snippets you could create the extra files that integrates the TAP-GUI and so on.
+
+- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/vscode-extension-getting-started.html
 		
 	
 ### Another example... using Azure AI
