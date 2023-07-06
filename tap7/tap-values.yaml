@@ -14,9 +14,6 @@ buildservice:
     
 ceip_policy_disclosed: true
 
-accelerator:
-    ingress:
-    include: true
 
 contour:
   envoy:
