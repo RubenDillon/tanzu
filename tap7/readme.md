@@ -1202,6 +1202,38 @@ spec:
 EOF			 			
 ```
 
+Create an Application Accelerator
+=
+
+- https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-create-app-accelerator.html
+
+1. Create in your machine a directory
+```
+mkdir myProject
+cd myProject
+```
+
+2. Follow the steps to create the README.md and the accelerator.yaml
+   
+3. Test the Accelerator with the following command
+```
+tanzu accelerator generate-from-local --accelerator-path simple-accelerator="/Users/rubendillon/tanzu/tanzulatam/myProject/" --server-url https://tap-gui.latamteam.name --options '{"firstConfigurableParameter": "Parameter 1", "secondConfigurableParameterCheckbox": true, "secondConfigurableParameter":"Parameter 2"}' -o "${HOME}/simple-accelerator/"
+```
+Review the path where you create the file and replace the simple-accelerator="xx"
+
+4. Create a Repository in Gitlab and upload both files (readme.md and accelerator.yaml)
+   
+5. Create the Application Accelerator in TAP using the following command
+```
+tanzu accelerator create simple-accelerator --git-repository https://gitlab.latamteam.name/root/simple-accelerator --git-branch main
+```
+Review the gitlab project and replace the field --git-repository https://gitlab...
+
+6. Connect to the TAP GUI and select the new Application Accelerator "Simple Accelerator"
+
+7. Review the results
+
+
 
 ## Commands to use with Tanzu Application Platform
 
