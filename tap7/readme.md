@@ -6,7 +6,11 @@
 ![alt text](https://github.com/RubenDillon/tanzu/blob/main/tap7/resources/environment.png?raw=true)
 
 In this tutorial we will be deploying Test and Scan supply chain and GitLab 
-authentication and integration.   
+authentication and integration.  
+
+This tutorial is recorded in thre (3) videos step by step in my youtube channel. 
+
+- https://youtube.com/rubendillon
 
 
 
