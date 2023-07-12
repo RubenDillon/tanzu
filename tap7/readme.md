@@ -8,7 +8,8 @@
 In this tutorial we will be deploying Test and Scan supply chain and GitLab 
 authentication and integration.  
 
-This tutorial is recorded in thre (3) videos step by step in my youtube channel. 
+This tutorial is recorded in three (3) videos step by step in my youtube channel under the 
+name "Tanzu Application Platform Technical Workshop" from July 2023.
 
 - https://youtube.com/rubendillon
 
