@@ -8,20 +8,13 @@
 In this tutorial we will be deploying Test and Scan supply chain and GitLab 
 authentication and integration.  
 
-This tutorial is recorded in three (3) videos step by step in my youtube channel under the 
-name "Tanzu Application Platform Technical Workshop" from July 2023.
-
-- https://youtube.com/rubendillon
-
-
-
 Requirements
 ============
 
 1. An Azure subscription to deploy AKS
 3. An AWS subscription for route53 DNS service (we create latamteam.name domain)
 4. Tanzu Mission Control
-5. TAP 1.5.2 use Kubernetes v1.24, 1.25 and 1.26. We will be using 1.24.10 on a AKS 
+5. TAP 1.6.3 use Kubernetes v1.25, 1.26 and 1.27. We will be using 1.27.3 on a AKS 
 
 ## NOTE: 
 We will be using lets Encrypt to obtain public free digital certificates.
@@ -35,17 +28,17 @@ Environment
 =
 
 At the end of this step by step we will be using the following infrastructure
-- A DNS service in AWS (Route53) for the domain latamteam.name
+- A DNS service in AWS (Route53) for the domain solateam.be
 - An AKS platform (one kubernetes cluster)
 - Let's Encrypt certificates
-- Harbor running in harbor.latamteam.name
-- GitLab running in gitlab.latamteam.name
-- PostgreSQL running in pgs.latamteam.name
-- TAP 1.5.2 running in
-	- tap-gui.latamteam.name
-	- *.learning.latamteam.name
+- Harbor running in harbor.solateam.be
+- GitLab running in gitlab.solateam.be
+- PostgreSQL running in pgs.solateam.be
+- TAP 1.6.3 running in
+	- tap-gui.solateam.be
+	- *.learning.solateam.be
 - Applications running in
-  	- *.default.latamteam.name
+  	- *.default.solateam.be
 
 
 Create the DNS records
@@ -55,13 +48,13 @@ Create the DNS records
 2. We create a DNS domain called latamteam.name for this environment
     
 3. In that environment we will create the following records
-	- gitlab.latamteam.name
-	- harbor.latamteam.name
-	- notary.harbor.latamteam.name
-	- tap-gui.latamteam.name
-	- *.default.latamteam.name
-	- *.learning.latamteam.name
-	- pgs.latamteam.name
+	- gitlab.solateam.be
+	- harbor.solateam.be
+	- notary.harbor.solateam.be
+	- tap-gui.solateam.be
+	- *.default.solateam.be
+	- *.learning.solateam.be
+	- pgs.solateam.be
 				
 
 Create the environment
@@ -84,7 +77,7 @@ az account set --subscription dddddxxxx-xx-xxxxx-xxxxxxxx
     
 4. Create the resource group where AKS will be deployed
 ```
-az group create --name LATAM-TAP-RG --location eastus
+az group create --name SOLA-TAP-RG --location eastus
 ```
     
 5. Verify the kubernetes versions available for AKS
@@ -99,7 +92,7 @@ az aks get-versions --location eastus
 	to have a real use... Standard_D8ds_v5 creates nodes with 8 vCPU and 32 GB RAM
 
 ```
-az aks create -g LATAM-TAP-RG -n latam-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.24.10
+az aks create -g SOLA-TAP-RG -n sola-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.27.3
 ```
 
 7. Deploy kubectl
@@ -110,7 +103,7 @@ az aks install-cli
     
 8. Download the kubectl 
 ```
-az aks get-credentials --name latam-tap-azure --resource-group LATAM-TAP-RG
+az aks get-credentials --name sola-tap-azure --resource-group SOLA-TAP-RG
 ```
     
 9. Test the connection
@@ -127,9 +120,9 @@ kubectl config get-contexts
     
 12. Attach the AKS Cluster to TMC under TAP cluster group 
 	
-13. Accept the EULA and deploy the Tanzu cli. Follow this instructions https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/install-tanzu-cli.html
+13. Accept the EULA and deploy the Tanzu cli. Follow this instructions https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.6/tap/install-tanzu-cli.html
     
-14. Deploy Cluster Essentials. Follow this instructions https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.5/cluster-essentials/deploy.html
+14. Deploy Cluster Essentials. Follow this instructions https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.6/cluster-essentials/deploy.html
     	
 15. Deploy Cert-Manager
 ```
