@@ -1,0 +1,90 @@
+# --------------------------------------------------------------------------------- #
+#
+#                    TAP values to deploy OOTB basic values
+#
+#                              valid for TAP 1.5
+#
+# --------------------------------------------------------------------------------- #
+
+buildservice:
+  kp_default_repository: harbor.latamteam.name/tap/build-service
+  kp_default_repository_secret:
+    name: registry-credentials
+    namespace: default
+    
+ceip_policy_disclosed: true
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+      
+excluded_packages:
+  - contour.tanzu.vmware.com
+  - cert-manager.tanzu.vmware.com
+  - learningcenter.tanzu.vmware.com
+  - workshops.learningcenter.tanzu.vmware.com
+  
+grype:
+  namespace: default
+  targetImagePullSecret: registry-credentials
+
+metadata_store:
+  app_service_type: ClusterIP
+  ns_for_export_app_cert: default
+ootb_delivery_basic:
+  service_account: default
+ootb_supply_chain_basic:
+  gitops:
+    ssh_secret: github-http-secret
+  registry:
+    repository: tap-apps
+    server: harbor.latamteam.name
+policy:
+  tuf_enabled: false
+profile: full
+scanning:
+  metadataStore:
+    url: ""
+shared:
+  image_registry:
+    project_path: harbor.latamteam.name/tap
+    secret:
+      name: registry-credentials
+      namespace: default
+  ingress_domain: latamteam.name
+  ingress_issuer: letsencrypt-production
+supply_chain: basic
+tap_gui:
+  app_config:
+    app:
+      baseUrl: https://tap-gui.latamteam.name
+    auth:
+      allowGuestAccess: true
+      environment: development
+      providers:
+        gitlab:
+          development:
+            audience: https://gitlab.latamteam.name
+            clientId: 8190f8f9c3c9f85943a1f669659293a8ac81be6ff784fec8df8edf1856763f69
+            clientSecret: fe9e8a2ec809fad8e8ded7220d3afdd63c23938981b771d2d479f0da46cf79d2
+    backend:
+      baseUrl: https://tap-gui.latamteam.name
+      cors:
+        origin: https://tap-gui.latamteam.name
+      reading:
+        allow:
+        - host: gitlab.latamteam.name
+        - host: acc-server.accelerator-system.svc.cluster.local       
+    catalog:
+      locations:
+        - target: https://gitlab.latamteam.name/blob/*/catalog/catalog-info.yaml
+          type: gitlab-discovery
+    integrations:
+      gitlab:
+        - apiBaseUrl: https://gitlab.latamteam.name/api/v4
+          baseUrl: https://gitlab.latamteam.name
+          host: gitlab.latamteam.name
+          token: glpat-zKsmxt2wTk5Dk5DHPWtx
+  metadataStoreAutoconfiguration: true
+  service_type: ClusterIP

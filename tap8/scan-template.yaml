@@ -1,0 +1,20 @@
+kind: ScanTemplate
+metadata:
+  name: scan-template
+spec:
+    template: # a core/v1 PodSpec
+      # Here are list volumes mounted for writing to or 
+      # reading from during different stages of the scan
+      volumes:
+        # required the results of different scan stages 
+        # should be saved in files digestible by the scan 
+        # controller in this volume
+        - name: workspace
+          emptyDir: { }
+      # different steps required for a scanning can be staged 
+      # in sequential stages through initContainers. 
+      initContainers:
+      # Summary container will take results of initContainers 
+      # and will let Controller to update Scan CR status.
+      containers:
+        - name: summary
