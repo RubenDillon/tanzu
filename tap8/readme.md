@@ -30,12 +30,15 @@ Environment
 
 At the end of this step by step we will be using the following infrastructure
 - A DNS service in AWS (Route53) for the domain solateam.be
-- An AKS platform (one kubernetes cluster)
+- Two AKS clusters (one for TAP and another for Harbor)
 - Let's Encrypt certificates
 - Harbor running in harbor.solateam.be
 - GitLab running in gitlab.solateam.be
 - PostgreSQL running in pgs.solateam.be
-- TAP 1.6.3 running in
+- HARBOR running in
+	- harbor.solateam.be
+	- notary.harbor.solateam.be
+ - TAP 1.6.3 running in
 	- tap-gui.solateam.be
 	- *.learning.solateam.be
 - Applications running in
@@ -86,7 +89,7 @@ az group create --name SOLA-TAP-RG --location eastus
 az aks get-versions --location eastus
 ```
     
-6. Create the AKS cluster
+6. Create the AKS cluster for TAP
 
 	to test.............. Standard_D4ds_v4 creates nodes with 4 vCPU and 16 GB RAM
 
@@ -96,35 +99,167 @@ az aks get-versions --location eastus
 az aks create -g SOLA-TAP-RG -n sola-tap-azure --enable-managed-identity --node-count 6 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.27.3
 ```
 
-7. Deploy kubectl
+7. Create the AKS cluster for Harbor
+
+```
+az aks create -g SOLA-TAP-RG -n sola-harbor-azure --enable-managed-identity --node-count 3 --enable-addons monitoring --enable-msi-auth-for-monitoring --generate-ssh-keys --node-vm-size Standard_D8ds_v5 --kubernetes-version 1.27.3
+```
+
+8. Deploy kubectl
 ```
 sudo su
 az aks install-cli
 ```
     
-8. Download the kubectl 
+9. Download the kubectl 
 ```
 az aks get-credentials --name sola-tap-azure --resource-group SOLA-TAP-RG
+az aks get-credentials --name sola-harbor-azure --resource-group SOLA-TAP-RG
 ```
     
-9. Test the connection
+10. Test the connection
 ```
 kubectl get nodes
 ```
 
-10. In TMC create a Cluster Group (I create "TAP" Cluster group)
+11. In TMC create a Cluster Group (I create "TAP" Cluster group)
 
-11. Review that you are on the correct cluster
+12. Review that you are on the correct cluster
 ```
 kubectl config get-contexts
 ```
     
-12. Attach the AKS Cluster to TMC under TAP cluster group 
+13. Attach each AKS Cluster to TMC under TAP cluster group 
 	
 13. Accept the EULA and deploy the Tanzu cli. Follow this instructions https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.6/tap/install-tanzu-cli.html
     
-14. Deploy Cluster Essentials. Follow this instructions https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.6/cluster-essentials/deploy.html
-    	
+14. Deploy Cluster Essentials on each AKS cluster. Follow this instructions https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.6/cluster-essentials/deploy.html
+
+
+
+
+Deploy Harbor
+=
+    
+1. Deploy Cert-Manager
+```
+tanzu package available list -A
+tanzu package available list cert-manager.tanzu.vmware.com -A	
+kubectl create ns cert-manager
+tanzu package install cert-manager --package cert-manager.tanzu.vmware.com --namespace cert-manager --version 1.11.1+vmware.1-tkg.1
+```
+NOTE: at this moment we have available 1.11.1+vmware.1-tkg.1   
+  
+2. Deploy Contour 
+```    		
+tanzu package available list contour.tanzu.vmware.com -A			
+kubectl create ns contour
+		
+tanzu package install contour \
+--package contour.tanzu.vmware.com \
+--version 1.24.4+vmware.1-tkg.1 \
+--values-file contour-values.yaml \
+--namespace contour
+```
+NOTE: at this time we have available 1.24.4+vmware.1-tkg.1
+
+3. Obtain the Public IP Address where Envoy is running
+```    
+kubectl get svc -A | grep envoy
+```
+      
+4. Create the namespace tanzu-system-registry
+```       
+kubectl create ns tanzu-system-registry
+```
+        
+5. Create a Cluster issuer using the following command
+```
+kubectl apply -f - <<'EOF'
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-contour-cluster-issuer
+  namespace: cert-manager
+spec:
+  acme:
+    email: "rdillon@vmware.com"
+    privateKeySecretRef:
+      name: acme-account-key
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - http01:
+        ingress:
+          class: contour
+EOF
+```
+    
+6. Request the certificate as follow
+    
+        kubectl apply -f - <<'EOF'
+        apiVersion: cert-manager.io/v1
+        kind: Certificate
+        metadata:
+          name: harbor-cert
+          namespace: tanzu-system-registry
+        spec:
+          secretName: harbor-cert-tls
+          duration: 2160h
+          renewBefore: 360h
+          subject:
+            organizations:
+            - vmware
+          commonName: harbor.solateam.be
+          isCA: false
+          privateKey:
+            size: 2048
+            algorithm: RSA
+            encoding: PKCS1
+          dnsNames:
+          - harbor.solateam.be
+          - notary.harbor.solateam.be
+          issuerRef:
+            name: letsencrypt-contour-cluster-issuer
+            kind: ClusterIssuer
+        EOF
+    
+7. Now we will expect to wait more or less 10 minutes until we could have the certificate. To verify it use the following command
+```
+kubectl get certificates -n tanzu-system-registry harbor-cert
+```
+    
+8. When you have TRUE in ready column, you will continue to the next step that is obtain the certificates
+```        
+kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.crt"} | base64 --decode > tls-crt.txt            
+kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.key"} | base64 --decode > tls-key.txt
+```       
+ 
+9. Deploy Harbor using the Tanzu packages (follow the steps from Tanzu documentation)
+```
+kubectl create ns harbor
+tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.8.2+vmware.2-tkg.1 --values-file harbor-values.yaml --namespace harbor
+```                 
+    
+10. Connect to harbor and create "tap" project as public.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+Configure Contour and Cert-Manager in TAP AKS cluster
+=
+
 15. Deploy Cert-Manager
 ```
 tanzu package available list -A
@@ -226,6 +361,12 @@ tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.6.3+v
     
 24. Connect to harbor and create "tap" project as public.
         
+
+
+
+
+
+
 
 Configure the cluster
 =
