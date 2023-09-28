@@ -2,28 +2,24 @@
 infrastructure_provider: azure
 namespace: tanzu-system-ingress
 contour:
-  configFileContents: {}
-  useProxyProtocol: false
-  replicas: 2
-  pspNames: "vmware-system-restricted"
-  logLevel: info
+ configFileContents: {}
+ useProxyProtocol: false
+ replicas: 2
+ pspNames: "vmware-system-restricted"
+ logLevel: info
 envoy:
-  service:
-    type: LoadBalancer
-    annotations: {}
-    nodePorts:
-      http: null
-      https: null
-    externalTrafficPolicy: Cluster
-    disableWait: false
-  hostPorts:
-    enable: true
-    http: 80
-    https: 443
-  hostNetwork: false
-  terminationGracePeriodSeconds: 300
-  logLevel: info
-  pspNames: null
+ service:
+   type: LoadBalancer
+   annotations: {}
+   externalTrafficPolicy: Cluster
+   disableWait: false
+ hostPorts:
+   enable: true
+   http: 80
+   https: 443
+ hostNetwork: false
+ terminationGracePeriodSeconds: 300
+ logLevel: info
 certificates:
-  duration: 8760h
-  renewBefore: 360h
+ duration: 8760h
+ renewBefore: 360h
