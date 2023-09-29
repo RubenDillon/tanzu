@@ -530,7 +530,7 @@ Install Tanzu Application Platform package from TMC Catalog
 
 1. Select the Tanzu Application Platform
     
-2. Select tap as name and 1.5.2 for the version
+2. Select tap as name and 1.6.3 for the version
     
 3. Copy the tap-values-OOTB-basic on the TMC UI
     
@@ -571,7 +571,7 @@ Test an Example in a basic Supply Chain
 1. Now we will be deploying the example using that repository
 ```	
 tanzu apps workload apply tanzu-java-web-app \
---git-repo https://gitlab.latamteam.name/root/tanzu-java-web-app \
+--git-repo https://gitlab.solateam.be/root/tanzu-java-web-app \
 --git-branch main \
 --type web \
 --app tanzu-java-web-app \
