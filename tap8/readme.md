@@ -141,7 +141,7 @@ kubectl config get-contexts
 Deploy Harbor
 =
     
-1. Deploy Cert-Manager
+1. Connect to the Harbor AKS cluster and deploy Cert-Manager
 ```
 tanzu package available list -A
 tanzu package available list cert-manager.tanzu.vmware.com -A	
@@ -241,58 +241,41 @@ tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.8.2+v
 ```                 
     
 10. Connect to harbor and create "tap" project as public.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  
 
 Configure Contour and Cert-Manager in TAP AKS cluster
 =
 
-15. Deploy Cert-Manager
+1. Connect to the AKS cluster
+   
+2. Deploy Cert-Manager
 ```
 tanzu package available list -A
 tanzu package available list cert-manager.tanzu.vmware.com -A	
 kubectl create ns cert-manager
-tanzu package install cert-manager --package cert-manager.tanzu.vmware.com --namespace cert-manager --version 1.10.2+vmware.1-tkg.1
+tanzu package install cert-manager --package cert-manager.tanzu.vmware.com --namespace cert-manager --version 1.11.1+vmware.1-tkg.1
 ```
-NOTE: at this moment we have available for example 1.10.2+vmware.1-tkg.1   
+NOTE: at this moment we have available 1.11.1+vmware.1-tkg.1   
   
-16. Deploy Contour 
+2. Deploy Contour 
 ```    		
 tanzu package available list contour.tanzu.vmware.com -A			
 kubectl create ns contour
 		
 tanzu package install contour \
 --package contour.tanzu.vmware.com \
---version 1.23.5+vmware.1-tkg.1 \
+--version 1.24.4+vmware.1-tkg.1 \
 --values-file contour-values.yaml \
 --namespace contour
 ```
-NOTE: at this time we have available for example 1.23.5+vmware.1-tkg.1
+NOTE: at this time we have available 1.24.4+vmware.1-tkg.1
 
-17. Obtain the Public IP Address where Envoy is running
+3. Obtain the Public IP Address where Envoy is running
 ```    
 kubectl get svc -A | grep envoy
 ```
-      
-18. Create the namespace tanzu-system-registry
-```       
-kubectl create ns tanzu-system-registry
-```
-        
-19. Create a Cluster issuer using the following command
+              
+4. Create a Cluster issuer using the following command
 ```
 kubectl apply -f - <<'EOF'
 apiVersion: cert-manager.io/v1
@@ -312,72 +295,13 @@ spec:
           class: contour
 EOF
 ```
-    
-20. Request the certificate as follow
-    
-        kubectl apply -f - <<'EOF'
-        apiVersion: cert-manager.io/v1
-        kind: Certificate
-        metadata:
-          name: harbor-cert
-          namespace: tanzu-system-registry
-        spec:
-          secretName: harbor-cert-tls
-          duration: 2160h
-          renewBefore: 360h
-          subject:
-            organizations:
-            - vmware
-          commonName: harbor.latamteam.name
-          isCA: false
-          privateKey:
-            size: 2048
-            algorithm: RSA
-            encoding: PKCS1
-          dnsNames:
-          - harbor.latamteam.name
-          - notary.harbor.latamteam.name
-          issuerRef:
-            name: letsencrypt-contour-cluster-issuer
-            kind: ClusterIssuer
-        EOF
-    
-21. Now we will expect to wait more or less 10 minutes until we could have the certificate. To verify it use the following command
-```
-kubectl get certificates -n tanzu-system-registry harbor-cert
-```
-    
-22. When you have TRUE in ready column, you will continue to the next step that is obtain the certificates
-```        
-kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.crt"} | base64 --decode > tls-crt.txt            
-kubectl get secret harbor-cert-tls -n tanzu-system-registry -o=jsonpath={.data."tls\.key"} | base64 --decode > tls-key.txt
-```       
- 
-23. Deploy Harbor using the Tanzu packages (follow the steps from Tanzu documentation)
-```
-kubectl create ns harbor
-tanzu package install harbor --package harbor.tanzu.vmware.com --version 2.6.3+vmware.1-tkg.1 --values-file harbor-values.yaml --namespace harbor
-```                 
-    
-24. Connect to harbor and create "tap" project as public.
-        
-
-
-
-
-
-
-
-Configure the cluster
-=
-1. We connect to the cluster
             
-2. Create the namespace "tap-install"
+5. Create the namespace "tap-install"
     
 3. Create a internal registry secret
 ```    
 tanzu secret registry add registry-credentials \
---server   harbor.latamteam.name \
+--server   harbor.solateam.be \
 --username admin \
 --password "PASSw0rd2019202020212022" \
 --namespace tap-install \
@@ -404,7 +328,7 @@ Create the repository
 =
 ```
 Name: tanzu-tap-repository
-Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.5.2
+Repository URL: registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:1.6.3
 ```
 
 Review the status of the repository
