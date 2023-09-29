@@ -7,6 +7,7 @@
 # --------------------------------------------------------------------------------- #
 
 buildservice:
+  enable_automatic_dependency_updates: false
   kp_default_repository: harbor.solateam.be/tap/build-service
   kp_default_repository_secret:
     name: registry-credentials
@@ -30,22 +31,30 @@ grype:
   targetImagePullSecret: registry-credentials
 
 metadata_store:
+  ingressEnabled: true
+  ingressDomain: solateam.be
   app_service_type: ClusterIP
   ns_for_export_app_cert: default
+  
 ootb_delivery_basic:
   service_account: default
+  
 ootb_supply_chain_basic:
   gitops:
     ssh_secret: github-http-secret
   registry:
     repository: tap-apps
     server: harbor.solateam.be
+    
 policy:
   tuf_enabled: false
+  
 profile: full
+
 scanning:
   metadataStore:
     url: ""
+
 shared:
   image_registry:
     project_path: harbor.solateam.be/tap
@@ -54,9 +63,13 @@ shared:
       namespace: default
   ingress_domain: solateam.be
   ingress_issuer: letsencrypt-production
+
 supply_chain: basic
+
 tap_gui:
   app_config:
+    supplyChain:
+      enablePlugin: true
     app:
       baseUrl: https://tap-gui.solateam.be
     auth:
@@ -88,3 +101,16 @@ tap_gui:
           token: glpat-6HLtEB_J7T8EyzQGLYfz---xxxyz
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
+  ingressEnabled: true
+  ingressDomain: solateam.be  
+
+ootb_templates:
+  iaas_auth: true
+
+accelerator:
+  server:
+    service_type: "ClusterIP"
+
+cnrs:
+  domain_name: solateam.be
+  
