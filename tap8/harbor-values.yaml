@@ -1,40 +1,186 @@
-namespace: tanzu-system-registry
+caBundleSecretName: ""
+cache:
+  enabled: false
+  expireHours: 24
+contourHttpProxy:
+  idleTimeout: 5m
+  timeout: 0s
+core:
+  replicas: 1
+  secret: fZvJ9QDQkq1vhFfep
+  xsrfKey: BvKzniPfqRJ87olE2LSHrrjnxCXUMVnp
+database:
+  maxIdleConns: ""
+  maxOpenConns: ""
+  password: w3GjW6ZwdABd40sk
+  shmSizeLimit: ""
+enableContourHttpProxy: true
+exporter:
+  cacheDuration: ""
+harborAdminPassword: PASSw0rd2019202020212022
 hostname: harbor.latamteam.name
+jobservice:
+  replicas: 1
+  secret: k5VgK3z8vqcac9l7
+logLevel: info
+metrics:
+  core:
+    path: /metrics
+    port: 8001
+  enabled: false
+  exporter:
+    path: /metrics
+    port: 8001
+  jobservice:
+    path: /metrics
+    port: 8001
+  registry:
+    path: /metrics
+    port: 8001
+namespace: tanzu-system-registry
+network:
+  ipFamilies: []
+notary:
+  enabled: true
+persistence:
+  imageChartStorage:
+    azure:
+      accountkey: base64encodedaccountkey
+      accountname: accountname
+      container: containername
+      realm: core.windows.net
+    disableredirect: false
+    filesystem:
+      rootdirectory: /storage
+    gcs:
+      bucket: bucketname
+      chunksize: 5242880
+      encodedkey: base64-encoded-json-key-file
+      rootdirectory: ""
+    oss:
+      accesskeyid: accesskeyid
+      accesskeysecret: accesskeysecret
+      bucket: bucketname
+      chunksize: ""
+      encrypt: ""
+      endpoint: ""
+      internal: ""
+      region: regionname
+      rootdirectory: ""
+      secure: ""
+    s3:
+      accesskey: ""
+      bucket: bucketname
+      chunksize: ""
+      encrypt: false
+      keyid: ""
+      multipartcopychunksize: ""
+      multipartcopymaxconcurrency: ""
+      multipartcopythresholdsize: ""
+      region: us-west-1
+      regionendpoint: ""
+      rootdirectory: ""
+      secretkey: ""
+      secure: true
+      skipverify: false
+      storageclass: STANDARD
+      v4auth: true
+    swift:
+      accesskey: ""
+      authurl: https://storage.myprovider.com/v3/auth
+      authversion: ""
+      chunksize: ""
+      container: containername
+      domain: ""
+      domainid: ""
+      endpointtype: ""
+      insecureskipverify: ""
+      password: password
+      prefix: ""
+      region: ""
+      secretkey: ""
+      tempurlcontainerkey: ""
+      tempurlmethods: ""
+      tenant: ""
+      tenantid: ""
+      trustid: ""
+      username: username
+    type: filesystem
+  persistentVolumeClaim:
+    database:
+      accessMode: ReadWriteOnce
+      existingClaim: ""
+      size: 1Gi
+      storageClass: ""
+      subPath: ""
+    jobservice:
+      jobLog:
+        accessMode: ReadWriteOnce
+        existingClaim: ""
+        size: 1Gi
+        storageClass: ""
+        subPath: ""
+    redis:
+      accessMode: ReadWriteOnce
+      existingClaim: ""
+      size: 1Gi
+      storageClass: ""
+      subPath: ""
+    registry:
+      accessMode: ReadWriteOnce
+      existingClaim: ""
+      size: 10Gi
+      storageClass: ""
+      subPath: ""
+    trivy:
+      accessMode: ReadWriteOnce
+      existingClaim: ""
+      size: 5Gi
+      storageClass: ""
+      subPath: ""
 port:
   https: 443
-logLevel: info
+proxy:
+  httpProxy: ""
+  httpsProxy: ""
+  noProxy: 127.0.0.1,localhost,.local,.internal
+pspNames: "null"
+registry:
+  replicas: 1
+  secret: 8xuH6dXLsDYIyTyn
+secretKey: J2i8LpYcSU4mFAx3
 tlsCertificate:
+  ca.crt: ""
   tls.crt: |-
     -----BEGIN CERTIFICATE-----
-    MIIFUDCCBDigAwIBAgISA/Hf75tdCoX+npN5dtkPgIPLMA0GCSqGSIb3DQEBCwUA
+    MIIFDTCCA/WgAwIBAgISBIisQpemeS8wt5gXddq4hcpwMA0GCSqGSIb3DQEBCwUA
     MDIxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQD
-    EwJSMzAeFw0yMzA2MDMyMjM5MjdaFw0yMzA5MDEyMjM5MjZaMCExHzAdBgNVBAMT
-    FmhhcmJvci50YXAuc29sYXRlYW0uYmUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
-    ggEKAoIBAQDoxLPSw7VSUqellO6t4LZw4S5pp3JhxVQ25M0su9iGjBQTezLu9jSM
-    PEjMK4p5oNQZJ9XLz0yKFLAJaitAl8icFpN/igXuz2iJ1woJwEDnGPgiJC/N46zI
-    OfCoRIcq89X3Rc+NWUmtxKmpzw1JNB/N0TPhHW5N6SL2aE/Vs3i9AsiwY4mN3a6Q
-    UYy4vUc9XCgbqxL+Y5dzsiPniwAhVPoBSzlfuATd1UTOTSzdU/dmkc6Rcl5/mKWb
-    SztkmMqLtdRZ8zyyN88FhLbQieQw7r0lkH1AQgcGQKfEzL6gQEQq9ewvkhsNZoml
-    U0xOxN+I5JCdHmXsq3pP7EIQ/1IK/Cn7AgMBAAGjggJvMIICazAOBgNVHQ8BAf8E
-    BAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMAwGA1UdEwEB/wQC
-    MAAwHQYDVR0OBBYEFArhxR1ETaQhvI5FzxXpi1nO7V+XMB8GA1UdIwQYMBaAFBQu
-    sxe3WFbLrlAJQOYfr52LFMLGMFUGCCsGAQUFBwEBBEkwRzAhBggrBgEFBQcwAYYV
-    aHR0cDovL3IzLm8ubGVuY3Iub3JnMCIGCCsGAQUFBzAChhZodHRwOi8vcjMuaS5s
-    ZW5jci5vcmcvMEAGA1UdEQQ5MDeCFmhhcmJvci50YXAuc29sYXRlYW0uYmWCHW5v
-    dGFyeS5oYXJib3IudGFwLnNvbGF0ZWFtLmJlMEwGA1UdIARFMEMwCAYGZ4EMAQIB
-    MDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0dHA6Ly9jcHMubGV0c2Vu
-    Y3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDvAHUAtz77JN+cTbp18jnF
-    ulj0bF38Qs96nzXEnh0JgSXttJkAAAGIg6FS4wAABAMARjBEAiA6pduPZXjuzMyA
-    x2+noDUvLKs5SK0MynV7NjUE5RTT4AIgdWbrz7PIpLpKSLI2klpVKjk2z84VsF3u
-    lzhIQkGCHygAdgDoPtDaPvUGNTLnVyi8iWvJA9PL0RFr7Otp4Xd9bQa9bgAAAYiD
-    oVMUAAAEAwBHMEUCIBj4RAGVPVl+x4NK62fjoLK+d2seezsC7LNCwf4q8sxaAiEA
-    l31PPJZHP/vlAK+ZhIhmmmFQNEkVpU3zMwMutFYJKiowDQYJKoZIhvcNAQELBQAD
-    ggEBACEMxD807MbMhyzNaaJQ9DwTzIVZtFWbFhw09qg4ixs/V+Krfvr8U7dF/Qb2
-    0QyZ1IlkDDMwVIqxwns24SABSjjzzUnKmw44WE7MV5YeZ2qfTjj+XatFERyCXo/p
-    /D/tqyqUNUmwCoNRwLJQM5EaSbYrOXs0Qa/nQcPxNdiHm3d9EFV3UbCdvx11PzlU
-    PUrTauIEypDSUtXT+FoWbZaaH4hM8HYCnkLcQ4oaGwoKfql62G93J/w74ZLbUC2F
-    oUYBiA1UsLwwPK4ntoNjojc2rXAP+va2OBKj5Lm6qxBs6MpJEFa79DSpOO3V+QPt
-    uBXuzDAa3NNEBQGuH+i04xUNuu4=
+    EwJSMzAeFw0yMzA5MjgxMjU5MDdaFw0yMzEyMjcxMjU5MDZaMB0xGzAZBgNVBAMT
+    EmhhcmJvci5zb2xhdGVhbS5iZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+    ggEBAKhxqaLrYiTE+nE0koTvmsDECYUy3XWoej5YoGz82kdnxUOkVSSWi3qOS+A4
+    SR+4qf+jI1Hee7vaGYjs3M6yXpoB7uURoh29hRnaFdz4dJ+rUV0Z0sKPjaQjH/Jj
+    fRneIKA5ZjJxuJAKmYTg+livptdmDUisGMJOpMVA0j390KdF2jVQJEwBwI2Y4rka
+    VefNLz0DT0anBKapluOYSX8rS5MpbQM936S/GRCvMp6fUZVlDfIK6dGJhQY2nLi+
+    f2rcwr4d7sW6BCsmwsD9VCaSbn9kP/s8elwhrdkfXUNK2eh23gYHhsELf+HmToVi
+    lJsCIlm0v6PqWO+9k1MXVvzCD9sCAwEAAaOCAjAwggIsMA4GA1UdDwEB/wQEAwIF
+    oDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDAYDVR0TAQH/BAIwADAd
+    BgNVHQ4EFgQUu3K5doOpfccMpM7Hn29mA9uBCuEwHwYDVR0jBBgwFoAUFC6zF7dY
+    VsuuUAlA5h+vnYsUwsYwVQYIKwYBBQUHAQEESTBHMCEGCCsGAQUFBzABhhVodHRw
+    Oi8vcjMuby5sZW5jci5vcmcwIgYIKwYBBQUHMAKGFmh0dHA6Ly9yMy5pLmxlbmNy
+    Lm9yZy8wOAYDVR0RBDEwL4ISaGFyYm9yLnNvbGF0ZWFtLmJlghlub3RhcnkuaGFy
+    Ym9yLnNvbGF0ZWFtLmJlMBMGA1UdIAQMMAowCAYGZ4EMAQIBMIIBBQYKKwYBBAHW
+    eQIEAgSB9gSB8wDxAHcAejKMVNi3LbYg6jjgUh7phBZwMhOFTTvSK8E6V6NS61IA
+    AAGK3BYQJQAABAMASDBGAiEAvudag81bQ/slMHv4ZeUamltdd2CGmlXn00GJSKYR
+    3WgCIQD0tUrQLXpTR6tvWX2O82zZield3WKDkbVHTp1FsWUxyQB2AOg+0No+9QY1
+    MudXKLyJa8kD08vREWvs62nhd31tBr1uAAABitwWEBcAAAQDAEcwRQIhAPbjJfzF
+    xGVdfuZQVmnV2tWajxKH2FUJ9XrhyRU9hrJzAiAew80AXXNtir6RZtL62xDZW7AL
+    GqXIBUx0MncZfhsOoTANBgkqhkiG9w0BAQsFAAOCAQEAbzf7Hphg2M81HDa78UzB
+    IfS/MQl54qsiOKzUhMoZb1FDxsfFYFzhh+mbFAEmmTQV+xeyFakx97MwVdLc2V9J
+    wnujF/EoW7m1tVifdMjMkKV2SHDsQQMm7KgNfEEWOiGfbERwJaO0dEbGU3+Lt7A+
+    o8DkioDFpzYnmw7nLm0nCS5OXeDoINl0jYiynOlp1i9iixV9NHoG9UApC9uhNM5g
+    kVk8m57v+kkw4yvyohB9TryRpX/j0x/RmrV1uiY9Wbr/UsFjfh4dHlTpz9HYvtP1
+    0PQ0uRNXjcB7JhjS86RKPHoWc2HaX3nRrXFuC9z/3zxhB6ChyvewOoaAWKkeqwnF
+    1Q==
     -----END CERTIFICATE-----
     -----BEGIN CERTIFICATE-----
     MIIFFjCCAv6gAwIBAgIRAJErCErPDBinU/bWLiWnX1owDQYJKoZIhvcNAQELBQAw
@@ -99,210 +245,56 @@ tlsCertificate:
     -----END CERTIFICATE-----
   tls.key: |-
     -----BEGIN RSA PRIVATE KEY-----
-    MIIEpAIBAAKCAQEA6MSz0sO1UlKnpZTureC2cOEuaadyYcVUNuTNLLvYhowUE3sy
-    7vY0jDxIzCuKeaDUGSfVy89MihSwCWorQJfInBaTf4oF7s9oidcKCcBA5xj4IiQv
-    zeOsyDnwqESHKvPV90XPjVlJrcSpqc8NSTQfzdEz4R1uTeki9mhP1bN4vQLIsGOJ
-    jd2ukFGMuL1HPVwoG6sS/mOXc7Ij54sAIVT6AUs5X7gE3dVEzk0s3VP3ZpHOkXJe
-    f5ilm0s7ZJjKi7XUWfM8sjfPBYS20InkMO69JZB9QEIHBkCnxMy+oEBEKvXsL5Ib
-    DWaJpVNMTsTfiOSQnR5l7Kt6T+xCEP9SCvwp+wIDAQABAoIBAF4FVj2EH/GowV74
-    0ZAafJcL3ht/L4yekG277cRr/AIdAt77nI85k/AxSZZu3/hRJlsi5BD3IwuDX7ft
-    0pq8tKOX2uxhbBQSYz+KRNu7dHvkchYYV9bqaBhYjwTo6VBIPd0rrbKCpmgyT/Xv
-    VIaFL3OLVVFQ+gUubpjpeZXwcIynle2waP0zPmBsR9BaNnPkYxDYReu5I/zSwMBG
-    yU49uV2RbE3LA0mISY9Em91yByVpbdDvQUazzNoHeutkep8yZNf+PA+V8nreJMLf
-    qZQXj0QMQbgYo6Tp+POLo2B2hAbk1xNNQ4rV1iGt6AIMqKT8xBqrX2hmByCehYUn
-    M6ClTMECgYEA+4eRr9W1egxKcsgBfuSa3mDN0tuYHiHww/7ICfxCLMGd4EY730Lc
-    dpoLhdlwh5/uztTsxQg9bX8vtjJHDjAFWMdAC9tb71ohvXp2D0HnFZZSCTokr6XU
-    iK4XGCJM5BrRNCS3j+9e0oK5grrhDrw8pV1SH+JEDaWG0ITwDIMnyoUCgYEA7OfF
-    o73rITdpMpMuD9meBQ6KZ6FzNBj7WCS5Ro44ttvFsyjjG+QMCha4iCB01oWRQFAp
-    g5d9sIKmuqC5gEmdaXJU69nbT+r5c7erRNgecdVhNirXDtUIunYOUh/vJ3UEyXK2
-    bN3hpH6z/2yLISpepNpM6T5q/OL4/wMAQVq3in8CgYAQh7lQV/gkPDiMUI6gmz9+
-    S9ha+imGGW7sQos89MIYlOTeP19h7c/1T2xgcIjPsPgNybqBvGflEU2+aJF44jkH
-    u5h+7vycv0ymWiz2FbutFILxrkuI65oLHX3RDTgGaajEB4G0yONvbD3q1IND56UI
-    rRhflgwo5W71tzbba6cqzQKBgQCkOM5CgYaa0gR0cJ4/koT90GSVDdAET0T8hwiA
-    JlqeN57GYRN95AmMfM+SXZ1gj9pukKMWe08/qnHVcVDl4yHhVMYVcEGdFq+xTaLF
-    6GLCWj43BF9sArU4PFoVB9oKqg2Vb5WRxgWCt+oip6WSagKNmF40WXZksxoT/IqS
-    w0X0FQKBgQCfjsi5DpH3fvMTNcLbwfWUdUEWX3q+puZRPzVoe4VBwEVstsJHFsHd
-    1ZdqNDkUeaTR57bkjJRAeQeVKy2F91Y8p3R1wS0ira3oiBTcqXa6QFkCyNEBsHMY
-    mTAsPKSpVO1EuGifxy7Zp08QJgo98FSkKkqrt0zvHVhxDZcjSsjN5A==
+    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
     -----END RSA PRIVATE KEY-----
-  ca.crt:
-  tlsSecretLabels:
-tlsCertificateSecretName:
-enableContourHttpProxy: true
-contourHttpProxy:
-  timeout: 0s
-  idleTimeout: 5m
-harborAdminPassword: PASSw0rd2019202020212022
-secretKey: J2i8LpYcSU4mFAx3
-database:
-  password: w3GjW6ZwdABd4Osk
-  shmSizeLimit:
-  maxIdleConns:
-  maxOpenConns:
-exporter:
-  cacheDuration:
-core:
-  replicas: 1
-  secret: fZvJ9QDkq1vhFfep
-  xsrfKey: BvKzniPfqRJ87olE2LSHrrjnxCXUMVnp
-jobservice:
-  replicas: 1
-  secret: k5VgK3z8vqcac9l7
-registry:
-  replicas: 1
-  secret: 8xuH6dXLsDYIyTyn
-notary:
-  enabled: true
-trivy:
-  enabled: true
-  replicas: 1
-  gitHubToken: ""
-  skipUpdate: false
-  offlineScan: false
-  timeout:
-persistence:
-  persistentVolumeClaim:
-    registry:
-      existingClaim: ""
-      storageClass: ""
-      subPath: ""
-      accessMode: ReadWriteOnce
-      size: 10Gi
-    jobservice:
-      jobLog:
-        existingClaim: ""
-        storageClass: ""
-        subPath: ""
-        accessMode: ReadWriteOnce
-        size: 1Gi
-      scanDataExports:
-        existingClaim: ""
-        storageClass: ""
-        subPath: ""
-        accessMode: ReadWriteOnce
-        size: 1Gi
-    database:
-      existingClaim: ""
-      storageClass: ""
-      subPath: ""
-      accessMode: ReadWriteOnce
-      size: 1Gi
-    redis:
-      existingClaim: ""
-      storageClass: ""
-      subPath: ""
-      accessMode: ReadWriteOnce
-      size: 1Gi
-    trivy:
-      existingClaim: ""
-      storageClass: ""
-      subPath: ""
-      accessMode: ReadWriteOnce
-      size: 5Gi
-  imageChartStorage:
-    disableredirect: false
-    type: filesystem
-    filesystem:
-      rootdirectory: /storage
-    azure:
-      accountname: accountname
-      accountkey: base64encodedaccountkey
-      container: containername
-      realm: core.windows.net
-    gcs:
-      bucket: bucketname
-      encodedkey: base64-encoded-json-key-file
-      rootdirectory: null
-      chunksize: 5242880
-    s3:
-      region: us-west-1
-      bucket: bucketname
-      accesskey: null
-      secretkey: null
-      regionendpoint: null
-      encrypt: false
-      keyid: null
-      secure: true
-      skipverify: false
-      v4auth: true
-      chunksize: null
-      rootdirectory: null
-      storageclass: STANDARD
-      multipartcopychunksize: null
-      multipartcopymaxconcurrency: null
-      multipartcopythresholdsize: null
-    swift:
-      authurl: https://storage.myprovider.com/v3/auth
-      username: username
-      password: password
-      container: containername
-      region: null
-      tenant: null
-      tenantid: null
-      domain: null
-      domainid: null
-      trustid: null
-      insecureskipverify: null
-      chunksize: null
-      prefix: null
-      secretkey: null
-      accesskey: null
-      authversion: null
-      endpointtype: null
-      tempurlcontainerkey: null
-      tempurlmethods: null
-    oss:
-      accesskeyid: accesskeyid
-      accesskeysecret: accesskeysecret
-      region: regionname
-      bucket: bucketname
-      endpoint: null
-      internal: null
-      encrypt: null
-      secure: null
-      chunksize: null
-      rootdirectory: null
-proxy:
-  httpProxy:
-  httpsProxy:
-  noProxy: 127.0.0.1,localhost,.local,.internal
-pspNames: null
-caBundleSecretName:
-metrics:
-  enabled: false
-  core:
-    path: /metrics
-    port: 8001
-  registry:
-    path: /metrics
-    port: 8001
-  jobservice:
-    path: /metrics
-    port: 8001
-  exporter:
-    path: /metrics
-    port: 8001
-network:
-  ipFamilies: []
+  tlsSecretLabels: ""
+tlsCertificateSecretName: ""
 trace:
+  attributes: ""
   enabled: false
-  provider: jaeger
-  sample_rate: 1
-  namespace:
-  attributes:
-    application: harbor
   jaeger:
+    agent_host: ""
+    agent_port: ""
     endpoint: http://hostname:14268/api/traces
-    username:
-    password:
-    agent_host:
-    agent_port:
+    password: ""
+    username: ""
+  namespace: ""
   otel:
-    endpoint: hostname:4318
-    url_path: /v1/traces
     compression: false
+    endpoint: hostname:4318
     insecure: true
     timeout: 10
-cache:
-  enabled: false
-  expireHours: 24
+    url_path: /v1/traces
+  provider: jaeger
+  sample_rate: 1
+trivy:
+  enabled: true
+  gitHubToken: ""
+  offlineScan: false
+  replicas: 1
+  skipUpdate: false
+  timeout: ""
