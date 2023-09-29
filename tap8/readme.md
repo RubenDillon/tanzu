@@ -388,7 +388,7 @@ export GITLAB_HOME=/srv/gitlab
 export GITLAB_HOME=$HOME/gitlab
 		
 sudo docker run --detach \
---hostname gitlab.latamteam.name \
+--hostname gitlab.solateam.be \
 --publish 443:443 --publish 80:80  \
 --name gitlab \
 --restart always \
@@ -494,9 +494,9 @@ GitLab authentication
 
 1. Create a new public project in Harbor and call it "tap-apps" and "tap-gitops"
 
-2. Create your OAuth App.
+2. Go to Admin Area, Applications and create your OAuth App.
 
-	- Redirect URI should point to the auth backend: https://tap-gui.latamteam.name/api/auth/gitlab/handler/frame		
+	- Redirect URI should point to the auth backend: https://tap-gui.solateam.be/api/auth/gitlab/handler/frame		
 	- The set of permissions granted to the application are: api, read_api, read_user, read_repository, write_repository, openid, and email.
 		
 3. Generate a new Client Secret and take a note of the Client ID and the Client Secret
