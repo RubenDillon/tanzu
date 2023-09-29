@@ -18,7 +18,7 @@ enableContourHttpProxy: true
 exporter:
   cacheDuration: ""
 harborAdminPassword: PASSw0rd2019202020212022
-hostname: harbor.latamteam.name
+hostname: harbor.solateam.be
 jobservice:
   replicas: 1
   secret: k5VgK3z8vqcac9l7
