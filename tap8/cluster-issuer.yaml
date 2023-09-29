@@ -5,7 +5,7 @@ metadata:
   name: letsencrypt-production
 spec:
   acme:
-    email: certificate-notices@my-company.com
+    email: rdillon@vmware.com
     privateKeySecretRef:
       name: letsencrypt-production
     server: https://acme-v02.api.letsencrypt.org/directory
