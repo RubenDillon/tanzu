@@ -7,7 +7,7 @@
 # --------------------------------------------------------------------------------- #
 
 buildservice:
-  kp_default_repository: harbor.latamteam.name/tap/build-service
+  kp_default_repository: harbor.solateam.be/tap/build-service
   kp_default_repository_secret:
     name: registry-credentials
     namespace: default
@@ -39,7 +39,7 @@ ootb_supply_chain_basic:
     ssh_secret: github-http-secret
   registry:
     repository: tap-apps
-    server: harbor.latamteam.name
+    server: harbor.solateam.be
 policy:
   tuf_enabled: false
 profile: full
@@ -48,43 +48,43 @@ scanning:
     url: ""
 shared:
   image_registry:
-    project_path: harbor.latamteam.name/tap
+    project_path: harbor.solateam.be/tap
     secret:
       name: registry-credentials
       namespace: default
-  ingress_domain: latamteam.name
+  ingress_domain: solateam.be
   ingress_issuer: letsencrypt-production
 supply_chain: basic
 tap_gui:
   app_config:
     app:
-      baseUrl: https://tap-gui.latamteam.name
+      baseUrl: https://tap-gui.solateam.be
     auth:
       allowGuestAccess: true
       environment: development
       providers:
         gitlab:
           development:
-            audience: https://gitlab.latamteam.name
-            clientId: 8190f8f9c3c9f85943a1f669659293a8ac81be6ff784fec8df8edf1856763f69
-            clientSecret: fe9e8a2ec809fad8e8ded7220d3afdd63c23938981b771d2d479f0da46cf79d2
+            audience: https://gitlab.solateam.be
+            clientId: d5db9d58f58a2115b56d84a0778ad8aa9210674e9db03e61db5046bf12ee11e4------zzzzzz
+            clientSecret: gloas-ad20e2c16fc6ec97d2584ff128dfdac0c512b55b7f64e57825ed685d2eaf0125-----zzzzzz
     backend:
-      baseUrl: https://tap-gui.latamteam.name
+      baseUrl: https://tap-gui.solateam.be
       cors:
-        origin: https://tap-gui.latamteam.name
+        origin: https://tap-gui.solateam.be
       reading:
         allow:
-        - host: gitlab.latamteam.name
+        - host: gitlab.solateam.be
         - host: acc-server.accelerator-system.svc.cluster.local       
     catalog:
       locations:
-        - target: https://gitlab.latamteam.name/blob/*/catalog/catalog-info.yaml
+        - target: https://gitlab.solateam.be/blob/*/catalog/catalog-info.yaml
           type: gitlab-discovery
     integrations:
       gitlab:
-        - apiBaseUrl: https://gitlab.latamteam.name/api/v4
-          baseUrl: https://gitlab.latamteam.name
-          host: gitlab.latamteam.name
-          token: glpat-zKsmxt2wTk5Dk5DHPWtx
+        - apiBaseUrl: https://gitlab.solateam.be/api/v4
+          baseUrl: https://gitlab.solateam.be
+          host: gitlab.solateam.be
+          token: glpat-6HLtEB_J7T8EyzQGLYfz---xxxyz
   metadataStoreAutoconfiguration: true
   service_type: ClusterIP
