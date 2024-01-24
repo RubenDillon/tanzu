@@ -1,4 +1,4 @@
-This document is not finished yet. To follow a complete and proved documentation, use the tap7 version of this github.
+This document is not finished. To follow a complete and proved documentation, use the tap7 version of this github.
 
 # Deploying Tanzu Application Platform v1.6.3 on Azure Cloud
 
