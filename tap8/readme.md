@@ -1,5 +1,6 @@
 This document is not finished. To follow a complete and proved documentation, use the tap7 version of this github.
 
+
 # Deploying Tanzu Application Platform v1.6.3 on Azure Cloud
 
 ### using AKS with Harbor and GitLab using FREE public certificates from Let's Encrypt 
